@@ -10,7 +10,9 @@ class Error {
 		//根据当前控制器名来判断要执行那个城市的操作
 		$controllerName = $request->controller();
 		$actionName     = $request->action();
-		return "当前控制器{$controllerName}/{$actionName}";
+		// 使用think自带异常类抛出异常
+		$errstr = "当前控制器{$controllerName}/{$actionName}";
+		throw new \think\Exception($errstr, 100006);
 	}
 
 }
