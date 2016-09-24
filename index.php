@@ -19,5 +19,7 @@ define('APP_PATH', __DIR__ . '/apps/');
 define('BIND_MODULE', 'index');
 //应用运行时目录
 define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');
+//扩展目录位置
+define('EXTEND_PATH', SITE_PATH . '/vendor/extend/');
 // 加载框架引导文件
 require __DIR__ . '/tp5/start.php';
