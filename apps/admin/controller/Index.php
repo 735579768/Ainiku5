@@ -1,11 +1,9 @@
 <?php
 namespace app\admin\controller;
-use think\View;
 
-class Index {
+class Index extends Base {
 	public function index() {
-		$view = new View();
-		var_dump(config(''));
-		return $view->fetch();
+		// var_dump(config(''));
+		return $this->fetch();
 	}
 }

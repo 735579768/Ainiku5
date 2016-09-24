@@ -10,9 +10,17 @@
 .mgb10{margin-bottom:10px;}
 .mgl10{margin-left:10px;}
 .disabled{cursor:not-allowed;}
+:focus{outline:0}
+.disabled{background:#b0b0b0;}
+.hide{display:none;}
+.show{display:block;}
 .a-left{text-align:left!important;}
 .a-center{text-align:center!important;}
 .el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;}
+.center{text-align:center;}
+.red{color:#f00;}
+.green{color:green;}
+.bg{position:fixed;_position:absolute;z-index:999;top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}
 
 /*箭头向上*/
 .arrow-up{width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:30px solid #fff;}
@@ -75,5 +83,6 @@
 .kl-radio{cursor:pointer;display:inline-block;width:16px;height:16px;background:url(../images/inputico.png) 0px -37px no-repeat;}
 .kl-checkbox.kl-selected{background-position:0px -16px;}
 .kl-radio.kl-selected{background-position:0px -55px;}
+
 /**后台radio样式***/
 .kl-checkbox,.kl-radio{margin:0px 5px 0px 10px;vertical-align:middle;}
