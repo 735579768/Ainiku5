@@ -16,7 +16,7 @@ define('SITE_PATH', __DIR__);
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/apps/');
 // 绑定当前访问到index模块
-define('BIND_MODULE', 'index');
+define('BIND_MODULE', 'admin');
 //应用运行时目录
 define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');
 //扩展目录位置
