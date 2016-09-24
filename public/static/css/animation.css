@@ -1,0 +1,53 @@
+@charset 'utf-8';
+/**旋转动画**/
+.rotate{animation:mytotate 1s infinite linear;-moz-animation:mytotate 1s infinite linear;	/* Firefox */-webkit-animation:mytotate 1s infinite linear;	/* Safari 和 Chrome */-o-animation:mytotate 1s infinite linear;	/* Opera */}
+@keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Firefox */
+@-moz-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Safari 和 Chrome */
+@-webkit-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Opera */
+@-o-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+/**弹跳动画**/
+.tantiao{animation:mytantiao 1s infinite linear;-moz-animation:mytantiao 1s infinite linear;	/* Firefox */-webkit-animation:mytantiao 1s infinite linear;	/* Safari 和 Chrome */-o-animation:mytantiao 1s infinite linear;	/* Opera */}
+@keyframes mytantiao{
+	0%{transform:scale(1,1);}
+	50%{transform:scale(2,2);}
+	100%{transform:scale(1,1);}
+}
+
+/* Firefox */
+@-moz-keyframes mytantiao{
+	0%{transform:scale(1,1);}
+	50%{transform:scale(2,2);}
+	100%{transform:scale(1,1);}
+}
+
+/* Safari 和 Chrome */
+@-webkit-keyframes mytantiao{
+	0%{transform:scale(1,1);}
+	50%{transform:scale(2,2);}
+	100%{transform:scale(1,1);}
+}
+
+/* Opera */
+@-o-keyframes mytantiao{
+	0%{transform:scale(1,1);}
+	50%{transform:scale(2,2);}
+	100%{transform:scale(1,1);}
+}
