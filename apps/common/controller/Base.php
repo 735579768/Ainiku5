@@ -9,6 +9,7 @@ class Base extends Controller {
 	 * @return [type]       [description]
 	 */
 	public function _empty($name) {
-		die('404');
+		// die('404');
+		throw new \think\Exception('没有此方法', 100006);
 	}
 }
