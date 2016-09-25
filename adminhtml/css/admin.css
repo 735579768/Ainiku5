@@ -1,3 +1,24 @@
-#admin-header{position: fixed;width: 100%;height: 50px; left: 0px; top: 0px;box-shadow: 2px 3px 20px #ccc;}
-#admin-left{position: fixed;width: 200px;height:100%;left: 0px; top: 50px;}
-#admin-right{margin:50px 0px 0px 200px;height: 100%;}
+body{font-size:12px;}
+#admin-header{position:fixed;width:100%;height:50px;left:0px;top:0px;box-shadow:2px 3px 20px #ccc;}
+#admin-left{position:fixed;width:200px;height:100%;left:0px;top:50px;}
+#admin-right{margin:54px 0px 0px 200px;height:100%;}
+#closeicon{display:inline-block;background:url('../images/icon_arrow.png')  no-repeat 0 0!important;width:17px;height:61px;position:fixed;top:50%;left:200px;margin-top:-30px;cursor:pointer;z-index:9999;}
+#closeicon:hover{background-position:right 0!important;}
+#closeicon.open{background-position:0 -61px!important;}
+#closeicon.open:hover{background-position:right -61px!important;}
+
+/**
+ * chrometab样式
+ */
+.chrome-tab{padding:0px 30px;float:left;cursor:pointer;margin-top:5px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
+.chrome-tab:hover,.chrome-tab.hover{background-position:0 -120px!important;}
+.chrome-tab:hover em,.chrome-tab.hover em{z-index:99;background-position:right -150px!important;}
+.chrome-tab:hover .close:before,.chrome-tab.hover  .close:before{color:#f00!important;background:transparent!important;}
+.chrome-tab em{background-image:url('../images/tabbg.png');background-position:right -30px;position:absolute;right:-16px;height:26px;width:16px;top:0px;}
+.chrome-tab .close{position:absolute;right:4px;top:7px;color: #ccc;}
+/**
+ * tab框架样式
+ */
+#div-block,
+#div-block .kl-tab-div,
+#div-block iframe{height: 100%;}

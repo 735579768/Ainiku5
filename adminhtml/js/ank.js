@@ -95,10 +95,10 @@
 			var cookieValue = "";
 			var search = name + "=";
 			if (document.cookie.length > 0) {
-				offset = document.cookie.indexOf(search);
+				var offset = document.cookie.indexOf(search);
 				if (offset != -1) {
 					offset += search.length;
-					end = document.cookie.indexOf(";", offset);
+					var end = document.cookie.indexOf(";", offset);
 					if (end == -1) end = document.cookie.length;
 					cookieValue = decodeURI(document.cookie.substring(offset, end));
 				}
