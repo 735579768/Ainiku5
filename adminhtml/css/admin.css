@@ -36,7 +36,23 @@ body{font-size:12px;}
 .menu .menu-title i{position:absolute;left:8px;top:12px;font-size:16px;}
 .menu .menu-title .menu-open:before{content:"\f115";}
 .menu .menu-title .menu-close:before{content:"\f114";}
-.menu .menu-title a{background:#f8f8f8; font-weight: bolder;}
+.menu .menu-title a{background:#f8f8f8;font-weight:bolder;}
 .menu .menu-title a:hover,.menu a:hover{background:#ededed;}
 .menu a.hover{background:#324b5e;color:#fff;}
 .menu .menu-item{display:none;}
+
+/**
+ * 框架内样式
+ */
+.iframe-con{padding:0px 10px;}
+.iframe-con table{border-collapse:collapse;border:none;}
+.iframe-con table tr:hover{background:#ededed;}
+.iframe-con table th,.iframe-con table td{padding:0px 5px;height:30px;text-align:center;border:solid 1px #ededed;white-space:nowrap;}
+.iframe-con .td-left,.iframe-con .td-btn{text-align:left;}
+
+/**
+ * 主标题
+ */
+.iframe-con .main-title i{font-size:18px;}
+.iframe-con .main-title span{display:inline-block;height:30px;line-height:30px;font-size:14px;cursor: pointer;}
+.iframe-con .main-title b{font-size:16px;font-weight:bolder;}
