@@ -1,0 +1,95 @@
+@charset 'utf-8';
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;font-family:Microsoft Yahei,Arial;list-style:none;}
+fieldset,img{border:0;-webkit-font-smoothing:antialiased;}
+img{vertical-align:top;}
+table{border-collapse:collapse;border-spacing:0}
+.clie8,.cl:after{visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
+* html .cl{zoom:1;}
+a{color:#333;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;text-decoration:none;}
+a:hover{color:#000;}
+
+/****谷歌黄色背景问题***/
+
+/*input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill,input:hover,textarea:hover,select:hover{
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px white inset!important;
+}*/
+
+/*********************************表单样式***********************************/
+.form-wrap{transition:all .3s;border:solid 1px #ccc;display:inline-block;padding:0px 10px;border-radius:5px;background:#fff;}
+.form-wrap:hover,.form-wrap:focus{border-color:#66afe9;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);}
+.form-wrap .form-control{border:none;padding:0px;height:30px;line-height:30px;}
+.form-wrap .form-control:hover,.form-wrap .form-control:focus{border-color:none;outline:0;-webkit-box-shadow:none;box-shadow:none;}
+.form-group{margin-bottom:10px;}
+.form-label{padding:0px;height:30px;line-height:30px;font-weight:bolder;color:#666;font-size:12px;display:block;background:#fff;}
+.form-area{}
+.form-control{transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;border-radius:4px;display:block;width:100%;height:24px;padding:3px 5px;font-size:12px;line-height:1.428571429;vertical-align:middle;background-image:none;}
+select.form-control{width:auto;display:inline-block;height:30px;vertical-align:middle;padding:0px 10px;}
+.form-control:hover{box-shadow:inset 0 1px 2px rgba(0,0,0,0.175);}
+.form-control:focus{outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);}
+.form-group textarea.form-control{height:100px;display:block;line-height:20px!important;}
+.form-group select.form-control{display:inline-block;width:auto;height:30px;}
+.controls input{display:inline-block;margin:5px 5px 5px 10px;vertical-align:top;}
+.form-tip{display:inline-block;margin:0px 5px;color:#aaa;}
+.form-group-h .form-area,.form-group-h .form-controls,.form-group-h .form-control,.form-group-h .form-label{display:inline-block;}
+.form-group-h .form-label{text-align:left;position:relative;}
+.form-group-h .form-group .controls{display:inline-block;}
+.form-group-h .form-group .form-label:hover .form-tip{display:block;}
+.form-group-h .form-label .form-tip{text-align:left;width:200px;padding:10px;word-break:break-all;color:#111;display:none;background:#ededed;position:absolute;left:50px;bottom:50px;border:solid 1px #ededed;z-index:9999999;box-shadow:2px 2px 8px #ccc;}
+.form-group-h .form-label .form-tip:before{content:'';position:absolute;left:20px;border-style:solid;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:20px solid #ededed;border-bottom:0px;bottom:-20px;}
+.form-h .form-group{display:inline-block;vertical-align:top;}
+.form-tip-hidden .form-label span{display:none!important;}
+
+/***表单长度***/
+.input-large{width:400px;}
+.input-middle{width:250px;}
+.input-small{width:150px;}
+.input-mini{width:50px;text-align:center;}
+
+/**表单颜色***/
+.form-control{transition:all .3s;background-color:#ffffff;border:1px solid #e6e6e6;color:#555555;}
+.form-control:hover{border-color:#dfdfdf;}
+.form-control:focus{border-color:#66afe9;}
+
+/**去掉谷歌表单中的黄背景**/
+input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset!important;}
+
+/**表单外包括元素**/
+.form-group .input-wrap{display:block;border:solid 1px #ededed;padding:0px 5px;border-radius:5px;}
+.form-group .input-wrap .form-control{margin:0px;border:none;outline:none;box-shadow:none;padding:5px 0px;}
+.form-group-h .input-wrap{display:inline-block;}
+
+/*********************************按钮样式***********************************/
+.btn{border-radius:4px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;text-decoration:none;display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;white-space:nowrap;padding:5px 10px;font-size:12px;line-height:1.428571429;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;letter-spacing:0px;border:solid 1px transparent;color:#fff;margin-left:1px;}
+
+/*******按钮大小******/
+.btn-large{padding:5px 30px;}
+
+/****按钮颜色*****/
+.btn{background:#5cb85c;}
+.btn:hover{background-color:#80CA80;color:#fff;}
+.btn-warning{background:#ed9c28;}
+.btn-warning:hover{background:#F7AE45;}
+.btn-success{background:#4bbd00;}
+.btn-success:hover{background:#83EF3B;}
+.btn-danger{background:#d2322d;}
+.btn-danger:hover{background:#D85A56;}
+.down-btn{position:relative;border-radius:0px;}
+.down-btn,.down-btn .btn{border-radius:0px;border:none;margin:0px;}
+.down-btn .fa{width:10px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;}
+.down-btn .fa:before{content:"\f054";}
+.down-btn:hover .fa:before{content:"\f078";}
+.down-btn ul{position:absolute;left:0px;top:100%;width:100%;z-index:1;display:none;}
+.down-btn:hover ul,.down-btn:hover ul a{display:block;}
+
+/*---滚动条默认显示样式--*/
+::-webkit-scrollbar-thumb{background-color:#018EE8;background:rgba(0,0,0,.3);-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px;}
+
+/*---鼠标点击滚动条显示样式--*/
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.5);height:50px;-webkit-border-radius:4px;}
+
+/*---滚动条大小--*/
+::-webkit-scrollbar{width:8px;height:8px;}
+
+/*---滚动框背景样式--*/
+::-webkit-scrollbar-track-piece{background-color:#fff;-webkit-border-radius:0;}

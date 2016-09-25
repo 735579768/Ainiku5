@@ -1,0 +1,88 @@
+@charset 'utf-8';
+.fl{float:left!important;}
+.fr{float:right!important;}
+.pdl10{padding-left:10px;}
+.pdr10{padding-right:10px;}
+.pdt10{padding-top:10px;}
+.pdb10{padding-bottom:10px;}
+.mgt10{margin-top:10px;}
+.mgr10{margin-right:10px;}
+.mgb10{margin-bottom:10px;}
+.mgl10{margin-left:10px;}
+.disabled{cursor:not-allowed;}
+:focus{outline:0}
+.disabled{background:#b0b0b0;}
+.hide{display:none;}
+.show{display:block;}
+.a-left{text-align:left!important;}
+.a-center{text-align:center!important;}
+.el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;}
+.center{text-align:center;}
+.red{color:#f00;}
+.green{color:green;}
+.bg{position:fixed;_position:absolute;z-index:999;top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}
+
+/*箭头向上*/
+.arrow-up{width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:30px solid #fff;}
+
+/*箭头向下*/
+.arrow-down{width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:20px solid #0066cc;}
+
+/*箭头向左*/
+.arrow-left{width:0;height:0;border-top:30px solid transparent;border-bottom:30px solid transparent;border-right:30px solid yellow;}
+
+/*箭头向右*/
+.arrow-right{width:0;height:0;border-top:50px solid transparent;border-bottom:50px solid transparent;border-left:50px solid green;}
+
+/***验证检查***/
+.msgok,.yzok{background:url("../images/yzico1.png") no-repeat;color:#339966;}
+.msgerr,.yzerr{background:url("../images/yzico2.png") no-repeat;color:#f00;}
+.msgts,.yzth1{background:url("../images/yzico3.png") no-repeat;}
+.yzth2{background:url("../images/yzico4.png") no-repeat;}
+.msgok,.msgerr,.msgts{display:inline-block;width:20px;height:20px;vertical-align:top;margin-right:10px;}
+.yzok,.yzerr,.yzth1,.yzth2{height:30px;line-height:30px;padding-left:30px;background-size:20px 20px;background-position:0px center;display:inline-block;position:absolute;}
+.autoyz-wrap span{position:absolute;top:0px;display:none;white-space:nowrap;top:0px;}
+
+/****分页样式*****/
+.page{margin:10px 0;*zoom:1;}
+.page:after{clear:both;}
+.page a,.page span{float:left;margin-left:-1px;padding:0 14px;height:30px;line-height:30px;color:#000;border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;/*background-color:#4bbd00;*/}
+.page a:hover{text-decoration:none;background-color:#387C0B;color:#fff;}
+.page .current{border-top:1px solid #387C0B;background-color:#387C0B;color:#fff;}
+.page .next,.page .prev{font-family:"microsoft yahei";}
+.page .rows{}
+.page .page-inner{background:#fff;}
+.page div{display:inline-block;}
+
+/**页脚样式**/
+.flink{margin:0px auto;}
+.flink .fitem{float:left;}
+.flink .fitem span,.flink .fitem a{display:inline-block;padding:5px 10px;color:#616c7f;}
+.flink .fitem span{padding:5px 0px;}
+
+/**select 下拉框样式**/
+.kl-sel .kl-sel-op,.kl-sel .kl-showtext .selvalue,.kl-sel .kl-showtext  .selico{height:30px;line-height:30px;white-space:nowrap;}
+.kl-sel{background:#fff;position:relative;display:inline-block;border:solid 1px #ccc;vertical-align:top;}
+
+/* .kl-sel .sanjiao{border:solid 6px #a0a0a0;border-color:#a0a0a0 transparent transparent transparent;display:inline-block;margin-top:12px;margin-left:10px;} */
+.kl-sel .kl-showtext{}
+.kl-sel .kl-showtext,.kl-sel .kl-sel-op{text-overflow:ellipsis;overflow:hidden;}
+.kl-sel .kl-sel-op-block{display:none;position:absolute;left:-1px;top:31px;width:100%;height:auto;overflow:hidden;overflow-y:auto;max-height:300px;border:solid 1px #ccc;border-top:none;background:#fff;z-index:9999999999;}
+.kl-sel .kl-sel-op:hover{background:#ededed;}
+.kl-sel .kl-sel-op{text-align:left;display:block;padding:0px 0px 0px 10px;cursor:pointer;white-space:nowrap;}
+.kl-sel .kl-showtext .selvalue{cursor:pointer;padding:0px 0px 0px 10px;display:block;float:left;}
+.kl-sel .kl-showtext  .selico{display:block;float:right;width:30px;background:url(../images/xia.png) no-repeat;background-position:5px 2px;}
+
+/**自定义select样式内阴影**/
+.form-group .kl-sel{transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;border-radius:4px;-webkit-box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);-webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;box-shadow:inset 1px 1px 1px rgba(107,176,95,0.25);}
+.form-group .kl-sel:hover{box-shadow:inset 0 1px 2px rgba(0,0,0,0.175);}
+.form-group .kl-sel:focus{outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);}
+
+/**radio checkbox样式**/
+.kl-checkbox{cursor:pointer;display:inline-block;width:16px;height:16px;background:url(../images/inputico.png) 0px 0px no-repeat;}
+.kl-radio{cursor:pointer;display:inline-block;width:16px;height:16px;background:url(../images/inputico.png) 0px -37px no-repeat;}
+.kl-checkbox.kl-selected{background-position:0px -16px;}
+.kl-radio.kl-selected{background-position:0px -55px;}
+
+/**后台radio样式***/
+.kl-checkbox,.kl-radio{margin:0px 5px 0px 10px;vertical-align:middle;}
