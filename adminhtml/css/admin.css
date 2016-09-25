@@ -1,0 +1,3 @@
+#admin-header{position: fixed;width: 100%;height: 50px; left: 0px; top: 0px;box-shadow: 2px 3px 20px #ccc;}
+#admin-left{position: fixed;width: 200px;height:100%;left: 0px; top: 50px;}
+#admin-right{margin:50px 0px 0px 200px;height: 100%;}
