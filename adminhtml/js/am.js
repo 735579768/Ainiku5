@@ -4,6 +4,7 @@
 		initPage: function() {
 			am.resetLayout();
 			//侧栏关闭
+			var header = $('#admin-header');
 			var leftside = $('#admin-left');
 			var closewest = $('#closeicon');
 			var rightside = $('#admin-right');
@@ -43,6 +44,8 @@
 					ank.writeCookie('leftside', 1);
 				}
 			});
+			leftside.css('top', header.outerHeight());
+			rightside.css('marginTop', header.outerHeight());
 			if (ank.readCookie('leftside') === '0') {
 				leftside.css({
 					left: '-' + leftw + 'px'
@@ -134,7 +137,40 @@
 			});
 
 			// rightMenu && rightMenu.init();
+		},
+		/**
+		 * 左边主菜单单击
+		 */
+		menuTitleClick: function(dom) {
+			var _t = $(dom);
+			var icon = _t.find('i');
+			var menuitem = _t.parents('.menu').find('.menu-item');
+			if (icon.hasClass('menu-open')) {
+				icon.removeClass('menu-open')
+				icon.addClass('menu-close');
+				menuitem.hide();
+			} else {
+				//先合并其它的菜单
+				$('#left-menu .menu-open').parent().click();
+				//打开单击的菜单
+				icon.removeClass('menu-close')
+				icon.addClass('menu-open');
+				menuitem.show();
+			}
+		},
+		/**
+		 * 左边菜单单击
+		 * @return {[type]} [description]
+		 */
+		menuClick: function(dom) {
+			var _t = $(dom);
+			var uri = _t.attr('data-url');
+			var tex = _t.text();
+			am.addIframe(tex, uri);
+			return false;
+			// am.addIframe('我的博客','https://www.zhaokeli.com/');
 		}
+
 	};
 }(window);
 //初始化页面
