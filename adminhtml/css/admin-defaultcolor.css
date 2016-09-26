@@ -1,4 +1,12 @@
-#admin-header{border-left: solid 4px #324b5e;border-top: solid 4px #324b5e}
-#admin-left{border-left: solid 4px #324b5e}
+#admin-header{border-left: solid 4px #67ad03;border-top: solid 4px #67ad03}
+#admin-left{border-left: solid 4px #67ad03}
 #admin-right{}
-.iframe-con table th{color: #324b5e;}
+.mainnav li a:hover,.tool>li a:hover{border-bottom:solid 4px #67ad03;}
+.fa{font-size: 14px;}
+.fa,
+.iframe-con .main-title,
+.iframe-con table th,
+input[type="radio"]:after,input[type="checkbox"]:after,
+input[type="radio"]:checked:after,
+input[type="checkbox"]:checked:after,
+.search-tool .sch-btn{color:#67ad03}
