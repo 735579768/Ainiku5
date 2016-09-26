@@ -46,13 +46,22 @@ body{font-size:12px;}
  */
 .iframe-con{padding:0px 10px;}
 .iframe-con table{border-collapse:collapse;border:none;}
+.iframe-con table .th{background: #f6f6f6;}
 .iframe-con table tr:hover{background:#ededed;}
 .iframe-con table th,.iframe-con table td{padding:0px 5px;height:30px;text-align:center;border:solid 1px #ededed;white-space:nowrap;}
 .iframe-con .td-left,.iframe-con .td-btn{text-align:left;}
-
+.iframe-con table .td-id{width: 50px;}
+.iframe-con table .td-time{width: 150px;}
+.iframe-con table .td-status{width: 50px;}
 /**
  * 主标题
  */
+.iframe-con .main-title{    border-bottom: solid 1px #ededed;}
 .iframe-con .main-title i{font-size:18px;}
 .iframe-con .main-title span{display:inline-block;height:30px;line-height:30px;font-size:14px;cursor: pointer;}
 .iframe-con .main-title b{font-size:16px;font-weight:bolder;}
+.tool-area{margin-bottom: 10px;}
+.btn-tool{float: left;}
+.search-tool{float: right;}
+.search-tool .form-group{margin-bottom: 0px;}
+.search-tool .sch-btn{display: inline-block;width: 30px;height: 30px;font-size: 22px;margin-top: 2px;margin-left: 10px;}

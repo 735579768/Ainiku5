@@ -9,7 +9,7 @@
 			<a href="javascript:;" data-url="./iframe-list.php" onclick="am.menuClick(this);">文章列表</a>
 		</dd>
 		<dd class="menu-item">
-			<a href="javascript:;" data-url="https://www.zhaokeli.com/" onclick="am.menuClick(this);">我的博客</a>
+			<a href="javascript:;" data-url="./iframe-edit.php" onclick="am.menuClick(this);">编辑文章</a>
 		</dd>
 	</dl>
 	<dl class="menu">
