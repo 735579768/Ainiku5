@@ -17,7 +17,7 @@
 			<a href="javascript:;" onclick="am.menuTitleClick(this);" ><i class="fa menu-close"></i>我的博客</a>
 		</dt>
 		<dd class="menu-item">
-			<a href="javascript:;" data-url="https://www.zhaokeli.com/" onclick="am.menuClick(this);">我的博客</a>
+			<a href="javascript:;" data-url="./login.php" onclick="am.menuClick(this);">登录</a>
 		</dd>
 		<dd class="menu-item">
 			<a href="javascript:;" data-url="https://www.zhaokeli.com/" onclick="am.menuClick(this);">我的博客</a>
