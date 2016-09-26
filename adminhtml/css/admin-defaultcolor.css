@@ -10,3 +10,4 @@ input[type="radio"]:after,input[type="checkbox"]:after,
 input[type="radio"]:checked:after,
 input[type="checkbox"]:checked:after,
 .search-tool .sch-btn{color:#67ad03}
+::-webkit-scrollbar-thumb{background-color: #67ad03;}

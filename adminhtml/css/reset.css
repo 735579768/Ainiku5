@@ -24,7 +24,8 @@ a:hover{color:#000;}
 .form-label{padding:0px;height:30px;line-height:30px;font-weight:bolder;color:#666;font-size:12px;display:block;background:#fff;}
 .form-area{}
 .form-control{transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;border-radius:4px;display:block;width:100%;height:24px;padding:3px 5px;font-size:12px;line-height:1.428571429;vertical-align:middle;background-image:none;}
-select.form-control{width:auto;display:inline-block;height:30px;vertical-align:middle;padding:0px 10px;}
+select.form-control{outline:none;width:auto;display:inline-block;height:30px;vertical-align:middle;padding:0px 10px;}
+option{outline: none;}
 .form-group textarea.form-control{height:100px;display:block;line-height:20px!important;}
 .form-group select.form-control{display:inline-block;width:auto;height:30px;}
 .controls input{display:inline-block;margin:5px 5px 5px 10px;vertical-align:top;}

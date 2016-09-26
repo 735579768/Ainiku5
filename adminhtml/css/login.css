@@ -10,5 +10,5 @@ body{font-size:12px;background:#1FADED url('../images/adminbg.jpg') no-repeat;}
 #login-form .form-area{display:block;margin-left:25px;}
 #login-form .form-area .form-wrap{display:block;border:none;}
 #loginbtn{padding:8px 0px;font-size:14px;display: block;}
-#verifyimg{display: inline-block;}
+#verifyimg{display: inline-block;height: 50px;}
 #verifyimg img{max-width: 100%;}
