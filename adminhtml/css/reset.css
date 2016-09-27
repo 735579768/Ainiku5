@@ -46,7 +46,7 @@ option{outline: none;}
 .input-mini{width:50px;text-align:center;}
 
 /**表单颜色***/
-.form-control{transition:all .3s;background-color:#ffffff;border:1px solid #e6e6e6;color:#555555;}
+.form-control{outline: none; transition:all .3s;background-color:#ffffff;border:1px solid #e6e6e6;color:#555555;}
 .form-control:hover{border-color:#dfdfdf;}
 .form-control:focus{border-color:#ededed;}
 

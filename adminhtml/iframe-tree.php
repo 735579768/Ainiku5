@@ -38,6 +38,7 @@
                         <input type="text" class="form-control" name="paixu" value="88" />
                     </div>
                     <div class="c-inp c-title">
+                    <span class="c-sign"></span>
                     <i class="fa fa-plus-square"></i>
                     <input type="text" class="form-control" name="title" value="分类标题" />
                     </div>
@@ -46,7 +47,70 @@
                         <a href="javascript:;" class="btn btn-warning">删除</a>
                     </div>
                 </dt>
+                <!--sub menu start-->
+                <dd class="c-sub-item">
+                    <dl class="c-item cl">
+                        <dt class="cl">
+                            <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                            <div class="c-inp c-id">46</div>
+                            <div class="c-inp c-paixu">
+                                <input type="text" class="form-control" name="paixu" value="88" />
+                            </div>
+                            <div class="c-inp c-title">
+                            <span class="c-sign"></span>
+                            <i class="fa fa-plus-square"></i>
+                            <input type="text" class="form-control" name="title" value="分类标题" />
+                            </div>
+                            <div class="c-inp c-action">
+                                <a href="javascript:;" class="btn">编辑</a>
+                                <a href="javascript:;" class="btn btn-warning">删除</a>
+                            </div>
+                        </dt>
+                        <!--sub menu start-->
+                        <dd class="c-sub-item">
+                            <dl class="c-item cl">
+                                <dt class="cl">
+                                    <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                                    <div class="c-inp c-id">46</div>
+                                    <div class="c-inp c-paixu">
+                                        <input type="text" class="form-control" name="paixu" value="88" />
+                                    </div>
+                                    <div class="c-inp c-title">
+                                    <span class="c-sign"></span>
+                                    <i class="fa fa-plus-square"></i>
+                                    <input type="text" class="form-control" name="title" value="分类标题" />
+                                    </div>
+                                    <div class="c-inp c-action">
+                                        <a href="javascript:;" class="btn">编辑</a>
+                                        <a href="javascript:;" class="btn btn-warning">删除</a>
+                                    </div>
+                                </dt>
+                            </dl>
+                            <dl class="c-item cl">
+                                <dt class="cl">
+                                    <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                                    <div class="c-inp c-id">46</div>
+                                    <div class="c-inp c-paixu">
+                                        <input type="text" class="form-control" name="paixu" value="88" />
+                                    </div>
+                                    <div class="c-inp c-title">
+                                    <span class="c-sign"></span>
+                                    <i class="fa fa-plus-square"></i>
+                                    <input type="text" class="form-control" name="title" value="分类标题" />
+                                    </div>
+                                    <div class="c-inp c-action">
+                                        <a href="javascript:;" class="btn">编辑</a>
+                                        <a href="javascript:;" class="btn btn-warning">删除</a>
+                                    </div>
+                                </dt>
+                            </dl>
+                        </dd>
+                        <!--sub menu end-->
+                    </dl>
+                </dd>
+                <!--sub menu end-->
             </dl>
+
         </div>
     </div>
 </body>
