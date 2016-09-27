@@ -14,12 +14,7 @@
 <body>
     <div class="iframe-con">
         <!--主标题-->
-        <div class="main-title">
-            <i class="fa fa-bars"></i>
-            <span class="">文章列表</span>
-            <b>></b>
-            <span onclick="window.history.go(-1);">返回</span>
-        </div>
+            <?php include "./include/main-title.php";?>
         <!--添加编辑内容区域-->
 
         <div class="from-block">

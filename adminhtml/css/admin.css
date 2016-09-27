@@ -91,3 +91,23 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .search-tool{float:right;}
 .search-tool .form-group{margin-bottom:0px;}
 .search-tool .sch-btn{display:inline-block;width:30px;height:30px;font-size:22px;margin-top:2px;margin-left:10px;}
+/**
+ * 分类树
+ */
+.cate-tree .c-inp{float: left; min-width: 40px; text-align: center; display: inline-block;height: 40px;line-height: 40px;}
+.c-h-item,
+.c-item{position: relative;}
+.cate-tree .c-inp input{display: inline-block;}
+.cate-tree .c-h-ico,
+.cate-tree .c-ico,
+.cate-tree .c-h-id,
+.cate-tree .c-id{width: 50px;}
+.cate-tree .c-paixu,
+.cate-tree .c-h-paixu{width: 60px;}
+.cate-tree .c-paixu input{width: 40px;text-align: center;}
+.cate-tree .c-h-title,
+.cate-tree .c-title{display: block;float: none;text-align: left;margin-left: 200px;}
+.cate-tree .c-title .fa{margin-right: 10px;}
+.cate-tree .c-title input{width: 150px;}
+.cate-tree .c-h-action,
+.cate-tree .c-action{position: absolute;right: 10px;top: 0px;}

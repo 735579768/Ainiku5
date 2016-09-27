@@ -20,7 +20,7 @@
 			<a href="javascript:;" data-url="./login.php" onclick="am.menuClick(this);">登录</a>
 		</dd>
 		<dd class="menu-item">
-			<a href="javascript:;" data-url="https://www.zhaokeli.com/" onclick="am.menuClick(this);">我的博客</a>
+			<a href="javascript:;" data-url="./iframe-tree.php" onclick="am.menuClick(this);">分类列表</a>
 		</dd>
 	</dl>
 	<dl class="menu">
