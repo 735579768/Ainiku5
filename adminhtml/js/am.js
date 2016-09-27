@@ -169,7 +169,11 @@
 			} else {
 				var uri = _t.attr('data-url');
 				if (uri) {
+					var ind = layer.load(1, {
+						shade: false //0.1透明度的白色背景
+					});
 					$.get(uri, function(data) {
+						layer.close(ind);
 						_t.data('data', data);
 						setLeftMenu(data);
 					});
