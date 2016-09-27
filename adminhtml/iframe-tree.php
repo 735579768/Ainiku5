@@ -20,7 +20,7 @@
             <?php include "./include/search-tool.php";?>
         </div>
 
-        <div class="cate-tree">
+        <div id="cate-tree" class="cate-tree">
             <dl class="c-h-item cl">
                 <dt class="cl">
                     <div class="c-inp c-h-ico">折叠</div>
@@ -32,7 +32,7 @@
             </dl>
             <dl class="c-item cl">
                 <dt class="cl">
-                    <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                    <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
                     <div class="c-inp c-id">46</div>
                     <div class="c-inp c-paixu">
                         <input type="text" class="form-control" name="paixu" value="88" />
@@ -40,7 +40,13 @@
                     <div class="c-inp c-title">
                     <span class="c-sign"></span>
                     <i class="fa fa-plus-square"></i>
-                    <input type="text" class="form-control" name="title" value="分类标题" />
+                        <div class="text-field">
+                        <span class="text-title">标题:</span>
+                            <input type="text" class="form-control" name="title" value="分类标题" />
+                        </div>
+                        <div class="text-field">
+                        <span class="text-title">分组:</span> <input type="text" class="form-control" value="group" />
+                        </div>
                     </div>
                     <div class="c-inp c-action">
                         <a href="javascript:;" class="btn">编辑</a>
@@ -51,7 +57,7 @@
                 <dd class="c-sub-item">
                     <dl class="c-item cl">
                         <dt class="cl">
-                            <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                            <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
                             <div class="c-inp c-id">46</div>
                             <div class="c-inp c-paixu">
                                 <input type="text" class="form-control" name="paixu" value="88" />
@@ -59,7 +65,13 @@
                             <div class="c-inp c-title">
                             <span class="c-sign"></span>
                             <i class="fa fa-plus-square"></i>
-                            <input type="text" class="form-control" name="title" value="分类标题" />
+                                <div class="text-field">
+                                <span class="text-title">标题:</span>
+                                    <input type="text" class="form-control" name="title" value="分类标题" />
+                                </div>
+                                <div class="text-field">
+                                <span class="text-title">分组:</span> <input type="text" class="form-control" value="group" />
+                                </div>
                             </div>
                             <div class="c-inp c-action">
                                 <a href="javascript:;" class="btn">编辑</a>
@@ -70,7 +82,7 @@
                         <dd class="c-sub-item">
                             <dl class="c-item cl">
                                 <dt class="cl">
-                                    <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                                    <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
                                     <div class="c-inp c-id">46</div>
                                     <div class="c-inp c-paixu">
                                         <input type="text" class="form-control" name="paixu" value="88" />
@@ -78,7 +90,13 @@
                                     <div class="c-inp c-title">
                                     <span class="c-sign"></span>
                                     <i class="fa fa-plus-square"></i>
-                                    <input type="text" class="form-control" name="title" value="分类标题" />
+                                        <div class="text-field">
+                                        <span class="text-title">标题:</span>
+                                            <input type="text" class="form-control" name="title" value="分类标题" />
+                                        </div>
+                                        <div class="text-field">
+                                        <span class="text-title">分组:</span> <input type="text" class="form-control" value="group" />
+                                        </div>
                                     </div>
                                     <div class="c-inp c-action">
                                         <a href="javascript:;" class="btn">编辑</a>
@@ -88,7 +106,7 @@
                             </dl>
                             <dl class="c-item cl">
                                 <dt class="cl">
-                                    <div class="c-inp c-ico"><i class="fa fa-plus-square-o"></i></div>
+                                    <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
                                     <div class="c-inp c-id">46</div>
                                     <div class="c-inp c-paixu">
                                         <input type="text" class="form-control" name="paixu" value="88" />
@@ -96,7 +114,13 @@
                                     <div class="c-inp c-title">
                                     <span class="c-sign"></span>
                                     <i class="fa fa-plus-square"></i>
-                                    <input type="text" class="form-control" name="title" value="分类标题" />
+                                        <div class="text-field">
+                                        <span class="text-title">标题:</span>
+                                            <input type="text" class="form-control" name="title" value="分类标题" />
+                                        </div>
+                                        <div class="text-field">
+                                        <span class="text-title">分组:</span> <input type="text" class="form-control" value="group" />
+                                        </div>
                                     </div>
                                     <div class="c-inp c-action">
                                         <a href="javascript:;" class="btn">编辑</a>
@@ -113,6 +137,11 @@
 
         </div>
     </div>
+<script type="text/javascript">
+$(function(){
+catetree.init();
+});
+</script>
 </body>
 
 </html>

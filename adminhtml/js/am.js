@@ -173,6 +173,61 @@
 
 	};
 }(window);
+/**
+ * 分类树
+ */
+! function(a, b) {
+	a.catetree = {
+		cateid: Math.ceil(Math.random() * 100000),
+		init: function() {
+			//初始化把没有子菜单的去掉图标
+			var obj = $('#cate-tree .c-item');
+			obj.each(function(index, el) {
+				var icon = $(this).children('dt').children('.c-ico').children('i');
+				icon.prop({
+					id: 'catetree_' + catetree.cateid + index
+				});
+				icon.data('id', index);
+				var len = $(this).children('.c-sub-item').length;
+				if (len) {
+					icon.addClass('menuclose');
+				}
+			});
+			//把状态保存到cookie进行初始化打开菜单
+			var sta = ank.readCookie('catetreejson');
+			sta = sta ? sta.split(',') : [];
+			for (a in sta) {
+				$('#catetree_' + catetree.cateid + sta[a]).click();
+			}
+		},
+		/**
+		 * 打开关闭菜单
+		 * @return {[type]} [description]
+		 */
+		menuClick: function(dom) {
+			var _t = $(dom);
+			var subitem = _t.parents('dl').eq(0).children('.c-sub-item');
+			if (_t.hasClass('menuopen')) {
+				_t.removeClass('menuopen');
+				_t.addClass('menuclose');
+				subitem.hide();
+			} else {
+				_t.removeClass('menuclose');
+				_t.addClass('menuopen');
+				subitem.show();
+			}
+			var sel = '';
+			$('#cate-tree .c-ico i.menuopen').each(function(index, el) {
+				var id = $(this).data('id');
+				// sel.push(id);
+				sel += sel ? (',' + id) : id;
+
+			});
+			ank.writeCookie('catetreejson', sel);
+			// console.log(sel);
+		}
+	};
+}(window);
 //初始化页面
 $(function() {
 	am.initPage();
