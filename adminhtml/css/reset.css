@@ -16,8 +16,8 @@ a:hover{color:#000;}
 }*/
 
 /*********************************表单样式***********************************/
-.form-wrap{transition:all .3s;border:solid 1px #ccc;display:inline-block;padding:0px 10px;border-radius:5px;background:#fff;}
-.form-wrap:hover,.form-wrap:focus{border-color:#ededed;}
+.form-wrap{transition:all .3s;border:solid 1px #ededed;display:inline-block;padding:0px 10px;border-radius:5px;background:#fff;}
+.form-wrap:hover,.form-wrap:focus{border-color:#ccc;}
 .form-wrap .form-control{border:none;padding:0px;height:30px;line-height:30px;}
 .form-wrap .form-control:hover,.form-wrap .form-control:focus{outline:0;-webkit-box-shadow:none;box-shadow:none;}
 .form-group{margin-bottom:10px;}

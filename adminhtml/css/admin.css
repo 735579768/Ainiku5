@@ -95,24 +95,53 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 /**
  * 分类树
  */
+.cate-tree .c-h-item{background:#f8f8f8;}
 .cate-tree .c-inp{float:left;min-width:40px;text-align:center;display:inline-block;height:40px;line-height:40px;}
 .c-h-item,.c-item{position:relative;}
 .cate-tree .c-inp input{display:inline-block;}
+.cate-tree .c-ico{cursor:pointer;}
 .cate-tree .c-h-ico,.cate-tree .c-ico,.cate-tree .c-h-id,.cate-tree .c-id{width:50px;}
 .cate-tree .c-paixu,.cate-tree .c-h-paixu{width:60px;}
 .cate-tree .c-paixu input{width:40px;text-align:center;}
 .cate-tree .c-h-title,.cate-tree .c-title{display:block;float:none;text-align:left;margin-left:200px;}
-.cate-tree .c-title .fa{margin-top:15px;vertical-align:top;}
+.cate-tree .c-title .fa{margin-top:15px;vertical-align:top;cursor:pointer;}
 .cate-tree .c-title input{width:120px;}
-.cate-tree .text-field{display: inline-block;}
-.cate-tree .text-field .text-title{display: inline-block;padding: 0px 5px 0px 10px;}
+.cate-tree .text-field{display:inline-block;}
+.cate-tree .text-field .text-title{display:inline-block;padding:0px 5px 0px 10px;}
 .cate-tree .c-h-action,.cate-tree .c-action{position:absolute;right:10px;top:0px;}
-.cate-tree .menuopen:before{    content: "\f147";}
-.cate-tree .menuclose:before{    content: "\f196";}
+.cate-tree .menuopen:before{content:"\f147";}
+.cate-tree .menuclose:before{content:"\f196";}
+
 /**
  * 二级三级子菜单样式,更多级别在下面加样式就可以
  * @type {[type]}
  */
 .cate-tree .c-sub-item .c-title>.c-sign{margin-left:20px;display:inline-block;height:21px;width:40px;background-position:0 0;vertical-align:middle;background-image:url(../images/c_sign.png);background-repeat:no-repeat;}
 .cate-tree .c-sub-item .c-sub-item .c-title>.c-sign{margin-left:40px;}
-.cate-tree .c-sub-item{display: none;}
+.cate-tree .c-sub-item{display:none;}
+/**
+ * 编辑块的tab特效
+ */
+.tab .tabnavblock {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tab .tabnav {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.tab .tabnav a {
+    padding: 5px 20px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    border-top-width: 2px;
+}
+
+.tab .tabnav.hover a {
+    border-color: #44b549 #e0e0e0 #fff;
+    border-bottom-color: #fff;
+}
