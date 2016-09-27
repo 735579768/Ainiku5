@@ -1,5 +1,19 @@
 <i title="点击打开/关闭侧栏" id="closeicon"></i>
 <div id="admin-left" class="admin-left">
+<!--menu tpl-->
+<script id="menu-html" type="text/tpl">
+<dl class="menu">
+	<dt class="menu-title">
+		<a href="javascript:;" onclick="am.menuTitleClick(this);" ><i class="fa menu-close"></i>[#title#]</a>
+	</dt>
+	[#menu_item_list#]
+</dl>
+</script>
+<script id="menu-item-html" type="text/tpl">
+<dd class="menu-item">
+	<a href="javascript:;" data-url="[#url#]" onclick="am.menuClick(this);">[#title#]</a>
+</dd>
+</script>
 <div id="left-menu">
 	<dl class="menu">
 		<dt class="menu-title">

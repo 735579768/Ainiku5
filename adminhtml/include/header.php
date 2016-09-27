@@ -3,13 +3,13 @@
         <img src="../images/touxiang.jpg">
     </div>
     <ul id="mainnav" class="mainnav cl">
-        <li><a href="javascript:;">首页</a></li>
-        <li><a href="javascript:;">文档</a></li>
-        <li><a href="javascript:;">产品</a></li>
-        <li><a href="javascript:;">文章</a></li>
-        <li><a href="javascript:;">用户</a></li>
-        <li><a href="javascript:;">系统</a></li>
-        <li><a href="javascript:;">扩展</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">首页</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">文档</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">产品</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">文章</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">用户</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">系统</a></li>
+        <li><a href="javascript:;" data-url="./data.php?a=leftmenu" onclick="am.loadLeftMenu(this);">扩展</a></li>
     </ul>
     <ul class="tool cl">
         <li><a href="javascript:;" title="(超级管理员),登陆地址:(127.0.0.1)本机地址">您好:爱你酷</a></li>

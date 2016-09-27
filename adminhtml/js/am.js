@@ -139,6 +139,47 @@
 			// rightMenu && rightMenu.init();
 		},
 		/**
+		 * 主导航加载左边菜单
+		 * @return {[type]} [description]
+		 */
+		loadLeftMenu: function(dom) {
+			var _t = $(dom);
+			$('#mainnav li a').removeClass('hover');
+			_t.addClass('hover');
+			var setLeftMenu = function(data) {
+				var leftmenu = $('#left-menu');
+				var str = '';
+				var menustr = $('#menu-html').text();
+				var menuitem = $('#menu-item-html').text();
+				for (a in data) {
+					var s1 = menustr.replace('[#title#]', data[a]['title']);
+					var s2 = '';
+					for (b in data[a]['child']) {
+						s2 += menuitem.replace('[#title#]', data[a]['child'][b]['title']).replace('[#url#]', data[a]['child'][b]['url']);
+					}
+					s1 = s1.replace('[#menu_item_list#]', s2);
+					str += s1;
+				}
+				leftmenu.html(str);
+				leftmenu.children('dl:first').find('dt a').click();
+			};
+			var data = _t.data('data');
+			if (data) {
+				setLeftMenu(data);
+			} else {
+				var uri = _t.attr('data-url');
+				if (uri) {
+					$.get(uri, function(data) {
+						_t.data('data', data);
+						setLeftMenu(data);
+					});
+
+				}
+			}
+
+
+		},
+		/**
 		 * 左边主菜单单击
 		 */
 		menuTitleClick: function(dom) {
