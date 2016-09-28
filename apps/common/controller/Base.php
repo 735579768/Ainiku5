@@ -10,6 +10,6 @@ class Base extends Controller {
 	 */
 	public function _empty($name) {
 		// die('404');
-		throw new \think\Exception('没有此方法', 100006);
+		throw new \think\Exception('没有此方法:' . $name, 100006);
 	}
 }

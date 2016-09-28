@@ -12,8 +12,8 @@
 			try {
 				(typeof _before_func == "function") && _before_func();
 
-				formobj = thisobj.parents("form");
-				if (!formobj) {
+				var formobj = thisobj.parents("form");
+				if (formobj.length == 0) {
 					return false;
 				}
 				formobj.submit(function(e) {
@@ -69,15 +69,17 @@
 		 * @return {[type]}            [description]
 		 */
 		alert: function(data, callback) {
-			if (data.status == 1) {
-				layer.msg(data.info, {
-					shift: 0
+			if (data.code == 1) {
+				layer.msg(data.msg, {
+					shift: 0,
+					time: data.wait * 1000
 				}, function() {
 					(typeof callback == "function") && callback(da);
 				});
 			} else {
-				layer.msg(data.info, {
-					shift: 6
+				layer.msg(data.msg, {
+					shift: 6,
+					time: data.wait * 1000
 				}, function() {
 					(typeof callback == "function") && callback(da);
 				});
