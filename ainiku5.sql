@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2016-09-28 11:42:51
+Date: 2016-09-28 12:01:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -270,6 +270,9 @@ CREATE TABLE `kl_single` (
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '单页上级id',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '单页标识(url中使用)',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '单页标题',
+  `meta_title` varchar(50) NOT NULL DEFAULT '' COMMENT 'SEO的网页标题',
+  `meta_keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
+  `meta_descr` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   `content` text NOT NULL COMMENT '单页中的内容',
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '单页状态',

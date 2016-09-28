@@ -156,11 +156,14 @@ return [
 
 	'log'                    => [
 		// 日志记录方式，内置 file socket 支持扩展
-		'type'  => 'File',
+		'type'        => 'File',
 		// 日志保存目录
-		'path'  => LOG_PATH,
+		'path'        => LOG_PATH,
 		// 日志记录级别
-		'level' => [],
+		// 'level' => ['error'],
+		'level'       => [],
+		// error和sql日志单独记录
+		'apart_level' => ['error', 'sql'],
 	],
 
 	// +----------------------------------------------------------------------
@@ -181,7 +184,7 @@ return [
 		// 缓存保存目录
 		'path'   => CACHE_PATH,
 		// 缓存前缀
-		'prefix' => '',
+		'prefix' => 'ank_',
 		// 缓存有效期 0表示永久缓存
 		'expire' => 0,
 	],
@@ -195,7 +198,7 @@ return [
 		// SESSION_ID的提交变量,解决flash上传跨域
 		'var_session_id' => '',
 		// SESSION 前缀
-		'prefix'         => 'think',
+		'prefix'         => 'ank_',
 		// 驱动方式 支持redis memcache memcached
 		'type'           => '',
 		// 是否自动开启 SESSION
@@ -207,7 +210,7 @@ return [
 	// +----------------------------------------------------------------------
 	'cookie'                 => [
 		// cookie 名称前缀
-		'prefix'    => '',
+		'prefix'    => 'ank_',
 		// cookie 保存时间
 		'expire'    => 0,
 		// cookie 保存路径

@@ -15,6 +15,8 @@
     <div class="iframe-con">
         <!--主标题-->
         <?php include "./include/main-title.php";?>
+        <div class="from-block">
+         <form class="autosubmit" action="/kefu.php?m=Admin&amp;c=Menu&amp;a=edit" method="post">
         <!--添加编辑内容区域-->
         <div id="tab123" class="tab">
             <ul class="tabnavblock cl">
@@ -23,8 +25,6 @@
             </ul>
             <div class="tabdivblock">
                 <div class="tabdiv">
-                    <div class="from-block">
-                        <form class="autosubmit" action="/kefu.php?m=Admin&amp;c=Menu&amp;a=edit" method="post">
                             <div class="form-group cl pid">
                                 <div class="form-label"><b class="form-title">所属的上级分类</b><span class="form-tip"></span><span style="color:red;">(必填)</span></div>
                                 <div class="form-area">
@@ -111,12 +111,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
-                </div>
+
                 <div class="tabdiv" style="display:none;">扩展表单</div>
             </div>
         </div>
+            <div class="form-group cl center">
+                <a href="javascript:;" class="btn btn-large">确定提交</a>
+            </div>
+    </form>
         <script>
         $(function() {
             $('#tab123').mytab({
@@ -128,6 +131,7 @@
             });
         });
         </script>
+    </div>
     </div>
 </body>
 
