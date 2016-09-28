@@ -1,0 +1,14 @@
+body{font-size:12px;background:#1FADED url('../images/adminbg.jpg') no-repeat;}
+#login-form{width:300px;margin:0px auto;padding:10px 20px;    box-shadow: 2px 2px 30px #ccc;border-radius:10px;background:#fff;position:absolute;top:20%;left:50%;margin-left:-170px;}
+#login-form .fa{color: #67ad03;margin-right: 10px;vertical-align: middle;}
+#login-form .login-title .fa{font-size: 24px;vertical-align: top;margin-top: 1px;}
+#login-form .input-div{padding:2px 10px;background: #fff;}
+#login-form .form-label i{font-size: 20px;}
+#login-form .form-label b{display: none;}
+#login-form .login-title{margin:10px 0px 20px 0px;font-size:20px;}
+#login-form .form-label{width:25px;float:left}
+#login-form .form-area{display:block;margin-left:25px;}
+#login-form .form-area .form-wrap{display:block;border:none;}
+#loginbtn{padding:8px 0px;font-size:14px;display: block;}
+#verifyimg{display: inline-block;height: 50px;}
+#verifyimg img{max-width: 100%;}
