@@ -32,7 +32,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * tab框架样式
  */
 #div-block,#div-block .kl-tab-div,#div-block iframe{height:100%;}
-.from-block{padding-bottom: 30px;}
+.form-block{padding-bottom: 30px;}
 /**
  * 头部样式
  * @type {[type]}

@@ -15,7 +15,7 @@
     <div class="iframe-con">
         <!--主标题-->
         <?php include "./include/main-title.php";?>
-        <div class="from-block">
+        <div class="form-block">
          <form class="autosubmit" action="/kefu.php?m=Admin&amp;c=Menu&amp;a=edit" method="post">
         <!--添加编辑内容区域-->
         <div id="tab123" class="tab">

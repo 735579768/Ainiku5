@@ -69,6 +69,11 @@
 		 * @return {[type]}            [description]
 		 */
 		alert: function(data, callback) {
+			typeof data === 'object' || (data = {
+				status: 0,
+				wait: 3,
+				msg: '返回数据格式错误'
+			});
 			if (data.status == 1) {
 				layer.msg(data.info, {
 					shift: 0

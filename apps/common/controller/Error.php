@@ -11,7 +11,7 @@ class Error {
 		$controllerName = $request->controller();
 		$actionName     = $request->action();
 		// 使用think自带异常类抛出异常
-		$errstr = "当前控制器{$controllerName}/{$actionName}";
+		$errstr = "无法找到控制器:{$controllerName}/{$actionName}";
 		throw new \think\Exception($errstr, 100006);
 	}
 

@@ -31,7 +31,7 @@ return [
 	// 扩展配置文件
 	'extra_config_list'      => ['database', 'validate'],
 	// 扩展函数文件
-	'extra_file_list'        => [THINK_PATH . 'helper' . EXT],
+	'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH . 'form.php'],
 	// 默认输出类型
 	'default_return_type'    => 'html',
 	// 默认AJAX 数据返回格式,可选json xml ...
@@ -230,5 +230,136 @@ return [
 		'type'      => 'bootstrap',
 		'var_page'  => 'page',
 		'list_rows' => 15,
+	],
+	//临时添加表单项的配置
+	'form'                   => [
+		[
+			'type'       => 'string',
+			'name'       => 'title',
+			'title'      => '表单标题',
+			'note'       => '此项表单的标题', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'name',
+			'title'      => '表单name值',
+			'note'       => '生成表单时的name属性', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'note',
+			'title'      => '表单备注说明',
+			'note'       => '附加说明信息', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'text',
+			'name'       => 'extra',
+			'title'      => '表单extra附加数据',
+			'note'       => 'radio,select类型表单需要此值', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'value',
+			'title'      => '表单默认值',
+			'note'       => '表单初始化时的默认值', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'radio',
+			'name'       => 'is_show',
+			'title'      => '表单什么时候显示',
+			'note'       => '控制表单添加,编辑时候的显示/隐藏', //对标题的说明性文字
+			'extra'      => [
+				0 => '隐藏',
+				1 => '添加时显示',
+				2 => '编辑时显示',
+				3 => '添加编辑时都显示',
+			],
+			'value'      => 3,
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'radio',
+			'name'       => 'is_require',
+			'title'      => '表单是否是必填项',
+			'note'       => '', //对标题的说明性文字
+			'extra'      => [
+				0 => '否',
+				1 => '是',
+			],
+			'value'      => 0,
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'data_ts',
+			'title'      => '表单提示文字',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 0, //是否必填
+			'extend'     => 1,
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'data_err',
+			'title'      => '表单提示错误',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 0, //是否必填
+			'extend'     => 1,
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'data_ok',
+			'title'      => '表单提示格式正确',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 0, //是否必填
+			'extend'     => 1,
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'data_ok',
+			'title'      => '表单验证需要的正则',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 0, //是否必填
+			'extend'     => 1,
+		],
+
+		[
+			'type'       => 'radio',
+			'name'       => 'extend',
+			'title'      => '表单是否是扩展项',
+			'note'       => '', //对标题的说明性文字
+			'extra'      => array(
+				0 => '否',
+				1 => '是',
+			),
+			'value'      => 0,
+			'is_show'    => 3,
+			'is_require' => 0, //是否必填
+			'extend'     => 0,
+		],
 	],
 ];
