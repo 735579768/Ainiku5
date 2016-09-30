@@ -4,13 +4,33 @@
  * @return boolean [description]
  */
 function is_login() {
-	return 1;
+	return 0;
 	$user = session('user_auth');
 	if (empty($user)) {
 		return 0;
 	} else {
 		return session('user_auth_sign') == data_auth_sign($user) ? $user['uid'] : 0;
 	}
+}
+/**
+ * 返回一个图片验证码
+ * @param  boolean $imgtag 是否直接返回一个图片标签
+ * @return [type]          [description]
+ */
+function get_verify($imgtag = true) {
+	$uri  = url('verify');
+	$veri = '<img src="' . $uri . '" onclick="this.src=this.src.replace(/\?r.*/,\'\')+\'?r=\'+Math.random();" alt="点击更换验证码" />';
+	return $imgtag ? $veri : $uri;
+}
+/**
+ * 检测验证码
+ * @param  integer $id 验证码ID
+ * @return boolean     检测结果
+ * @author 寞枫 <735579768@.qq.com>
+ */
+function check_verify($code, $id = 1) {
+	$v = new \verify\Verify();
+	return $v->check($code, $id);
 }
 /**
  * 时间戳格式化
