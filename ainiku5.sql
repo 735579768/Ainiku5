@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2016-09-28 12:01:24
+Date: 2016-09-30 19:21:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -157,6 +157,7 @@ CREATE TABLE `kl_form_item` (
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '表单项排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '表单项状态',
   `value` text NOT NULL COMMENT '表单项默认值',
+  `extend` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否是扩展属性',
   `data_ts` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项提示文字',
   `data_err` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项格式错误提示',
   `data_ok` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项格式正确提示',
