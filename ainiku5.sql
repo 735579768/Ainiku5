@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50631
+Source Server Version : 50540
 Source Host           : localhost:3306
 Source Database       : ainiku5
 
 Target Server Type    : MYSQL
-Target Server Version : 50631
+Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-09-30 19:21:26
+Date: 2016-10-01 22:06:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -157,7 +157,6 @@ CREATE TABLE `kl_form_item` (
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '表单项排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '表单项状态',
   `value` text NOT NULL COMMENT '表单项默认值',
-  `extend` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否是扩展属性',
   `data_ts` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项提示文字',
   `data_err` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项格式错误提示',
   `data_ok` varchar(50) NOT NULL DEFAULT '' COMMENT '表单项格式正确提示',
@@ -313,11 +312,12 @@ CREATE TABLE `kl_user` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of kl_user
 -- ----------------------------
+INSERT INTO `kl_user` VALUES ('1', '', '10000', '1', 'admin', '0c72320405722be71ba98ade695850b5', '超级管理员', '', '', '', '0', '', '', '', '0', '1', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for kl_user_group
@@ -334,11 +334,12 @@ CREATE TABLE `kl_user_group` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`user_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户组';
 
 -- ----------------------------
 -- Records of kl_user_group
 -- ----------------------------
+INSERT INTO `kl_user_group` VALUES ('1', '管理员', '', '', '', '1', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for kl_user_log

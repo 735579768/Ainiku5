@@ -4,7 +4,6 @@
  * @return boolean [description]
  */
 function is_login() {
-	return 0;
 	$user = session('user_auth');
 	if (empty($user)) {
 		return 0;
@@ -13,13 +12,29 @@ function is_login() {
 	}
 }
 /**
+ * 数据签名认证
+ * @param  array  $data 被认证的数据
+ * @return string       签名
+ * @author 寞枫 <735579768@qq.com>
+ */
+function data_auth_sign($data) {
+	//数据类型检测
+	if (!is_array($data)) {
+		$data = (array) $data;
+	}
+	ksort($data); //排序
+	$code = http_build_query($data); //url编码并生成query字符串
+	$sign = sha1($code); //生成签名
+	return $sign;
+}
+/**
  * 返回一个图片验证码
  * @param  boolean $imgtag 是否直接返回一个图片标签
  * @return [type]          [description]
  */
 function get_verify($imgtag = true) {
 	$uri  = url('verify');
-	$veri = '<img src="' . $uri . '" onclick="this.src=this.src.replace(/\?r.*/,\'\')+\'?r=\'+Math.random();" alt="点击更换验证码" />';
+	$veri = '<img id="verifyimgtag" src="' . $uri . '" onclick="this.src=this.src.replace(/\?r.*/,\'\')+\'?r=\'+Math.random();" alt="点击更换验证码" />';
 	return $imgtag ? $veri : $uri;
 }
 /**
@@ -334,20 +349,4 @@ function ank_decrypt($data, $key = 'adminrootkl') {
 function ank_ucenter_md5($str, $key = 'adminrootkl') {
 	$key = $key ? $key : config('DATA_AUTH_KEY');
 	return '' === $str ? '' : md5(sha1($str) . $key);
-}
-/**
- * 数据签名认证
- * @param  array  $data 被认证的数据
- * @return string       签名
- * @author 寞枫 <735579768@qq.com>
- */
-function data_auth_sign($data) {
-	//数据类型检测
-	if (!is_array($data)) {
-		$data = (array) $data;
-	}
-	ksort($data); //排序
-	$code = http_build_query($data); //url编码并生成query字符串
-	$sign = sha1($code); //生成签名
-	return $sign;
 }

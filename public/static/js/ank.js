@@ -72,7 +72,8 @@
 			typeof data === 'object' || (data = {
 				status: 0,
 				wait: 3,
-				msg: '返回数据格式错误'
+				msg: '返回数据格式错误',
+				url: ''
 			});
 			// data.wait || (data.wait = 3000);
 			if (data.code == 1) {
@@ -81,6 +82,7 @@
 					time: data.wait * 1000
 				}, function() {
 					(typeof callback == "function") && callback(da);
+					data.url && (window.location.href = data.url);
 				});
 			} else {
 				layer.msg(data.msg, {
@@ -88,6 +90,9 @@
 					time: data.wait * 1000
 				}, function() {
 					(typeof callback == "function") && callback(da);
+					$('#verifyimgtag').click();
+					// javascript:history.back(-1);
+					// data.url && (window.location.href = data.url);
 				});
 			}
 		},
