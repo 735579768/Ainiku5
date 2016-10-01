@@ -84,11 +84,10 @@ class Pub extends \app\common\Controller\Base {
 	}
 	public function autoLogin() {
 		$u = ank_decrypt(cookie('token'));
+		// var_dump($u);
+		// die();
 		if ($u) {
-
 			$u = json_decode($u, true);
-			// var_dump($u);
-			// die();
 			return $this->login($u['u'], $u['p'], true);
 		}
 	}

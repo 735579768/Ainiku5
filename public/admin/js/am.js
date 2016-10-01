@@ -1,6 +1,17 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		okAction: function(uri) {
+			layer.confirm('确定此操作吗?', {
+				title: false,
+				closeBtn: false,
+				btn: ['确定', '取消']
+			}, function() {
+				$.get(uri, function(data) {
+					ank.alert(data);
+				});
+			});
+		},
 		initPage: function() {
 			am.resetLayout();
 			//侧栏关闭

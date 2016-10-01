@@ -53,10 +53,21 @@
                 </a>
             </div>
             <div class="form-group center cl">
-                <a href="javascript:;" onclick="ank.ajaxForm(this);" id="loginbtn" class="btn btn-large">登录</a>
+                <a id="loginbtn" href="javascript:;" onclick="ank.ajaxForm(this);" id="loginbtn" class="btn btn-large">登录</a>
             </div>
         </form>
     </div>
+<script type="text/javascript">
+    $(function(){
+    //回车自动提交
+    $('#login-form input').keyup(function(event){
+        if(event.keyCode===13){
+            //回车后要处理的数据
+            $('#loginbtn').click();
+        }
+    });
+    });
+</script>
 </body>
 
 </html>

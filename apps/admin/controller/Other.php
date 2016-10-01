@@ -5,8 +5,8 @@ class Other extends Base {
 	/* 退出登录 */
 	public function loginOut() {
 		if (is_login()) {
-			session(null);
-			cookie(null);
+			session(null, config('session.prefix'));
+			cookie(null, config('cookie.prefix'));
 			$this->success('退出成功！', url('Pub/login'));
 		} else {
 			$this->redirect(url('Pub/login'));

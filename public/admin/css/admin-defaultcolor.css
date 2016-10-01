@@ -1,17 +1,9 @@
-#admin-header{border-left: solid 4px #44b549;border-top: solid 4px #44b549}
-#admin-left{border-left: solid 4px #44b549}
+#admin-header{border-left:solid 4px #44b549;border-top:solid 4px #44b549}
+#admin-left{border-left:solid 4px #44b549}
 #admin-right{}
 .mainnav li a:hover,.tool>li a:hover{border-bottom:solid 4px #44b549;}
-.fa{font-size: 14px;}
-.fa,
-.iframe-con .main-title,
-.iframe-con table th,
-input[type="radio"]:after,input[type="checkbox"]:after,
-input[type="radio"]:checked:after,
-input[type="checkbox"]:checked:after,
-.cate-tree .c-h-item,
-.search-tool .sch-btn{color:#44b549}
-.tab .tabnav.hover a {
-    border-top-color: #44b549;
-}
-::-webkit-scrollbar-thumb{background-color: #44b549;}
+.fa{font-size:14px;}
+.fa,.iframe-con .main-title,.iframe-con table th,input[type="radio"]:after,input[type="checkbox"]:after,input[type="radio"]:checked:after,input[type="checkbox"]:checked:after,.cate-tree .c-h-item,.search-tool .sch-btn{color:#44b549}
+.tab .tabnav.hover a{border-top-color:#44b549;}
+::-webkit-scrollbar-thumb,
+.layui-layer-btn .layui-layer-btn0{border-color:#44b549!important;background-color:#44b549!important;}
