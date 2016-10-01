@@ -47,7 +47,7 @@
 		ajaxHref: function(obj, callback) {
 			obj = $(obj);
 			var uri = obj.attr("href");
-			uri || (uri = obj.attr("data-url"));
+			(!uri || uri == 'javascript:;') && (uri = obj.attr("data-url"));
 			var lindex = parent.layer.load(1, {
 				shade: false //0.1透明度的白色背景
 			});

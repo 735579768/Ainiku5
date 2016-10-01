@@ -11,13 +11,14 @@ class Pub extends \app\common\Controller\Base {
 	 * 用户登陆
 	 * @return [type] [description]
 	 */
-	public function login($autologin = false) {
-		if (request()->isPost()) {
-			$verify   = input('post.verify');
-			$username = input('post.username');
-			$password = input('post.password');
+	public function login($username = '', $password = '', $isauto = false) {
+		if (request()->isPost() || $isauto) {
+			$verify = input('post.verify');
+			$username || ($username = input('post.username'));
+			$password || ($password = input('post.password'));
+			$remember = input('post.remember', 1);
 			// 检测验证码
-			if (!check_verify($verify) && !$autologin) {
+			if (!check_verify($verify) && !$isauto) {
 				$this->error('验证码输入错误！');
 			}
 			//自动判断用户名是哪个字段的
@@ -32,7 +33,7 @@ class Pub extends \app\common\Controller\Base {
 			if (empty($user)) {
 				//登录失败
 				cookie('__uid__', null);
-				return $autologin ? false : $this->error('用户名或密码错误!');
+				return $isauto ? false : $this->error('用户名或密码错误!');
 			} else {
 				//登陆成功
 				//登陆成功
@@ -45,11 +46,35 @@ class Pub extends \app\common\Controller\Base {
 				session('user_auth', $auth);
 				session('uinfo', $user);
 				session('user_auth_sign', data_auth_sign($auth));
-				$this->success('登录成功', 'Index/index');
+
+				//把用户密码加密保存到cookie中
+				if (!$isauto) {
+
+					//如果有验证码的话就再次设置记录时间cookie
+					$b = 0;
+					switch ($remember) {
+					case 1:$b = 24 * 3600;
+						break;
+					case 2:$b = 24 * 3600 * 7;
+						break;
+					case 3:$b = 24 * 3600 * 30;
+						break;
+					default:$b = -1;
+					}
+					$u['u'] = $username;
+					$u['p'] = $password;
+					cookie('token', ank_encrypt(json_encode($u)), $b);
+				}
+				// $this->success('登录成功', url('Index/index'));
+				$uri = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				return $isauto ? $user['user_id'] : ($this->success('登录成功！', url($uri)));
 			}
 		} else {
-			if (is_login()) {
-				$this->redirect('Index/index');
+			if (is_login() || $this->autoLogin()) {
+				$user = session('uinfo');
+				$uri  = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				$this->redirect(url($uri));
+				// $this->redirect('Index/index');
 			} else {
 				return $this->fetch();
 			}
@@ -57,11 +82,14 @@ class Pub extends \app\common\Controller\Base {
 		}
 
 	}
-	/**
-	 * 退出登录
-	 * @return [type] [description]
-	 */
-	public function loginOut() {
-		$this->redirect('Pub/login');
+	public function autoLogin() {
+		$u = ank_decrypt(cookie('token'));
+		if ($u) {
+
+			$u = json_decode($u, true);
+			// var_dump($u);
+			// die();
+			return $this->login($u['u'], $u['p'], true);
+		}
 	}
 }
