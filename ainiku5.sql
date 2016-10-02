@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-02 14:52:14
+Date: 2016-10-03 00:22:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -138,7 +138,7 @@ CREATE TABLE `kl_form` (
 -- ----------------------------
 -- Records of kl_form
 -- ----------------------------
-INSERT INTO `kl_form` VALUES ('1', '菜单', 'Menu', '99', '1', '', '', '', '0', '0');
+INSERT INTO `kl_form` VALUES ('1', '菜单表单', 'Menu', '99', '1', '', '', '', '0', '1475414680');
 INSERT INTO `kl_form` VALUES ('2', '表单', 'Form', '99', '1', '', '', '', '1475391093', '1475391093');
 
 -- ----------------------------
