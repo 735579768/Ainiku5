@@ -72,7 +72,7 @@ function create_form($fieldarr, $data = []) {
 			$extra      = isset($value['extra']) ? $value['extra'] : [];
 			$setvalue   = isset($value['value']) ? $value['value'] : '';
 			$is_show    = isset($value['is_show']) ? $value['is_show'] : 3;
-			$is_require = isset($value['is_require']) ? true : false;
+			$is_require = isset($value['is_require']) ? ($value['is_require'] ? true : false) : false;
 
 			//验证表单
 			$data_reg = isset($value['data_reg']) ? $value['data_reg'] : '';
@@ -86,6 +86,7 @@ function create_form($fieldarr, $data = []) {
 			//要替换的值字符串
 			$set_replace_value = "[REPLACE_SETVALUE_{$name}]";
 			//处理一些判断必填的
+
 			$is_require = $is_require ? '<span style="color:red;">(必填)</span>' : '';
 
 			$yzstr   = '';
@@ -493,7 +494,7 @@ eot;
 		$setvalue  = $value['value'];
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-		if (!$setvalue) {
+		if ($setvalue === '') {
 			$setvalue = input($key);
 		}
 		$key   = preg_quote($key);
@@ -831,4 +832,124 @@ function get_custom_form($method, $name, $data) {
 	// die();
 	$form = new \Common\Controller\CustomFormController($method, $name, $data);
 	return $form->$method();
+}
+
+// }
+/**
+ * 解析extra数据
+ * @param  [type] $str 字符串
+ * @return [type]      [description]
+ */
+function parse_extra($str) {
+	if (!empty($str)) {
+		$redata = parse_string_function($str);
+		return ($redata === false) ? extra_to_array($str) : $redata;
+	}
+}
+/**
+ * 解析字符串函数
+ * @param  string $funcname [description]
+ * @return [type]           成功返回对象的数据,失败返回false
+ */
+function parse_string_function($funcname = '') {
+	$out = [];
+	if (preg_match('/([a-zA-Z0-9_]+)(\=(.+))?/i', $funcname, $out)) {
+		if (function_exists($out[1])) {
+			$func = $out[1];
+			$para = isset($out[3]) ? $out[3] : '';
+			$para = str_replace("'", '', $para);
+			if (empty($para)) {
+				return $func();
+			} else {
+				return call_user_func_array($func, explode(',', $para));
+			}
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+/**
+ *解析extra字符串数据
+ */
+function extra_to_array($extra) {
+	$extra = preg_replace(array('/\n/i', '/\s/i'), array(',', ''), $extra);
+	$dest  = array();
+	$tema  = explode(',', $extra);
+	foreach ($tema as $val) {
+		if (strpos($extra, ':') !== false) {
+			$temb = explode(':', $val);
+			if (count($temb) === 2) {
+				$dest[trim($temb[0])] = trim($temb[1]);
+			}
+
+		} else {
+			$dest[trim($val)] = trim($val);
+		}
+	}
+	return $dest;
+}
+/**
+ * 取表单类型
+ * @return [type] [description]
+ */
+function select_form_type($key = null, $datatype = false) {
+	// TODO 可以加入系统配置
+	$formtype = array(
+		'string'       => '字符串',
+		'select'       => '枚举',
+		'radio'        => '单选',
+		'checkbox'     => '多选',
+		'number'       => '数字',
+		'double'       => '双精度数字',
+		'password'     => '密码',
+		'datetime'     => '时间',
+		'editor'       => '编辑器',
+		'textarea'     => '文本框',
+		'bigtextarea'  => '超大文本框',
+		'picture'      => '上传图片',
+		'cutpicture'   => '剪切图片',
+		'file'         => '上传附件',
+		'bool'         => '布尔',
+		'color'        => '颜色选择器',
+		'umeditor'     => 'UM简化编辑器',
+		'batchpicture' => '批量上传图片',
+		'liandong'     => '城市联动表单',
+		'custom'       => '自定义表单',
+		'attribute'    => '内容属性',
+	);
+	$mysqltype = array(
+		'string'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'select'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'radio'        => "varchar(50) NOT NULL DEFAULT '' ",
+		'checkbox'     => "varchar(50) NOT NULL DEFAULT '' ",
+		'number'       => "int(10) NOT NULL DEFAULT '0' ",
+		'double'       => "double(10,2)  NOT NULL DEFAULT '0'",
+		'password'     => "varchar(50) NOT NULL DEFAULT '' ",
+		'datetime'     => "varchar(50) NOT NULL DEFAULT '' ",
+		'editor'       => 'longtext  NOT NULL ',
+		'textarea'     => 'text  NOT NULL  ',
+		'bigtextarea'  => 'text  NOT NULL ',
+		'picture'      => "int(10) NOT NULL  DEFAULT '0'",
+		'cutpicture'   => "int(10) NOT NULL  DEFAULT '0'",
+		'file'         => "int(10) NOT NULL  DEFAULT '0'",
+		'bool'         => "tinyint(1) NOT NULL DEFAULT '0'",
+		'color'        => "varchar(8) NOT NULL DEFAULT '#000'",
+		'umeditor'     => 'longtext  NOT NULL ',
+		'batchpicture' => "varchar(50) NOT NULL DEFAULT '' ",
+		'liandong'     => "varchar(20) NOT NULL DEFAULT '' ",
+		'custom'       => '自定义表单',
+		'attribute'    => "int(10) NOT NULL  DEFAULT '0'",
+	);
+	if ($datatype && !empty($key)) {
+		return $mysqltype[$key];
+	}
+
+	if (empty($key) && $datatype === false) {
+		return $formtype;
+	} else {
+		return $formtype[$key];
+	}
+
 }

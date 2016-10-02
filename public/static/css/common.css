@@ -48,6 +48,8 @@
 .page{margin:10px 0;*zoom:1;}
 .page:after{clear:both;}
 .page a,.page span{float:left;margin-left:-1px;padding:0 14px;height:30px;line-height:30px;color:#000;border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;/*background-color:#4bbd00;*/}
+.page .disabled span{color:#d4d4d4;}
+.page .active span,
 .page a:hover{text-decoration:none;background-color:#387C0B;color:#fff;}
 .page .current{border-top:1px solid #387C0B;background-color:#387C0B;color:#fff;}
 .page .next,.page .prev{font-family:"microsoft yahei";}

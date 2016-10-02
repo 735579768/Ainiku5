@@ -18,23 +18,24 @@
                 <div class="c-inp c-h-action">操作</div>
             </dt>
         </dl>
+        {volist name="_list" id="vo"}
         <dl class="c-item cl">
             <dt class="cl">
                 <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
-                <div class="c-inp c-id">46</div>
+                <div class="c-inp c-id">{$vo.form_id}</div>
                 <div class="c-inp c-paixu">
-                    <input type="text" class="form-control" name="paixu" value="88" />
+                    <input type="text" class="form-control" name="paixu" value="{$vo.sort}" />
                 </div>
                 <div class="c-inp c-title">
                     <span class="c-sign"></span>
                     <i class="fa fa-plus-square"></i>
                     <div class="text-field">
                         <span class="text-title">标题:</span>
-                        <input type="text" class="form-control" name="title" value="分类标题" />
+                        <input type="text" class="form-control" name="title" value="{$vo.title}" />
                     </div>
                     <div class="text-field">
-                        <span class="text-title">分组:</span>
-                        <input type="text" class="form-control" value="group" />
+                        <span class="text-title">URL:</span>
+                        <input type="text" class="form-control" value="{vo.url}" />
                     </div>
                 </div>
                 <div class="c-inp c-action">
@@ -42,90 +43,10 @@
                     <a href="javascript:;" class="btn btn-warning">删除</a>
                 </div>
             </dt>
-            <!--sub menu start-->
             <dd class="c-sub-item">
-                <dl class="c-item cl">
-                    <dt class="cl">
-                        <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
-                        <div class="c-inp c-id">46</div>
-                        <div class="c-inp c-paixu">
-                            <input type="text" class="form-control" name="paixu" value="88" />
-                        </div>
-                        <div class="c-inp c-title">
-                            <span class="c-sign"></span>
-                            <i class="fa fa-plus-square"></i>
-                            <div class="text-field">
-                                <span class="text-title">标题:</span>
-                                <input type="text" class="form-control" name="title" value="分类标题" />
-                            </div>
-                            <div class="text-field">
-                                <span class="text-title">分组:</span>
-                                <input type="text" class="form-control" value="group" />
-                            </div>
-                        </div>
-                        <div class="c-inp c-action">
-                            <a href="javascript:;" class="btn">编辑</a>
-                            <a href="javascript:;" class="btn btn-warning">删除</a>
-                        </div>
-                    </dt>
-                    <!--sub menu start-->
-                    <dd class="c-sub-item">
-                        <dl class="c-item cl">
-                            <dt class="cl">
-                                <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
-                                <div class="c-inp c-id">46</div>
-                                <div class="c-inp c-paixu">
-                                    <input type="text" class="form-control" name="paixu" value="88" />
-                                </div>
-                                <div class="c-inp c-title">
-                                    <span class="c-sign"></span>
-                                    <i class="fa fa-plus-square"></i>
-                                    <div class="text-field">
-                                        <span class="text-title">标题:</span>
-                                        <input type="text" class="form-control" name="title" value="分类标题" />
-                                    </div>
-                                    <div class="text-field">
-                                        <span class="text-title">分组:</span>
-                                        <input type="text" class="form-control" value="group" />
-                                    </div>
-                                </div>
-                                <div class="c-inp c-action">
-                                    <a href="javascript:;" class="btn">编辑</a>
-                                    <a href="javascript:;" class="btn btn-warning">删除</a>
-                                </div>
-                            </dt>
-                        </dl>
-                        <dl class="c-item cl">
-                            <dt class="cl">
-                                <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
-                                <div class="c-inp c-id">46</div>
-                                <div class="c-inp c-paixu">
-                                    <input type="text" class="form-control" name="paixu" value="88" />
-                                </div>
-                                <div class="c-inp c-title">
-                                    <span class="c-sign"></span>
-                                    <i class="fa fa-plus-square"></i>
-                                    <div class="text-field">
-                                        <span class="text-title">标题:</span>
-                                        <input type="text" class="form-control" name="title" value="分类标题" />
-                                    </div>
-                                    <div class="text-field">
-                                        <span class="text-title">分组:</span>
-                                        <input type="text" class="form-control" value="group" />
-                                    </div>
-                                </div>
-                                <div class="c-inp c-action">
-                                    <a href="javascript:;" class="btn">编辑</a>
-                                    <a href="javascript:;" class="btn btn-warning">删除</a>
-                                </div>
-                            </dt>
-                        </dl>
-                    </dd>
-                    <!--sub menu end-->
-                </dl>
             </dd>
-            <!--sub menu end-->
         </dl>
+        {/volist}
     </div>
 </div>
 <script type="text/javascript">
