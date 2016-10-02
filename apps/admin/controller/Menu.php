@@ -18,8 +18,16 @@ class Menu extends Base {
 	 */
 	public function add() {
 		$this->assign('meta_title', '添加菜单');
-		$this->assign('formitem', config('form'));
-		return $this->fetch('edit');
+		if (request()->isPost()) {
+			$menu = model('Menu');
+			// $result = $menu->allowField(true)->save();
+			var_dump($menu->allowField(true)->fetchSql());
+			$this->returnResult($result, '添加成功', '添加失败');
+		} else {
+			$this->assign('formitem', config('menu'));
+			return $this->fetch('edit');
+		}
+
 	}
 	/**
 	 * 编辑菜单

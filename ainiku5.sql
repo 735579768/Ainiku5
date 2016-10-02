@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-01 22:06:39
+Date: 2016-10-02 14:52:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -123,10 +123,8 @@ CREATE TABLE `kl_file` (
 DROP TABLE IF EXISTS `kl_form`;
 CREATE TABLE `kl_form` (
   `form_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '表单id',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '表单标识符',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '表单标题',
-  `table` varchar(50) NOT NULL DEFAULT '' COMMENT '此表单对应的数据库库',
-  `formtype` varchar(50) NOT NULL DEFAULT 'other' COMMENT '表单类型',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '表单标识符',
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '表单排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '表单状态',
   `list_format` text NOT NULL COMMENT '表单数据显示成列表时的格式',
@@ -135,11 +133,13 @@ CREATE TABLE `kl_form` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统模型';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统模型';
 
 -- ----------------------------
 -- Records of kl_form
 -- ----------------------------
+INSERT INTO `kl_form` VALUES ('1', '菜单', 'Menu', '99', '1', '', '', '', '0', '0');
+INSERT INTO `kl_form` VALUES ('2', '表单', 'Form', '99', '1', '', '', '', '1475391093', '1475391093');
 
 -- ----------------------------
 -- Table structure for kl_form_item

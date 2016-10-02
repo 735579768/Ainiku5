@@ -232,12 +232,12 @@ return [
 		'list_rows' => 15,
 	],
 	//临时添加表单项的配置
-	'form'                   => [
+	'formitem'               => [
 		[
 			'type'       => 'string',
 			'name'       => 'title',
-			'title'      => '表单标题',
-			'note'       => '此项表单的标题', //对标题的说明性文字
+			'title'      => '表单项标题',
+			'note'       => '此项表单项的标题', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
 			'is_require' => 1, //是否必填
@@ -245,8 +245,8 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'name',
-			'title'      => '表单name值',
-			'note'       => '生成表单时的name属性', //对标题的说明性文字
+			'title'      => '表单项name值',
+			'note'       => '生成表单项时的name属性', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
 			'is_require' => 1, //是否必填
@@ -254,7 +254,7 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'note',
-			'title'      => '表单备注说明',
+			'title'      => '表单项备注说明',
 			'note'       => '附加说明信息', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
@@ -263,8 +263,8 @@ return [
 		[
 			'type'       => 'text',
 			'name'       => 'extra',
-			'title'      => '表单extra附加数据',
-			'note'       => 'radio,select类型表单需要此值', //对标题的说明性文字
+			'title'      => '表单项extra附加数据',
+			'note'       => 'radio,select类型表单项需要此值', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
 			'is_require' => 1, //是否必填
@@ -272,8 +272,8 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'value',
-			'title'      => '表单默认值',
-			'note'       => '表单初始化时的默认值', //对标题的说明性文字
+			'title'      => '表单项默认值',
+			'note'       => '表单项初始化时的默认值', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
 			'is_require' => 1, //是否必填
@@ -281,8 +281,8 @@ return [
 		[
 			'type'       => 'radio',
 			'name'       => 'is_show',
-			'title'      => '表单什么时候显示',
-			'note'       => '控制表单添加,编辑时候的显示/隐藏', //对标题的说明性文字
+			'title'      => '表单项什么时候显示',
+			'note'       => '控制表单项添加,编辑时候的显示/隐藏', //对标题的说明性文字
 			'extra'      => [
 				0 => '隐藏',
 				1 => '添加时显示',
@@ -296,7 +296,7 @@ return [
 		[
 			'type'       => 'radio',
 			'name'       => 'is_require',
-			'title'      => '表单是否是必填项',
+			'title'      => '表单项是否是必填项',
 			'note'       => '', //对标题的说明性文字
 			'extra'      => [
 				0 => '否',
@@ -309,7 +309,7 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'data_ts',
-			'title'      => '表单提示文字',
+			'title'      => '表单项提示文字',
 			'note'       => '', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
@@ -319,7 +319,7 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'data_err',
-			'title'      => '表单提示错误',
+			'title'      => '表单项提示错误',
 			'note'       => '', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
@@ -329,7 +329,7 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'data_ok',
-			'title'      => '表单提示格式正确',
+			'title'      => '表单项提示格式正确',
 			'note'       => '', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
@@ -339,7 +339,7 @@ return [
 		[
 			'type'       => 'string',
 			'name'       => 'data_ok',
-			'title'      => '表单验证需要的正则',
+			'title'      => '表单项验证需要的正则',
 			'note'       => '', //对标题的说明性文字
 			'value'      => '',
 			'is_show'    => 3,
@@ -350,7 +350,7 @@ return [
 		[
 			'type'       => 'radio',
 			'name'       => 'extend',
-			'title'      => '表单是否是扩展项',
+			'title'      => '表单项是否是扩展项',
 			'note'       => '', //对标题的说明性文字
 			'extra'      => array(
 				0 => '否',
@@ -360,6 +360,62 @@ return [
 			'is_show'    => 3,
 			'is_require' => 0, //是否必填
 			'extend'     => 0,
+		],
+	],
+	'form'                   => [
+		[
+			'type'       => 'string',
+			'name'       => 'title',
+			'title'      => '表单标题',
+			'note'       => '表单的标题', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'string',
+			'name'       => 'name',
+			'title'      => '表单对应的数据表',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'number',
+			'name'       => 'sort',
+			'title'      => '表单排序',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '99',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'textarea',
+			'name'       => 'search_format',
+			'title'      => '搜索格式字符串',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'textarea',
+			'name'       => 'list_format',
+			'title'      => '列表格式字符串',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
+		],
+		[
+			'type'       => 'textarea',
+			'name'       => 'recycle_format',
+			'title'      => '回收站格式字符串',
+			'note'       => '', //对标题的说明性文字
+			'value'      => '',
+			'is_show'    => 3,
+			'is_require' => 1, //是否必填
 		],
 	],
 ];
