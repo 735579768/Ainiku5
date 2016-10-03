@@ -23,7 +23,7 @@
             <td class="td-left">{$vo.title}</td>
             <td class="td-left">{$vo.type}</td>
             <td class="td-left">{$vo.name}</td>
-            <td>{$vo.status}</td>
+            <td>{$vo.status|get_status}</td>
             <td class="td-btn">
             <a href="{:url('FormItem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
             </td>

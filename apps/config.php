@@ -29,9 +29,10 @@ return [
 	// 注册的根命名空间
 	'root_namespace'         => [],
 	// 扩展配置文件
-	'extra_config_list'      => ['database', 'validate'],
+	// V5.0.1开始，取消了该配置参数，扩展配置文件直接放入application/extra目录会自动加载。
+	// 'extra_config_list'      => ['database', 'validate', 'systemstatus'],
 	// 扩展函数文件
-	'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH . 'form.php'],
+	'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH . 'form.php', APP_PATH . 'getinfo.php'],
 	// 默认输出类型
 	'default_return_type'    => 'html',
 	// 默认AJAX 数据返回格式,可选json xml ...

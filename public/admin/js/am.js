@@ -75,6 +75,19 @@
 			var sh = $(window).height();
 			$('#admin-left').height(sh - h);
 			$('#admin-right').height(sh - h);
+			$(window).resize(function(event) {
+				var h = $('#admin-header').outerHeight();
+				var navh = $('#nav-block').outerHeight();
+				var sh = $(window).height();
+				var ih = sh - h - navh;
+				$('#div-block iframe').height(ih);
+			});
+		},
+		setIframeHeight: function(dom) {
+			var h = $('#admin-header').outerHeight();
+			var navh = $('#nav-block').outerHeight();
+			var sh = $(window).height();
+			$(dom).height(sh - h - navh);
 		},
 		/**
 		 * 单击框架导航
@@ -113,7 +126,7 @@
 		addIframe: function(title, url) {
 			// debugger;
 			// $('#loadingimg').show();
-			var iframestr = '<span class="iframeloading"></span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0   frameborder="0" border="0" src="' + url + '"  noResize width="100%" scrolling=auto  vspale="0"></iframe>';
+			var iframestr = '<span class="iframeloading"></span><iframe  onload="am.setIframeHeight(this);" class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0   frameborder="0" border="0" src="' + url + '"  noResize width="100%" scrolling=auto  vspale="0"></iframe>';
 			var isyou = false;
 			var ifarr = $('#admin-right iframe');
 			ifarr.each(function(index, element) {
@@ -225,7 +238,8 @@
 			am.addIframe(tex, uri);
 			return false;
 			// am.addIframe('我的博客','https://www.zhaokeli.com/');
-		}
+		},
+
 
 	};
 }(window);
