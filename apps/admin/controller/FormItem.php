@@ -37,8 +37,12 @@ class FormItem extends Base {
 		if (request()->isPost()) {
 			$result = $this->validate(input('post.'), 'FormItem');
 			if (true === $result) {
-				$mod    = new \app\common\model\FormItem(input('post.'));
-				$result = $mod->allowField(true)->save();
+				// $mod    = new \app\common\model\FormItem(input('post.'));
+				// $result = $mod->allowField(true)->save();
+				$result = model('FormItem')
+					->data(input('post.'))
+					->allowField(true)
+					->save();
 				$this->returnResult($result, '添加成功', '添加失败');
 			} else {
 				$this->error($result);
@@ -62,8 +66,10 @@ class FormItem extends Base {
 		if (request()->isPost()) {
 			$result = $this->validate(input('post.'), 'FormItem');
 			if (true === $result) {
-				$mod    = new \app\common\model\FormItem(input('post.'));
-				$result = $mod->allowField(true)->isUpdate(true)->save();
+				$result = model('FormItem')
+					->allowField(true)
+					->isUpdate(true)
+					->save(input('post.'), ['form_item_id' => input('param.form_item_id')]);
 				$this->returnResult($result, '更新成功', '更新失败');
 			} else {
 				$this->error($result);

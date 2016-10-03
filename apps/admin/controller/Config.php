@@ -9,6 +9,7 @@ class Config extends Base {
 	public function group() {
 		if (request()->isPost()) {
 		} else {
+			$this->assign('meta_title', '配置');
 			$list = Db::name('Config')->select();
 			$data = [];
 			foreach ($list as $key => $value) {
