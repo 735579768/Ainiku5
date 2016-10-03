@@ -24,7 +24,7 @@
 //  'data_err' =>'', //格式不对时的提示文本
 //  'data_ok' => '', //格式正确时的提示文本
 //  'data_reg' => '', //验证格式的正则
-//  'extend'=>1,    //当输出tab(基础,扩展两个时用到此属性)这个时候请直接调用get_tab_form($fieldarr,$data)
+//  'tab_id'=>1,    //当输出tab(基础,扩展两个时用到此属性)这个时候请直接调用get_tab_form($fieldarr,$data)
 // ),
 /////////////说明//////////////
 //@is_show  1 add状态下显示   2 edit编辑状态下显示   3 add edit状态下都显示  4 只要是超级管理员状态下都显示
@@ -790,35 +790,46 @@ function get_form($fieldarr, $data = []) {
 		$fieldarr = get_form_item($fieldarr);
 	}
 	is_array($fieldarr) || ($fieldarr = []);
-	$field = ['jc' => null, 'kz' => null];
+	$field = [];
 	if (isset($fieldarr['title'])) {
-		$fieldarr    = [$fieldarr];
-		$field['jc'] = $fieldarr;
+		$fieldarr = [$fieldarr];
+		$field[0] = $fieldarr;
 	} else {
-		// dump($fieldarr);
-		// die();
-
 		foreach ($fieldarr as $key => $value) {
-			if (isset($value['extend']) && $value['extend'] == '1') {
-				$field['kz'][] = $fieldarr[$key];
+			if (isset($value['tab_id'])) {
+				$field[$value['tab_id']][] = $fieldarr[$key];
 			} else {
-				$field['jc'][] = $fieldarr[$key];
+				$field[0][] = $fieldarr[$key];
 			}
 		}
 	}
-	if ($field['kz']) {
-		$jc  = create_form($field['jc'], $data);
-		$kz  = create_form($field['kz'], $data);
+	if (count($field) > 1) {
+		$field_title = [];
+		$field_data  = [];
+		foreach ($field as $key => $val) {
+			$field_title[] = get_status($key, 'tab');
+			$field_data[]  = create_form($val, $data);
+		}
+		$navstr   = '';
+		$tabblock = '';
+		foreach ($field_title as $value) {
+			$navstr .= <<<eot
+		<li class="tabnav hover"><a href="javascript:;">{$value}</a></li>
+eot;
+		}
+		foreach ($field_data as $value) {
+			$tabblock .= <<<eot
+		<div class="tabdiv">{$value}</div>
+eot;
+		}
 		$str = <<<eot
 <div class="tab">
 	<ul class="tabnavblock cl">
-	    <li class="tabnav hover"><a href="javascript:;">基础</a></li>
-	    <li class="tabnav"><a href="javascript:;">扩展</a></li>
+	   {$navstr}
 	</ul>
 
 	<div class="tabdivblock">
-		<div class="tabdiv">{$jc}</div>
-		<div class="tabdiv" style="display:none;">{$kz}</div>
+		{$tabblock}
 	</div>
 </div>
 <script>
@@ -829,7 +840,7 @@ $(function(){
 eot;
 		return $str;
 	} else {
-		return create_form($field['jc'], $data);
+		return create_form($field[0], $data);
 	}
 }
 /**
@@ -862,7 +873,7 @@ function get_form_item($form_id = '') {
 		$list = \think\Db::name('FormItem')
 			->where($map)
 			->order('sort asc,form_item_id asc')
-			->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,extend,sort')
+			->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,tab_id,sort')
 		// ->fetchSql()
 			->select();
 		cache($key, $list);
@@ -942,6 +953,13 @@ function extra_to_array($extra) {
 		}
 	}
 	return $dest;
+}
+/**
+ * 取表单tab类型标签
+ * @return [type] [description]
+ */
+function select_form_tab() {
+	return config('systemstatus')['tab'];
 }
 /**
  * 取表单类型

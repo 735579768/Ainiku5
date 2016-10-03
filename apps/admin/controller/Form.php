@@ -30,7 +30,9 @@ class Form extends Base {
 			$result = $this->validate(input('post.'), 'Form');
 			if (true === $result) {
 				$mod    = new \app\common\model\Form(input('post.'));
-				$result = $mod->allowField(true)->save();
+				$result = $mod->allowField(true)
+				// ->fetchSql()
+					->save();
 				$this->returnResult($result, '添加成功', '添加失败');
 			} else {
 				$this->error($result);

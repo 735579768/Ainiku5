@@ -6,9 +6,9 @@
         <form class="autosubmit" action="{:url('')}" method="post">
             {:get_form('Form',$data)}
             <div class="form-group cl center">
-            <input type="hidden" name="form_id" value="{$data.form_id}" />
+
                 <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
-                {empty name="data"}确定提交{else /}确认更新{/empty}
+                {empty name="data"}确定提交{else /}<input type="hidden" name="form_id" value="{$data.form_id}" />确认更新{/empty}
                 </a>
             </div>
         </form>

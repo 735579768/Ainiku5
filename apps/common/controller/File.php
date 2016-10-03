@@ -5,4 +5,5 @@ trait File {
 	public function uploadPic() {
 		return 'upload pic!';
 	}
+
 }
