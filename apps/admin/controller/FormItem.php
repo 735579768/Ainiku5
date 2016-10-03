@@ -47,7 +47,7 @@ class FormItem extends Base {
 			$this->assign('meta_title', '添加表单项');
 			// $formarr = require_once './apps/formarr.php';
 			// dump($formarr);
-			$this->assign('formitem', get_form_item('FormItem'));
+			// $this->assign('formitem', get_form_item('FormItem'));
 			$this->assign('data', null);
 			return $this->fetch('edit');
 		}
@@ -62,17 +62,14 @@ class FormItem extends Base {
 		if (request()->isPost()) {
 			$result = $this->validate(input('post.'), 'FormItem');
 			if (true === $result) {
-				// $mod    = new \app\common\model\Form();
-				$result = model('FormItem')->update(input('post.'));
+				$mod    = new \app\common\model\FormItem(input('post.'));
+				$result = $mod->allowField(true)->isUpdate(true)->save();
 				$this->returnResult($result, '更新成功', '更新失败');
 			} else {
 				$this->error($result);
 			}
 		} else {
 			$form_item_id = input('param.form_item_id');
-			// $formarr      = require_once './apps/formarr.php';
-			// dump(get_form_item('FormItem'));
-			// $this->assign('formitem', get_form_item('FormItem'));
 			$this->assign('data', Db::name('FormItem')->where('form_item_id', $form_item_id)->find());
 			return $this->fetch('edit');
 		}

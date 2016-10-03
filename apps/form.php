@@ -797,7 +797,7 @@ function get_form($fieldarr, $data = []) {
 	} else {
 		foreach ($fieldarr as $key => $value) {
 			if (isset($value['tab_id'])) {
-				$field[$value['tab_id']][] = $fieldarr[$key];
+				$field[intval($value['tab_id'])][] = $fieldarr[$key];
 			} else {
 				$field[0][] = $fieldarr[$key];
 			}
@@ -840,7 +840,9 @@ $(function(){
 eot;
 		return $str;
 	} else {
-		return create_form($field[0], $data);
+		foreach ($field as $key => $value) {
+			return create_form($value, $data);
+		}
 	}
 }
 /**
