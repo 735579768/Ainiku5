@@ -220,6 +220,8 @@ eot;
 
 				$optionstr = '';
 				$extra     = parse_extra($extra);
+				// var_dump($extra);
+				// die();
 				// is_array($extra) || ($extra = []);
 				foreach ($extra as $key => $val) {
 					$sel = '';
@@ -839,27 +841,34 @@ function get_form_item($form_id = '') {
 	if (!$form_id) {
 		return [];
 	}
-	$map = [];
-	if (is_numeric($form_id)) {
-		$map['form_id'] = $form_id;
-	} else {
-		$info = \think\Db::name('Form')
-			->field('form_id')
-			->where('name', $form_id)
-			->find();
-		if ($info) {
-			$map['form_id'] = $info['form_id'];
+	$key  = 'sys_form' . $form_id;
+	$list = cache($key);
+	if (!$list || APP_DEBUG) {
+		$map = [];
+		if (is_numeric($form_id)) {
+			$map['form_id'] = $form_id;
 		} else {
-			return [];
-		}
+			$info = \think\Db::name('Form')
+				->field('form_id')
+				->where('name', $form_id)
+				->find();
+			if ($info) {
+				$map['form_id'] = $info['form_id'];
+			} else {
+				return [];
+			}
 
+		}
+		$list = \think\Db::name('FormItem')
+			->where($map)
+			->order('sort asc,form_item_id asc')
+			->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,extend,sort')
+		// ->fetchSql()
+			->select();
+		cache($key, $list);
 	}
-	$list = \think\Db::name('FormItem')
-		->where($map)
-		->order('sort asc,form_item_id asc')
-		->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,extend,sort')
-	// ->fetchSql()
-		->select();
+	// dump($list);
+	// die();
 	return $list;
 }
 /**
