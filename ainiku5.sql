@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-03 17:07:22
+Date: 2016-10-03 22:42:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -159,7 +159,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -189,7 +189,8 @@ INSERT INTO `kl_form_item` VALUES ('22', '2', '自动生成字段', '自动在�
 INSERT INTO `kl_form_item` VALUES ('23', '4', '系统后台标题', '管理后台名字', 'admin_title', 'string', '', '0', '3', '99', '1', '管理平台', '', '', '', '', '4', '1475480737', '1475480737');
 INSERT INTO `kl_form_item` VALUES ('24', '4', '网站优化标题', '网站前台的优化关键字', 'web_meta_title', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483286', '1475483286');
 INSERT INTO `kl_form_item` VALUES ('25', '4', '网站优化关键字', '网站前台的关键字', 'web_meta_keywords', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483337', '1475483337');
-INSERT INTO `kl_form_item` VALUES ('26', '4', '网站优化描述', '网站前台优化的描述', 'web_meta_descr', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475483379', '1475484272');
+INSERT INTO `kl_form_item` VALUES ('26', '4', '网站优化描述', '网站前台优化的描述', 'web_meta_descr', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483379', '1475505044');
+INSERT INTO `kl_form_item` VALUES ('27', '4', '网站主页地址', '网站主域名,结尾不要\'/\'', 'web_domain', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475505568', '1475505568');
 
 -- ----------------------------
 -- Table structure for kl_goods
