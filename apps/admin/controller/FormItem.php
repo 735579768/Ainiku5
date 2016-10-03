@@ -14,7 +14,10 @@ class FormItem extends Base {
 		$form_id || $this->error('表单id不能为空!');
 
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('FormItem')->where('form_id', $form_id)->paginate(10);
+		$list = Db::name('FormItem')
+			->where('form_id', $form_id)
+			->order('sort asc')
+			->paginate(10);
 		// 获取分页显示
 		$page = $list->render();
 		// var_dump($page);
@@ -42,9 +45,9 @@ class FormItem extends Base {
 			}
 		} else {
 			$this->assign('meta_title', '添加表单项');
-			$formarr = require_once './apps/formarr.php';
+			// $formarr = require_once './apps/formarr.php';
 			// dump($formarr);
-			$this->assign('formitem', $formarr['formitem']);
+			$this->assign('formitem', get_form_item('FormItem'));
 			$this->assign('data', null);
 			return $this->fetch('edit');
 		}
@@ -67,8 +70,9 @@ class FormItem extends Base {
 			}
 		} else {
 			$form_item_id = input('param.form_item_id');
-			$formarr      = require_once './apps/formarr.php';
-			$this->assign('formitem', $formarr['formitem']);
+			// $formarr      = require_once './apps/formarr.php';
+			// dump(get_form_item('FormItem'));
+			// $this->assign('formitem', get_form_item('FormItem'));
 			$this->assign('data', Db::name('FormItem')->where('form_item_id', $form_item_id)->find());
 			return $this->fetch('edit');
 		}

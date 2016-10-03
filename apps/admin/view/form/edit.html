@@ -4,7 +4,7 @@
     {include file="pub/main-title" /}
     <div class="form-block">
         <form class="autosubmit" action="{:url('')}" method="post">
-            {:get_form($formitem,$data)}
+            {:get_form('Form',$data)}
             <div class="form-group cl center">
             <input type="hidden" name="form_id" value="{$data.form_id}" />
                 <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">

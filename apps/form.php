@@ -219,6 +219,8 @@ eot;
 eot;
 
 				$optionstr = '';
+				$extra     = parse_extra($extra);
+				// is_array($extra) || ($extra = []);
 				foreach ($extra as $key => $val) {
 					$sel = '';
 					$optionstr .= <<<eot
@@ -237,6 +239,8 @@ eot;
 eot;
 				$sel      = '';
 				$radiostr = '';
+				$extra    = parse_extra($extra);
+				// is_array($extra) || ($extra = []);
 				foreach ($extra as $key => $val) {
 					$radiostr .= <<<eot
 <label class="form-radio">
@@ -257,6 +261,8 @@ eot;
 				$sel      = '';
 				$checkstr = '';
 				$valuearr = explode(',', $setvalue);
+				$extra    = parse_extra($extra);
+				// is_array($extra) || ($extra = []);
 				foreach ($extra as $key => $val) {
 					$checkstr = <<<eot
 <label class="form-checkbox">
@@ -778,6 +784,9 @@ eot;
  * @return [type] [description]
  */
 function get_form($fieldarr, $data = []) {
+	if (!is_array($fieldarr)) {
+		$fieldarr = get_form_item($fieldarr);
+	}
 	is_array($fieldarr) || ($fieldarr = []);
 	$field = ['jc' => null, 'kz' => null];
 	if (isset($fieldarr['title'])) {
@@ -820,7 +829,38 @@ eot;
 	} else {
 		return create_form($field['jc'], $data);
 	}
+}
+/**
+ * 取表单项
+ * @param  string $form_id 表单id或表单名称标识
+ * @return [type]          [description]
+ */
+function get_form_item($form_id = '') {
+	if (!$form_id) {
+		return [];
+	}
+	$map = [];
+	if (is_numeric($form_id)) {
+		$map['form_id'] = $form_id;
+	} else {
+		$info = \think\Db::name('Form')
+			->field('form_id')
+			->where('name', $form_id)
+			->find();
+		if ($info) {
+			$map['form_id'] = $info['form_id'];
+		} else {
+			return [];
+		}
 
+	}
+	$list = \think\Db::name('FormItem')
+		->where($map)
+		->order('sort asc,form_item_id asc')
+		->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,extend,sort')
+	// ->fetchSql()
+		->select();
+	return $list;
 }
 /**
  * 取自定义表单
@@ -843,9 +883,11 @@ function get_custom_form($method, $name, $data) {
  * @return [type]      [description]
  */
 function parse_extra($str) {
-	if (!empty($str)) {
+	if ($str) {
 		$redata = parse_string_function($str);
 		return ($redata === false) ? extra_to_array($str) : $redata;
+	} else {
+		return [];
 	}
 }
 /**
@@ -898,7 +940,7 @@ function extra_to_array($extra) {
  */
 function select_form_type($key = null, $datatype = false) {
 	// TODO 可以加入系统配置
-	$formtype = array(
+	$formtype = [
 		'string'       => '字符串',
 		'select'       => '下拉框',
 		'radio'        => '单选',
@@ -920,8 +962,8 @@ function select_form_type($key = null, $datatype = false) {
 		'liandong'     => '城市联动表单',
 		'custom'       => '自定义表单',
 		'attribute'    => '内容属性',
-	);
-	$mysqltype = array(
+	];
+	$mysqltype = [
 		'string'       => "varchar(50) NOT NULL DEFAULT '' ",
 		'select'       => "varchar(50) NOT NULL DEFAULT '' ",
 		'radio'        => "varchar(50) NOT NULL DEFAULT '' ",
@@ -943,7 +985,7 @@ function select_form_type($key = null, $datatype = false) {
 		'liandong'     => "varchar(20) NOT NULL DEFAULT '' ",
 		'custom'       => '自定义表单',
 		'attribute'    => "int(10) NOT NULL  DEFAULT '0'",
-	);
+	];
 	if ($datatype && !empty($key)) {
 		return $mysqltype[$key];
 	}

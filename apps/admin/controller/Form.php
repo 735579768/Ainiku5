@@ -37,8 +37,10 @@ class Form extends Base {
 			}
 
 		} else {
-			$formarr = require_once './apps/formarr.php';
-			$this->assign('formitem', $formarr['form']);
+			// dump(get_form_item('Form'));
+			// $formarr = require_once './apps/formarr.php';
+			// $this->assign('formitem', $formarr['form']);
+			$this->assign('formitem', get_form_item('Form'));
 			$this->assign('data', null);
 			return $this->fetch('edit');
 		}
@@ -60,8 +62,8 @@ class Form extends Base {
 			}
 		} else {
 			$form_id = input('param.form_id');
-			$formarr = require_once './apps/formarr.php';
-			$this->assign('formitem', $formarr['form']);
+			// $formarr = require_once './apps/formarr.php';
+			// $this->assign('formitem', get_form_item('Form'));
 			$this->assign('data', Db::name('Form')->where('form_id', $form_id)->find());
 			return $this->fetch('edit');
 		}
