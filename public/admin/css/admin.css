@@ -32,8 +32,10 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * tab框架样式
  */
 #div-block,#div-block .kl-tab-div,#div-block iframe{height:100%;}
+
 /*#div-block iframe{height: auto;}*/
-.form-block{padding-bottom: 30px;}
+.form-block{padding-bottom:30px;}
+
 /**
  * 头部样式
  * @type {[type]}
@@ -120,29 +122,11 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .cate-tree .c-sub-item .c-title>.c-sign{margin-left:20px;display:inline-block;height:21px;width:40px;background-position:0 0;vertical-align:middle;background-image:url(../images/c_sign.png);background-repeat:no-repeat;}
 .cate-tree .c-sub-item .c-sub-item .c-title>.c-sign{margin-left:40px;}
 .cate-tree .c-sub-item{display:none;}
+
 /**
  * 编辑块的tab特效
  */
-.tab .tabnavblock {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.tab .tabnav {
-    float: left;
-    margin-bottom: -1px;
-}
-
-.tab .tabnav a {
-    padding: 5px 20px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 16px;
-    border: 1px solid transparent;
-    border-top-width: 2px;
-}
-
-.tab .tabnav.hover a {
-    border-color: #44b549 #e0e0e0 #fff;
-    border-bottom-color: #fff;
-}
+.tab .tabnavblock{margin-bottom:15px;border-bottom:1px solid #e0e0e0;}
+.tab .tabnav{float:left;margin-bottom:-1px;}
+.tab .tabnav a{padding:5px 20px;height:35px;line-height:35px;font-size:14px;border:1px solid transparent;border-top-width:2px;}
+.tab .tabnav.hover a{border-color:#44b549 #e0e0e0 #fff;border-bottom-color:#fff;}

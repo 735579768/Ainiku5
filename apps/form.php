@@ -806,6 +806,7 @@ function get_form($fieldarr, $data = []) {
 	if (count($field) > 1) {
 		$field_title = [];
 		$field_data  = [];
+		ksort($field);
 		foreach ($field as $key => $val) {
 			$field_title[] = get_status($key, 'tab');
 			$field_data[]  = create_form($val, $data);
