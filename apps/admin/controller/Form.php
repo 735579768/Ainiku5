@@ -60,7 +60,8 @@ class Form extends Base {
 			}
 		} else {
 			$form_id = input('param.form_id');
-			$this->assign('formitem', config('form'));
+			$formarr = require_once './apps/formarr.php';
+			$this->assign('formitem', $formarr['form']);
 			$this->assign('data', Db::name('Form')->where('form_id', $form_id)->find());
 			return $this->fetch('edit');
 		}

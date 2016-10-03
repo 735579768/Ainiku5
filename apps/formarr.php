@@ -49,7 +49,7 @@ return [
 			'is_require' => 0, //是否必填
 		],
 		[
-			'type'       => 'text',
+			'type'       => 'textarea',
 			'name'       => 'extra',
 			'title'      => '表单项extra附加数据',
 			'note'       => 'radio,select类型表单项需要此值必填', //对标题的说明性文字
@@ -126,7 +126,7 @@ return [
 		],
 		[
 			'type'       => 'string',
-			'name'       => 'data_ok',
+			'name'       => 'data_reg',
 			'title'      => '表单项验证需要的正则',
 			'note'       => '', //对标题的说明性文字
 			'value'      => '',

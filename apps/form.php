@@ -45,6 +45,7 @@ $GLOBALS['formjs'] = array(
 	'cutpicture' => 0,
 );
 function create_form($fieldarr, $data = []) {
+	is_array($fieldarr) || ($fieldarr = []);
 	$md5key = md5(json_encode($fieldarr));
 	$data || ($data = []);
 	global $formjs;
@@ -777,6 +778,7 @@ eot;
  * @return [type] [description]
  */
 function get_form($fieldarr, $data = []) {
+	is_array($fieldarr) || ($fieldarr = []);
 	$field = ['jc' => null, 'kz' => null];
 	if (isset($fieldarr['title'])) {
 		$fieldarr    = [$fieldarr];
@@ -898,13 +900,13 @@ function select_form_type($key = null, $datatype = false) {
 	// TODO 可以加入系统配置
 	$formtype = array(
 		'string'       => '字符串',
-		'select'       => '枚举',
+		'select'       => '下拉框',
 		'radio'        => '单选',
 		'checkbox'     => '多选',
 		'number'       => '数字',
 		'double'       => '双精度数字',
 		'password'     => '密码',
-		'datetime'     => '时间',
+		'datetime'     => '日期',
 		'editor'       => '编辑器',
 		'textarea'     => '文本框',
 		'bigtextarea'  => '超大文本框',

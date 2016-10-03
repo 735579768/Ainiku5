@@ -7,7 +7,6 @@
             {:get_form($formitem,$data)}
             <div class="form-group cl center">
                 <input type="hidden" name="form_item_id" value="{$data.form_item_id}" />
-                <input type="hidden" name="form_id" value="{:input('param.form_id')}" />
                 <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
                 {empty name="data"}确定提交{else /}确认更新{/empty}
                 </a>

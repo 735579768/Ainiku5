@@ -4,7 +4,7 @@ use think\Validate;
 
 class User extends Validate {
 	protected $rule = [
-		'name'  => 'alpha|max:25',
+		'name'  => 'alphaDash|max:25',
 		'title' => 'require|max:25',
 		'email' => 'email',
 	];
