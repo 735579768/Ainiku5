@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-04 22:40:29
+Date: 2016-10-05 01:05:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,7 +86,7 @@ CREATE TABLE `kl_config` (
 -- ----------------------------
 -- Records of kl_config
 -- ----------------------------
-INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_meta_title\":\"\\u524d\\u53f0\\u5c55\\u793a\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_domain\":\"\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\"}', '1475551684', '1475591973');
+INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_meta_title\":\"\\u524d\\u53f0\\u5c55\\u793a\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_domain\":\"\",\"third_code\":\"asdffasdfasf\",\"web_logo\":\"\",\"thumb_size\":\"200*200\",\"shuiyin_on\":\"0\",\"shuiyin_pos\":\"center_center\",\"shuiyin_text_color\":\"#000000\",\"shuiyin_text_size\":\"14\",\"shuiyin_image\":\"3\",\"shuiyin_text\":\"\\u7231\\u4f60\\u9177\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\"}', '1475551684', '1475599412');
 
 -- ----------------------------
 -- Table structure for kl_file
@@ -159,7 +159,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -199,6 +199,14 @@ INSERT INTO `kl_form_item` VALUES ('32', '3', '菜单分组', '后台左侧菜�
 INSERT INTO `kl_form_item` VALUES ('33', '3', '菜单排序', '', 'sort', 'number', '', '0', '3', '99', '1', '99', '', '', '', '', '0', '1475557696', '1475557696');
 INSERT INTO `kl_form_item` VALUES ('34', '3', '菜单状态', '菜单是否隐藏', 'status', 'radio', '0:隐藏\r\n1:显示', '0', '3', '99', '1', '1', '', '', '', '', '0', '1475557739', '1475558667');
 INSERT INTO `kl_form_item` VALUES ('35', '4', '系统列表默认显示行数', '(list_rows)', 'list_rows', 'number', '', '0', '3', '99', '1', '15', '', '', '', '', '4', '1475591736', '1475591736');
+INSERT INTO `kl_form_item` VALUES ('36', '4', '网站LOGO', '(web_logo)', 'web_logo', 'picture', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475592350', '1475592350');
+INSERT INTO `kl_form_item` VALUES ('37', '4', '系统生成图片缩略图大小', '数据格式为200*200,宽*高(thumb_size)', 'thumb_size', 'string', '', '0', '3', '99', '1', '200*200', '', '', '', '', '3', '1475594307', '1475594307');
+INSERT INTO `kl_form_item` VALUES ('38', '4', '给上传的图片添加水印', '是否添加水印', 'shuiyin_on', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '3', '1475594499', '1475594499');
+INSERT INTO `kl_form_item` VALUES ('39', '4', '水印位置', '添加水印的位置', 'shuiyin_pos', 'radio', 'top_left:左上角\r\ntop_center:上面正中间\r\ntop_right:右上角\r\ncenter_center:正中间\r\nbottom_left:左下角\r\nbottom_right:右下角\r\nbottom_center:底部正中间', '0', '3', '99', '1', 'center_center', '', '', '', '', '3', '1475594626', '1475594626');
+INSERT INTO `kl_form_item` VALUES ('40', '4', '文字水印颜色', '', 'shuiyin_text_color', 'color', '', '0', '3', '99', '1', '#000000', '', '', '', '', '3', '1475594749', '1475594749');
+INSERT INTO `kl_form_item` VALUES ('41', '4', '文字水印字体大小', '', 'shuiyin_text_size', 'number', '', '0', '3', '99', '1', '14', '', '', '', '', '3', '1475594844', '1475594844');
+INSERT INTO `kl_form_item` VALUES ('42', '4', '水印图片', '标识: shuiyin_image', 'shuiyin_image', 'picture', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475595431', '1475595431');
+INSERT INTO `kl_form_item` VALUES ('43', '4', '文字水印字符串', '', 'shuiyin_text', 'string', '', '0', '3', '99', '1', '爱你酷', '', '', '', '', '3', '1475597025', '1475597025');
 
 -- ----------------------------
 -- Table structure for kl_goods
@@ -291,11 +299,12 @@ CREATE TABLE `kl_picture` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='上传图片';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='上传图片';
 
 -- ----------------------------
 -- Records of kl_picture
 -- ----------------------------
+INSERT INTO `kl_picture` VALUES ('3', '1', '487655527099084608.jpg', '147559938152273.jpg', '/uploads/image/20161005/147559938152273.jpg', '/uploads/image/thumb/20161005/147559938152273.jpg', '1', '', 'ca112da45a284e97305fb985fa703c35cb065b62', '1475599381', '0');
 
 -- ----------------------------
 -- Table structure for kl_single
