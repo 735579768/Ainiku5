@@ -32,7 +32,7 @@ return [
 	// V5.0.1开始，取消了该配置参数，扩展配置文件直接放入application/extra目录会自动加载。
 	// 'extra_config_list'      => ['database', 'validate', 'systemstatus'],
 	// 扩展函数文件
-	'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH . 'form.php', APP_PATH . 'getinfo.php'],
+	'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH . 'form.php', APP_PATH . 'getinfo.php', APP_PATH . 'image.php'],
 	// 默认输出类型
 	'default_return_type'    => 'html',
 	// 默认AJAX 数据返回格式,可选json xml ...
@@ -232,4 +232,10 @@ return [
 		'var_page'  => 'page',
 		'list_rows' => 15,
 	],
+	/* 文件上传相关配置 */
+	'file_upload'            => array(
+		'maxSize'  => 2 * 1024 * 1024, //上传的文件大小限制 (0-不做限制)
+		'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
+		'rootPath' => '/uploads', //保存图片根路径
+	),
 ];

@@ -564,12 +564,12 @@ eot;
  * @return [type]            返回一个数组html和初始化的js['str',='','js'=>'']
  */
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
-	$static_dir        = __STATIC__;
+	$static_dir        = '/public/static';
 	$upload_text       = $filetype ? '上传附件' : '上传图片';
 	$preimglist        = '';
 	$uploadsuccessfunc = '';
-	$preurl            = U('File/getFileInfo');
-	$fileuploadurl     = U('File/uploadpic', array('session_id' => session_id()));
+	$preurl            = url('File/getFileInfo');
+	$fileuploadurl     = url('File/uploadPic', array('session_id' => session_id()));
 	$filetype && ($fileuploadurl = U('File/uploadfile', array('session_id' => session_id())));
 	$is_muli_upload = $muli ? 'true' : 'false';
 	$prejs          = ''; //加载图片或附件预览的js
@@ -624,7 +624,7 @@ eot;
 	var sid=$("#cover_id_{$name}").val();
 	if(sid){
 		$.post("{$preurl}",{id:sid,type:'img'},function(data){
-			var da=data.info;
+			var da=data.data;
 			if(da.length>0){
 			for(a in da){
 			    $("#uploadimg_{$name}").{$sethtml}(

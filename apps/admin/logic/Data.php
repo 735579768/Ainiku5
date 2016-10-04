@@ -4,12 +4,14 @@ namespace app\admin\logic;
 class Data extends Base {
 	/**
 	 * 添加编辑信息
+	 * @param string  $model 此参数代表模型(数据表)
+	 * @param boolean $edit  是否是编辑数据,默认为false
+	 * @return [type] 如果是get请求会返回一个表单字符串,如果是post请求,会判断是add还是edit状态,进行对应的操作
 	 */
 	public function addEditForm($model = '', $edit = false) {
 		$model || $this->error('模型为空!');
 		$model    = ucfirst($model);
-		$na       = lcfirst($model);
-		$na       = preg_replace('/([A-Z])/s', '_$1', $na);
+		$na       = preg_replace('/([A-Z])/s', '_$1', lcfirst($model));
 		$id_name  = strtolower($na) . '_id';
 		$id_value = input('param.' . $id_name);
 		if ($edit && !$id_value) {

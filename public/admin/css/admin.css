@@ -130,3 +130,12 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .tab .tabnav{float:left;margin-bottom:-1px;}
 .tab .tabnav a{padding:5px 20px;height:35px;line-height:35px;font-size:14px;border:1px solid transparent;border-top-width:2px;}
 .tab .tabnav.hover a{border-color:#44b549 #e0e0e0 #fff;border-bottom-color:#fff;}
+/**
+ * 上传图片预览样式
+ */
+/***上传图片***/
+.uploadimg{height:120px;width:120px;}
+.upload-img-box{display:table-cell;vertical-align:middle;text-align:center;cursor: pointer;}
+.imgblock{float:left;margin:0px 5px;width:120px;height:170px;position:relative;}
+.imgblock .btn-danger{/*position:absolute;left:0px;bottom:0px;*/display:block;width:50%;margin:5px auto;}
+.upload-pre-item img{max-width:120px;max-height:120px;_width:expression(this.width >120 && this.height < this.width ? 120:true);_height:expression(this.height > 120 ? 120:true);}

@@ -414,3 +414,89 @@ function get_dir_size($dir) {
 	closedir($handle); //关闭文件流
 	return $sizeResult; //返回大小
 }
+/**
+ *创建文件夹
+ */
+function create_folder($path) {
+	if (!is_dir($path)) {
+		return mkdir($path, 0777, true); //第三个参数为true即可以创建多极目录
+	} else {
+		return true;
+	}
+}
+/**
+ *把路径格式化为本地文件的绝对路径
+ */
+function path_a($path) {
+	$path = str_replace(array('\\', './', SITE_PATH), array('/', '/', ''), $path);
+	return SITE_PATH . $path;
+}
+/**
+ *把路径格式化为相对于网站根目录的路径
+ */
+function path_r($path) {
+	$path = str_replace(array('\\', './', SITE_PATH), array('/', '/', ''), $path);
+	return $path;
+}
+/**
+ * 获取图片
+ * @param int $id
+ * @param string $field
+ * @return 完整的数据  或者  指定的$field字段值
+ * @author huajie <banhuajie@163.com>
+ */
+function get_picture($id = null, $field = null, $wh = null) {
+	$revalue = '';
+	$id      = trim($id);
+	if (empty($id)) {
+		$revalue = false;
+	}
+	$wh = explode('*', config('thumb_size'));
+	if (is_numeric($id)) {
+		$cakey = md5($id . '_' . $field . '_' . $wh);
+		//$revalue=cache('_picture/'.$cakey);
+		$pkey    = '_picture/' . ($id % 100);
+		$picarr  = cache($pkey);
+		$revalue = $picarr[$cakey];
+		if (empty($revalue) || APP_DEBUG) {
+
+			// $picture = M('Picture')->where(array('status' => 1))->getById($id);
+			$picture = \think\Db::name('Picture')
+				->where(['picture_id' => $id, 'status' => 1])
+				->find();
+			if (!empty($field) && !empty($wh)) {
+				$wharr = explode('_', $wh);
+
+				if (count($wharr == 2)) {
+					$revalue = str_replace('/Uploads/image/', IMAGE_CACHE_DIR, $picture['path']);
+					$revalue = substr($revalue, 0, strrpos($revalue, '.')) . '_' . $wh . substr($revalue, strrpos($revalue, '.'));
+					//判断之前是不是已经生成
+					if (!file_exists(path_a($revalue))) {
+						$result = create_thumb(path_a($picture['path']), path_a($revalue), $wharr[0], $wharr[1]);
+						if ($result !== true) {
+							$revalue = $picture['path'];
+						}
+					}
+				}
+			} else if (!empty($field)) {
+				$revalue = $picture[$field];
+				if ($field == 'thumbpath') {
+					if (!file_exists(path_a($revalue))) {
+						$result = create_thumb(path_a($picture['path']), path_a($revalue), $wh[0], $wh[1]);
+						if ($result !== true) {
+							$revalue = $picture['path'];
+						}
+					}
+				}
+			} else {
+				$revalue = $picture['path'];
+			}
+
+			$picarr[$cakey] = $revalue;
+			cache($pkey, $picarr);
+		}
+	} else {
+		$revalue = $id;
+	}
+	return empty($revalue) ? '' : path_r($revalue);
+}

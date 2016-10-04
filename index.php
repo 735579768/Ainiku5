@@ -21,5 +21,6 @@ define('BIND_MODULE', 'admin');
 define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');
 //扩展目录位置
 define('EXTEND_PATH', SITE_PATH . '/vendor/extend/');
+define('IMAGE_CACHE_DIR', '/data/imgcache/'); //图片缓存目录
 // 加载框架引导文件
 require __DIR__ . '/tp5/start.php';
