@@ -2,16 +2,6 @@
 <div class="iframe-con">
     <!--主标题-->
     {include file="pub/main-title" /}
-    <div class="form-block">
-        <form class="autosubmit" action="{:url('')}" method="post">
-            {:get_form('Form',$data)}
-            <div class="form-group cl center">
-
-                <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
-                {empty name="data"}确定提交{else /}<input type="hidden" name="form_id" value="{$data.form_id}" />确认更新{/empty}
-                </a>
-            </div>
-        </form>
-    </div>
+    {$formstr}
 </div>
 {/block}
