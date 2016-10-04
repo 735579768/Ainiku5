@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-03 22:42:42
+Date: 2016-10-04 11:41:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -75,18 +75,18 @@ CREATE TABLE `kl_category` (
 DROP TABLE IF EXISTS `kl_config`;
 CREATE TABLE `kl_config` (
   `config_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
-  `tab_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置分组tab',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置标题',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置标识',
   `value` text NOT NULL COMMENT '配置值',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`config_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统配置';
 
 -- ----------------------------
 -- Records of kl_config
 -- ----------------------------
+INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_meta_title\":\"\\u524d\\u53f0\\u5c55\\u793a\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_domain\":\"\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7ba1\\u7406\\u5e73\\u53f0\"}', '1475551684', '1475552262');
 
 -- ----------------------------
 -- Table structure for kl_file
@@ -159,7 +159,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -191,6 +191,7 @@ INSERT INTO `kl_form_item` VALUES ('24', '4', '网站优化标题', '网站前�
 INSERT INTO `kl_form_item` VALUES ('25', '4', '网站优化关键字', '网站前台的关键字', 'web_meta_keywords', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483337', '1475483337');
 INSERT INTO `kl_form_item` VALUES ('26', '4', '网站优化描述', '网站前台优化的描述', 'web_meta_descr', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483379', '1475505044');
 INSERT INTO `kl_form_item` VALUES ('27', '4', '网站主页地址', '网站主域名,结尾不要\'/\'', 'web_domain', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475505568', '1475505568');
+INSERT INTO `kl_form_item` VALUES ('28', '4', '第三方代码', '网站附加的第三方统计代码', 'third_code', 'textarea', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475549466', '1475549466');
 
 -- ----------------------------
 -- Table structure for kl_goods

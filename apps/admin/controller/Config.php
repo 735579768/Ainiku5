@@ -1,6 +1,5 @@
 <?php
 namespace app\admin\controller;
-use think\Db;
 
 class Config extends Base {
 	public function index() {
@@ -8,13 +7,16 @@ class Config extends Base {
 	}
 	public function group() {
 		if (request()->isPost()) {
+			$data   = json_encode(input('post.'));
+			$result = model('Config')
+				->isUpdate(true)
+				->save(['value' => $data], ['config_id' => 1]);
+			cache('sys_config', $data);
+			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
-			$this->assign('meta_title', '配置');
-			$list = Db::name('Config')->select();
-			$data = [];
-			foreach ($list as $key => $value) {
-				$data[$value['name']] = $value['value'];
-			}
+			// dump(config(''));
+			$this->assign('meta_title', '系统配置');
+			$data = get_sys_config();
 			$this->assign('data', $data);
 			return $this->fetch();
 		}

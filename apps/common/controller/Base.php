@@ -13,6 +13,16 @@ class Base extends Controller {
 		throw new \think\Exception('没有此方法:' . $name, 100006);
 	}
 	/**
+	 * 初始化配置项
+	 * @return [type] [description]
+	 */
+	public function _initialize() {
+		parent::_initialize();
+		//初始化系统配置
+		// dump(get_sys_config());
+		config(get_sys_config());
+	}
+	/**
 	 * 验证码
 	 * @return [type] [description]
 	 */

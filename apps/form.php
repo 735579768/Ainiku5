@@ -815,12 +815,12 @@ function get_form($fieldarr, $data = []) {
 		$tabblock = '';
 		foreach ($field_title as $value) {
 			$navstr .= <<<eot
-		<li class="tabnav hover"><a href="javascript:;">{$value}</a></li>
+		<li class="tabnav"><a href="javascript:;">{$value}</a></li>
 eot;
 		}
 		foreach ($field_data as $value) {
 			$tabblock .= <<<eot
-		<div class="tabdiv">{$value}</div>
+		<div class="tabdiv" style="display:none;">{$value}</div>
 eot;
 		}
 		$str = <<<eot

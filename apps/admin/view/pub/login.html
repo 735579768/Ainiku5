@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>后台登录</title>
-    <meta name="keywords" content="后台登录" />
-    <meta name="description" content="后台登录" />
+    <title>{:config('admin_title')}_后台登录</title>
+    <meta name="keywords" content="{:config('admin_title')}_后台登录" />
+    <meta name="description" content="{:config('admin_title')}_后台登录" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/font-awesome.min.css" />
@@ -20,7 +20,7 @@
 <body>
     <div id="login-form" class="login form-group-h">
         <div class="login-title center">
-            <i class="fa fa-home"></i><span>管理平台</span>
+            <i class="fa fa-home"></i><span>{:config('admin_title')}管理平台</span>
         </div>
         <form action="{:url('Pub/login')}" method="post">
             <div class="form-group input-div cl">
