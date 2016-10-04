@@ -29,7 +29,6 @@ class Form extends Base {
 		if (request()->isPost()) {
 			$result = $this->validate(input('post.'), 'Form');
 			if (true === $result) {
-				// $mod    = new \app\common\model\Form(input('post.'));
 				$result = model('Form')
 					->data(input('post.'))
 					->allowField(true)
@@ -54,19 +53,21 @@ class Form extends Base {
 	 */
 	public function edit() {
 		$this->assign('meta_title', '编辑表单');
+		$form_id = input('param.form_id');
+		$form_id || $this->error('表单id为空!');
 		if (request()->isPost()) {
-			$result = $this->validate(input('post.'), 'Form');
+			$result = $this->validate(input('post.'), 'Form.edit');
 			if (true === $result) {
 				$result = model('Form')
 					->allowField(true)
 					->isUpdate(true)
-					->save(input('post.'), ['form_id' => input('param.form_id')]);
+					->save(input('post.'), ['form_id' => $form_id]);
 				$this->returnResult($result, '更新成功', '更新失败');
 			} else {
 				$this->error($result);
 			}
 		} else {
-			$form_id = input('param.form_id');
+			// $form_id = input('param.form_id');
 			$this->assign('data', Db::name('Form')->where('form_id', $form_id)->find());
 			return $this->fetch('edit');
 		}

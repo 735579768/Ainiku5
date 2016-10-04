@@ -28,8 +28,11 @@ class Form extends Validate {
 	];
 
 	protected $scene = [
-		'add'  => ['name', 'email'],
-		'edit' => ['email'],
+		'edit' => [
+			'title' => 'require|max:25',
+			'name'  => 'alphaDash|max:25',
+			'sort'  => 'number|between:0,100',
+		],
 	];
 
 }

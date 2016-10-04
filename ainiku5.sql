@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-04 11:41:05
+Date: 2016-10-04 14:44:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,7 +86,7 @@ CREATE TABLE `kl_config` (
 -- ----------------------------
 -- Records of kl_config
 -- ----------------------------
-INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_meta_title\":\"\\u524d\\u53f0\\u5c55\\u793a\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_domain\":\"\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7ba1\\u7406\\u5e73\\u53f0\"}', '1475551684', '1475552262');
+INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_meta_title\":\"\\u524d\\u53f0\\u5c55\\u793a\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_domain\":\"\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\"}', '1475551684', '1475553398');
 
 -- ----------------------------
 -- Table structure for kl_file
@@ -159,7 +159,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -192,6 +192,12 @@ INSERT INTO `kl_form_item` VALUES ('25', '4', '网站优化关键字', '网站�
 INSERT INTO `kl_form_item` VALUES ('26', '4', '网站优化描述', '网站前台优化的描述', 'web_meta_descr', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483379', '1475505044');
 INSERT INTO `kl_form_item` VALUES ('27', '4', '网站主页地址', '网站主域名,结尾不要\'/\'', 'web_domain', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475505568', '1475505568');
 INSERT INTO `kl_form_item` VALUES ('28', '4', '第三方代码', '网站附加的第三方统计代码', 'third_code', 'textarea', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475549466', '1475549466');
+INSERT INTO `kl_form_item` VALUES ('29', '3', '上级菜单', '菜单的上级菜单', 'pid', 'select', 'select_menu', '0', '3', '99', '1', '', '', '', '', '', '0', '1475556014', '1475556014');
+INSERT INTO `kl_form_item` VALUES ('30', '3', '菜单标题', '', 'title', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475557506', '1475557506');
+INSERT INTO `kl_form_item` VALUES ('31', '3', '菜单url', '菜单地址,会被url函数解析', 'url', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475557539', '1475557539');
+INSERT INTO `kl_form_item` VALUES ('32', '3', '菜单分组', '后台左侧菜单会根据这个值分组', 'group', 'string', '', '0', '3', '99', '1', '默认', '', '', '', '', '0', '1475557614', '1475559504');
+INSERT INTO `kl_form_item` VALUES ('33', '3', '菜单排序', '', 'sort', 'number', '', '0', '3', '99', '1', '99', '', '', '', '', '0', '1475557696', '1475557696');
+INSERT INTO `kl_form_item` VALUES ('34', '3', '菜单状态', '菜单是否隐藏', 'status', 'radio', '0:隐藏\r\n1:显示', '0', '3', '99', '1', '1', '', '', '', '', '0', '1475557739', '1475558667');
 
 -- ----------------------------
 -- Table structure for kl_goods
@@ -223,21 +229,27 @@ CREATE TABLE `kl_goods` (
 DROP TABLE IF EXISTS `kl_menu`;
 CREATE TABLE `kl_menu` (
   `menu_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '分类标题',
   `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类ID',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '分类标题',
   `url` char(255) NOT NULL DEFAULT '' COMMENT '分类url',
   `group` varchar(50) NOT NULL DEFAULT '默认' COMMENT '分类分组',
-  `type` char(50) NOT NULL DEFAULT 'system' COMMENT '分类类型',
   `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否隐藏',
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统后台菜单';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统后台菜单';
 
 -- ----------------------------
 -- Records of kl_menu
 -- ----------------------------
+INSERT INTO `kl_menu` VALUES ('1', '0', '首页', 'javascript:;', '默认', '99', '1', '1475558381', '1475558381');
+INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'Article/lis', '默认', '99', '1', '1475558698', '1475558698');
+INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'Article/lis', '默认', '99', '1', '1475558868', '1475558868');
+INSERT INTO `kl_menu` VALUES ('4', '0', '系统', 'javascript:;', '默认', '90', '1', '1475559327', '1475563220');
+INSERT INTO `kl_menu` VALUES ('5', '4', '网站设置', 'Config/group', '默认', '99', '1', '1475559362', '1475559362');
+INSERT INTO `kl_menu` VALUES ('6', '4', '表单列表', 'Form/lis', '开发管理', '99', '1', '1475559401', '1475559401');
+INSERT INTO `kl_menu` VALUES ('7', '4', '菜单列表', 'Menu/lis', '开发管理', '99', '1', '1475559431', '1475559431');
 
 -- ----------------------------
 -- Table structure for kl_nav

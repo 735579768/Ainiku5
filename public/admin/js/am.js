@@ -68,7 +68,8 @@
 				closewest.css('left', leftw + 'px');
 				rightside.css('marginLeft', leftw + 'px');
 			}
-
+			//默认加载第一个主菜单的左侧菜单
+			$('#mainnav a:first').click();
 		},
 		resetLayout: function() {
 			var h = $('#admin-header').outerHeight();
@@ -176,10 +177,10 @@
 				var menustr = $('#menu-html').text();
 				var menuitem = $('#menu-item-html').text();
 				for (a in data) {
-					var s1 = menustr.replace('[#title#]', data[a]['title']);
+					var s1 = menustr.replace('[#title#]', a);
 					var s2 = '';
-					for (b in data[a]['child']) {
-						s2 += menuitem.replace('[#title#]', data[a]['child'][b]['title']).replace('[#url#]', data[a]['child'][b]['url']);
+					for (b in data[a]) {
+						s2 += menuitem.replace('[#title#]', data[a][b]['title']).replace('[#url#]', data[a][b]['url']);
 					}
 					s1 = s1.replace('[#menu_item_list#]', s2);
 					str += s1;
@@ -198,8 +199,8 @@
 					});
 					$.get(uri, function(data) {
 						layer.close(ind);
-						_t.data('data', data);
-						setLeftMenu(data);
+						_t.data('data', data.data);
+						setLeftMenu(data.data);
 					});
 
 				}

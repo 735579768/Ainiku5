@@ -26,3 +26,18 @@ function get_sys_config() {
 	}
 	return $data;
 }
+/**
+ * 回几个空白字符串
+ * @param  [type] $num [description]
+ * @return [type]      [description]
+ */
+function get_space($num) {
+	$str = '';
+	if ($num) {
+		for ($i = 0; $i < $num; $i++) {
+			$str .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		}
+		$str .= '┗━━━';
+	}
+	return $str;
+}
