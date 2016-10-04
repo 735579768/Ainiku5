@@ -459,8 +459,6 @@ function get_picture($id = null, $field = null, $wh = null) {
 		$picarr  = cache($pkey);
 		$revalue = $picarr[$cakey];
 		if (empty($revalue) || APP_DEBUG) {
-
-			// $picture = M('Picture')->where(array('status' => 1))->getById($id);
 			$picture = \think\Db::name('Picture')
 				->where(['picture_id' => $id, 'status' => 1])
 				->find();
@@ -468,21 +466,23 @@ function get_picture($id = null, $field = null, $wh = null) {
 				$wharr = explode('_', $wh);
 
 				if (count($wharr == 2)) {
-					$revalue = str_replace('/Uploads/image/', IMAGE_CACHE_DIR, $picture['path']);
-					$revalue = substr($revalue, 0, strrpos($revalue, '.')) . '_' . $wh . substr($revalue, strrpos($revalue, '.'));
+					$revalue = '.' . str_replace('/uploads/image/', IMAGE_CACHE_DIR, $picture['path']);
+					$fname   = basename($revalue);
+					$rename  = $wh . '_' . $fname;
+					$revalue = str_replace($fname, $rename, $revalue);
 					//判断之前是不是已经生成
-					if (!file_exists(path_a($revalue))) {
-						$result = create_thumb(path_a($picture['path']), path_a($revalue), $wharr[0], $wharr[1]);
+					if (!file_exists($revalue)) {
+						$result = create_thumb($picture['path'], $revalue, $wharr[0], $wharr[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
 					}
 				}
 			} else if (!empty($field)) {
-				$revalue = $picture[$field];
+				$revalue = '.' . $picture[$field];
 				if ($field == 'thumbpath') {
-					if (!file_exists(path_a($revalue))) {
-						$result = create_thumb(path_a($picture['path']), path_a($revalue), $wh[0], $wh[1]);
+					if (!file_exists($revalue)) {
+						$result = create_thumb('.' . $picture['path'], $revalue, $wh[0], $wh[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -498,5 +498,5 @@ function get_picture($id = null, $field = null, $wh = null) {
 	} else {
 		$revalue = $id;
 	}
-	return empty($revalue) ? '' : path_r($revalue);
+	return empty($revalue) ? '' : trim($revalue, '.');
 }
