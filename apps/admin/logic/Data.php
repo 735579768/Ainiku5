@@ -3,16 +3,9 @@ namespace app\admin\logic;
 
 class Data extends Base {
 	/**
-	 * 用户列表
-	 * @return [type] [description]
-	 */
-	public function lists() {
-
-	}
-	/**
 	 * 添加编辑信息
 	 */
-	public function addEditForm($model = null, $edit = false) {
+	public function addEditForm($model = '', $edit = false) {
 		$model || $this->error('模型为空!');
 		$model    = ucfirst($model);
 		$na       = lcfirst($model);
@@ -63,36 +56,16 @@ class Data extends Base {
 			return $this->fetch('logic/form_edit');
 		}
 	}
-	/**
-	 * 编辑信息
-	 * @return [type] [description]
-	 */
-	public function edit() {
-		$this->assign('meta_title', '编辑表单');
-		$form_id = input('param.form_id');
-		$form_id || $this->error('表单id为空!');
-		if (request()->isPost()) {
-			$result = $this->validate(input('post.'), 'Form.edit');
-			if (true === $result) {
-				$result = model('Form')
-					->allowField(true)
-					->isUpdate(true)
-					->save(input('post.'), ['form_id' => $form_id]);
-				$this->returnResult($result, '更新成功', '更新失败');
-			} else {
-				$this->error($result);
-			}
-		} else {
-			// $form_id = input('param.form_id');
-			$this->assign('data', Db::name('Form')->where('form_id', $form_id)->find());
-			return $this->fetch('edit');
-		}
-	}
-	/**
-	 * 删除用户
-	 * @return [type] [description]
-	 */
-	public function del() {
 
+	/**
+	 * 删除信息
+	 * @param  string $table 数据表名字
+	 * @param  string $id    主键id值(可以是','分隔的字符串)
+	 * @return [type]        [description]
+	 */
+	public function delete($table = '', $id = '') {
+		is_string($id) && ($id = explode(',', $id));
+		$result = \think\Db::table(ucfirst($table))->delete($id);
+		$this->returnResult($result, '删除成功', '删除失败');
 	}
 }

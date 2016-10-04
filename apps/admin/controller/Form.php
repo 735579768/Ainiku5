@@ -11,7 +11,7 @@ class Form extends Base {
 	public function lis() {
 		$this->assign('meta_title', '表单列表');
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Form')->where('status', 1)->paginate(10);
+		$list = Db::name('Form')->where('status', 1)->paginate(config('list_rows'));
 		// 获取分页显示
 		$page = $list->render();
 		// var_dump($page);
@@ -27,7 +27,7 @@ class Form extends Base {
 	public function add() {
 		$this->assign([
 			'meta_title' => '编辑表单',
-			'formstr'    => chuli_form('Menu'),
+			'formstr'    => chuli_form('Form'),
 		]);
 		return $this->fetch('edit');
 	}
@@ -38,7 +38,7 @@ class Form extends Base {
 	public function edit() {
 		$this->assign([
 			'meta_title' => '编辑表单',
-			'formstr'    => chuli_form('Menu', true),
+			'formstr'    => chuli_form('Form', true),
 		]);
 		return $this->fetch('edit');
 
