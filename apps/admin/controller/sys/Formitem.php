@@ -16,7 +16,7 @@ class Formitem extends Base {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Db::name('FormItem')
 			->where('form_id', $form_id)
-			->order('sort asc')
+			->order('tab_id asc,sort asc')
 			->paginate(config('list_rows'));
 		// 获取分页显示
 		$page = $list->render();

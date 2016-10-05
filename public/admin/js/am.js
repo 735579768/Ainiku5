@@ -165,7 +165,7 @@
 				$(this).data('id', index);
 			});
 
-			// rightMenu && rightMenu.init();
+			rightMenu && rightMenu.init();
 		},
 		/**
 		 * 主导航加载左边菜单
@@ -318,6 +318,46 @@
 		}
 
 
+	};
+	/**
+	 * 右键菜单绑定
+	 * @type {Object}
+	 */
+	a.rightMenu = {
+		currentTab: null,
+		init: function() {
+			// debugger;
+			$('#youmenu').hover(function() {
+				$('#youmenu').show();
+			}, function() {
+				$('#youmenu').hide();
+			});
+			//右键菜单
+			$('.chrome-tab').bind('contextmenu', function(e) {
+				$('#nav-block .chrome-tab').removeClass('currenttab');
+				$(this).addClass('currenttab');
+				rightMenu.currentTab = $(this);
+				try {
+					if (window.event) e = window.event;
+					$('#youmenu').css({
+						left: e.clientX - 5,
+						top: e.clientY - 5
+					});
+					$('#youmenu').show();
+				} catch (e) {
+					console.log(e);
+				}
+				return false;
+			});
+		},
+		closeTab: function() {
+			this.currentTab && this.currentTab.find('.close').click();
+			$('#youmenu').hide();
+		},
+		closeOtherTab: function() {
+			$('#nav-block .chrome-tab').not('.currenttab').find('.close').click();
+			$('#youmenu').hide();
+		}
 	};
 }(window);
 /**
