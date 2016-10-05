@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-05 10:55:44
+Date: 2016-10-05 11:24:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -256,7 +256,7 @@ INSERT INTO `kl_menu` VALUES ('1', '0', '首页', 'javascript:;', '默认', '99'
 INSERT INTO `kl_menu` VALUES ('8', '0', '用户', 'User/lis', '默认', '99', '1', '1475632715', '1475632715');
 INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'Article/lis', '默认', '99', '1', '1475558698', '1475558698');
 INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'Article/lis', '默认', '99', '1', '1475558868', '1475558868');
-INSERT INTO `kl_menu` VALUES ('4', '0', '系统', 'javascript:;', '默认', '90', '1', '1475559327', '1475563220');
+INSERT INTO `kl_menu` VALUES ('4', '4', '系统', 'javascript:;', '默认', '99', '1', '1475559327', '1475637160');
 INSERT INTO `kl_menu` VALUES ('5', '4', '网站设置', 'Config/group', '默认', '99', '1', '1475559362', '1475559362');
 INSERT INTO `kl_menu` VALUES ('6', '4', '表单列表', 'Form/lis', '开发管理', '99', '1', '1475559401', '1475559401');
 INSERT INTO `kl_menu` VALUES ('7', '4', '菜单列表', 'Menu/lis', '开发管理', '99', '1', '1475559431', '1475559431');
