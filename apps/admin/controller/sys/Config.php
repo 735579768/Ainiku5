@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\admin\controller\sys;
 
 class Config extends Base {
 	public function index() {

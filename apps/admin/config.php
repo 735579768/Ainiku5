@@ -49,7 +49,7 @@ return [
 	'admin_custom_menu' => [
 		'默认'       => [
 			['title' => '系统首页', 'url' => 'Index/index'],
-			['title' => '网站设置', 'url' => 'Config/group'],
+			['title' => '网站设置', 'url' => 'sys.config/group'],
 			['title' => '导航列表', 'url' => 'Nav/index'],
 			['title' => '文章列表', 'url' => 'Article/index'],
 			['title' => '单页列表', 'url' => 'Single/index'],

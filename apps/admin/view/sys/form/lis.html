@@ -5,7 +5,7 @@
     <!--按钮和搜索区域-->
     <div class="tool-area cl">
         <div class="btn-tool">
-            <a href="{:url('Form/add')}" class="btn">添加表单</a>
+            <a href="{:url('sys.form/add')}" class="btn">添加表单</a>
         </div>
     </div>
     <table width="100%">
@@ -24,10 +24,10 @@
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
 
-            <a href="{:url('FormItem/add',['form_id'=>$vo['form_id']])}" class="btn">添加表单项</a>
-            <a href="{:url('FormItem/lis',['form_id'=>$vo['form_id']])}" class="btn">表单项列表</a>
-            <a href="{:url('Form/edit',['form_id'=>$vo['form_id']])}" class="btn">编辑</a>
-            <a href="javascript:;" data-url="{:url('Form/delete',['form_id'=>$vo['form_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            <a href="{:url('sys.formitem/add',['form_id'=>$vo['form_id']])}" class="btn">添加表单项</a>
+            <a href="{:url('sys.formitem/lis',['form_id'=>$vo['form_id']])}" class="btn">表单项列表</a>
+            <a href="{:url('sys.form/edit',['form_id'=>$vo['form_id']])}" class="btn">编辑</a>
+            <a href="javascript:;" data-url="{:url('sys.form/delete',['form_id'=>$vo['form_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
             </td>
         </tr>
         {/volist}

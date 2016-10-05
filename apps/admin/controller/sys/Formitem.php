@@ -1,8 +1,8 @@
 <?php
-namespace app\admin\controller;
+namespace app\admin\controller\sys;
 use think\Db;
 
-class FormItem extends Base {
+class Formitem extends Base {
 
 	/**
 	 * 表单项列表

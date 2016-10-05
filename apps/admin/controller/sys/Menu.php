@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\admin\controller\sys;
 use think\Db;
 
 class Menu extends Base {
@@ -70,7 +70,8 @@ class Menu extends Base {
 	 */
 	public function delete() {
 		$menu_id = input('param.menu_id');
-		$list    = \think\Db::name('Menu')
+		($menu_id == 1) && $this->error('首页菜单不能删除!');
+		$list = \think\Db::name('Menu')
 			->where('pid', $menu_id)
 			->find();
 		$list && $this->error('请先删除此菜单下的子菜单!');

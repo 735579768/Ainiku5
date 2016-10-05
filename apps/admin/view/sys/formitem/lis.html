@@ -5,7 +5,7 @@
     <!--按钮和搜索区域-->
     <div class="tool-area cl">
         <div class="btn-tool">
-            <a href="{:url('FormItem/add',['form_id'=>input('param.form_id')])}" class="btn">添加表单项</a>
+            <a href="{:url('sys.formitem/add',['form_id'=>input('param.form_id')])}" class="btn">添加表单项</a>
         </div>
     </div>
     <table width="100%">
@@ -27,7 +27,7 @@
             <td class="td-left">{$vo.tab_id|get_status='tab'}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
-            <a href="{:url('FormItem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
+            <a href="{:url('sys.formitem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
             </td>
         </tr>
         {/volist}

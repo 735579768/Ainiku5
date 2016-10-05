@@ -1,7 +1,7 @@
 <?php
-namespace app\admin\controller;
+namespace app\admin\controller\sys;
 
-class UserGroup extends Base {
+class Usergroup extends Base {
 	public function index() {
 		// var_dump(config(''));
 		return $this->fetch();
