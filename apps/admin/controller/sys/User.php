@@ -11,7 +11,7 @@ class User extends Base {
 	public function lis() {
 		$this->assign('meta_title', '用户列表');
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('User')->where('status', 1)->paginate(config('list_rows'));
+		$list = Db::name('User')->where('status', 'gt', -1)->paginate(config('list_rows'));
 		// 获取分页显示
 		$page = $list->render();
 		// var_dump($page);

@@ -139,3 +139,9 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .imgblock{float:left;margin:0px 5px;width:120px;height:170px;position:relative;}
 .imgblock .btn-danger{/*position:absolute;left:0px;bottom:0px;*/display:block;width:50%;margin:5px auto;}
 .upload-pre-item img{max-width:120px;max-height:120px;_width:expression(this.width >120 && this.height < this.width ? 120:true);_height:expression(this.height > 120 ? 120:true);}
+/**
+ * 状态图标
+ */
+.yes,.no{font-size:24px!important;cursor:pointer;width:38px;height:18px;display:inline-block}
+.yes:before{content:"\f205"!important;}
+.no:before{content:"\f204"!important;}

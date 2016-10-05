@@ -72,6 +72,8 @@
 			}
 			//默认加载第一个主菜单的左侧菜单
 			$('#mainnav a:first').click();
+			this.initYesNo();
+			this.blusChange();
 		},
 		resetLayout: function() {
 			var h = $('#admin-header').outerHeight();
@@ -242,6 +244,78 @@
 			return false;
 			// am.addIframe('我的博客','https://www.zhaokeli.com/');
 		},
+		/**
+		 * 更新字段值
+		 * @return {[type]} [description]
+		 */
+		blusChange: function(dom) {
+			var objlist = $('.ajax-blur');
+			objlist.focus(function(event) {
+				$(this).data('value', $(this).val());
+			});
+			objlist.blur(function(event) {
+				// debugger;
+				var _t = $(this);
+				var table1 = _t.attr("data-table");
+				var field1 = _t.attr("data-field");
+				var id1 = _t.attr("data-id");
+				var data1 = _t.val();
+				var data_src = _t.data('value');
+				if (data1 != data_src) {
+					$.post(am.url.updateField, {
+						id: id1,
+						table: table1,
+						field: field1,
+						value: data1
+					}, function(data, textStatus, xhr) {
+						(data.code == 0) && ank.alert(data);
+					});
+				}
+			});
+
+		},
+		initYesNo: function() {
+			//y n 插件
+			$(".yesno").each(function(index, element) {
+				var _t = $(this);
+				var da = _t.attr("data-value");
+				if (da == 1) {
+					$(this).addClass("yes");
+				} else {
+					$(this).addClass("no");
+				}
+				_t.click(function(e) {
+					var _tt = $(this);
+					var data1 = _tt.attr("data-value");
+					var table1 = _tt.attr("data-table");
+					var field1 = _tt.attr("data-field");
+					var id1 = _tt.attr("data-id");
+					var qh = function() {
+						if (_tt.hasClass("yes")) {
+							_tt.attr("data-value", 0);
+							_tt.removeClass("yes");
+							_tt.addClass("no");
+						} else {
+							_tt.attr("data-value", 1);
+							_tt.removeClass("no");
+							_tt.addClass("yes");
+						}
+					};
+					data1 = data1 ? 0 : 1;
+					if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {
+						qh();
+						$.post(am.url.updateField, {
+							id: id1,
+							table: table1,
+							field: field1,
+							value: data1
+						}, function(data, textStatus, xhr) {
+							(data.code == 0) && ank.alert(data);
+						});
+					}
+				});
+			});
+		}
 
 
 	};

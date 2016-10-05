@@ -11,6 +11,7 @@
     <table width="100%">
         <tr class="th">
             <th class="td-id">Id</th>
+            <th>排序</th>
             <th>标题</th>
             <th>表单类型</th>
             <th class="td-time">表单标识符</th>
@@ -22,6 +23,9 @@
         {volist name="_list" id="vo"}
         <tr>
             <td>{$vo.form_item_id}</td>
+            <td>
+                <input data-table="FormItem" data-id="{$vo.form_item_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
+            </td>
             <td class="td-left">{$vo.title}</td>
             <td class="td-left">{$vo.type}</td>
             <td class="td-left">{$vo.name}</td>

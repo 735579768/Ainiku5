@@ -42,4 +42,29 @@ class Base extends \app\common\Controller\Base {
 		$this->assign('_page', $page);
 		return $this->fetch();
 	}
+	/**
+	 *后台模块通用改变状态
+	 **/
+	public function updateField() {
+		$table = input('param.table');
+		$id    = input('param.id');
+		$field = input('param.field');
+		$value = input('param.value');
+		if (empty($table) || empty($id) || empty($field)) {
+			$this->error('参数不能为空');
+		}
+		$table   = ucfirst($table);
+		$na      = preg_replace('/([A-Z])/s', '_$1', lcfirst($table));
+		$id_name = strtolower($na) . '_id';
+		// $id_value = input('param.' . $id_name);
+
+		$data = array(
+			$field        => $value,
+			'update_time' => time(),
+		);
+		$result = \think\Db::name($table)
+			->where($id_name, $id)
+			->update($data);
+		$result ? $this->success('操作成功') : $this->error('操作失败');
+	}
 }

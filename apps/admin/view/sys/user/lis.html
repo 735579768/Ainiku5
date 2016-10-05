@@ -30,7 +30,10 @@
             <td>{$vo.update_time|time_format}</td>
             <td>{$vo.login}</td>
             <td>{$vo.last_login_ip}</td>
-            <td>{$vo.status|get_status}</td>
+            <td>
+<span title="{$vo.status|get_status}" data-table="User" data-id="{$vo.user_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span>
+
+            </td>
             <td class="td-btn">
             <a href="{:url('sys.user/modpwd',['user_id'=>$vo['user_id']])}" class="btn">修改密码</a>
             <a href="{:url('sys.user/edit',['user_id'=>$vo['user_id']])}" class="btn">编辑</a>
