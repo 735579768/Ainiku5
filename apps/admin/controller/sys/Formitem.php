@@ -33,33 +33,11 @@ class Formitem extends Base {
 	public function add() {
 		$form_id = input('param.form_id');
 		$form_id || $this->error('表单id不能为空!');
-
-		// if (request()->isPost()) {
-		// 	$result = $this->validate(input('post.'), 'FormItem');
-		// 	if (true === $result) {
-		// 		// $mod    = new \app\common\model\FormItem(input('post.'));
-		// 		// $result = $mod->allowField(true)->save();
-		// 		$result = model('FormItem')
-		// 			->data(input('post.'))
-		// 			->allowField(true)
-		// 			->save();
-		// 		$this->returnResult($result, '添加成功', '添加失败');
-		// 	} else {
-		// 		$this->error($result);
-		// 	}
-		// } else {
-		// 	$this->assign('meta_title', '添加表单项');
-		// 	// $formarr = require_once './apps/formarr.php';
-		// 	// dump($formarr);
-		// 	// $this->assign('formitem', get_form_item('FormItem'));
-		// 	$this->assign('data', null);
-		// 	return $this->fetch('edit');
-		// }
 		$this->assign([
 			'meta_title' => '添加表单项',
 			'formstr'    => chuli_form('FormItem'),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 
 	}
 	/**
@@ -88,7 +66,7 @@ class Formitem extends Base {
 			'meta_title' => '编辑表单项',
 			'formstr'    => chuli_form('FormItem', true),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 	}
 	/**
 	 * 删除表单项

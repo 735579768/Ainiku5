@@ -29,7 +29,7 @@ class Form extends Base {
 			'meta_title' => '编辑表单',
 			'formstr'    => chuli_form('Form'),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 	}
 	/**
 	 * 编辑表单
@@ -40,7 +40,7 @@ class Form extends Base {
 			'meta_title' => '编辑表单',
 			'formstr'    => chuli_form('Form', true),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 
 	}
 	/**

@@ -50,7 +50,7 @@ class Menu extends Base {
 			'meta_title' => '添加菜单',
 			'formstr'    => chuli_form('Menu'),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 
 	}
 	/**
@@ -62,7 +62,7 @@ class Menu extends Base {
 			'meta_title' => '编辑菜单',
 			'formstr'    => chuli_form('Menu', true),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 	}
 	/**
 	 * 删除菜单

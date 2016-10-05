@@ -432,7 +432,7 @@ eot;
 		$formjs['liandong'] = true;
 		$formjsstr .= <<<eot
 <!--城市联动s start-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/city.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/js/city.min.js"></script>
 <!--城市联动js end-->\n
 eot;
 	}
