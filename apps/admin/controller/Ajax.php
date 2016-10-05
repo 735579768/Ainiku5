@@ -8,7 +8,16 @@ class Ajax extends Base {
 	 * @return [type]       [description]
 	 */
 	public function getLeftMenu($pid = 0) {
+		if ($pid == 1) {
+			$list = config('admin_custom_menu');
+			foreach ($list as $key => $value) {
+				foreach ($value as $k => $v) {
+					$list[$key][$k]['url'] = url($v['url']);
+				}
 
+			}
+			return $this->success('ok', '', $list);
+		}
 		$key  = 'sys_childmenu' . $pid;
 		$data = \think\Cache::get($key);
 		if (!$data || APP_DEBUG) {
