@@ -66,6 +66,7 @@ class Data extends Base {
 	 * @return [type]        [description]
 	 */
 	public function delete($table = '', $id = '') {
+		$id || $this->error('id不能为空!');
 		is_string($id) && ($id = explode(',', $id));
 		$result = \think\Db::table(ucfirst($table))->delete($id);
 		$this->returnResult($result, '删除成功', '删除失败');

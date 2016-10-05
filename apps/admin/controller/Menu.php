@@ -27,9 +27,15 @@ class Menu extends Base {
 	 */
 	public function tree($pid = 0) {
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Menu')->where(['pid' => $pid])->select();
+		$list = Db::name('Menu')
+			->where(['pid' => $pid])
+			->field('menu_id,pid,title,url,sort')
+			->select();
 		foreach ($list as $key => $value) {
-			$list2               = Db::name('Menu')->where(['pid' => $value['menu_id']])->select();
+			$list2 = Db::name('Menu')
+				->where(['pid' => $value['menu_id']])
+				->field('menu_id,pid,title,url,sort')
+				->select();
 			$list[$key]['child'] = $list2;
 		}
 		$this->assign('_list', $list);
@@ -62,8 +68,14 @@ class Menu extends Base {
 	 * 删除菜单
 	 * @return [type] [description]
 	 */
-	public function del() {
+	public function delete() {
+		$menu_id = input('param.menu_id');
+		$list    = \think\Db::name('Menu')
+			->where('pid', $menu_id)
+			->find();
+		$list && $this->error('请先删除此菜单下的子菜单!');
 		//清除掉childmenu标签的数据
 		\think\Cache::clear('childmenu');
+		controller('Data', 'logic')->delete('Menu', $menu_id);
 	}
 }

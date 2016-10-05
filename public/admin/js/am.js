@@ -1,10 +1,12 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
-		okAction: function(uri) {
+		okAction: function(dom, uri) {
+			uri || (uri = $(dom).attr('data-url'));
 			layer.confirm('确定此操作吗?', {
 				title: false,
 				closeBtn: false,
+				shade: 0.01,
 				btn: ['确定', '取消']
 			}, function() {
 				$.get(uri, function(data) {

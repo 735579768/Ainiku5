@@ -47,7 +47,17 @@ class Form extends Base {
 	 * 删除表单
 	 * @return [type] [description]
 	 */
-	public function del() {
-
+	public function delete() {
+		$form_id = input('param.form_id');
+		$form_id || $this->error('id不能为空!');
+		// //删除所有表单项
+		// \think\Db::name('FormItem')
+		// 	->where('form_id', $form_id)
+		// 	->delete();
+		$list = \think\Db::name('FormItem')
+			->where('form_id', $form_id)
+			->find();
+		$list && $this->error('此表单下还有表单项,故不能删除!');
+		controller('Data', 'logic')->delete('Form', $form_id);
 	}
 }

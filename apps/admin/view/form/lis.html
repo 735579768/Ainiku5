@@ -23,9 +23,11 @@
             <td class="td-left">{$vo.name}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
-            <a href="{:url('Form/edit',['form_id'=>$vo['form_id']])}" class="btn">编辑</a>
+
             <a href="{:url('FormItem/add',['form_id'=>$vo['form_id']])}" class="btn">添加表单项</a>
             <a href="{:url('FormItem/lis',['form_id'=>$vo['form_id']])}" class="btn">表单项列表</a>
+            <a href="{:url('Form/edit',['form_id'=>$vo['form_id']])}" class="btn">编辑</a>
+            <a href="javascript:;" data-url="{:url('Form/delete',['form_id'=>$vo['form_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
             </td>
         </tr>
         {/volist}
