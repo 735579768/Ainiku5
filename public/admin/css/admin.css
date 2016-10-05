@@ -81,7 +81,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con table .td-id{width:50px;}
 .iframe-con table .td-time{width:150px;}
 .iframe-con table .td-status{width:50px;}
-
+.iframe-con table .td-sort{width: 60px;}
 /**
  * 主标题
  */

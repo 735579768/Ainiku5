@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-05 18:34:49
+Date: 2016-10-05 20:48:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -213,18 +213,18 @@ INSERT INTO `kl_form_item` VALUES ('44', '5', '用户组名称', '', 'title', 's
 INSERT INTO `kl_form_item` VALUES ('45', '5', '用户组首页地址', '当前用户组登陆后的第一个页面地址', 'admin_index', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475651538', '1475651538');
 INSERT INTO `kl_form_item` VALUES ('46', '5', '是否允许后台登陆', '', 'is_adminlogin', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475651609', '1475651609');
 INSERT INTO `kl_form_item` VALUES ('47', '5', '用户组状态', '', 'status', 'radio', '0:禁用\r\n1:启用', '0', '3', '99', '1', '1', '', '', '', '', '0', '1475651713', '1475651713');
-INSERT INTO `kl_form_item` VALUES ('48', '6', '所属用户组', '', 'user_group_id', 'select', 'select_user_group', '0', '3', '99', '1', '', '', '', '', '', '0', '1475652501', '1475652501');
-INSERT INTO `kl_form_item` VALUES ('49', '6', '用户名', '', 'username', 'string', '', '1', '1', '99', '1', '', '', '', '', '', '0', '1475652702', '1475652702');
-INSERT INTO `kl_form_item` VALUES ('50', '6', '密码', '', 'password', 'password', '', '1', '1', '99', '1', '', '', '', '', '', '0', '1475652746', '1475656857');
-INSERT INTO `kl_form_item` VALUES ('51', '6', '昵称/姓名', '', 'nickname', 'string', '', '1', '3', '99', '1', '', '', '', '', '', '0', '1475652773', '1475653336');
-INSERT INTO `kl_form_item` VALUES ('52', '6', '地址', '', 'diqu', 'liandong', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475652824', '1475652824');
-INSERT INTO `kl_form_item` VALUES ('53', '6', '详细地址', '', 'address', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475652865', '1475652865');
-INSERT INTO `kl_form_item` VALUES ('54', '6', '手机号', '', 'mobile', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475652881', '1475652881');
-INSERT INTO `kl_form_item` VALUES ('55', '6', '邮箱', '', 'email', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '0', '1475652904', '1475652904');
-INSERT INTO `kl_form_item` VALUES ('56', '6', '邮箱是否激活', '', 'email_activate', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '1', '1475652949', '1475653364');
-INSERT INTO `kl_form_item` VALUES ('57', '6', '用户状态', '', 'status', 'radio', '0:禁用\r\n1:正常', '0', '3', '99', '1', '1', '', '', '', '', '0', '1475653003', '1475653160');
-INSERT INTO `kl_form_item` VALUES ('58', '6', '用户头像', '', 'pic', 'picture', '', '0', '3', '99', '1', '', '', '', '', '', '1', '1475653041', '1475653041');
-INSERT INTO `kl_form_item` VALUES ('59', '6', '重复密码', '再次输入密码', 'repassword', 'password', '', '1', '1', '99', '1', '', '', '', '', '', '0', '1475656915', '1475656915');
+INSERT INTO `kl_form_item` VALUES ('48', '6', '所属用户组', '', 'user_group_id', 'select', 'select_user_group', '0', '3', '1', '1', '', '', '', '', '', '0', '1475652501', '1475670899');
+INSERT INTO `kl_form_item` VALUES ('49', '6', '用户名', '', 'username', 'string', '', '1', '1', '3', '1', '', '', '', '', '', '0', '1475652702', '1475670904');
+INSERT INTO `kl_form_item` VALUES ('50', '6', '密码', '', 'password', 'password', '', '1', '1', '5', '1', '', '', '', '', '', '0', '1475652746', '1475670908');
+INSERT INTO `kl_form_item` VALUES ('51', '6', '昵称/姓名', '', 'nickname', 'string', '', '1', '3', '9', '1', '', '', '', '', '', '0', '1475652773', '1475670913');
+INSERT INTO `kl_form_item` VALUES ('52', '6', '地址', '', 'diqu', 'liandong', '', '0', '3', '11', '1', '', '', '', '', '', '0', '1475652824', '1475670920');
+INSERT INTO `kl_form_item` VALUES ('53', '6', '详细地址', '', 'address', 'string', '', '0', '3', '13', '1', '', '', '', '', '', '0', '1475652865', '1475670923');
+INSERT INTO `kl_form_item` VALUES ('54', '6', '手机号', '', 'mobile', 'string', '', '0', '3', '15', '1', '', '', '', '', '', '0', '1475652881', '1475670927');
+INSERT INTO `kl_form_item` VALUES ('55', '6', '邮箱', '', 'email', 'string', '', '0', '3', '17', '1', '', '', '', '', '', '0', '1475652904', '1475670930');
+INSERT INTO `kl_form_item` VALUES ('56', '6', '邮箱是否激活', '', 'email_activate', 'radio', '0:否\r\n1:是', '0', '3', '19', '1', '0', '', '', '', '', '1', '1475652949', '1475670936');
+INSERT INTO `kl_form_item` VALUES ('57', '6', '用户状态', '', 'status', 'radio', '0:禁用\r\n1:正常', '0', '3', '21', '1', '1', '', '', '', '', '0', '1475653003', '1475670939');
+INSERT INTO `kl_form_item` VALUES ('58', '6', '用户头像', '', 'pic', 'picture', '', '0', '3', '23', '1', '', '', '', '', '', '1', '1475653041', '1475670942');
+INSERT INTO `kl_form_item` VALUES ('59', '6', '重复密码', '再次输入密码', 'repassword', 'password', '', '1', '1', '7', '1', '', '', '', '', '', '0', '1475656915', '1475670947');
 
 -- ----------------------------
 -- Table structure for kl_goods
@@ -270,7 +270,7 @@ CREATE TABLE `kl_menu` (
 -- ----------------------------
 -- Records of kl_menu
 -- ----------------------------
-INSERT INTO `kl_menu` VALUES ('1', '0', '首页', 'javascript:;', '默认', '99', '1', '1475558381', '1475558381');
+INSERT INTO `kl_menu` VALUES ('1', '0', '首页', 'javascript:;', '默认', '98', '1', '1475558381', '1475671436');
 INSERT INTO `kl_menu` VALUES ('8', '0', '用户', 'user/lis', '默认', '99', '1', '1475632715', '1475632715');
 INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'article/lis', '默认', '99', '1', '1475558698', '1475558698');
 INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'article/lis', '默认', '99', '1', '1475558868', '1475558868');

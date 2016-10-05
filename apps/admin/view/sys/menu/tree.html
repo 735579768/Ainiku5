@@ -4,7 +4,7 @@
         <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
         <div class="c-inp c-id">{$vo.menu_id}</div>
         <div class="c-inp c-paixu">
-            <input type="text" class="form-control" name="paixu" value="{$vo.sort}" />
+            <input data-table="Menu" data-id="{$vo.menu_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
         </div>
         <div class="c-inp c-title">
             <span class="c-sign"></span>

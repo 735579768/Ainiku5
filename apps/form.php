@@ -813,14 +813,24 @@ function get_form($fieldarr, $data = []) {
 		}
 		$navstr   = '';
 		$tabblock = '';
+
 		foreach ($field_title as $value) {
+
 			$navstr .= <<<eot
 		<li class="tabnav"><a href="javascript:;">{$value}</a></li>
 eot;
 		}
+		$show = true;
 		foreach ($field_data as $value) {
+			$tem = '';
+			if ($show) {
+				$show = false;
+				$tem  = 'block';
+			} else {
+				$tem = 'none';
+			}
 			$tabblock .= <<<eot
-		<div class="tabdiv" style="display:none;">{$value}</div>
+		<div class="tabdiv" style="display:{$tem};">{$value}</div>
 eot;
 		}
 		$str = <<<eot
