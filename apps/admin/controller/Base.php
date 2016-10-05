@@ -8,9 +8,12 @@ class Base extends \app\common\Controller\Base {
 	 */
 	public function _initialize() {
 		parent::_initialize();
-		$this->assign('meta_title', '首页');
 		$uid = is_login();
 		$uid ? (defined('UID') or define('UID', $uid)) : $this->redirect('Pub/login');
+		$this->assign([
+			'meta_title' => '首页',
+			'uinfo'      => session('uinfo'),
+		]);
 	}
 	public function returnResult($status = 1, $success = '操作成功', $fail = '操作失败') {
 		if ($status) {

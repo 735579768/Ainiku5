@@ -29,12 +29,14 @@ class Menu extends Base {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Db::name('Menu')
 			->where(['pid' => $pid])
-			->field('menu_id,pid,title,url,sort')
+			->field('menu_id,pid,title,url,sort,status')
+			->order('status desc,sort asc')
 			->select();
 		foreach ($list as $key => $value) {
 			$list2 = Db::name('Menu')
 				->where(['pid' => $value['menu_id']])
-				->field('menu_id,pid,title,url,sort')
+				->field('menu_id,pid,title,url,sort,status')
+				->order('status desc,sort asc')
 				->select();
 			$list[$key]['child'] = $list2;
 		}

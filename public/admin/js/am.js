@@ -92,7 +92,9 @@
 			var h = $('#admin-header').outerHeight();
 			var navh = $('#nav-block').outerHeight();
 			var sh = $(window).height();
-			$(dom).height(sh - h - navh);
+			var obj = $(dom);
+			obj.height(sh - h - navh);
+			obj.prev().remove();
 		},
 		/**
 		 * 单击框架导航

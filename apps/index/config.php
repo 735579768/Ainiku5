@@ -8,4 +8,8 @@ return [
 		'__CSS__'    => '/public/index/css',
 		'__JS__'     => '/public/index/js',
 	],
+	// 'template'         => [
+	// 	'view_path' => 'default/',
+	// ],
+
 ];

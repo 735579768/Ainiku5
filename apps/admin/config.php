@@ -47,21 +47,21 @@ return [
 	],
 	//后台菜单
 	'admin_custom_menu' => [
-		'默认'       => [
-			['title' => '系统首页', 'url' => 'Index/index'],
+		'默认' => [
+			// ['title' => '系统首页', 'url' => 'Index/index'],
 			['title' => '网站设置', 'url' => 'sys.config/group'],
-			['title' => '导航列表', 'url' => 'Nav/index'],
-			['title' => '文章列表', 'url' => 'Article/index'],
-			['title' => '单页列表', 'url' => 'Single/index'],
-			['title' => '产品列表', 'url' => 'Goods/index'],
-			['title' => '广告位列表', 'url' => 'Modulepos/index'],
-			['title' => '用户列表', 'url' => 'Member/index'],
-			['title' => '用户组列表', 'url' => 'Membergroup/index'],
+			// ['title' => '导航列表', 'url' => 'Nav/index'],
+			// ['title' => '文章列表', 'url' => 'Article/index'],
+			// ['title' => '单页列表', 'url' => 'Single/index'],
+			// ['title' => '产品列表', 'url' => 'Goods/index'],
+			// ['title' => '广告位列表', 'url' => 'Modulepos/index'],
+			['title' => '用户列表', 'url' => 'sys.user/lis'],
+			['title' => '用户组列表', 'url' => 'sys.usergroup/lis'],
 		],
-		'系统分类' => [
-			['title' => '文章分类', 'url' => 'Category/index?category_type=article'],
-			['title' => '产品分类', 'url' => 'Category/index?category_type=goods'],
-		],
+		// '系统分类' => [
+		// 	['title' => '文章分类', 'url' => 'Category/index?category_type=article'],
+		// 	['title' => '产品分类', 'url' => 'Category/index?category_type=goods'],
+		// ],
 
 	],
 ];
