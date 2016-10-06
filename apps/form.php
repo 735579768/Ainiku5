@@ -39,6 +39,7 @@ $GLOBALS['formjs'] = array(
 	'datetime'   => 0,
 	'picture'    => 0,
 	'editor'     => 0,
+	'umeditor'   => 0,
 	'color'      => 0,
 	'liandong'   => 0,
 	// 'dandu'      => 0,
@@ -49,7 +50,7 @@ function create_form($fieldarr, $data = []) {
 	$md5key = md5(json_encode($fieldarr));
 	$data || ($data = []);
 	global $formjs;
-	$static_dir = '/public/static';
+	$static_dir = STATIC_DIR;
 
 	$formstr = '';
 	if (!$fieldarr) {
@@ -81,7 +82,7 @@ function create_form($fieldarr, $data = []) {
 			$data_ts  = isset($value['data_ts']) ? $value['data_ts'] : '';
 			$data_err = isset($value['data_err']) ? $value['data_err'] : '';
 
-			($type == 'umeditor') && ($type = 'editor');
+			// ($type == 'umeditor') && ($type = 'editor');
 			//保存默认值
 			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
 			//要替换的值字符串
@@ -302,7 +303,25 @@ eot;
 }();
 eot;
 				break;
-
+			case 'umeditor':
+				$formjs['umeditor']++;
+				$tem_input = <<<eot
+<!--style给定宽度可以影响编辑器的最终宽度-->
+<script type="text/plain" id="umeditor_{$name}" name="{$name}"  style="width:100%;height:240px;">{$set_replace_value}</script>
+eot;
+				$initformjs .= <<<eot
+!function(){
+    //实例化编辑器
+    var um = UM.getEditor('umeditor_{$name}');
+    um.addListener('blur',function(){
+        console.log('编辑器失去焦点了');
+    });
+    um.addListener('focus',function(){
+       console.log('获得焦点了');
+    });
+}();
+eot;
+				break;
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
@@ -478,6 +497,31 @@ window.UEDITOR_HOME_URL='{$static_dir}/ueditor/';
 <script type="text/javascript" src="{$static_dir}/ueditor/ueditor.config.min.js"></script>
 <script type="text/javascript" src="{$static_dir}/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="{$static_dir}/ueditor/lang/zh-cn/zh-cn.min.js"></script>
+<!--UE编辑器js end-->\n
+
+eot;
+	}
+	if ($formjs['umeditor'] && $formjs['umeditor'] !== true) {
+		$formjs['umeditor'] = true;
+		$uploadurl          = url('File/umUpload');
+		$formjsstr .= <<<eot
+<!--um编辑器js start-->
+<script type="text/javascript">
+//window.UMEDITOR_HOME_URL='/';
+</script>
+<link href="{$static_dir}/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<!--<script type="text/javascript" src="{$static_dir}/umeditor/third-party/jquery.min.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.js"></script>
+<script type="text/javascript" src="{$static_dir}/umeditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+!function(){
+    window.UMEDITOR_CONFIG.imageUrl="{$uploadurl}" ;
+    window.UMEDITOR_CONFIG.imagePath="" ;
+    window.UMEDITOR_CONFIG.imageFieldName="upfile" ;
+}();
+
+</script>
 <!--UE编辑器js end-->\n
 
 eot;
