@@ -82,7 +82,7 @@ function create_form($fieldarr, $data = []) {
 			$data_ts  = isset($value['data_ts']) ? $value['data_ts'] : '';
 			$data_err = isset($value['data_err']) ? $value['data_err'] : '';
 
-			// ($type == 'umeditor') && ($type = 'editor');
+			($type == 'editor') && ($type = 'umeditor');
 			//保存默认值
 			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
 			//要替换的值字符串
@@ -512,7 +512,7 @@ eot;
 <link href="{$static_dir}/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <!--<script type="text/javascript" src="{$static_dir}/umeditor/third-party/jquery.min.js"></script>-->
 <script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.min.js"></script>
 <script type="text/javascript" src="{$static_dir}/umeditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 !function(){
