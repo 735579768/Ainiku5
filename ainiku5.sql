@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-06 21:27:00
+Date: 2016-10-06 22:52:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -114,8 +114,9 @@ CREATE TABLE `kl_file` (
 DROP TABLE IF EXISTS `kl_form`;
 CREATE TABLE `kl_form` (
   `form_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '表单id',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '表单标题',
+  `title` varchar(50) NOT NULL DEFAULT '请填写表单的名称' COMMENT '表单名称',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '表单标识符',
+  `note` varchar(50) NOT NULL DEFAULT '' COMMENT '表单对应的数据表备注',
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '表单排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '表单状态',
   `list_format` text NOT NULL COMMENT '表单数据显示成列表时的格式',
@@ -124,17 +125,18 @@ CREATE TABLE `kl_form` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='系统模型';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统定义的表单列表';
 
 -- ----------------------------
 -- Records of kl_form
 -- ----------------------------
-INSERT INTO `kl_form` VALUES ('1', '表单', 'Form', '99', '1', '', '', '', '0', '1475643414');
-INSERT INTO `kl_form` VALUES ('2', '表单项', 'FormItem', '99', '1', '', '', '', '1475391093', '1475461936');
-INSERT INTO `kl_form` VALUES ('3', '菜单', 'Menu', '99', '1', '', '', '', '1475476713', '1475476713');
-INSERT INTO `kl_form` VALUES ('4', '网站配置', 'Config', '99', '1', '', '', '', '1475479534', '1475479534');
-INSERT INTO `kl_form` VALUES ('5', '用户组', 'UserGroup', '99', '1', '', '', '', '1475650012', '1475650012');
-INSERT INTO `kl_form` VALUES ('6', '用户', 'User', '99', '1', '', '', '', '1475652396', '1475652396');
+INSERT INTO `kl_form` VALUES ('1', '表单', 'Form', '系统定义的表单列表', '99', '1', '', '', '', '0', '1475765404');
+INSERT INTO `kl_form` VALUES ('2', '表单项', 'FormItem', '系统定义的表单项列表', '99', '1', '', '', '', '1475391093', '1475765444');
+INSERT INTO `kl_form` VALUES ('3', '菜单', 'Menu', '', '99', '1', '', '', '', '1475476713', '1475476713');
+INSERT INTO `kl_form` VALUES ('4', '网站配置', 'Config', '', '99', '1', '', '', '', '1475479534', '1475479534');
+INSERT INTO `kl_form` VALUES ('5', '用户组', 'UserGroup', '', '99', '1', '', '', '', '1475650012', '1475650012');
+INSERT INTO `kl_form` VALUES ('6', '用户', 'User', '', '99', '1', '', '', '', '1475652396', '1475652396');
+INSERT INTO `kl_form` VALUES ('7', '文章', 'Article', '', '99', '1', '', '', '', '1475760774', '1475760774');
 
 -- ----------------------------
 -- Table structure for kl_form_item
@@ -161,7 +163,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COMMENT='系统表单项属性';
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COMMENT='系统定义的表单项列表';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -179,12 +181,12 @@ INSERT INTO `kl_form_item` VALUES ('10', '2', '表单项提示错误', '', 'data
 INSERT INTO `kl_form_item` VALUES ('11', '2', '表单项提示格式正确', '', 'data_ok', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '1', '1475461663', '1475461663');
 INSERT INTO `kl_form_item` VALUES ('12', '2', '表单项验证需要的正则', '', 'data_reg', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '1', '1475461696', '1475461696');
 INSERT INTO `kl_form_item` VALUES ('13', '2', '表单项是否是扩展项', '表单tab类型标签', 'tab_id', 'radio', 'select_form_tab', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475461747', '1475653381');
-INSERT INTO `kl_form_item` VALUES ('14', '1', '表单名称', '', 'title', 'string', '', '0', '3', '80', '1', '', '', '', '', '', '0', '1475462007', '1475462007');
+INSERT INTO `kl_form_item` VALUES ('14', '1', '表单名称', '', 'title', 'string', '', '0', '3', '80', '1', '请填写表单的名称', '', '', '', '', '0', '1475462007', '1475764820');
 INSERT INTO `kl_form_item` VALUES ('15', '1', '表单对应的数据表', '', 'name', 'string', '', '0', '3', '81', '1', '', '', '', '', '', '0', '1475462030', '1475644142');
-INSERT INTO `kl_form_item` VALUES ('16', '1', '表单排序', '', 'sort', 'number', '', '0', '3', '82', '1', '99', '', '', '', '', '0', '1475462076', '1475462076');
-INSERT INTO `kl_form_item` VALUES ('17', '1', '搜索格式字符串', '搜索列表的格式字符串', 'search_format', 'textarea', '', '0', '3', '83', '1', '', '', '', '', '', '0', '1475462140', '1475462140');
-INSERT INTO `kl_form_item` VALUES ('18', '1', '列表格式字符串', '', 'list_format', 'textarea', '', '0', '3', '84', '1', '', '', '', '', '', '0', '1475462200', '1475462200');
-INSERT INTO `kl_form_item` VALUES ('19', '1', '回收站格式字符串', '回收站列表格式字符串', 'recycle_format', 'textarea', '', '0', '3', '85', '1', '', '', '', '', '', '0', '1475462253', '1475462253');
+INSERT INTO `kl_form_item` VALUES ('16', '1', '表单排序', '', 'sort', 'number', '', '0', '3', '84', '1', '99', '', '', '', '', '0', '1475462076', '1475765261');
+INSERT INTO `kl_form_item` VALUES ('17', '1', '搜索格式字符串', '搜索列表的格式字符串', 'search_format', 'textarea', '', '0', '3', '86', '1', '', '', '', '', '', '0', '1475462140', '1475765263');
+INSERT INTO `kl_form_item` VALUES ('18', '1', '列表格式字符串', '', 'list_format', 'textarea', '', '0', '3', '88', '1', '', '', '', '', '', '0', '1475462200', '1475765267');
+INSERT INTO `kl_form_item` VALUES ('19', '1', '回收站格式字符串', '回收站列表格式字符串', 'recycle_format', 'textarea', '', '0', '3', '90', '1', '', '', '', '', '', '0', '1475462253', '1475765269');
 INSERT INTO `kl_form_item` VALUES ('20', '2', '表单项类型', '此项表单的类型', 'type', 'select', 'select_form_type', '0', '3', '91', '1', '', '', '', '', '', '0', '1475472719', '1475663556');
 INSERT INTO `kl_form_item` VALUES ('21', '1', '自动生成数据库表', '自动创建对应的数据表', 'auto_greate', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475480344', '1475480396');
 INSERT INTO `kl_form_item` VALUES ('22', '2', '自动生成字段', '自动在对应的数据表中生成字段', 'auto_greate', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475480472', '1475480472');
@@ -225,6 +227,7 @@ INSERT INTO `kl_form_item` VALUES ('56', '6', '邮箱是否激活', '', 'email_a
 INSERT INTO `kl_form_item` VALUES ('57', '6', '用户状态', '', 'status', 'radio', '0:禁用\r\n1:正常', '0', '3', '21', '1', '1', '', '', '', '', '0', '1475653003', '1475670939');
 INSERT INTO `kl_form_item` VALUES ('58', '6', '用户头像', '', 'pic', 'picture', '', '0', '3', '23', '1', '', '', '', '', '', '1', '1475653041', '1475670942');
 INSERT INTO `kl_form_item` VALUES ('59', '6', '重复密码', '再次输入密码', 'repassword', 'password', '', '1', '1', '7', '1', '', '', '', '', '', '0', '1475656915', '1475670947');
+INSERT INTO `kl_form_item` VALUES ('60', '1', '表单对应的数据表备注', '数据表内容说明信息', 'note', 'string', '', '0', '3', '82', '1', '', '', '', '', '', '0', '1475765233', '1475765489');
 
 -- ----------------------------
 -- Table structure for kl_goods
