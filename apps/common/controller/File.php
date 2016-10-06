@@ -340,7 +340,7 @@ trait File {
 			//判断是不是已经上传过类似图片
 			$data         = [];
 			$shafile      = $this->checksha('.' . $info['url']);
-			$info['url']  = $shafile['path'];
+			$info['url']  = trim($shafile['path'], '.');
 			$data['sha1'] = $shafile['sha1'];
 			//保存文件信息到数据库
 			$data['path']        = $info['url'];

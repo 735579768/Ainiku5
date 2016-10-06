@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-06 21:14:26
+Date: 2016-10-06 21:21:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,7 +86,7 @@ CREATE TABLE `kl_config` (
 -- ----------------------------
 -- Records of kl_config
 -- ----------------------------
-INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_domain\":\"http:\\/\\/www.ainiku5.loc\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_logo\":\"\",\"thumb_size\":\"200*200\",\"shuiyin_on\":\"0\",\"shuiyin_pos\":\"center_center\",\"shuiyin_text_color\":\"#000000\",\"shuiyin_text_size\":\"14\",\"shuiyin_image\":\"3\",\"shuiyin_text\":\"\\u7231\\u4f60\\u9177\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\",\"web_meta_title\":\"<p><img src=\\\"\\/uploads\\/image\\/20161005\\/147559938152273.jpg\\\" _src=\\\"\\/uploads\\/image\\/20161005\\/147559938152273.jpg\\\"\\/>\\u524d\\u53f0\\u5c55\\u793a<\\/p>\"}', '1475551684', '1475759565');
+INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_domain\":\"http:\\/\\/www.ainiku5.loc\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_logo\":\"\",\"thumb_size\":\"200*200\",\"shuiyin_on\":\"0\",\"shuiyin_pos\":\"center_center\",\"shuiyin_text_color\":\"#000000\",\"shuiyin_text_size\":\"14\",\"shuiyin_image\":\"3\",\"shuiyin_text\":\"\\u7231\\u4f60\\u9177\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\",\"web_meta_title\":\"<p><img src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\" _src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\"\\/><img src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\" _src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\"\\/><\\/p>\"}', '1475551684', '1475760018');
 
 -- ----------------------------
 -- Table structure for kl_file
@@ -320,11 +320,13 @@ CREATE TABLE `kl_picture` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='上传图片';
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='上传图片';
 
 -- ----------------------------
 -- Records of kl_picture
 -- ----------------------------
+INSERT INTO `kl_picture` VALUES ('8', '1', '487655527099084608.jpg', '14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '1', '', 'ca112da45a284e97305fb985fa703c35cb065b62', '1475759973', '0');
+INSERT INTO `kl_picture` VALUES ('9', '1', '487655527099084608.jpg', '14757600065581.jpg', '/uploads/image/20161006/14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '1', '', 'ca112da45a284e97305fb985fa703c35cb065b62', '1475760006', '0');
 
 -- ----------------------------
 -- Table structure for kl_single
