@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-06 21:21:26
+Date: 2016-10-06 21:27:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,7 +86,7 @@ CREATE TABLE `kl_config` (
 -- ----------------------------
 -- Records of kl_config
 -- ----------------------------
-INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_domain\":\"http:\\/\\/www.ainiku5.loc\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_logo\":\"\",\"thumb_size\":\"200*200\",\"shuiyin_on\":\"0\",\"shuiyin_pos\":\"center_center\",\"shuiyin_text_color\":\"#000000\",\"shuiyin_text_size\":\"14\",\"shuiyin_image\":\"3\",\"shuiyin_text\":\"\\u7231\\u4f60\\u9177\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\",\"web_meta_title\":\"<p><img src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\" _src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\"\\/><img src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\" _src=\\\"\\/uploads\\/image\\/20161006\\/14757599733704.jpg\\\"\\/><\\/p>\"}', '1475551684', '1475760018');
+INSERT INTO `kl_config` VALUES ('1', '网站配置', 'web_config', '{\"web_domain\":\"http:\\/\\/www.ainiku5.loc\",\"web_meta_title\":\"\\u7231\\u4f60\\u9177\",\"web_meta_keywords\":\"\",\"web_meta_descr\":\"\",\"web_logo\":\"\",\"thumb_size\":\"200*200\",\"shuiyin_on\":\"0\",\"shuiyin_pos\":\"center_center\",\"shuiyin_text_color\":\"#000000\",\"shuiyin_text_size\":\"14\",\"shuiyin_image\":\"3\",\"shuiyin_text\":\"\\u7231\\u4f60\\u9177\",\"third_code\":\"asdffasdfasf\",\"admin_title\":\"\\u7231\\u4f60\\u9177\",\"list_rows\":\"12\"}', '1475551684', '1475760401');
 
 -- ----------------------------
 -- Table structure for kl_file
@@ -189,7 +189,7 @@ INSERT INTO `kl_form_item` VALUES ('20', '2', '表单项类型', '此项表单�
 INSERT INTO `kl_form_item` VALUES ('21', '1', '自动生成数据库表', '自动创建对应的数据表', 'auto_greate', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475480344', '1475480396');
 INSERT INTO `kl_form_item` VALUES ('22', '2', '自动生成字段', '自动在对应的数据表中生成字段', 'auto_greate', 'radio', '0:否\r\n1:是', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475480472', '1475480472');
 INSERT INTO `kl_form_item` VALUES ('23', '4', '系统后台标题', '管理后台名字(admin_title)', 'admin_title', 'string', '', '0', '3', '99', '1', '管理平台', '', '', '', '', '4', '1475480737', '1475480737');
-INSERT INTO `kl_form_item` VALUES ('24', '4', '网站优化标题', '网站前台的优化关键字(web_meta_title)', 'web_meta_title', 'umeditor', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483286', '1475747311');
+INSERT INTO `kl_form_item` VALUES ('24', '4', '网站优化标题', '网站前台的优化关键字(web_meta_title)', 'web_meta_title', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483286', '1475760342');
 INSERT INTO `kl_form_item` VALUES ('25', '4', '网站优化关键字', '网站前台的关键字(web_meta_keywords)', 'web_meta_keywords', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483337', '1475483337');
 INSERT INTO `kl_form_item` VALUES ('26', '4', '网站优化描述', '网站前台优化的描述(web_meta_descr)', 'web_meta_descr', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '3', '1475483379', '1475505044');
 INSERT INTO `kl_form_item` VALUES ('27', '4', '网站主页地址', '网站主域名,结尾不要\'/\'(web_domain)', 'web_domain', 'string', '', '0', '3', '10', '1', '', '', '', '', '', '3', '1475505568', '1475673331');
