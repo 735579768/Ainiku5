@@ -1,0 +1,33 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a href="{:url('sys.usergroup/add')}" class="btn">添加用户组</a>
+        </div>
+    </div>
+    <table width="100%">
+        <tr class="th">
+            <th class="td-id">Id</th>
+            <th>标题</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {volist name="_list" id="vo"}
+        <tr>
+            <td>{$vo.user_group_id}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+
+            <a href="{:url('sys.usergroup/edit',['user_group_id'=>$vo['user_group_id']])}" class="btn">编辑</a>
+            <a href="javascript:;" data-url="{:url('sys.usergroup/delete',['user_group_id'=>$vo['user_group_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

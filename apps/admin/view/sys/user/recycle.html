@@ -1,0 +1,41 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a href="{:url('sys.user/recycle')}" class="btn btn-warning">清空</a>
+            <a href="{:url('sys.user/lis')}" class="btn">用户列表</a>
+
+        </div>
+    </div>
+    <table width="100%">
+        <tr class="th">
+            <th class="td-id">Id</th>
+            <th>用户名</th>
+            <th>昵称</th>
+            <th class="td-time">用户组</th>
+            <th>登陆时间</th>
+            <th>登陆次数</th>
+            <th>最后登陆ip</th>
+            <th>操作</th>
+        </tr>
+        {volist name="_list" id="vo"}
+        <tr>
+            <td>{$vo.user_id}</td>
+            <td class="td-left">{$vo.username}</td>
+            <td class="td-left">{$vo.nickname}</td>
+            <td>{$vo.user_group_id}</td>
+            <td>{$vo.update_time|time_format}</td>
+            <td>{$vo.login}</td>
+            <td>{$vo.last_login_ip}</td>
+            <td class="td-btn">
+            <a href="javascript:;" data-url="{:url('sys.user/delete',['user_id'=>$vo['user_id']])}" onclick="am.okAction(this);" class="btn btn-danger">彻底删除</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

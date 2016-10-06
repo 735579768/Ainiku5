@@ -72,6 +72,8 @@
 			}
 			//默认加载第一个主菜单的左侧菜单
 			$('#mainnav a:first').click();
+			this.initYesNo();
+			this.blusChange();
 		},
 		resetLayout: function() {
 			var h = $('#admin-header').outerHeight();
@@ -90,7 +92,9 @@
 			var h = $('#admin-header').outerHeight();
 			var navh = $('#nav-block').outerHeight();
 			var sh = $(window).height();
-			$(dom).height(sh - h - navh);
+			var obj = $(dom);
+			obj.height(sh - h - navh);
+			obj.prev().remove();
 		},
 		/**
 		 * 单击框架导航
@@ -163,7 +167,7 @@
 				$(this).data('id', index);
 			});
 
-			// rightMenu && rightMenu.init();
+			rightMenu && rightMenu.init();
 		},
 		/**
 		 * 主导航加载左边菜单
@@ -242,8 +246,120 @@
 			return false;
 			// am.addIframe('我的博客','https://www.zhaokeli.com/');
 		},
+		/**
+		 * 更新字段值
+		 * @return {[type]} [description]
+		 */
+		blusChange: function(dom) {
+			var objlist = $('.ajax-blur');
+			objlist.focus(function(event) {
+				$(this).data('value', $(this).val());
+			});
+			objlist.blur(function(event) {
+				// debugger;
+				var _t = $(this);
+				var table1 = _t.attr("data-table");
+				var field1 = _t.attr("data-field");
+				var id1 = _t.attr("data-id");
+				var data1 = _t.val();
+				var data_src = _t.data('value');
+				if (data1 != data_src) {
+					$.post(am.url.updateField, {
+						id: id1,
+						table: table1,
+						field: field1,
+						value: data1
+					}, function(data, textStatus, xhr) {
+						(data.code == 0) && ank.alert(data);
+					});
+				}
+			});
+
+		},
+		initYesNo: function() {
+			//y n 插件
+			$(".yesno").each(function(index, element) {
+				var _t = $(this);
+				var da = _t.attr("data-value");
+				if (da == 1) {
+					$(this).addClass("yes");
+				} else {
+					$(this).addClass("no");
+				}
+				_t.click(function(e) {
+					var _tt = $(this);
+					var data1 = _tt.attr("data-value");
+					var table1 = _tt.attr("data-table");
+					var field1 = _tt.attr("data-field");
+					var id1 = _tt.attr("data-id");
+					var qh = function() {
+						if (_tt.hasClass("yes")) {
+							_tt.attr("data-value", 0);
+							_tt.removeClass("yes");
+							_tt.addClass("no");
+						} else {
+							_tt.attr("data-value", 1);
+							_tt.removeClass("no");
+							_tt.addClass("yes");
+						}
+					};
+					data1 = data1 ? 0 : 1;
+					if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {
+						qh();
+						$.post(am.url.updateField, {
+							id: id1,
+							table: table1,
+							field: field1,
+							value: data1
+						}, function(data, textStatus, xhr) {
+							(data.code == 0) && ank.alert(data);
+						});
+					}
+				});
+			});
+		}
 
 
+	};
+	/**
+	 * 右键菜单绑定
+	 * @type {Object}
+	 */
+	a.rightMenu = {
+		currentTab: null,
+		init: function() {
+			// debugger;
+			$('#youmenu').hover(function() {
+				$('#youmenu').show();
+			}, function() {
+				$('#youmenu').hide();
+			});
+			//右键菜单
+			$('.chrome-tab').bind('contextmenu', function(e) {
+				$('#nav-block .chrome-tab').removeClass('currenttab');
+				$(this).addClass('currenttab');
+				rightMenu.currentTab = $(this);
+				try {
+					if (window.event) e = window.event;
+					$('#youmenu').css({
+						left: e.clientX - 5,
+						top: e.clientY - 5
+					});
+					$('#youmenu').show();
+				} catch (e) {
+					console.log(e);
+				}
+				return false;
+			});
+		},
+		closeTab: function() {
+			this.currentTab && this.currentTab.find('.close').click();
+			$('#youmenu').hide();
+		},
+		closeOtherTab: function() {
+			$('#nav-block .chrome-tab').not('.currenttab').find('.close').click();
+			$('#youmenu').hide();
+		}
 	};
 }(window);
 /**

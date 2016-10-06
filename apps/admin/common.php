@@ -20,10 +20,9 @@ function select_form() {
  */
 function select_menu($pid = 0) {
 	static $sd       = 0;
-	static $menutree = [];
-	$relist          = [];
-	$sd || $relist   = [0 => '顶级菜单'];
-	$list            = \think\Db::name('Menu')
+	static $menutree = [0 => '顶级菜单'];
+
+	$list = \think\Db::name('Menu')
 		->field('menu_id,pid,title,url,sort')
 		->where(['pid' => $pid])
 		->order('sort asc,menu_id asc')
@@ -36,8 +35,25 @@ function select_menu($pid = 0) {
 		$sd--;
 
 	}
-	// dump($relist);
 	return $menutree;
+}
+/**
+ * 取用户组下拉框
+ * @return [type] [description]
+ */
+function select_user_group() {
+	$list = \think\Db::name('UserGroup')
+		->where('status', 1)
+		->field('user_group_id,title')
+		->select();
+	$relist = cache('sys_user_group');
+	if (APP_DEBUG || !$relist) {
+		foreach ($list as $key => $value) {
+			$relist[$value['user_group_id']] = $value['title'];
+		}
+		cache('sys_user_group', $relist);
+	}
+	return $relist;
 }
 /**
  * 取对应表单的编辑和添加表单html字符串,如果是post直接处理数据

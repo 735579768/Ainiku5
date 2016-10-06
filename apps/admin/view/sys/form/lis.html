@@ -11,6 +11,7 @@
     <table width="100%">
         <tr class="th">
             <th class="td-id">Id</th>
+            <th class="td-sort">排序</th>
             <th>标题</th>
             <th class="td-time">数据表</th>
             <th class="td-status">状态</th>
@@ -19,6 +20,9 @@
         {volist name="_list" id="vo"}
         <tr>
             <td>{$vo.form_id}</td>
+            <td>
+                <input data-table="Form" data-id="{$vo.form_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
+            </td>
             <td class="td-left">{$vo.title}</td>
             <td class="td-left">{$vo.name}</td>
             <td>{$vo.status|get_status}</td>

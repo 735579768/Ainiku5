@@ -81,7 +81,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con table .td-id{width:50px;}
 .iframe-con table .td-time{width:150px;}
 .iframe-con table .td-status{width:50px;}
-
+.iframe-con table .td-sort{width: 60px;}
 /**
  * 主标题
  */
@@ -106,6 +106,9 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .cate-tree .c-h-ico,.cate-tree .c-ico,.cate-tree .c-h-id,.cate-tree .c-id{width:50px;}
 .cate-tree .c-paixu,.cate-tree .c-h-paixu{width:60px;}
 .cate-tree .c-paixu input{width:40px;text-align:center;}
+.cate-tree .c-h-show,
+.cate-tree .c-show{width: 50px;}
+.cate-tree .c-show .fa{vertical-align: middle;}
 .cate-tree .c-h-title,.cate-tree .c-title{display:block;float:none;text-align:left;margin-left:200px;}
 .cate-tree .c-title .fa{margin-top:15px;vertical-align:top;cursor:pointer;}
 .cate-tree .c-title input{width:120px;}
@@ -139,3 +142,16 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .imgblock{float:left;margin:0px 5px;width:120px;height:170px;position:relative;}
 .imgblock .btn-danger{/*position:absolute;left:0px;bottom:0px;*/display:block;width:50%;margin:5px auto;}
 .upload-pre-item img{max-width:120px;max-height:120px;_width:expression(this.width >120 && this.height < this.width ? 120:true);_height:expression(this.height > 120 ? 120:true);}
+/**
+ * 状态图标
+ */
+.yes,.no{font-size:24px!important;cursor:pointer;width:38px;height:auto;display:inline-block}
+.yes:before{content:"\f205"!important;}
+.no:before{content:"\f204"!important;}
+/**
+ * 右键菜单样式
+ */
+.iframeloading{background:url(../images/loading_animate.gif);width:290px;height:290px;position:fixed;top:50%;text-align:center;left:50%;z-index:99;margin-left:-145px;margin-top:-145px;font-size:20px;color:#ABABAB;}
+.youmenu{z-index:999999999999;top:-1000000px;left:0px;position:fixed;background:#fefefe;border:solid 1px #d2d2d2;border-bottom:none;box-shadow:2px 2px 7px #ccc;}
+.youmenu .menuitem a{font-size:12px;padding:0px 20px;text-align:left;border-bottom:solid 1px #d2d2d2;height:30px;line-height:30px;display:block;white-space:nowrap;}
+.youmenu .menuitem:hover a,.youmenu .menuitem a:hover{background:#e2e2e2;}

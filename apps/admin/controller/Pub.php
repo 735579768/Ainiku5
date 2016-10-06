@@ -66,13 +66,15 @@ class Pub extends \app\common\Controller\Base {
 					cookie('token', ank_encrypt(json_encode($u)), $b);
 				}
 				// $this->success('登录成功', url('Index/index'));
-				$uri = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				// $uri = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				$uri = 'index/index';
 				return $isauto ? $user['user_id'] : ($this->success('登录成功！', url($uri)));
 			}
 		} else {
 			if (is_login() || $this->autoLogin()) {
 				$user = session('uinfo');
-				$uri  = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				// $uri  = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
+				$uri = 'index/index';
 				$this->redirect(url($uri));
 				// $this->redirect('Index/index');
 			} else {

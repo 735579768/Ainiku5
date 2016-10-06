@@ -451,9 +451,10 @@ function get_picture($id = null, $field = null, $wh = null) {
 	if (empty($id)) {
 		$revalue = false;
 	}
-	$wh = explode('*', config('thumb_size'));
+	$swh = $wh;
+	$wh  = explode('*', config('thumb_size'));
 	if (is_numeric($id)) {
-		$cakey = md5($id . '_' . $field . '_' . $wh);
+		$cakey = md5($id . '_' . $field . '_' . $swh);
 		//$revalue=cache('_picture/'.$cakey);
 		$pkey    = '_picture/' . ($id % 100);
 		$picarr  = cache($pkey);

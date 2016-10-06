@@ -16,7 +16,7 @@ class Formitem extends Base {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Db::name('FormItem')
 			->where('form_id', $form_id)
-			->order('sort asc')
+			->order('tab_id asc,sort asc')
 			->paginate(config('list_rows'));
 		// 获取分页显示
 		$page = $list->render();
@@ -33,33 +33,12 @@ class Formitem extends Base {
 	public function add() {
 		$form_id = input('param.form_id');
 		$form_id || $this->error('表单id不能为空!');
-
-		// if (request()->isPost()) {
-		// 	$result = $this->validate(input('post.'), 'FormItem');
-		// 	if (true === $result) {
-		// 		// $mod    = new \app\common\model\FormItem(input('post.'));
-		// 		// $result = $mod->allowField(true)->save();
-		// 		$result = model('FormItem')
-		// 			->data(input('post.'))
-		// 			->allowField(true)
-		// 			->save();
-		// 		$this->returnResult($result, '添加成功', '添加失败');
-		// 	} else {
-		// 		$this->error($result);
-		// 	}
-		// } else {
-		// 	$this->assign('meta_title', '添加表单项');
-		// 	// $formarr = require_once './apps/formarr.php';
-		// 	// dump($formarr);
-		// 	// $this->assign('formitem', get_form_item('FormItem'));
-		// 	$this->assign('data', null);
-		// 	return $this->fetch('edit');
-		// }
+		$this->addNewField();
 		$this->assign([
 			'meta_title' => '添加表单项',
 			'formstr'    => chuli_form('FormItem'),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 
 	}
 	/**
@@ -67,28 +46,12 @@ class Formitem extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		// $this->assign('meta_title', '编辑表单项');
-		// if (request()->isPost()) {
-		// 	$result = $this->validate(input('post.'), 'FormItem');
-		// 	if (true === $result) {
-		// 		$result = model('FormItem')
-		// 			->allowField(true)
-		// 			->isUpdate(true)
-		// 			->save(input('post.'), ['form_item_id' => input('param.form_item_id')]);
-		// 		$this->returnResult($result, '更新成功', '更新失败');
-		// 	} else {
-		// 		$this->error($result);
-		// 	}
-		// } else {
-		// 	$form_item_id = input('param.form_item_id');
-		// 	$this->assign('data', Db::name('FormItem')->where('form_item_id', $form_item_id)->find());
-		// 	return $this->fetch('edit');
-		// }
+		$this->addNewField();
 		$this->assign([
 			'meta_title' => '编辑表单项',
 			'formstr'    => chuli_form('FormItem', true),
 		]);
-		return $this->fetch('edit');
+		return $this->fetch('logic/form_edit_tpl');
 	}
 	/**
 	 * 删除表单项
@@ -96,5 +59,50 @@ class Formitem extends Base {
 	 */
 	public function del() {
 
+	}
+	/**
+	 * 判断这个数据表有没有这个字段
+	 * @param [type] $tableid        Form表中的id
+	 * @param [type] $tablefield     数据表字段
+	 * @param [type] $tablefieldtype 字段类型
+	 * @param [type] $title          字段备注
+	 */
+	private function addNewField() {
+		if (!request()->isPost()) {
+			return false;
+		}
+		$tableid        = input('param.form_id');
+		$tablefield     = input('param.name');
+		$tablefieldtype = select_form_type(input('param.type'), true);
+		$title          = input('param.title');
+
+		$info = \think\Db::name('Form')->field('name')->find($tableid);
+		$info || $this->error("ID为{$tableid}数据表不存在");
+		$prefix       = config('database.prefix');
+		$tablename    = strtolower($info['name']);
+		$tablefield   = strtolower($tablefield);
+		$defaultvalue = input('param.value');
+
+		$sql = "Describe {$prefix}{$tablename} `{$tablefield}`";
+		$res = \think\Db::query($sql);
+
+		//$res成功array(1) { [0]=> array(6) { ["Field"]=> string(5) "title" ["Type"]=> string(11) "varchar(50)" ["Null"]=> string(2) "NO" ["Key"]=> string(0) "" ["Default"]=> string(0) "" ["Extra"]=> string(0) "" } }
+		//$res失败array(0) {};
+
+		if ($res) {
+			//修改字段
+			$sql = "alter table {$prefix}{$tablename} MODIFY `{$tablefield}` " . $tablefieldtype . ' COMMENT \'' . $title . '\'';
+			if ($defaultvalue) {
+				$sql = preg_replace('/DEFAULT \'.*?\'/', 'DEFAULT \'' . $defaultvalue . '\'', $sql);
+			}
+			$res = \think\Db::execute($sql);
+		} else {
+			//添加字段
+			$sql = "alter table {$prefix}{$tablename} add `{$tablefield}` " . $tablefieldtype . ' COMMENT \'' . $title . '\'';
+			if ($defaultvalue) {
+				$sql = preg_replace('/DEFAULT \'.*?\'/', 'DEFAULT \'' . $defaultvalue . '\'', $sql);
+			}
+			$res = \think\Db::execute($sql);
+		}
 	}
 }

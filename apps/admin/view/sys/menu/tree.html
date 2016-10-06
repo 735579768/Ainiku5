@@ -4,18 +4,21 @@
         <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
         <div class="c-inp c-id">{$vo.menu_id}</div>
         <div class="c-inp c-paixu">
-            <input type="text" class="form-control" name="paixu" value="{$vo.sort}" />
+            <input data-table="Menu" data-id="{$vo.menu_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
+        </div>
+        <div class="c-inp c-show">
+            <span title="{$vo.status|get_status}" data-table="Menu" data-id="{$vo.menu_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span>
         </div>
         <div class="c-inp c-title">
             <span class="c-sign"></span>
             <a href="{:url('sys.menu/add',['pid'=>$vo['menu_id']])}"><i class="fa fa-plus-square"></i></a>
             <div class="text-field">
                 <span class="text-title">标题:</span>
-                <input type="text" class="form-control" name="title" value="{$vo.title}" />
+                <input data-table="Menu" data-id="{$vo.menu_id}" data-field="title"  type="text" class="form-control ajax-blur" value="{$vo.title}" />
             </div>
             <div class="text-field">
                 <span class="text-title">URL:</span>
-                <input type="text" class="form-control" value="{$vo.url}" />
+                <input data-table="Menu" data-id="{$vo.menu_id}" data-field="url"  type="text" class="form-control ajax-blur" value="{$vo.url}" />
             </div>
         </div>
         <div class="c-inp c-action">

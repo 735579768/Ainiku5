@@ -3,7 +3,14 @@ body{overflow: hidden;}
 </style>
 <script type="text/javascript">
 $(function(){
-	am.addIframe('表单列表','{:url('sys.form/lis')}');
+	 am.addIframe('首页',"{:url($uinfo['admin_index'])}");
+	// window.loadtabdata=setInterval(function(){
+	// 	var obj=$('#left-menu .menu-item a:first');
+	// 	if(obj.length>0){
+	// 		clearInterval(loadtabdata);
+	// 		am.addIframe(obj.text(),obj.attr('data-url'));
+	// 	}
+	// },1000);
 });
 </script>
 <div id="admin-right" class="admin-right">
