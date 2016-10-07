@@ -276,8 +276,8 @@ function UPLOADFILE() {
 					html += '<form class="uploadForm" action="' + para.url + '" method="post" enctype="multipart/form-data">';
 					html += '	<div class="upload_box">';
 					html += '		<div class="upload_main">';
-					html += '			<div class="upload_choose">';
-					html += '				<div class="convent_choice">';
+					html += '			<div class="upload_choose cl">';
+					html += '				<div class="convent_choice cl">';
 					html += '					<div class="andArea">';
 					html += '						<div class="filePicker"><b class="addimg">+</b>添加文件</div>';
 					html += '						<input   class="fileImage"  type="file" size="30" name="fileselect[]" ' + multiple + '>';
