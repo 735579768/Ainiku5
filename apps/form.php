@@ -479,10 +479,10 @@ eot;
 		$formjs['picture'] = true;
 		$formjsstr .= <<<eot
 <!--上传图片js start-->
-<link href="{$static_dir}/html5Upload/css/zyUpload.min.css?r=32673" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/uploadify/uploadify.min.css?r=32673" type="text/css" rel="stylesheet" />
-<script src="{$static_dir}/html5Upload/js/uploadFile.min.js?r=16300" type="text/javascript" ></script>
-<script src="{$static_dir}/uploadify/jquery.uploadify.min.js?r=16300" type="text/javascript" ></script>
+<link href="{$static_dir}/html5upload/css/zyUpload.min.css" type="text/css" rel="stylesheet" />
+<link href="{$static_dir}/uploadify/uploadify.min.css" type="text/css" rel="stylesheet" />
+<script src="{$static_dir}/html5upload/js/uploadFile.min.js" type="text/javascript" ></script>
+<script src="{$static_dir}/uploadify/jquery.uploadify.min.js" type="text/javascript" ></script>
 <!--上传图片js end-->\n
 
 eot;
