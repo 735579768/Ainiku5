@@ -47,11 +47,15 @@ class Data extends Base {
 
 		} else {
 			$data = null;
-			if ($id_name && $id_value) {
+			if ($edit) {
 				$data = \think\Db::name($model)
 					->where($id_name, $id_value)
 					->find();
 			}
+			// $data = null;
+			// if ($id_name && $id_value) {
+
+			// }
 			$this->assign('id', ['name' => $id_name, 'value' => $id_value]);
 			$this->assign('model', $model);
 			$this->assign('data', $data);

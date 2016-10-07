@@ -978,11 +978,13 @@ function parse_string_function($funcname = '') {
 		if (function_exists($out[1])) {
 			$func = $out[1];
 			$para = isset($out[3]) ? $out[3] : '';
-			$para = str_replace("'", '', $para);
+			// $para = str_replace("'", '', $para);
+			$para = explode(',', $para);
 			if (empty($para)) {
 				return $func();
 			} else {
-				return call_user_func_array($func, explode(',', $para));
+				// return call_user_func_array($func, explode(',', $para));
+				return call_user_func_array($func, $para);
 			}
 		} else {
 			return false;

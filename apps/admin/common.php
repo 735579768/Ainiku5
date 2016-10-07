@@ -21,12 +21,15 @@ function select_form() {
 function select_menu($pid = 0) {
 	static $sd       = 0;
 	static $menutree = [0 => '顶级菜单'];
-
+	empty($pid) && ($pid = 0);
 	$list = \think\Db::name('Menu')
 		->field('menu_id,pid,title,url,sort')
 		->where(['pid' => $pid])
 		->order('sort asc,menu_id asc')
+	// ->fetchSql()
 		->select();
+	// echo $list;
+	// die();
 	foreach ($list as $key => $value) {
 		$menutree[$value['menu_id']] = get_space($sd) . $value['title'];
 		$sd++;

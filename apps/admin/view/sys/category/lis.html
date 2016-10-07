@@ -1,0 +1,30 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a href="{:url('sys.category/add',['pid'=>0])}" class="btn">添加分类</a>
+        </div>
+    </div>
+    <div id="cate-tree" class="cate-tree">
+        <dl class="c-h-item cl">
+            <dt class="cl">
+                <div class="c-inp c-h-ico">折叠</div>
+                <div class="c-inp c-h-id">ID</div>
+                <div class="c-inp c-h-paixu">排序</div>
+                <div class="c-inp c-h-show">显示</div>
+                <div class="c-inp c-h-title">标题</div>
+                <div class="c-inp c-h-action">操作</div>
+            </dt>
+        </dl>
+{:controller('sys.category','controller')->tree()}
+    </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    catetree.init();
+});
+</script>
+{/block}
