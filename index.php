@@ -17,7 +17,7 @@ define('APP_DEBUG', true);
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/apps/');
 // 绑定当前访问到模块
-// define('BIND_MODULE', 'admin');
+define('BIND_MODULE', 'admin');
 define('STATIC_DIR', '/public/static');
 //应用运行时目录
 define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');

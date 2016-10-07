@@ -11,7 +11,7 @@
         </div>
         <div class="c-inp c-title">
             <span class="c-sign"></span>
-            <a href="{:url('sys.category/add',['pid'=>$vo['category_id']])}"><i class="fa fa-plus-square"></i></a>
+            <a href="{:url('sys.category/add',['pid'=>$vo['category_id'],'category_type'=>$category_type])}"><i class="fa fa-plus-square"></i></a>
             <div class="text-field">
                 <span class="text-title">标题:</span>
                 <input data-table="Category" data-id="{$vo.category_id}" data-field="title"  type="text" class="form-control ajax-blur" value="{$vo.title}" />
@@ -28,7 +28,7 @@
     </dt>
     {notempty name="vo.child"}
     <dd class="c-sub-item">
-        {:controller('sys.category','controller')->tree($vo['category_id'])}
+        {:controller('sys.category','controller')->tree($vo['category_id'],$category_type)}
     </dd>
     {/notempty}
 </dl>

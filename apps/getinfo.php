@@ -7,6 +7,11 @@
  */
 function get_status($status = 0, $type = 'status') {
 	$arr = config('systemstatus');
+	//判断是不是要返回状态数组
+	if (is_string($status) && is_bool($type)) {
+		return $arr[$status];
+	}
+	//返回状态文本
 	if (isset($arr[$type])) {
 		return $arr[$type][$status];
 	} else {

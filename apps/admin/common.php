@@ -41,7 +41,7 @@ function select_menu($pid = 0) {
 	return $menutree;
 }
 /**
- * 菜单下拉框
+ * 分类下拉框
  * @return [type] [description]
  */
 function select_category($pid = 0, $category_type = 'article') {
@@ -61,6 +61,13 @@ function select_category($pid = 0, $category_type = 'article') {
 
 	}
 	return $catetree;
+}
+/**
+ * 取分类类型下拉框
+ * @return [type] [description]
+ */
+function select_category_type() {
+	return get_status('category_type', true);
 }
 /**
  * 取用户组下拉框

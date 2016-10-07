@@ -9,32 +9,35 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function lis() {
-		$this->assign('meta_title', '分类列表');
-		// // 查询状态为1的用户数据 并且每页显示10条数据
-		// $list = Db::name('Category')->where(['pid' => 0])->paginate(10);
-		// // 获取分页显示
-		// $page = $list->render();
-		// // 模板变量赋值
-		// $this->assign('_list', $list);
-		// $this->assign('_page', $page);
+		$category_type  = input('param.category_type', 'article');
+		$category_title = get_status($category_type, 'category_type');
+		$this->assign([
+			'meta_title'     => $category_title . '分类列表',
+			'category_type'  => $category_type,
+			'category_title' => $category_title,
+		]);
 		return $this->fetch();
-		$this->tree();
+		// $this->tree();
 	}
 	/**
 	 * 取分类列表
 	 * @param  integer $pid 上级id
 	 * @return [type]       [description]
 	 */
-	public function tree($pid = 0) {
+	public function tree($pid = 0, $category_type = 'article') {
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Category')
-			->where(['pid' => $pid])
+		// $category_type        = input('param.category_type', 'article');
+		$map['pid']           = $pid;
+		$map['category_type'] = $category_type;
+		$list                 = Db::name('Category')
+			->where($map)
 			->field('category_id,pid,title,name,sort,status')
 			->order('status desc,sort asc')
 			->select();
 		foreach ($list as $key => $value) {
-			$list2 = Db::name('Category')
-				->where(['pid' => $value['category_id']])
+			$map['pid'] = $value['category_id'];
+			$list2      = Db::name('Category')
+				->where($map)
 				->field('category_id,pid,title,name,sort,status')
 				->order('status desc,sort asc')
 				->select();

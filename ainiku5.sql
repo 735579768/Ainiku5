@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-07 13:52:37
+Date: 2016-10-07 20:02:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -235,7 +235,7 @@ INSERT INTO `kl_form_item` VALUES ('62', '8', '分类的name标识', 'url优化�
 INSERT INTO `kl_form_item` VALUES ('63', '8', '分类名称', '', 'title', 'string', '', '0', '3', '22', '1', '', '', '', '', '', '0', '1475817000', '1475819266');
 INSERT INTO `kl_form_item` VALUES ('64', '8', '分类排序', '', 'sort', 'number', '', '0', '3', '25', '1', '99', '', '', '', '', '0', '1475817190', '1475819283');
 INSERT INTO `kl_form_item` VALUES ('65', '8', '分类图标', '', 'icon', 'picture', '', '0', '3', '97', '1', '', '', '', '', '', '1', '1475817224', '1475819234');
-INSERT INTO `kl_form_item` VALUES ('66', '8', '分类类型组', '分类所属哪个类型组(默认是文章分类article)', 'category_type', 'string', '', '0', '3', '24', '1', 'article', '', '', '', '', '0', '1475817281', '1475819321');
+INSERT INTO `kl_form_item` VALUES ('66', '8', '此分类是哪种分类', '标识这个是哪种分类(默认是文章分类article)', 'category_type', 'select', 'select_category_type', '0', '3', '20', '1', 'article', '', '', '', '', '0', '1475817281', '1475841646');
 INSERT INTO `kl_form_item` VALUES ('67', '8', '分类状态', '', 'status', 'radio', '0:禁用\r\n1:正常', '0', '3', '26', '1', '1', '', '', '', '', '0', '1475817325', '1475819289');
 INSERT INTO `kl_form_item` VALUES ('68', '8', '分类列表页模板', '', 'list_tpl', 'string', '', '0', '3', '95', '1', 'list_detail', '', '', '', '', '1', '1475817394', '1475819226');
 INSERT INTO `kl_form_item` VALUES ('69', '8', '分类内容详情页模板', '', 'detail_tpl', 'string', '', '0', '3', '96', '1', 'detail_default', '', '', '', '', '1', '1475817439', '1475819232');
@@ -297,7 +297,7 @@ INSERT INTO `kl_menu` VALUES ('6', '4', '表单列表', 'sys.form/lis', '开发�
 INSERT INTO `kl_menu` VALUES ('7', '4', '菜单列表', 'sys.menu/lis', '开发管理', '99', '1', '1475559431', '1475559431');
 INSERT INTO `kl_menu` VALUES ('9', '8', '用户列表', 'sys.user/lis', '默认', '99', '1', '1475632754', '1475634749');
 INSERT INTO `kl_menu` VALUES ('10', '8', '用户组', 'sys.usergroup/lis', '默认', '99', '1', '1475646121', '1475646121');
-INSERT INTO `kl_menu` VALUES ('11', '4', '分类列表', 'sys.category/lis', '开发管理', '99', '1', '1475818230', '1475818230');
+INSERT INTO `kl_menu` VALUES ('11', '4', '分类列表', 'sys.category/lis?category_type=article', '开发管理', '99', '1', '1475818230', '1475840279');
 
 -- ----------------------------
 -- Table structure for kl_nav

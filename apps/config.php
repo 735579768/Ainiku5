@@ -97,8 +97,8 @@ return [
 	'route_config_file'      => ['route'],
 	// 是否强制使用路由
 	'url_route_must'         => false,
-	// 域名部署
-	'url_domain_deploy'      => true,
+	// 域名部署,此配置开启后生成的url地址会带有域名
+	'url_domain_deploy'      => false,
 	// 域名根，如thinkphp.cn
 	'url_domain_root'        => '',
 	// 是否自动转换URL中的控制器和操作名
