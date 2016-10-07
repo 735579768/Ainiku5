@@ -1,6 +1,17 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		updatePwd: function() {
+			$.get(am.url.updatePwd, function(data) {
+				parent.layer.open({
+					title: '修改密码',
+					type: 1,
+					area: ['300px', '330px'],
+					content: data.data
+				});
+			});
+
+		},
 		okAction: function(dom, uri) {
 			uri || (uri = $(dom).attr('data-url'));
 			layer.confirm('确定此操作吗?', {

@@ -42,7 +42,8 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  */
 .touxiang{float:left;}
 .touxiang img{background:#fff;border-radius:25px;overflow:hidden;width:40px;height:40px;padding:3px;border:solid 1px #D8D8D8;margin:1px 5px;}
-
+.updatepwd{display: block;padding: 10px;}
+.updatepwd .form-wrap{display: block;}
 /**
  * 主导航样式
  */

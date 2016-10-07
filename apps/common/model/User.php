@@ -17,6 +17,6 @@ class User extends Model {
 	}
 
 	protected function setPasswordAttr($value) {
-		return ank_encrypt($value);
+		return ank_ucenter_md5($value);
 	}
 }

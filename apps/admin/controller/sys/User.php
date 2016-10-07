@@ -61,4 +61,12 @@ class User extends Base {
 		return $this->fetch();
 		return $this->fetch();
 	}
+	/**
+	 * 更新用户密码
+	 * @return [type] [description]
+	 */
+	public function updatePwd() {
+		// $user_id = input('param.user_id');
+		controller('User', 'logic')->updatePwd(UID);
+	}
 }

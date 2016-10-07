@@ -4,7 +4,7 @@
     </div>
     <ul id="mainnav" class="mainnav cl">
         {volist name="mainmenu" id="vo"}
-        <li><a href="javascript:;" data-url="{:url('Ajax/getLeftMenu',['pid'=>$vo['menu_id']])}" onclick="am.loadLeftMenu(this);">{$vo.title}</a></li>
+        <li><a href="javascript:;" data-url="{:url('sys.ajax/getLeftMenu',['pid'=>$vo['menu_id']])}" onclick="am.loadLeftMenu(this);">{$vo.title}</a></li>
         {/volist}
     </ul>
     <ul class="tool cl">
@@ -12,9 +12,9 @@
         <li><a href="{:config('web_domain')}" target="_blank"><i class="fa fa-home"></i>查看网站</a></li>
         <li class="downmenu"><a href="javascript:;"><i class="fa fa-user"></i>个人信息</a>
             <ul class="pwdinfo">
-                <li><a href="javascript:;" data-url="{:url('other/clearCache')}" onclick="am.okAction(this);" >清空缓存</a></li>
-                <li><a href="javascript:;">修改密码</a></li>
-                <li><a href="javascript:;" data-url="{:url('other/loginOut')}" onclick="am.okAction(this);" >退出系统</a></li>
+                <li><a href="javascript:;" data-url="{:url('sys.other/clearCache')}" onclick="am.okAction(this);" >清空缓存</a></li>
+                <li><a onclick="am.updatePwd();" href="javascript:;">修改密码</a></li>
+                <li><a href="javascript:;" data-url="{:url('sys.other/loginOut')}" onclick="am.okAction(this);" >退出系统</a></li>
             </ul>
         </li>
     </ul>

@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\admin\controller\sys;
 
 class Other extends Base {
 	/* 退出登录 */
