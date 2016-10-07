@@ -67,9 +67,14 @@ class Form extends Base {
 	 * @param [type] $table_name [description]
 	 */
 	private function addNewTable() {
+		$auto_greate = input('param.auto_greate', 0);
 		if (!request()->isPost()) {
 			return false;
 		}
+		if (!$auto_greate) {
+			return false;
+		}
+
 		$tablename = input('param.name');
 		$note      = input('param.note');
 		$tablename = lcfirst($tablename);

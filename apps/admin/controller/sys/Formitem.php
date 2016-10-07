@@ -68,9 +68,14 @@ class Formitem extends Base {
 	 * @param [type] $title          字段备注
 	 */
 	private function addNewField() {
+		$auto_greate = input('param.auto_greate', 0);
 		if (!request()->isPost()) {
 			return false;
 		}
+		if (!$auto_greate) {
+			return false;
+		}
+
 		$tableid        = input('param.form_id');
 		$tablefield     = input('param.name');
 		$tablefieldtype = select_form_type(input('param.type'), true);

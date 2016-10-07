@@ -38,6 +38,28 @@ function select_menu($pid = 0) {
 	return $menutree;
 }
 /**
+ * 菜单下拉框
+ * @return [type] [description]
+ */
+function select_category($pid = 0, $category_type = 'article') {
+	static $sdd      = 0;
+	static $catetree = [0 => '顶级分类'];
+
+	$list = \think\Db::name('Category')
+		->field('category_id,pid,title,sort')
+		->where(['pid' => $pid])
+		->order('sort asc,category_id asc')
+		->select();
+	foreach ($list as $key => $value) {
+		$catetree[$value['category_id']] = get_space($sdd) . $value['title'];
+		$sdd++;
+		select_menu($value['category_id'], $category_type);
+		$sdd--;
+
+	}
+	return $catetree;
+}
+/**
  * 取用户组下拉框
  * @return [type] [description]
  */
