@@ -298,8 +298,9 @@
 					$(this).addClass("no");
 				}
 				_t.click(function(e) {
+					// debugger;
 					var _tt = $(this);
-					var data1 = _tt.attr("data-value");
+					var data1 = parseInt(_tt.attr("data-value"));
 					var table1 = _tt.attr("data-table");
 					var field1 = _tt.attr("data-field");
 					var id1 = _tt.attr("data-id");
