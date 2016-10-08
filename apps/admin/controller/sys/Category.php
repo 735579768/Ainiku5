@@ -51,7 +51,8 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
-		return controller('Category', 'logic')->add();
+		// return controller('Category', 'logic')->add();
+		return controller('Data', 'logic')->add('Category');
 
 	}
 	/**
@@ -59,7 +60,8 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		return controller('Category', 'logic')->edit();
+		// return controller('Category', 'logic')->edit();
+		return controller('Data', 'logic')->edit('Category');
 	}
 	/**
 	 * 删除分类

@@ -3,29 +3,29 @@ namespace app\admin\logic;
 use think\Controller;
 
 class Usergroup extends Controller {
-	/**
-	 * 添加用户组
-	 * @return [type] [description]
-	 */
-	public function add() {
-		$this->assign([
-			'meta_title' => '添加用户组',
-			'formstr'    => chuli_form('UserGroup'),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
+	// /**
+	//  * 添加用户组
+	//  * @return [type] [description]
+	//  */
+	// public function add() {
+	// 	$this->assign([
+	// 		'meta_title' => '添加用户组',
+	// 		'formstr'    => chuli_form('UserGroup'),
+	// 	]);
+	// 	return $this->fetch('logic/form_edit_tpl');
 
-	}
-	/**
-	 * 编辑用户组
-	 * @return [type] [description]
-	 */
-	public function edit() {
-		$this->assign([
-			'meta_title' => '编辑用户组',
-			'formstr'    => chuli_form('UserGroup', true),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
-	}
+	// }
+	// /**
+	//  * 编辑用户组
+	//  * @return [type] [description]
+	//  */
+	// public function edit() {
+	// 	$this->assign([
+	// 		'meta_title' => '编辑用户组',
+	// 		'formstr'    => chuli_form('UserGroup', true),
+	// 	]);
+	// 	return $this->fetch('logic/form_edit_tpl');
+	// }
 	/**
 	 * 删除用户组
 	 * @return [type] [description]

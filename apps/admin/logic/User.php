@@ -3,27 +3,27 @@ namespace app\admin\logic;
 use think\Controller;
 
 class User extends Controller {
-	/**
-	 * 添加用户信息
-	 */
-	public function add() {
-		$this->assign([
-			'meta_title' => '添加用户',
-			'formstr'    => chuli_form('User'),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
-	}
-	/**
-	 * 编辑用户
-	 * @return [type] [description]
-	 */
-	public function edit() {
-		$this->assign([
-			'meta_title' => '编辑用户',
-			'formstr'    => chuli_form('User', true),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
-	}
+	// /**
+	//  * 添加用户信息
+	//  */
+	// public function add() {
+	// 	$this->assign([
+	// 		'meta_title' => '添加用户',
+	// 		'formstr'    => chuli_form('User'),
+	// 	]);
+	// 	return $this->fetch('logic/form_edit_tpl');
+	// }
+	// /**
+	//  * 编辑用户
+	//  * @return [type] [description]
+	//  */
+	// public function edit() {
+	// 	$this->assign([
+	// 		'meta_title' => '编辑用户',
+	// 		'formstr'    => chuli_form('User', true),
+	// 	]);
+	// 	return $this->fetch('logic/form_edit_tpl');
+	// }
 	/**
 	 * 移动用户到回收站
 	 * @param  integer $user_id [description]

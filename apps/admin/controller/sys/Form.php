@@ -23,11 +23,12 @@ class Form extends Base {
 	 */
 	public function add() {
 		$this->addNewTable();
-		$this->assign([
-			'meta_title' => '编辑表单',
-			'formstr'    => chuli_form('Form'),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
+		// $this->assign([
+		// 	'meta_title' => '编辑表单',
+		// 	'formstr'    => chuli_form('Form'),
+		// ]);
+		// return $this->fetch('logic/form_edit_tpl');
+		return controller('Data', 'logic')->add('Form');
 	}
 	/**
 	 * 编辑表单
@@ -35,11 +36,12 @@ class Form extends Base {
 	 */
 	public function edit() {
 		$this->addNewTable();
-		$this->assign([
-			'meta_title' => '编辑表单',
-			'formstr'    => chuli_form('Form', true),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
+		// $this->assign([
+		// 	'meta_title' => '编辑表单',
+		// 	'formstr'    => chuli_form('Form', true),
+		// ]);
+		// return $this->fetch('logic/form_edit_tpl');
+		return controller('Data', 'logic')->edit('Form');
 
 	}
 	/**

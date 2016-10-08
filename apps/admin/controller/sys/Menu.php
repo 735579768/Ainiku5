@@ -41,11 +41,12 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
-		$this->assign([
-			'meta_title' => '添加菜单',
-			'formstr'    => chuli_form('Menu'),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
+		// $this->assign([
+		// 	'meta_title' => '添加菜单',
+		// 	'formstr'    => chuli_form('Menu'),
+		// ]);
+		// return $this->fetch('logic/form_edit_tpl');
+		return controller('Data', 'logic')->add('Menu');
 
 	}
 	/**
@@ -53,11 +54,12 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		$this->assign([
-			'meta_title' => '编辑菜单',
-			'formstr'    => chuli_form('Menu', true),
-		]);
-		return $this->fetch('logic/form_edit_tpl');
+		// $this->assign([
+		// 	'meta_title' => '编辑菜单',
+		// 	'formstr'    => chuli_form('Menu', true),
+		// ]);
+		// return $this->fetch('logic/form_edit_tpl');
+		return controller('Data', 'logic')->edit('Menu');
 	}
 	/**
 	 * 删除菜单

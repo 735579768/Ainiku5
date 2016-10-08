@@ -87,12 +87,12 @@ function select_user_group() {
 	}
 	return $relist;
 }
-/**
- * 取对应表单的编辑和添加表单html字符串,如果是post直接处理数据
- * @param  string  $model 对应的数据模型
- * @param  boolean $edit   当前操作是添加还是更新,false是添加,true更新
- * @return [type]         返回值
- */
-function chuli_form($model = '', $edit = false) {
-	return controller('Data', 'logic')->addEditForm($model, $edit);
-}
+// /**
+//  * 取对应表单的编辑和添加表单html字符串,如果是post直接处理数据
+//  * @param  string  $model 对应的数据模型
+//  * @param  boolean $edit   当前操作是添加还是更新,false是添加,true更新
+//  * @return [type]         返回值
+//  */
+// function chuli_form($model = '', $edit = false) {
+// 	return controller('Data', 'logic')->addEditForm($model, $edit);
+// }

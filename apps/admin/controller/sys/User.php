@@ -41,14 +41,16 @@ class User extends Base {
 	 * 添加用户信息
 	 */
 	public function add() {
-		return controller('User', 'logic')->add();
+		// return controller('User', 'logic')->add();
+		return controller('Data', 'logic')->add('User');
 	}
 	/**
 	 * 编辑用户
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		return controller('User', 'logic')->edit();
+		// return controller('User', 'logic')->edit();
+		return controller('Data', 'logic')->edit('User');
 	}
 	/**
 	 * 移动用户到回收站

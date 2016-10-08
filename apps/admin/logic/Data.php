@@ -8,7 +8,7 @@ class Data extends Base {
 	 * @param boolean $edit  是否是编辑数据,默认为false
 	 * @return [type] 如果是get请求会返回一个表单字符串,如果是post请求,会判断是add还是edit状态,进行对应的操作
 	 */
-	public function addEditForm($model = '', $edit = false) {
+	private function addEditForm($model = '', $edit = false) {
 		$model || $this->error('模型为空!');
 		$model    = ucfirst($model);
 		$na       = preg_replace('/([A-Z])/s', '_$1', lcfirst($model));
@@ -52,17 +52,47 @@ class Data extends Base {
 					->where($id_name, $id_value)
 					->find();
 			}
-			// $data = null;
-			// if ($id_name && $id_value) {
-
-			// }
 			$this->assign('id', ['name' => $id_name, 'value' => $id_value]);
 			$this->assign('model', $model);
 			$this->assign('data', $data);
-			return $this->fetch('logic/form_edit');
+			// return $this->fetch('logic/form_edit');
 		}
 	}
+	/**
+	 * 添加表单
+	 * @return [type] [description]
+	 */
+	public function add($name = '') {
+		$name || $this->error('表单标识符为空!');
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $name])
+			->find();
+		$title = $info['title'];
+		$this->assign([
+			'meta_title' => '添加' . $title,
+			'formstr'    => $this->addEditForm($name),
+		]);
+		return $this->fetch('logic/form_edit_tpl');
+	}
+	/**
+	 * 编辑表单
+	 * @return [type] [description]
+	 */
+	public function edit($name = '') {
+		$name || $this->error('表单标识符为空!');
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $name])
+			->find();
+		$title = $info['title'];
+		$this->assign([
+			'meta_title' => '编辑' . $title,
+			'formstr'    => $this->addEditForm($name, true),
+		]);
+		return $this->fetch('logic/form_edit_tpl');
 
+	}
 	/**
 	 * 删除信息
 	 * @param  string $table 数据表名字

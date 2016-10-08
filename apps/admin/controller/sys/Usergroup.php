@@ -20,7 +20,8 @@ class Usergroup extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
-		return controller('Usergroup', 'logic')->add();
+		// return controller('Usergroup', 'logic')->add();
+		return controller('Data', 'logic')->add('UserGroup');
 
 	}
 	/**
@@ -28,7 +29,8 @@ class Usergroup extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		return controller('Usergroup', 'logic')->edit();
+		// return controller('Usergroup', 'logic')->edit();
+		return controller('Data', 'logic')->edit('UserGroup');
 	}
 	/**
 	 * 删除用户组
