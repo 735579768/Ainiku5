@@ -235,7 +235,7 @@ return [
 	/* 文件上传相关配置 */
 	'file_upload'            => array(
 		'maxSize'  => 2 * 1024 * 1024, //上传的文件大小限制 (0-不做限制)
-		'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
+		'exts'     => ['jpg', 'gif', 'png', 'jpeg'], //允许上传的文件后缀
 		'rootPath' => '/uploads', //保存图片根路径
 	),
 ];

@@ -59,54 +59,29 @@ trait File {
 			'url'      => '',
 			'data'     => '',
 		);
-		$SITE_PATH    = SITE_PATH; //网站根目录
-		$targetFolder = '.' . config('file_upload.rootPath'); //保存图片的根目录
-		$targetPath   = '';
-		$thumbPath    = '';
-		$data         = array();
+		$SITE_PATH  = SITE_PATH; //网站根目录
+		$targetPath = '.' . config('file_upload.rootPath') . '/image/' . date('Ymd'); //保存图片的根目录
+		$thumbPath  = str_replace('/image/', '/image/thumb/', $targetPath);
+		$data       = array();
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
 			$extend   = explode(".", strtolower($_FILES['filelist']['name']));
 			$va       = count($extend) - 1;
 			$filename = time() . mt_rand(10000, 99999) . "." . $extend[$va];
-			//文件类型文件夹
-			$foldertype = '';
-			switch ($extend[$va]) {
-			case 'jpg':$targetFolder .= '/image';
-				$foldertype = '/thumb';
-				break;
-			case 'png':$targetFolder .= '/image';
-				$foldertype = '/thumb';
-				break;
-			case 'gif':$targetFolder .= '/image';
-				$foldertype = '/thumb';
-				break;
-			case 'jpeg':$targetFolder .= '/image';
-				$foldertype = '/thumb';
-				break;
-			case 'bmp':$targetFolder .= '/image';
-				$foldertype = '/thumb';
-				break;
-			case 'mp4':$targetFolder .= '/file/video';
-				break;
-			default:$targetFolder .= '/file/other';
-				break;
-			}
-			$imgpath = $targetFolder . '/' . date('Ymd');
-			if (!create_folder($imgpath)) {
-				$return['info']   = '创建目录错误：' . $imgpath;
+			if (!create_folder($targetPath)) {
+				$return['info']   = '创建目录错误：' . $targetPath;
 				$return['status'] = 0;
 				$this->ajaxreturn($return);
 			}
-			$imgpath2 = $targetFolder . $foldertype . '/' . date('Ymd');
-			if (!create_folder($imgpath)) {
-				$return['info']   = '创建目录错误：' . $imgpath;
+			if (!create_folder($thumbPath)) {
+				$return['info']   = '创建目录错误：' . $thumbPath;
 				$return['status'] = 0;
 				$this->ajaxreturn($return);
 			}
 
-			$targetPath = $targetFolder . '/' . date('Ymd') . '/' . $filename;
+			$targetPath .= '/' . $filename;
+			$thumbPath .= '/' . $filename;
 
 			// Validate the file type
 			$fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // File extensions
@@ -114,7 +89,7 @@ trait File {
 			if (in_array($extend[$va], $fileTypes)) {
 				$bl = move_uploaded_file($tempFile, $targetPath);
 
-				$thumbPath = str_replace('/image/', '/image/thumb/', $targetPath);
+				// $thumbPath = str_replace('/image/', '/image/thumb/', $targetPath);
 				if ($bl) {
 					//判断是不是已经上传过类似图片
 					$shafile = $this->checksha($targetPath);
@@ -148,8 +123,7 @@ trait File {
 
 		if ($return['status'] == 1) {
 			//保存文件信息到数据库
-			$cupath       = trim($targetPath, '.');
-			$data['path'] = $cupath;
+			$data['path'] = trim($targetPath, '.');
 			//$data['sha1']        = $shafile['sha1'];
 			$data['thumbpath']   = trim($thumbPath, '.');
 			$data['destname']    = $filename;
@@ -159,22 +133,19 @@ trait File {
 
 			$result = \think\Db::name('Picture')
 				->insert($data);
-			// if ($model->create($data)) {
-			// $result = $model->add($data);
 			if ($result) {
 				//添加水印
 				$this->markpic($thumbPath);
 				$this->markpic($targetPath);
 				$return['id'] = $result;
 			}
-			// }
 		}
 
 		/* 返回JSON数据 */
 		$this->ajaxReturn(array_merge($return, $data));
 	}
 	//图片添加水印
-	private function markpic($dst = null) {
+	private function markpic($dst = '') {
 		//取水印图片
 		$src       = realpath('.' . get_picture(config('shuiyin_image')));
 		$shuiyinon = config('shuiyin_on');
@@ -187,7 +158,7 @@ trait File {
 	/**
 	 * 编辑器上传图片
 	 */
-	public function ueupload() {
+	public function ueUpload() {
 		// die('run');
 		$s_dir  = '.' . STATIC_DIR;
 		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents($s_dir . "/ueditor/php/config.json")), true);
