@@ -33,11 +33,6 @@ class Formitem extends Base {
 		$form_id || $this->error('表单id不能为空!');
 		$this->addNewField();
 		return controller('Data', 'logic')->add('FormItem');
-		// $this->assign([
-		// 	'meta_title' => '添加表单项',
-		// 	'formstr'    => chuli_form('FormItem'),
-		// ]);
-		// return $this->fetch('logic/form_edit_tpl');
 
 	}
 	/**
@@ -47,11 +42,6 @@ class Formitem extends Base {
 	public function edit() {
 		$this->addNewField();
 		return controller('Data', 'logic')->edit('FormItem');
-		// $this->assign([
-		// 	'meta_title' => '编辑表单项',
-		// 	'formstr'    => chuli_form('FormItem', true),
-		// ]);
-		// return $this->fetch('logic/form_edit_tpl');
 	}
 	/**
 	 * 删除表单项

@@ -3,27 +3,6 @@ namespace app\admin\logic;
 use think\Controller;
 
 class Category extends Controller {
-	// /**
-	//  * 添加分类信息
-	//  */
-	// public function add() {
-	// 	$this->assign([
-	// 		'meta_title' => '添加分类',
-	// 		'formstr'    => chuli_form('Category'),
-	// 	]);
-	// 	return $this->fetch('logic/form_edit_tpl');
-	// }
-	// /**
-	//  * 编辑分类
-	//  * @return [type] [description]
-	//  */
-	// public function edit() {
-	// 	$this->assign([
-	// 		'meta_title' => '编辑分类',
-	// 		'formstr'    => chuli_form('Category', true),
-	// 	]);
-	// 	return $this->fetch('logic/form_edit_tpl');
-	// }
 	/**
 	 * 删除分类
 	 * @return [type] [description]

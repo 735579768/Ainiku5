@@ -100,9 +100,14 @@ class Data extends Base {
 	 * @return [type]        [description]
 	 */
 	public function delete($table = '', $id = '') {
+		$table || $this->error('数据表为空!');
+		$idname = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table))) . '_id';
+		$id || ($id = input('param.' . $idname));
 		$id || $this->error('id不能为空!');
 		is_string($id) && ($id = explode(',', $id));
-		$result = \think\Db::table(ucfirst($table))->delete($id);
+		$result = \think\Db::name(ucfirst($table))
+			->where($idname, 'in', $id)
+			->delete();
 		$this->returnResult($result, '删除成功', '删除失败');
 	}
 }

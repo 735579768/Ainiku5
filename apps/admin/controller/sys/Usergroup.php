@@ -20,7 +20,6 @@ class Usergroup extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
-		// return controller('Usergroup', 'logic')->add();
 		return controller('Data', 'logic')->add('UserGroup');
 
 	}
@@ -29,7 +28,6 @@ class Usergroup extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		// return controller('Usergroup', 'logic')->edit();
 		return controller('Data', 'logic')->edit('UserGroup');
 	}
 	/**
@@ -37,6 +35,12 @@ class Usergroup extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
-		return controller('Usergroup', 'logic')->delete();
+		$user_group_id = input('param.user_group_id');
+		$user_group_id || $this->error('用户组id不能为空!');
+		$list = \think\Db::name('UserGroup')
+			->where('user_group_id', $user_group_id)
+			->find();
+		$list && $this->error('此用户组下还有用户,故不能删除!');
+		controller('Data', 'logic')->delete('UserGroup', $user_group_id);
 	}
 }

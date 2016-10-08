@@ -17,7 +17,6 @@ class Category extends Base {
 			'category_title' => $category_title,
 		]);
 		return $this->fetch();
-		// $this->tree();
 	}
 	/**
 	 * 取分类列表
@@ -25,8 +24,6 @@ class Category extends Base {
 	 * @return [type]       [description]
 	 */
 	public function tree($pid = 0, $category_type = 'article') {
-		// 查询状态为1的用户数据 并且每页显示10条数据
-		// $category_type        = input('param.category_type', 'article');
 		$map['pid']           = $pid;
 		$map['category_type'] = $category_type;
 		$list                 = Db::name('Category')
@@ -51,7 +48,6 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
-		// return controller('Category', 'logic')->add();
 		return controller('Data', 'logic')->add('Category');
 
 	}
@@ -60,7 +56,6 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
-		// return controller('Category', 'logic')->edit();
 		return controller('Data', 'logic')->edit('Category');
 	}
 	/**

@@ -3,27 +3,7 @@ namespace app\admin\logic;
 use think\Controller;
 
 class User extends Controller {
-	// /**
-	//  * 添加用户信息
-	//  */
-	// public function add() {
-	// 	$this->assign([
-	// 		'meta_title' => '添加用户',
-	// 		'formstr'    => chuli_form('User'),
-	// 	]);
-	// 	return $this->fetch('logic/form_edit_tpl');
-	// }
-	// /**
-	//  * 编辑用户
-	//  * @return [type] [description]
-	//  */
-	// public function edit() {
-	// 	$this->assign([
-	// 		'meta_title' => '编辑用户',
-	// 		'formstr'    => chuli_form('User', true),
-	// 	]);
-	// 	return $this->fetch('logic/form_edit_tpl');
-	// }
+
 	/**
 	 * 移动用户到回收站
 	 * @param  integer $user_id [description]
@@ -42,23 +22,7 @@ class User extends Controller {
 			$this->error('操作失败');
 		}
 	}
-	/**
-	 * 删除用户
-	 * @return [type] [description]
-	 */
-	public function delete($user_id = 0) {
-		$user_id || ($user_id = input('param.user_id', 0));
-		$user_id || $this->error('用户id不能为空');
-		$result = \think\Db::name('User')
-			->where('user_id', 'in', $user_id)
-			->isUpdate(true)
-			->delete();
-		if ($result) {
-			$this->success('删除成功');
-		} else {
-			$this->error('删除失败');
-		}
-	}
+
 	/**
 	 * 更新指定用户id的密码
 	 * @param  integer $user_id 用户id
