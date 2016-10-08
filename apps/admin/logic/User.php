@@ -4,28 +4,40 @@ use think\Controller;
 
 class User extends Controller {
 	/**
-	 * 用户列表
-	 * @return [type] [description]
+	 * 移动用户到回收站
+	 * @param  integer $user_id [description]
+	 * @return [type]           [description]
 	 */
-	public function lists() {
-
-	}
-	/**
-	 * 编辑用户
-	 * @return [type] [description]
-	 */
-	public function edit() {
-
+	public function del($user_id = 0) {
+		$user_id || $this->error('用户id不能为空');
+		$result = \think\Db::name('User')
+			->where('user_id', 'in', $user_id)
+			->isUpdate(true)
+			->save(['status' => -1]);
+		if ($result) {
+			$this->success('成功移动到回收站');
+		} else {
+			$this->error('操作失败');
+		}
 	}
 	/**
 	 * 删除用户
 	 * @return [type] [description]
 	 */
-	public function del() {
-
+	public function delete($user_id = 0) {
+		$user_id || $this->error('用户id不能为空');
+		$result = \think\Db::name('User')
+			->where('user_id', 'in', $user_id)
+			->isUpdate(true)
+			->delete();
+		if ($result) {
+			$this->success('删除成功');
+		} else {
+			$this->error('删除失败');
+		}
 	}
 	/**
-	 * 更新指定用户的密码
+	 * 更新指定用户id的密码
 	 * @param  integer $user_id 用户id
 	 * @return [type]           [description]
 	 */
