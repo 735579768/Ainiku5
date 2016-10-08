@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-07 20:02:45
+Date: 2016-10-08 21:35:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -183,7 +183,7 @@ INSERT INTO `kl_form_item` VALUES ('10', '2', '表单项提示错误', '', 'data
 INSERT INTO `kl_form_item` VALUES ('11', '2', '表单项提示格式正确', '', 'data_ok', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '1', '1475461663', '1475461663');
 INSERT INTO `kl_form_item` VALUES ('12', '2', '表单项验证需要的正则', '', 'data_reg', 'string', '', '0', '3', '99', '1', '', '', '', '', '', '1', '1475461696', '1475461696');
 INSERT INTO `kl_form_item` VALUES ('13', '2', '表单项是否是扩展项', '表单tab类型标签', 'tab_id', 'radio', 'select_form_tab', '0', '3', '99', '1', '0', '', '', '', '', '0', '1475461747', '1475653381');
-INSERT INTO `kl_form_item` VALUES ('14', '1', '表单名称', '', 'title', 'string', '', '0', '3', '80', '1', '请填写表单的名称', '', '', '', '', '0', '1475462007', '1475764820');
+INSERT INTO `kl_form_item` VALUES ('14', '1', '表单名称', '', 'title', 'string', '', '0', '3', '80', '1', '', '', '', '', '', '0', '1475462007', '1475844361');
 INSERT INTO `kl_form_item` VALUES ('15', '1', '表单对应的数据表', '', 'name', 'string', '', '0', '3', '81', '1', '', '', '', '', '', '0', '1475462030', '1475644142');
 INSERT INTO `kl_form_item` VALUES ('16', '1', '表单排序', '', 'sort', 'number', '', '0', '3', '84', '1', '99', '', '', '', '', '0', '1475462076', '1475765261');
 INSERT INTO `kl_form_item` VALUES ('17', '1', '搜索格式字符串', '搜索列表的格式字符串', 'search_format', 'textarea', '', '0', '3', '86', '1', '', '', '', '', '', '0', '1475462140', '1475765263');
@@ -402,7 +402,7 @@ CREATE TABLE `kl_user` (
 -- ----------------------------
 -- Records of kl_user
 -- ----------------------------
-INSERT INTO `kl_user` VALUES ('1', '', '10000', '1', 'admin', '0c72320405722be71ba98ade695850b5', '啊哦', '3,58,485', 'asdf', '13633719215', '735579768@qq.com', '1', '', '127.0.0.1', '', '0', '0', '0', '0', '1475675648');
+INSERT INTO `kl_user` VALUES ('1', '', '10000', '1', 'admin', '0c72320405722be71ba98ade695850b5', '啊哦', '3,58,485', 'asdf', '13633719215', '735579768@qq.com', '1', '', '127.0.0.1', '', '0', '1', '0', '0', '1475927038');
 
 -- ----------------------------
 -- Table structure for kl_user_group
@@ -424,7 +424,7 @@ CREATE TABLE `kl_user_group` (
 -- ----------------------------
 -- Records of kl_user_group
 -- ----------------------------
-INSERT INTO `kl_user_group` VALUES ('1', '管理员', '', 'sys.config/group', '', '1', '1', '0', '1475652103');
+INSERT INTO `kl_user_group` VALUES ('1', '管理员', '', 'sys.config/group', '', '1', '1', '0', '1475926973');
 
 -- ----------------------------
 -- Table structure for kl_user_log
