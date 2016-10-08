@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-10-08 21:35:30
+Date: 2016-10-08 22:03:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -288,8 +288,8 @@ CREATE TABLE `kl_menu` (
 -- Records of kl_menu
 -- ----------------------------
 INSERT INTO `kl_menu` VALUES ('1', '0', '常用', 'javascript:;', '默认', '98', '1', '1475558381', '1475676321');
-INSERT INTO `kl_menu` VALUES ('8', '0', '用户', 'user/lis', '默认', '99', '1', '1475632715', '1475632715');
-INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'article/lis', '默认', '99', '0', '1475558698', '1475674985');
+INSERT INTO `kl_menu` VALUES ('8', '0', '用户', 'javascript:;', '默认', '99', '1', '1475632715', '1475935392');
+INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'javascript:;', '默认', '99', '0', '1475558698', '1475935401');
 INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'article/lis', '默认', '99', '1', '1475558868', '1475558868');
 INSERT INTO `kl_menu` VALUES ('4', '0', '系统', 'javascript:;', '默认', '99', '1', '1475559327', '1475637160');
 INSERT INTO `kl_menu` VALUES ('5', '4', '网站设置', 'sys.config/group', '默认', '99', '1', '1475559362', '1475559362');
