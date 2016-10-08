@@ -19,7 +19,9 @@
         <tr>
             <td>{$vo.user_group_id}</td>
             <td class="td-left">{$vo.title}</td>
-            <td>{$vo.status|get_status}</td>
+            <td>
+<span title="{$vo.status|get_status}" data-table="UserGroup" data-id="{$vo.user_group_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span>
+            </td>
             <td class="td-btn">
 
             <a href="{:url('sys.usergroup/edit',['user_group_id'=>$vo['user_group_id']])}" class="btn">编辑</a>

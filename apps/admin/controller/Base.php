@@ -30,22 +30,34 @@ class Base extends \app\common\Controller\Base {
 	 * @return [type]       [description]
 	 */
 	protected function pages($conf = []) {
-		$whe   = isset($conf['where']) ? $conf['where'] : '';
-		$join  = isset($conf['join']) ? $conf['join'] : '';
-		$field = isset($conf['field']) ? $conf['field'] : '';
-		$order = isset($conf['order']) ? $conf['order'] : '';
-		$rows  = isset($conf['rows']) ? $conf['rows'] : 15;
-		$url   = isset($conf['url']) ? $conf['url'] : '';
-		$User  = preg_match('/[a-zA-Z0-9]+View/', $model) ? D($model) : M($model);
-		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Form')->where('status', 1)->paginate(10);
+		$join          = isset($conf['join']) ? $conf['join'] : [];
+		$table         = isset($conf['table']) ? $conf['table'] : $thier->error('数据表不能为空!');
+		$table1        = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
+		$whe           = isset($conf['where']) ? $conf['where'] : [];
+		$field         = isset($conf['field']) ? $conf['field'] : '*';
+		$default_order = strtolower($table1 . '_id') . ' desc';
+		$order         = isset($conf['order']) ? ($conf['order'] . ',' . $default_order) : $default_order;
+		$rows          = isset($conf['rows']) ? $conf['rows'] : config('list_rows');
+		$url           = isset($conf['url']) ? $conf['url'] : '';
+		$pobj          = \think\Db::name(ucfirst($table))->alias('a');
+		$join && ($pobj = $pobj->join($join));
+		// //循环where
+		// if ($whe) {
+		// 	foreach ($whe as $key => $value) {
+		// 		$pobj = call_user_func_array([$pobj, 'where'], $value);
+		// 	}
+		// }
+		$list = $pobj
+			->where($whe)
+			->field($field)
+			->order($order)
+			// ->fetchSql()
+			->paginate($rows);
+		// echo $list;
 		// 获取分页显示
 		$page = $list->render();
-		// var_dump($page);
-		// 模板变量赋值
 		$this->assign('_list', $list);
 		$this->assign('_page', $page);
-		return $this->fetch();
 	}
 	/**
 	 *后台模块通用改变状态

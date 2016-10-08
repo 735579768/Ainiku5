@@ -10,14 +10,11 @@ class Form extends Base {
 	 */
 	public function lis() {
 		$this->assign('meta_title', '表单列表');
-		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Form')->where('status', 1)->paginate(config('list_rows'));
-		// 获取分页显示
-		$page = $list->render();
-		// var_dump($page);
-		// 模板变量赋值
-		$this->assign('_list', $list);
-		$this->assign('_page', $page);
+		$this->pages([
+			'table' => 'Form',
+			'where' => ['a.status' => 1],
+			'order' => 'sort asc',
+		]);
 		return $this->fetch();
 	}
 	/**

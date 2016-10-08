@@ -10,13 +10,6 @@ class Menu extends Base {
 	 */
 	public function lis() {
 		$this->assign('meta_title', '菜单列表');
-		// // 查询状态为1的用户数据 并且每页显示10条数据
-		// $list = Db::name('Menu')->where(['pid' => 0])->paginate(10);
-		// // 获取分页显示
-		// $page = $list->render();
-		// // 模板变量赋值
-		// $this->assign('_list', $list);
-		// $this->assign('_page', $page);
 		return $this->fetch();
 		$this->tree();
 	}

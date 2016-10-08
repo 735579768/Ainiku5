@@ -13,17 +13,15 @@ class Formitem extends Base {
 		$form_id = input('param.form_id');
 		$form_id || $this->error('表单id不能为空!');
 
-		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('FormItem')
-			->where('form_id', $form_id)
-			->order('tab_id asc,sort asc')
-			->paginate(config('list_rows'));
-		// 获取分页显示
-		$page = $list->render();
-		// var_dump($page);
-		// 模板变量赋值
-		$this->assign('_list', $list);
-		$this->assign('_page', $page);
+		$this->pages([
+			'table' => 'FormItem',
+			'where' => ['a.form_id' => $form_id],
+			'join'  => [
+				['form b', 'a.form_id=b.form_id'],
+			],
+			'field' => 'a.*,b.title as form_title',
+			'order' => 'tab_id asc,a.sort asc',
+		]);
 		return $this->fetch();
 	}
 	/**

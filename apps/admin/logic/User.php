@@ -4,11 +4,33 @@ use think\Controller;
 
 class User extends Controller {
 	/**
+	 * 添加用户信息
+	 */
+	public function add() {
+		$this->assign([
+			'meta_title' => '添加用户',
+			'formstr'    => chuli_form('User'),
+		]);
+		return $this->fetch('logic/form_edit_tpl');
+	}
+	/**
+	 * 编辑用户
+	 * @return [type] [description]
+	 */
+	public function edit() {
+		$this->assign([
+			'meta_title' => '编辑用户',
+			'formstr'    => chuli_form('User', true),
+		]);
+		return $this->fetch('logic/form_edit_tpl');
+	}
+	/**
 	 * 移动用户到回收站
 	 * @param  integer $user_id [description]
 	 * @return [type]           [description]
 	 */
 	public function del($user_id = 0) {
+		$user_id || ($user_id = input('param.user_id', 0));
 		$user_id || $this->error('用户id不能为空');
 		$result = \think\Db::name('User')
 			->where('user_id', 'in', $user_id)
@@ -25,6 +47,7 @@ class User extends Controller {
 	 * @return [type] [description]
 	 */
 	public function delete($user_id = 0) {
+		$user_id || ($user_id = input('param.user_id', 0));
 		$user_id || $this->error('用户id不能为空');
 		$result = \think\Db::name('User')
 			->where('user_id', 'in', $user_id)
@@ -42,6 +65,7 @@ class User extends Controller {
 	 * @return [type]           [description]
 	 */
 	public function updatePwd($user_id = 0) {
+		$user_id || ($user_id = input('param.user_id', 0));
 		$user_id || $this->error('请输入用户id');
 		if (request()->isPost()) {
 			$password   = input('post.password');
