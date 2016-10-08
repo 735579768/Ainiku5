@@ -38,7 +38,7 @@ class Usergroup extends Base {
 	public function edit() {
 		$this->assign([
 			'meta_title' => '编辑用户组',
-			'formstr'    => chuli_form('UserGroup'),
+			'formstr'    => chuli_form('UserGroup', true),
 		]);
 		return $this->fetch('logic/form_edit_tpl');
 	}

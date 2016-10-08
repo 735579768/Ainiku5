@@ -37,7 +37,7 @@ class User extends Base {
 	public function edit() {
 		$this->assign([
 			'meta_title' => '编辑用户',
-			'formstr'    => chuli_form('User'),
+			'formstr'    => chuli_form('User', true),
 		]);
 		return $this->fetch('logic/form_edit_tpl');
 	}
@@ -66,7 +66,7 @@ class User extends Base {
 	 * @return [type] [description]
 	 */
 	public function updatePwd() {
-		// $user_id = input('param.user_id');
-		controller('User', 'logic')->updatePwd(UID);
+		$user_id = input('param.user_id');
+		controller('User', 'logic')->updatePwd($user_id);
 	}
 }

@@ -1,8 +1,8 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
-		updatePwd: function() {
-			$.get(am.url.updatePwd, function(data) {
+		updatePwd: function(dom, uri) {
+			$.get(uri, function(data) {
 				parent.layer.open({
 					title: '修改密码',
 					type: 1,
