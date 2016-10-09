@@ -32,23 +32,22 @@
 //在共用模块控制器CustomFormController中添加方法并且返回表单字符串
 //示例请看里面的测试邮件和云标签
 
-//每一次请求要引入的表单js
-$GLOBALS['formjs'] = array(
-	'editornum'  => 0,
-	'datetime'   => 0,
-	'picture'    => 0,
-	'editor'     => 0,
-	'umeditor'   => 0,
-	'color'      => 0,
-	'liandong'   => 0,
-	// 'dandu'      => 0,
-	'cutpicture' => 0,
-);
 function create_form($fieldarr, $data = []) {
+//每一次请求要引入的表单js
+	static $formjs = [
+		'editornum'  => 0,
+		'datetime'   => 0,
+		'picture'    => 0,
+		'editor'     => 0,
+		'umeditor'   => 0,
+		'color'      => 0,
+		'liandong'   => 0,
+		// 'dandu'      => 0,
+		'cutpicture' => 0,
+	];
 	is_array($fieldarr) || ($fieldarr = []);
 	$md5key = md5(json_encode($fieldarr));
 	$data || ($data = []);
-	global $formjs;
 	$static_dir = STATIC_DIR;
 
 	$formstr = '';

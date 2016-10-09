@@ -501,3 +501,161 @@ function get_picture($id = null, $field = null, $wh = null) {
 	}
 	return empty($revalue) ? '' : trim($revalue, '.');
 }
+/**
+ * 查找文件并返回路径
+ * @param  string $filename [description]
+ * @return [type]           [description]
+ */
+function find_file_path($filename = '') {
+	if (empty($filename)) {
+		return '';
+	}
+	$dirarr = array(
+		config('view_replace_str.__JS__'),
+		config('view_replace_str.__CSS__'),
+		config('view_replace_str.__STATIC__') . '/js',
+		config('view_replace_str.__STATIC__') . '/css',
+		'/public/' . request()->module() . '/' . config('DEFAULT_THEME'),
+		config('view_replace_str.__STATIC__'),
+	);
+
+	foreach ($dirarr as $key => $value) {
+		$filepath = $value . '/' . $filename;
+		// \Think\Log::write($filepath, 'WARN');
+
+		if (file_exists(path_a($filepath))) {
+			return $filepath;
+		}
+	}
+	return 'http://' . $filename;
+}
+/**
+ *判断文件是否已经被修改
+ */
+function file_ismod($filepath) {
+	$filearr = array();
+	if (is_array($filepath)) {
+		$filearr = $filepath;
+	} else {
+		$filearr[] = $filepath;
+	}
+	$rebool = false;
+	foreach ($filearr as $val) {
+		$sval = path_a($val);
+		// $modtime = date('Y-m-d h:i:s', filemtime($sval));
+		$modtime = filemtime($sval);
+		if ($modtime) {
+			$path     = str_replace(array('/', '\\'), array('_'), $val);
+			$key      = '_modfile/' . $path;
+			$modstime = cache($key);
+			if ($modtime !== $modstime['time']) {
+				cache($key, ['time' => $modtime, 'path' => $sval]);
+				$rebool = true;
+			}
+		}
+	}
+	return $rebool;
+
+}
+/**
+ *压缩css
+ **/
+function compress_css($path) {
+	$dirname  = dirname($path); //当前css文件的路径目录
+	$ipath    = $path;
+	$styledir = './data/scache/' . request()->module();
+	$str      = '';
+	if ($ipath) {
+		$str = file_get_contents($ipath);
+//把文件压缩
+		$arr = array('/(\n|\t|\s)*/i', '/\n|\t|\s(\{|}|\,|\:|\;)/i', '/(\{|}|\,|\:|\;)\s/i');
+		$str = preg_replace($arr, '$1', $str);
+		$str = preg_replace('/(\/\*.*?\*\/\n?)/i', '', $str);
+
+//查找出样式文件中的图片
+		preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/", $str, $out);
+		foreach ($out[1] as $v) {
+			// \Think\Log::write($v, 'WARN');
+
+			//复制文件
+			//文件所在的真实路径
+			$src_url = $v;
+			//文件要复制到的目标路径
+			$new_url = '';
+			if (strpos($src_url, '?') !== false) {
+				//如果有参数
+				$num     = strpos($src_url, '?');
+				$src_url = substr($src_url, 0, $num);
+			}
+			//文件所在路径
+			if (substr($src_url, 0, 3) == '../') {
+				$new_url = str_replace("../", $styledir . "/", $src_url); //设置新路径
+				//反回上级目录
+				$arr = explode('/', $dirname);
+				unset($arr[count($arr) - 1]);
+				$dirname2 = implode('/', $arr);
+				$src_url  = str_replace("../", $dirname2 . "/", $src_url);
+
+				// \Think\Log::write($src_url, 'WARN');
+
+			} else if (substr($src_url, 0, 2) == './') {
+				$new_url = str_replace("./", $styledir . "/", $src_url); //设置新路径
+				$src_url = str_replace("./", $dirname . "/", $src_url);
+			} else if (substr($src_url, 0, 1) == '/') {
+				$fpath   = "/source/" . basename($src_url);
+				$str     = str_replace($src_url, '.' . $fpath, $str);
+				$new_url = $styledir . $fpath; //设置新路径
+				$src_url = SITE_PATH . $src_url;
+				\Think\Log::write($new_url);
+				\Think\Log::write($src_url);
+
+			} else {
+				$new_url = $styledir . "/" . $src_url; //设置新路径
+				$src_url = $dirname . '/' . $src_url;
+			}
+			create_folder(dirname($new_url));
+			if (file_exists($src_url)) {
+				//判断是否存在
+				// dump($src_url);
+				// dump($new_url);
+				copy($src_url, $new_url); //复制到新目录
+			}
+
+		}
+		$str = str_replace('../', './', $str);
+	} else {
+		die("path is not found:" . $ipath);
+	}
+	return $str;
+}
+/**
+ *压缩JS文件并替换JS嵌套include文件
+ */
+function compress_js($jspath) {
+	//查找是否有压缩文件存在
+	$farr                   = explode('.', $jspath);
+	$farr[count($farr) - 1] = 'min.js';
+	$minjs                  = implode('.', $farr);
+	$jsstr                  = '';
+	if (file_exists($minjs)) {
+		$jsstr = file_get_contents($minjs);
+	} else {
+		$jsstr = file_get_contents($jspath);
+	}
+	return $jsstr;
+	// set_time_limit(1800);
+	// import('Ainiku.JSMin');
+	// return \JSMin::minify($jsstr);
+}
+/**
+ *写字符串到文件
+ */
+function write_tofile($filename, $str) {
+	if (create_folder(dirname($filename))) {
+		return file_put_contents($filename, $str);
+	} else {
+		//\Think\Log::write("mkdir err: ".$dirname($fpath));
+		die(dirname($filename));
+	}
+
+}
