@@ -56,12 +56,12 @@ function create_form($fieldarr, $data = []) {
 		return '';
 	}
 	// $formjsstr  = '';
-	$formstr = cache('_formcache/' . $md5key);
+	$formstr = cache('_formcache/' . $md5key); //生成的form字符串
+	// $formstr       = '';
+	$initformjs    = ''; //要初始化的表单js
+	$formjsstr     = ''; //要引入的js文件
+	$default_value = [];
 	if (empty($formstr) || APP_DEBUG) {
-		$formstr       = ''; //生成的form字符串
-		$initformjs    = ''; //要初始化的表单js
-		$formjsstr     = ''; //要引入的js文件
-		$default_value = [];
 		// dump($fieldarr);
 		foreach ($fieldarr as $key => $value) {
 			// dump($fieldarr);
