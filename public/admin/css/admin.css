@@ -40,14 +40,16 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * 头部样式
  * @type {[type]}
  */
-.touxiang{float:left;}
+#admin-header .block{float:left;}
+.admin-title{margin:10px 10px 0px 10px;font-size:22px;    font-weight: bolder;width: 100px;}
 .touxiang img{background:#fff;border-radius:25px;overflow:hidden;width:40px;height:40px;padding:3px;border:solid 1px #D8D8D8;margin:1px 5px;}
-.updatepwd{display: block;padding: 10px;}
-.updatepwd .form-wrap{display: block;}
+.updatepwd{display:block;padding:10px;}
+.updatepwd .form-wrap{display:block;}
+
 /**
  * 主导航样式
  */
-.mainnav,.tool{margin-top:10px;margin-left:120px;float:left}
+.mainnav,.tool{margin-top:10px;}
 .tool{float:right;margin-right:10px;}
 .mainnav li,.tool>li{float:left;position:relative;}
 .mainnav li a,.tool>li a{display:inline-block;padding:0px 10px;font-size:12px;border-bottom:solid 4px #ededed;height:30px;line-height:30px;}
@@ -82,7 +84,8 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con table .td-id{width:50px;}
 .iframe-con table .td-time{width:150px;}
 .iframe-con table .td-status{width:50px;}
-.iframe-con table .td-sort{width: 60px;}
+.iframe-con table .td-sort{width:60px;}
+
 /**
  * 主标题
  */
@@ -107,9 +110,8 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .cate-tree .c-h-ico,.cate-tree .c-ico,.cate-tree .c-h-id,.cate-tree .c-id{width:50px;}
 .cate-tree .c-paixu,.cate-tree .c-h-paixu{width:60px;}
 .cate-tree .c-paixu input{width:40px;text-align:center;}
-.cate-tree .c-h-show,
-.cate-tree .c-show{width: 50px;}
-.cate-tree .c-show .fa{vertical-align: middle;}
+.cate-tree .c-h-show,.cate-tree .c-show{width:50px;}
+.cate-tree .c-show .fa{vertical-align:middle;}
 .cate-tree .c-h-title,.cate-tree .c-title{display:block;float:none;text-align:left;margin-left:200px;}
 .cate-tree .c-title .fa{margin-top:15px;vertical-align:top;cursor:pointer;}
 .cate-tree .c-title input{width:120px;}
@@ -134,21 +136,25 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .tab .tabnav{float:left;margin-bottom:-1px;}
 .tab .tabnav a{padding:5px 20px;height:35px;line-height:35px;font-size:14px;border:1px solid transparent;border-top-width:2px;}
 .tab .tabnav.hover a{border-color:#44b549 #e0e0e0 #fff;border-bottom-color:#fff;}
+
 /**
  * 上传图片预览样式
  */
+
 /***上传图片***/
 .uploadimg{height:120px;width:120px;}
-.upload-img-box{display:table-cell;vertical-align:middle;text-align:center;cursor: pointer;}
+.upload-img-box{display:table-cell;vertical-align:middle;text-align:center;cursor:pointer;}
 .imgblock{float:left;margin:0px 5px;width:120px;height:170px;position:relative;}
 .imgblock .btn-danger{/*position:absolute;left:0px;bottom:0px;*/display:block;width:50%;margin:5px auto;}
 .upload-pre-item img{max-width:120px;max-height:120px;_width:expression(this.width >120 && this.height < this.width ? 120:true);_height:expression(this.height > 120 ? 120:true);}
+
 /**
  * 状态图标
  */
 .yes,.no{font-size:24px!important;cursor:pointer;width:38px;height:auto;display:inline-block}
 .yes:before{content:"\f205"!important;}
 .no:before{content:"\f204"!important;}
+
 /**
  * 右键菜单样式
  */

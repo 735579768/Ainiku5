@@ -1,8 +1,9 @@
 <div id="admin-header" class="admin-header">
-    <div class="touxiang">
+    <div class="touxiang block">
         <img src="__IMG__/touxiang.jpg">
     </div>
-    <ul id="mainnav" class="mainnav cl">
+    <div class="admin-title block">{:config('admin_title')}</div>
+    <ul id="mainnav" class="mainnav block cl">
         {volist name="mainmenu" id="vo"}
         <li><a href="javascript:;" data-url="{:url('sys.ajax/getLeftMenu',['pid'=>$vo['menu_id']])}" onclick="am.loadLeftMenu(this);">{$vo.title}</a></li>
         {/volist}

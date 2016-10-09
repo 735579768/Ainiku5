@@ -10,7 +10,12 @@ class Base extends Controller {
 	 */
 	public function _empty($name) {
 		// die('404');
-		throw new \think\Exception('没有此方法:' . $name, 100006);
+		if (APP_DEBUG) {
+			throw new \think\Exception('没有此方法:' . $name, 100006);
+		} else {
+			return $this->fetch(APP_PATH . 'common/view/404.html');
+		}
+
 	}
 	/**
 	 * 初始化配置项

@@ -13,7 +13,7 @@
 define('ACCESS_ROOT', true);
 //站点入口文件根路径
 define('SITE_PATH', __DIR__);
-define('APP_DEBUG', true);
+define('APP_DEBUG', false);
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/apps/');
 // 绑定当前访问到模块
