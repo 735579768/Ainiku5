@@ -18,11 +18,11 @@ define('APP_DEBUG', false);
 define('APP_PATH', __DIR__ . '/apps/');
 // 绑定当前访问到模块
 define('BIND_MODULE', 'admin');
-define('STATIC_DIR', '/public/static');
+
 //应用运行时目录
 define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');
 //扩展目录位置
 define('EXTEND_PATH', SITE_PATH . '/vendor/extend/');
-// define('IMAGE_CACHE_DIR', '/data/imgcache/'); //图片缓存目录
+define('STATIC_DIR', '/public');
 // 加载框架引导文件
 require __DIR__ . '/tp5/start.php';

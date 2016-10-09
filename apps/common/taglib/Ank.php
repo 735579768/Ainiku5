@@ -16,7 +16,7 @@ class Ank extends TagLib {
 		'module' => ['attr' => 'name', 'close' => 1],
 	];
 	public function tagLayer($tag) {
-		return '<script type="text/javascript" src="/public/static/layer/layer.js"></script>';
+		return '<script type="text/javascript" src="' . STATIC_DIR . '/static/layer/layer.js"></script>';
 	}
 	/**
 	 * insert标签解析

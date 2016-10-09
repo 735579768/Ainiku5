@@ -319,7 +319,7 @@ function UPLOADFILE() {
 					html += '				<div class="add_upload">';
 					html += '					<a style="height:' + para.itemHeight + ';width:' + para.itemWidth + ';" title="点击添加文件" id="" class="rapidAddImg    add_imgBox" href="javascript:void(0)">';
 					html += '						<div class="uploadImg" style="width:' + imgWidth + 'px">';
-					html += '							<img class="upload_image" src="/Public/Static/html5Upload/images/add_img.png" style="width:expression(this.width > ' + imgWidth + ' ? ' + imgWidth + 'px : this.width)" />';
+					html += '							<img class="upload_image" src="/public/static/html5upload/images/add_img.png" style="width:expression(this.width > ' + imgWidth + ' ? ' + imgWidth + 'px : this.width)" />';
 					html += '						</div>';
 					html += '					</a>';
 					html += '				</div>';
@@ -400,7 +400,7 @@ function UPLOADFILE() {
 				}
 
 				// 处理不同类型文件代表的图标
-				var fileImgSrc = "/Public/Static/html5Upload/images/fileType/";
+				var fileImgSrc = "/public/static/html5upload/images/fileType/";
 				if (file.name.indexOf(".rar") > 0) {
 					fileImgSrc = fileImgSrc + "rar.png";
 				} else if (file.name.indexOf(".zip") > 0) {

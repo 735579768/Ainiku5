@@ -40,10 +40,10 @@ return [
 	],
 	// 视图输出字符串内容替换
 	'view_replace_str'  => [
-		'__STATIC__' => '/public/static',
-		'__IMG__'    => '/public/admin/images',
-		'__CSS__'    => '/public/admin/css',
-		'__JS__'     => '/public/admin/js',
+		'__STATIC__' => STATIC_DIR . '/static',
+		'__IMG__'    => STATIC_DIR . '/admin/images',
+		'__CSS__'    => STATIC_DIR . '/admin/css',
+		'__JS__'     => STATIC_DIR . '/admin/js',
 	],
 	//后台菜单
 	'admin_custom_menu' => [

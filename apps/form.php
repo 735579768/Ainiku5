@@ -48,7 +48,7 @@ function create_form($fieldarr, $data = []) {
 	is_array($fieldarr) || ($fieldarr = []);
 	$md5key = md5(json_encode($fieldarr));
 	$data || ($data = []);
-	$static_dir = STATIC_DIR;
+	$static_dir = STATIC_DIR . '/static';
 
 	$formstr = '';
 	if (!$fieldarr) {
@@ -606,7 +606,7 @@ eot;
  * @return [type]            返回一个数组html和初始化的js['str',='','js'=>'']
  */
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
-	$static_dir        = '/public/static';
+	$static_dir        = STATIC_DIR . '/static';
 	$upload_text       = $filetype ? '上传附件' : '上传图片';
 	$preimglist        = '';
 	$uploadsuccessfunc = '';

@@ -515,7 +515,7 @@ function find_file_path($filename = '') {
 		config('view_replace_str.__CSS__'),
 		config('view_replace_str.__STATIC__') . '/js',
 		config('view_replace_str.__STATIC__') . '/css',
-		'/public/' . request()->module() . '/' . config('default_theme'),
+		STATIC_DIR.'/' . request()->module() . '/' . config('default_theme'),
 		config('view_replace_str.__STATIC__'),
 	);
 

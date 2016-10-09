@@ -15,6 +15,7 @@ class Error extends \think\Controller {
 			$errstr = "无法找到控制器:{$controllerName}/{$actionName}";
 			throw new \think\Exception($errstr, 100006);
 		} else {
+			$this->assign('static_dir', STATIC_DIR);
 			return $this->fetch(APP_PATH . 'common/view/404.html');
 		}
 	}

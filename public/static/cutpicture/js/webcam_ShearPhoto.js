@@ -47,9 +47,9 @@ window.webcam = {
           protocol:location.protocol.match(/https/i) ? "https" :"http",
           callback:null,
           // user callback for completed uploads
-          swf_url:"/Public/Static/cutpicture/images/webcam.swf",
+          swf_url:"/public/static/cutpicture/images/webcam.swf",
           // URI to webcam.swf movie (defaults to cwd)
-          shutter_url:"/Public/Static/cutpicture/images/shutter.mp3",
+          shutter_url:"/public/static/cutpicture/images/shutter.mp3",
           // URI to shutter.mp3 sound
           api_url:"",
           // URL to upload script
