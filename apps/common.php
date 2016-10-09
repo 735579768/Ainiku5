@@ -467,7 +467,7 @@ function get_picture($id = null, $field = null, $wh = null) {
 				$wharr = explode('_', $wh);
 
 				if (count($wharr == 2)) {
-					$revalue = '.' . str_replace('/uploads/image/', IMAGE_CACHE_DIR, $picture['path']);
+					$revalue = '.' . str_replace('/uploads/image/', config('greate_cache_path.imgcache') . '/', $picture['path']);
 					$fname   = basename($revalue);
 					$rename  = $wh . '_' . $fname;
 					$revalue = str_replace($fname, $rename, $revalue);
@@ -515,7 +515,7 @@ function find_file_path($filename = '') {
 		config('view_replace_str.__CSS__'),
 		config('view_replace_str.__STATIC__') . '/js',
 		config('view_replace_str.__STATIC__') . '/css',
-		'/public/' . request()->module() . '/' . config('DEFAULT_THEME'),
+		'/public/' . request()->module() . '/' . config('default_theme'),
 		config('view_replace_str.__STATIC__'),
 	);
 
@@ -563,16 +563,16 @@ function file_ismod($filepath) {
 function compress_css($path) {
 	$dirname  = dirname($path); //当前css文件的路径目录
 	$ipath    = $path;
-	$styledir = './data/scache/' . request()->module();
+	$styledir = '.' . config('greate_cache_path.jscss') . '/' . request()->module();
 	$str      = '';
 	if ($ipath) {
 		$str = file_get_contents($ipath);
-//把文件压缩
+		//把文件压缩
 		$arr = array('/(\n|\t|\s)*/i', '/\n|\t|\s(\{|}|\,|\:|\;)/i', '/(\{|}|\,|\:|\;)\s/i');
 		$str = preg_replace($arr, '$1', $str);
 		$str = preg_replace('/(\/\*.*?\*\/\n?)/i', '', $str);
 
-//查找出样式文件中的图片
+		//查找出样式文件中的图片
 		preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/", $str, $out);
 		foreach ($out[1] as $v) {
 			// \Think\Log::write($v, 'WARN');
@@ -654,7 +654,6 @@ function write_tofile($filename, $str) {
 	if (create_folder(dirname($filename))) {
 		return file_put_contents($filename, $str);
 	} else {
-		//\Think\Log::write("mkdir err: ".$dirname($fpath));
 		die(dirname($filename));
 	}
 

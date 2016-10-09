@@ -235,10 +235,18 @@ return [
 		'var_page'  => 'page',
 		'list_rows' => 15,
 	],
+	//默认主题
+	'default_theme'          => '',
 	/* 文件上传相关配置 */
-	'file_upload'            => array(
+	'file_upload'            => [
 		'maxSize'  => 2 * 1024 * 1024, //上传的文件大小限制 (0-不做限制)
 		'exts'     => ['jpg', 'gif', 'png', 'jpeg'], //允许上传的文件后缀
 		'rootPath' => '/uploads', //保存图片根路径
-	),
+	],
+
+	//运行过程中生成的资源缓存路径
+	'greate_cache_path'      => [
+		'jscss'    => '/data/scache',
+		'imgcache' => '/data/imgcache',
+	],
 ];

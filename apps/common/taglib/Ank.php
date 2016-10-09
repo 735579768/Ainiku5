@@ -61,7 +61,7 @@ class Ank extends TagLib {
 				}
 			}
 		} else {
-			$styledir      = './data/scache/' . request()->module();
+			$styledir      = '.' . config('greate_cache_path.jscss') . '/' . request()->module();
 			$cachefilename = $styledir . '/' . $newname . '.' . $filetype;
 			create_folder(dirname($cachefilename));
 			if (file_ismod($temarr) || !file_exists($cachefilename)) {
