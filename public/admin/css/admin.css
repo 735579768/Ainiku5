@@ -162,3 +162,11 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .youmenu{z-index:999999999999;top:-1000000px;left:0px;position:fixed;background:#fefefe;border:solid 1px #d2d2d2;border-bottom:none;box-shadow:2px 2px 7px #ccc;}
 .youmenu .menuitem a{font-size:12px;padding:0px 20px;text-align:left;border-bottom:solid 1px #d2d2d2;height:30px;line-height:30px;display:block;white-space:nowrap;}
 .youmenu .menuitem:hover a,.youmenu .menuitem a:hover{background:#e2e2e2;}
+/***表单自动验证检查***/
+.msgok,.yzok{background:url("../images/yzico1.png") no-repeat;color:#339966;}
+.msgerr,.yzerr{background:url("../images/yzico2.png") no-repeat;color:#f00;}
+.msgts,.yzth1{background:url("../images/yzico3.png") no-repeat;}
+.yzth2{background:url("../images/yzico4.png") no-repeat;}
+.msgok,.msgerr,.msgts{display:inline-block;width:20px;height:20px;vertical-align:top;margin-right:10px;}
+.yzok,.yzerr,.yzth1,.yzth2{height:30px;line-height:30px;padding-left:30px;background-size:20px 20px;background-position:0px center;display:inline-block;position:absolute;}
+.autoyz-wrap span{position:absolute;top:0px;display:none;white-space:nowrap;top:0px;}

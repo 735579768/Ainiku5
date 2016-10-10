@@ -20,7 +20,7 @@ class Formitem extends Base {
 				['__FORM__ b', 'a.form_id=b.form_id'],
 			],
 			'field' => 'a.*,b.title as form_title',
-			'order' => 'tab_id asc,a.sort asc',
+			'order' => 'tab_id asc,a.sort asc,a.form_item_id asc',
 		]);
 		return $this->fetch();
 	}

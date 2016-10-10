@@ -1,0 +1,40 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a href="{:url('sys.article/add')}" class="btn">添加文章</a>
+        </div>
+    </div>
+    <table width="100%">
+        <tr class="th">
+            <th class="td-id">Id</th>
+            <th>标题</th>
+            <th>分类</th>
+            <th class="td-time">创建时间</th>
+            <th class="td-time">更新时间</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {volist name="_list" id="vo"}
+        <tr>
+            <td>{$vo.article_id}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-left">{$vo.category_title}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+            <a href="{:url('sys.articleitem/add',['article_id'=>$vo['article_id']])}" class="btn">添加文章</a>
+            <a href="{:url('sys.articleitem/lis',['article_id'=>$vo['article_id']])}" class="btn">文章列表</a>
+            <a href="{:url('sys.article/edit',['article_id'=>$vo['article_id']])}" class="btn">编辑</a>
+            <a href="javascript:;" data-url="{:url('sys.article/delete',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

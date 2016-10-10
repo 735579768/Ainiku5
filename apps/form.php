@@ -584,6 +584,10 @@ eot;
 				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
 			}
 			break;
+		case 'picture':
+			$setvalue = $setvalue ? $setvalue : 0;
+			$formstr  = str_replace("[REPLACE_SETVALUE_{$key}]", $setvalue, $formstr);
+			break;
 
 		default:
 			//替换文本框的值
