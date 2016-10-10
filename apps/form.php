@@ -1003,8 +1003,8 @@ function parse_string_function($funcname = '') {
  *解析extra字符串数据
  */
 function extra_to_array($extra) {
-	if (is_array($funcname)) {
-		return $funcname;
+	if (is_array($extra)) {
+		return $extra;
 	}
 	$extra = preg_replace(array('/\n/i', '/\s/i'), array(',', ''), $extra);
 	$dest  = array();

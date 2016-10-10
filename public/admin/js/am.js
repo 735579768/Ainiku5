@@ -23,7 +23,8 @@
 		},
 		okAction: function(dom, uri) {
 			uri || (uri = $(dom).attr('data-url'));
-			layer.confirm('确定此操作吗?', {
+			var title = $(dom).text();
+			layer.confirm('确定 "<span style="color:red;">' + title + '</span>" 吗?', {
 				title: false,
 				closeBtn: false,
 				shade: 0.01,
