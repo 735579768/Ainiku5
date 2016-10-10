@@ -4,9 +4,9 @@ use think\Validate;
 
 class Article extends Validate {
 	protected $rule = [
-		'title'       => 'require|max:25',
-		'title'       => 'unique:Article',
+		'title'       => 'require|max:100|unique:Article',
 		'category_id' => 'require|gt:0',
+		'content'     => 'require',
 		'pic'         => 'require|number',
 		// 'url'   => 'alphaDash|max:25',
 		// 'url'   => 'unique:Menu',
@@ -21,6 +21,7 @@ class Article extends Validate {
 		'title.unique'        => '文章标题已经存在',
 		'category_id.require' => '请选择文章分类',
 		'category_id.gt'      => '请选择文章分类',
+		'content.require'     => '文章内容不能为空',
 		'pic.number'          => '文章图片格式不正确',
 		// 'url.alphaDash' => '文章url一定要是字母',
 		// 'url.max'       => '文章url最多不能超过25个字符',
@@ -33,6 +34,6 @@ class Article extends Validate {
 	];
 	//设置验证场景
 	protected $scene = [
-		'edit' => ['title' => 'require|max:25', 'category_id'],
+		'edit' => ['title' => 'require|max:25', 'category_id', 'content'],
 	];
 }

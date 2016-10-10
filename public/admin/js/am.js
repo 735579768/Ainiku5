@@ -22,8 +22,10 @@
 
 		},
 		okAction: function(dom, uri) {
-			uri || (uri = $(dom).attr('data-url'));
-			var title = $(dom).text();
+			var _t = $(dom);
+
+			uri || (uri = _t.attr('data-url'));
+			var title = _t.text();
 			layer.confirm('确定 "<span style="color:red;">' + title + '</span>" 吗?', {
 				title: false,
 				closeBtn: false,
@@ -31,7 +33,12 @@
 				btn: ['确定', '取消']
 			}, function() {
 				$.get(uri, function(data) {
-					ank.alert(data);
+					ank.alert(data, function(data) {
+						var id = _this.attr('list-id');
+						if (id && data.code) {
+							$('#listitem' + id).remove();
+						}
+					});
 				});
 			});
 		},

@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50540
+Source Server Version : 50631
 Source Host           : localhost:3306
 Source Database       : ainiku5
 
 Target Server Type    : MYSQL
-Target Server Version : 50540
+Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2016-10-08 22:03:59
+Date: 2016-10-10 14:35:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,11 +36,12 @@ CREATE TABLE `kl_article` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`article_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章内容表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文章内容表';
 
 -- ----------------------------
 -- Records of kl_article
 -- ----------------------------
+INSERT INTO `kl_article` VALUES ('2', '1', 'sadfasdf', '<p>sdaf</p>', '0', '0', '', '1', '0', '#000000', '', '', '', '1476081249', '1476081266');
 
 -- ----------------------------
 -- Table structure for kl_category
@@ -165,7 +166,7 @@ CREATE TABLE `kl_form_item` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`form_item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COMMENT='系统定义的表单项列表';
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COMMENT='系统定义的表单项列表';
 
 -- ----------------------------
 -- Records of kl_form_item
@@ -242,6 +243,15 @@ INSERT INTO `kl_form_item` VALUES ('69', '8', '分类内容详情页模板', '',
 INSERT INTO `kl_form_item` VALUES ('70', '8', '分类SEO优化标题', '', 'meta_title', 'string', '', '0', '3', '90', '1', '', '', '', '', '', '1', '1475819099', '1475819215');
 INSERT INTO `kl_form_item` VALUES ('71', '8', '分类SEO优化关键字', '', 'meta_keywords', 'string', '', '0', '3', '91', '1', '', '', '', '', '', '1', '1475819143', '1475819217');
 INSERT INTO `kl_form_item` VALUES ('72', '8', '分类SEO优化描述', '', 'meta_descr', 'string', '', '0', '3', '92', '1', '', '', '', '', '', '1', '1475819179', '1475819219');
+INSERT INTO `kl_form_item` VALUES ('73', '7', '文章分类', '', 'category_id', 'select', 'select_category=0,article', '0', '3', '90', '1', '', '', '', '', '', '0', '1476067554', '1476069709');
+INSERT INTO `kl_form_item` VALUES ('74', '7', '文章标题', '', 'title', 'string', '', '1', '3', '91', '1', '', '', '', '', '', '0', '1476067638', '1476069712');
+INSERT INTO `kl_form_item` VALUES ('75', '7', '文章内容', '', 'content', 'umeditor', '', '0', '3', '93', '1', '', '', '', '', '', '0', '1476067664', '1476069724');
+INSERT INTO `kl_form_item` VALUES ('76', '7', '文章封面图片', '', 'pic', 'picture', '', '0', '3', '93', '1', '', '', '', '', '', '1', '1476067715', '1476069740');
+INSERT INTO `kl_form_item` VALUES ('77', '7', '文章状态', '', 'status', 'radio', '0:禁用\r\n1:正常\r\n2:草稿', '0', '3', '94', '1', '1', '', '', '', '', '0', '1476068050', '1476069727');
+INSERT INTO `kl_form_item` VALUES ('78', '7', '标题颜色', '', 'color', 'color', '', '0', '3', '92', '1', '#000', '', '', '', '', '0', '1476068090', '1476069716');
+INSERT INTO `kl_form_item` VALUES ('79', '7', 'SEO标题', '', 'meat_title', 'string', '', '0', '3', '90', '1', '', '', '', '', '', '1', '1476068116', '1476069733');
+INSERT INTO `kl_form_item` VALUES ('80', '7', 'SEO关键字', '', 'meta_keywords', 'string', '', '0', '3', '91', '1', '', '', '', '', '', '1', '1476068149', '1476069735');
+INSERT INTO `kl_form_item` VALUES ('81', '7', 'SEO描述', '', 'meta_descr', 'textarea', '', '0', '3', '92', '1', '', '', '', '', '', '1', '1476068169', '1476069738');
 
 -- ----------------------------
 -- Table structure for kl_goods
@@ -289,8 +299,8 @@ CREATE TABLE `kl_menu` (
 -- ----------------------------
 INSERT INTO `kl_menu` VALUES ('1', '0', '常用', 'javascript:;', '默认', '98', '1', '1475558381', '1475676321');
 INSERT INTO `kl_menu` VALUES ('8', '0', '用户', 'javascript:;', '默认', '99', '1', '1475632715', '1475935392');
-INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'javascript:;', '默认', '99', '0', '1475558698', '1475935401');
-INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'article/lis', '默认', '99', '1', '1475558868', '1475558868');
+INSERT INTO `kl_menu` VALUES ('2', '0', '文章', 'javascript:;', '默认', '99', '1', '1475558698', '1476066628');
+INSERT INTO `kl_menu` VALUES ('3', '2', '文章列表', 'sys.article/lis', '默认', '99', '1', '1475558868', '1475558868');
 INSERT INTO `kl_menu` VALUES ('4', '0', '系统', 'javascript:;', '默认', '99', '1', '1475559327', '1475637160');
 INSERT INTO `kl_menu` VALUES ('5', '4', '网站设置', 'sys.config/group', '默认', '99', '1', '1475559362', '1475559362');
 INSERT INTO `kl_menu` VALUES ('6', '4', '表单列表', 'sys.form/lis', '开发管理', '99', '1', '1475559401', '1475559401');

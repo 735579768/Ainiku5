@@ -22,7 +22,7 @@
         </tr>
         {notempty name="_list"}
         {volist name="_list" id="vo"}
-        <tr>
+        <tr id="listitem{$vo.article_id}">
             <td>{$vo.article_id}</td>
             <td class="td-left">{$vo.title}</td>
             <td class="td-left">{$vo.category_title}</td>
@@ -31,7 +31,7 @@
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
             <a href="{:url('sys.article/edit',['article_id'=>$vo['article_id']])}" class="btn">编辑</a>
-            <a href="javascript:;" data-url="{:url('sys.article/delete',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            <a href="javascript:;" list-id="{$vo.article_id}" data-url="{:url('sys.article/delete',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
             </td>
         </tr>
         {/volist}

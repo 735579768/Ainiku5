@@ -32,6 +32,15 @@
 					success: function(da) {
 						layer.close(lindex);
 						ank.alert(da, callback);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						ank.alert({
+							wait: 4,
+							code: 0,
+							msg: '访问服务器失败:' + errorThrown + ', CODE:' + textStatus,
+							url: ''
+						});
+						console && console.log(XMLHttpRequest);
 					}
 				});
 			} catch (e) {
@@ -58,6 +67,15 @@
 					parent.layer.close(lindex);
 					ank.alert(da, callback);
 				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ank.alert({
+						wait: 4,
+						code: 0,
+						msg: '访问服务器失败:' + errorThrown + ', CODE:' + textStatus,
+						url: ''
+					});
+					console && console.log(XMLHttpRequest);
+				},
 				dataType: "JSON"
 			});
 			return false;
@@ -81,15 +99,18 @@
 					shift: 0,
 					time: data.wait * 1000
 				}, function() {
-					(typeof callback == "function") && callback(da);
-					data.url && (window.location.href = data.url);
+					if (typeof callback == "function") {
+						callback(data);
+					} else {
+						data.url && (window.location.href = data.url);
+					}
 				});
 			} else {
 				layer.msg(data.msg, {
 					shift: 6,
 					time: data.wait * 1000
 				}, function() {
-					(typeof callback == "function") && callback(da);
+					(typeof callback == "function") && callback(data);
 					$('#verifyimgtag').click();
 					// javascript:history.back(-1);
 					// data.url && (window.location.href = data.url);
