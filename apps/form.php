@@ -61,6 +61,7 @@ function create_form($fieldarr, $data = []) {
 	$formjsstr     = ''; //要引入的js文件
 	$default_value = [];
 	if (empty($formstr) || APP_DEBUG) {
+		$formstr = '';
 		// dump($fieldarr);
 		foreach ($fieldarr as $key => $value) {
 			// dump($fieldarr);

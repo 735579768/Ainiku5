@@ -17,7 +17,7 @@ class Formitem extends Base {
 			'table' => 'FormItem',
 			'where' => ['a.form_id' => $form_id],
 			'join'  => [
-				['form b', 'a.form_id=b.form_id'],
+				['__FORM__ b', 'a.form_id=b.form_id'],
 			],
 			'field' => 'a.*,b.title as form_title',
 			'order' => 'tab_id asc,a.sort asc',

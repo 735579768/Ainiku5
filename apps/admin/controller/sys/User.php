@@ -13,7 +13,7 @@ class User extends Base {
 			'table' => 'User',
 			'where' => ['a.status' => ['gt', -1]],
 			'join'  => [
-				['user_group b', 'a.user_group_id=b.user_group_id'],
+				['__USER_GROUP__ b', 'a.user_group_id=b.user_group_id'],
 			],
 			'field' => 'a.*,b.title',
 		]);
