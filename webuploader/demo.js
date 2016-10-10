@@ -3,6 +3,7 @@ var BASE_URL = '/webuploader';
 
 window.initWebUploader = function(uploaderid, callback) {
     var $ = jQuery;
+    // var inpname = uploaderid.replace('#', '');
     var htmlstr = '<div class="uploader-wrap"><div class="note-sm">您可以尝试文件拖拽，使用QQ截屏工具，然后激活窗口后粘贴，或者点击添加图片按钮，来上传图片.</div><div  class="uploader-img" class="wu-example">    <div class="queueList">        <div  class="placeholder">            <div  class="filePicker"></div>            <p>或将照片拖到这里，单次最多可选300张</p>        </div>    </div>    <div class="statusBar" style="display:none;">        <div class="progress">            <span class="text">0%</span>            <span class="percentage"></span>        </div>        <div class="info"></div>        <div class="btns">            <div  class="filePicker2"></div>            <div class="uploadBtn">开始上传</div>        </div>    </div></div></div>';
     $(uploaderid).html(htmlstr);
     var $wrap = $(uploaderid),
@@ -452,12 +453,3 @@ window.initWebUploader = function(uploaderid, callback) {
     $upload.addClass('state-' + state);
     updateTotalProgress();
 };
-
-jQuery(function() {
-    initWebUploader('#uploader', function(data) {
-        console.log(data);
-    });
-    initWebUploader('#uploader2', function(data) {
-        console.log(data);
-    });
-});

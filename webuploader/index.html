@@ -23,8 +23,67 @@
 </style>
     <div class="webuploader-wh">
         <!--上传控件开始-->
+
         <div id="uploader"></div>
+        <div id="imglist_uploader"></div>
+<input type="hidden" id="uploadpic_uploader" name="uploader" value="0" />
+<script type="text/javascript">
+jQuery(function() {
+!function(){
+    //初始化上传控件
+    var upname='uploader';
+    var imglist=$('#imglist_'+upname);
+var addimg=function(da){
+    imglist.append(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img layer-pid='"+da['destname']+"' layer-src='"+da['path']+"' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da['id']+"' >删除</a></div>"
+    );
+};
+
+    initWebUploader('#'+upname, function(data) {
+        console.log(data);
+        $('#uploadpic_'+upname).val(data.id);
+        addimg(data);
+    });
+    //初始化图片列表
+    var sid=$('#uploadpic_'+upname).val();
+    if(sid){
+        $.post("./fileupload.php?action=img",{id:sid,type:'img'},function(data){
+            // debugger;
+            var da=data.info;
+            if(da.length>0){
+            for(a in da){
+                addimg(da[a]);
+            }
+              // layer.photos({
+              //   photos: '#uploadimg_'+upname
+              // });
+               // file&&file.bindDel();
+            }
+
+        });
+    }
+}();
+});
+</script>
+
+
         <div id="uploader2"></div>
+        <div id="imglist_uploader2"></div>
+<input type="hidden" id="uploadpic_uploader2" name="uploader2" value="0" />
+<script type="text/javascript">
+jQuery(function() {
+    //初始化上传控件
+    var upname='uploader2';
+    initWebUploader('#'+upname, function(data) {
+        console.log(data);
+        $('#uploadpic_'+upname).val(data.id);
+        var imglist=$('#imglist_'+upname);
+    });
+    //初始化图片列表
+    var imgid=$('#uploadpic_'+upname).val();
+    console.log(imgid);
+});
+</script>
     </div>
 </body>
 
