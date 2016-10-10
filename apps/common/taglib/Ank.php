@@ -16,7 +16,7 @@ class Ank extends TagLib {
 		'module' => ['attr' => 'name', 'close' => 1],
 	];
 	public function tagLayer($tag) {
-		return '<script type="text/javascript" src="' . STATIC_DIR . '/static/layer/layer.js"></script>';
+		return '<script type="text/javascript" src="/public/static/layer/layer.js"></script>';
 	}
 	/**
 	 * insert标签解析
@@ -26,10 +26,11 @@ class Ank extends TagLib {
 	 * @return string
 	 */
 	public function tagInsert($tag, $content) {
-		$hname    = isset($tag['name']) ? $tag['name'] : '';
-		$filetype = isset($tag['type']) ? $tag['type'] : 'css';
-		$filetype = strtolower($filetype);
-		$dir      = isset($tag['dir']) ? $tag['dir'] : '';
+		static $suijinum = '';
+		$hname           = isset($tag['name']) ? $tag['name'] : '';
+		$filetype        = isset($tag['type']) ? $tag['type'] : 'css';
+		$filetype        = strtolower($filetype);
+		$dir             = isset($tag['dir']) ? $tag['dir'] : '';
 		//设置查找目录
 		if (empty($dir)) {
 			if ($filetype == 'js') {$dir = config('view_replace_str.__JS__');} else { $dir = config('view_replace_str.__CSS__');}
@@ -39,11 +40,13 @@ class Ank extends TagLib {
 			return '';
 		}
 
-		$newname  = sha1($hname);
-		$suijinum = cache('assetsversion');
-		if (!$suijinum || APP_DEBUG) {
-			$suijinum = '?r=' . rand(10000, 99999);
-			cache('assetsversion', $suijinum);
+		$newname = sha1($hname);
+		if (!$suijinum) {
+			$suijinum = cache('assetsversion');
+			if (!$suijinum || APP_DEBUG) {
+				$suijinum = '?r=' . rand(10000, 99999);
+				cache('assetsversion', $suijinum);
+			}
 		}
 		$jscss  = '';
 		$temarr = explode(',', $hname);
