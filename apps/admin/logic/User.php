@@ -12,6 +12,7 @@ class User extends Controller {
 	public function del($user_id = 0) {
 		$user_id || ($user_id = input('param.user_id', 0));
 		$user_id || $this->error('用户id不能为空');
+		($user_id == 1) && $this->error('超级管理员不能删除1');
 		$result = \think\Db::name('User')
 			->where('user_id', 'in', $user_id)
 			->isUpdate(true)

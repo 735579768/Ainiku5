@@ -54,7 +54,7 @@ class Article extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
-		return controller('Article', 'logic')->delete();
+		return controller('Data', 'logic')->delete('Article');
 	}
 	/**
 	 * 搜索表单

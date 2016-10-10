@@ -37,6 +37,7 @@ class Usergroup extends Base {
 	public function delete() {
 		$user_group_id = input('param.user_group_id');
 		$user_group_id || $this->error('用户组id不能为空!');
+		($user_group_id == 1) && $this->error('管理员组不能删除!');
 		$list = \think\Db::name('UserGroup')
 			->where('user_group_id', $user_group_id)
 			->find();

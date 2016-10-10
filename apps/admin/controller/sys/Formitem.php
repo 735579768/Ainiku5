@@ -47,8 +47,8 @@ class Formitem extends Base {
 	 * 删除表单项
 	 * @return [type] [description]
 	 */
-	public function del() {
-
+	public function delete() {
+		controller('Data', 'logic')->delete('FormItem');
 	}
 	/**
 	 * 判断这个数据表有没有这个字段
