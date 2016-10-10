@@ -1,6 +1,15 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		showSearch: function() {
+			layer.open({
+				shade: false,
+				type: 1,
+				title: '高级搜索',
+				area: ['400px'],
+				content: $('#search-tool')
+			});
+		},
 		updatePwd: function(dom, uri) {
 			$.get(uri, function(data) {
 				parent.layer.open({

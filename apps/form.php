@@ -976,6 +976,9 @@ function parse_extra($str) {
  * @return [type]           成功返回对象的数据,失败返回false
  */
 function parse_string_function($funcname = '') {
+	if (is_array($funcname)) {
+		return $funcname;
+	}
 	$out = [];
 	if (preg_match('/([a-zA-Z0-9_]+)(\=(.+))?/i', $funcname, $out)) {
 		if (function_exists($out[1])) {
@@ -1000,6 +1003,9 @@ function parse_string_function($funcname = '') {
  *解析extra字符串数据
  */
 function extra_to_array($extra) {
+	if (is_array($funcname)) {
+		return $funcname;
+	}
 	$extra = preg_replace(array('/\n/i', '/\s/i'), array(',', ''), $extra);
 	$dest  = array();
 	$tema  = explode(',', $extra);
