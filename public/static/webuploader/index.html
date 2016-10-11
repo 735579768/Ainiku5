@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>标题</title>
+    <meta name="keywords" content="关键字" />
+    <meta name="description" content="描述" />
+    <script type="text/javascript" src="./jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="./webuploader.min.js"></script>
+    <script type="text/javascript" src="./demo.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/webuploader.css" />
+</head>
+
+<body>
+<style type="text/css">
+#container{color:#838383;font-size:12px;}
+.webuploader-wh{width:100%;height:400px;margin:0px auto;}
+</style>
+<script type="text/javascript">
+// 添加编辑器放的位置路径
+var BASE_URL = '/webuploader';
+var GET_FILEINFO_URL='./fileupload.php?action=img';
+</script>
+<div class="webuploader-wh">
+    <div id="uploader"></div>
+    <div id="imglist_uploader" class="upcl"></div>
+    <input type="hidden" id="uploadpic_uploader" name="uploader" value="0" />
+    <script type="text/javascript">
+    jQuery(function() {
+        !function(){
+            //初始化上传控件
+            var conId='#uploader';//上传容器id
+            var imglistId='#imglist_uploader';//上传成功预览图片列表id
+            var valId='#uploadpic_uploader';//当前图片值表单id
+            var ismuli=false;//是否多图上传
+            webUploader.init(conId,ismuli, function(data,upObj) {
+                console.log(data);
+                console.log(upObj);
+                $(valId).val(data.id);
+                webUploader.addimg(imglistId,data,ismuli);
+            });
+            //初始化图片列表
+            webUploader.initImgList(valId,imglistId,ismuli);
+            // layer.photos({
+            //   photos: imglistId
+            // });
+            // file&&file.bindDel();
+        }();
+    });
+    </script>
+</div>
+
+
+<div class="webuploader-wh">
+    <div id="uploader2"></div>
+    <div id="imglist_uploader2" class="upcl"></div>
+    <input type="hidden" id="uploadpic_uploader2" name="uploader2" value="0" />
+    <script type="text/javascript">
+    jQuery(function() {
+        !function(){
+            //初始化上传控件
+            var conId='#uploader2';//上传容器id
+            var imglistId='#imglist_uploader2';//上传成功预览图片列表id
+            var valId='#uploadpic_uploader2';//当前图片值表单id
+            var ismuli=true;//是否多图上传
+            webUploader.init(conId,ismuli, function(data,upObj) {
+                console.log(data);
+                console.log(upObj);
+                $(valId).val(data.id);
+                webUploader.addimg(imglistId,data,ismuli);
+            });
+            //初始化图片列表
+            webUploader.initImgList(valId,imglistId,ismuli);
+            // layer.photos({
+            //   photos: imglistId
+            // });
+            // file&&file.bindDel();
+        }();
+    });
+    </script>
+</div>
+</body>
+
+</html>

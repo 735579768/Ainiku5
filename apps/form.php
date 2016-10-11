@@ -38,6 +38,7 @@ function create_form($fieldarr, $data = []) {
 		'editornum'  => 0,
 		'datetime'   => 0,
 		'picture'    => 0,
+		'bdpicture'  => 0,
 		'editor'     => 0,
 		'umeditor'   => 0,
 		'color'      => 0,
@@ -335,6 +336,20 @@ eot;
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
+			case 'bdpicture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['bdpicture']++;
+				$daarr     = get_bdupload_picture_html($name, $set_replace_value);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
+				break;
+			case 'bdbatchpicture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['bdpicture']++;
+				$daarr     = get_bdupload_picture_html($name, $set_replace_value, true);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
+				break;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
@@ -486,6 +501,28 @@ eot;
 
 eot;
 	}
+	if ($formjs['bdpicture'] && $formjs['bdpicture'] !== true) {
+		$formjs['bdpicture'] = true;
+		$geturl              = url('file/getFileInfo');
+		$uploadurl           = url('file/uploadPic');
+		$formjsstr .= <<<eot
+<!--百度上传图片js start-->
+<script type="text/javascript">
+// 添加编辑器放的位置路径
+var webUploaderUrl={
+ BASE_URL : '{$static_dir}/webuploader',
+ FILEINFO_URL:'{$geturl}',
+ UPLOADER_URL:'{$uploadurl}'
+};
+</script>
+<link href="{$static_dir}/webuploader/css/webuploader.css" type="text/css" rel="stylesheet" />
+<script src="{$static_dir}/webuploader/webuploader.min.js" type="text/javascript" ></script>
+<script src="{$static_dir}/webuploader/demo.js" type="text/javascript" ></script>
+
+<!--百度上传图片js end-->\n
+
+eot;
+	}
 	if ($formjs['editor'] && $formjs['editor'] !== true) {
 		$formjs['editor'] = true;
 		$formjsstr .= <<<eot
@@ -601,7 +638,42 @@ eot;
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/i", '', $formstr);
 	return $formstr;
 }
+/**
+ * 生成百度上传图片的html和js
+ */
+function get_bdupload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
+	$ismuli    = $muli ? 'true' : 'false';
+	$tem_input = <<<eot
+<div class="webuploader-wh">
+    <div id="bdupimage_{$name}"></div>
+    <div id="imglist_bdupimage_{$name}" class="upcl"></div>
+    <input type="hidden" id="uploadpic_bdupimage_{$name}" name="{$name}" value="{$setvalue}" />
 
+</div>
+eot;
+	$initjs = <<<eot
+!function(){
+    //初始化上传控件
+    var conId='#bdupimage_{$name}';//上传容器id
+    var imglistId='#imglist_bdupimage_{$name}';//上传成功预览图片列表id
+    var valId='#uploadpic_bdupimage_{$name}';//当前图片值表单id
+    var ismuli={$ismuli};//是否多图上传
+    webUploader.init(conId,ismuli, function(data,upObj) {
+        // console.log(data);
+        // console.log(upObj);
+        $(valId).val(data.id);
+        webUploader.addimg(imglistId,data,ismuli);
+    });
+    //初始化图片列表
+    webUploader.initImgList(valId,imglistId,ismuli);
+    // layer.photos({
+    //   photos: imglistId
+    // });
+    // file&&file.bindDel();
+}();
+eot;
+	return ['str' => $tem_input, 'js' => $initjs];
+}
 /**
  * 生成上传图片的html和js
  * @param  [type]  $name     表单name值
@@ -1036,50 +1108,54 @@ function select_form_tab() {
 function select_form_type($key = null, $datatype = false) {
 	// TODO 可以加入系统配置
 	$formtype = [
-		'string'       => '字符串',
-		'select'       => '下拉框',
-		'radio'        => '单选',
-		'checkbox'     => '多选',
-		'number'       => '数字',
-		'double'       => '双精度数字',
-		'password'     => '密码',
-		'datetime'     => '日期',
-		'editor'       => '编辑器',
-		'textarea'     => '文本框',
-		'bigtextarea'  => '超大文本框',
-		'picture'      => '上传图片',
-		'cutpicture'   => '剪切图片',
-		'file'         => '上传附件',
-		'bool'         => '布尔',
-		'color'        => '颜色选择器',
-		'umeditor'     => 'UM简化编辑器',
-		'batchpicture' => '批量上传图片',
-		'liandong'     => '城市联动表单',
-		'custom'       => '自定义表单',
-		'attribute'    => '内容属性',
+		'string'         => '字符串',
+		'select'         => '下拉框',
+		'radio'          => '单选',
+		'checkbox'       => '多选',
+		'number'         => '数字',
+		'double'         => '双精度数字',
+		'password'       => '密码',
+		'datetime'       => '日期',
+		'textarea'       => '文本框',
+		'bigtextarea'    => '超大文本框',
+		'cutpicture'     => '剪切图片',
+		'file'           => '上传附件',
+		'bool'           => '布尔',
+		'color'          => '颜色选择器',
+		'editor'         => '编辑器',
+		'umeditor'       => 'UM简化编辑器',
+		'picture'        => '上传图片',
+		'batchpicture'   => '批量上传图片',
+		'bdpicture'      => '百度单图上传',
+		'bdbatchpicture' => '百度多图上传',
+		'liandong'       => '城市联动表单',
+		'custom'         => '自定义表单',
+		'attribute'      => '内容属性',
 	];
 	$mysqltype = [
-		'string'       => "varchar(50) NOT NULL DEFAULT '' ",
-		'select'       => "varchar(50) NOT NULL DEFAULT '' ",
-		'radio'        => "varchar(50) NOT NULL DEFAULT '' ",
-		'checkbox'     => "varchar(50) NOT NULL DEFAULT '' ",
-		'number'       => "int(10) NOT NULL DEFAULT '0' ",
-		'double'       => "double(10,2)  NOT NULL DEFAULT '0'",
-		'password'     => "varchar(50) NOT NULL DEFAULT '' ",
-		'datetime'     => "varchar(50) NOT NULL DEFAULT '' ",
-		'editor'       => 'longtext  NOT NULL ',
-		'textarea'     => 'text  NOT NULL  ',
-		'bigtextarea'  => 'text  NOT NULL ',
-		'picture'      => "int(10) NOT NULL  DEFAULT '0'",
-		'cutpicture'   => "int(10) NOT NULL  DEFAULT '0'",
-		'file'         => "int(10) NOT NULL  DEFAULT '0'",
-		'bool'         => "tinyint(1) NOT NULL DEFAULT '0'",
-		'color'        => "varchar(8) NOT NULL DEFAULT '#000'",
-		'umeditor'     => 'longtext  NOT NULL ',
-		'batchpicture' => "varchar(50) NOT NULL DEFAULT '' ",
-		'liandong'     => "varchar(20) NOT NULL DEFAULT '' ",
-		'custom'       => '自定义表单',
-		'attribute'    => "int(10) NOT NULL  DEFAULT '0'",
+		'string'         => "varchar(50) NOT NULL DEFAULT '' ",
+		'select'         => "varchar(50) NOT NULL DEFAULT '' ",
+		'radio'          => "varchar(50) NOT NULL DEFAULT '' ",
+		'checkbox'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'number'         => "int(10) NOT NULL DEFAULT '0' ",
+		'double'         => "double(10,2)  NOT NULL DEFAULT '0'",
+		'password'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'datetime'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'editor'         => 'longtext  NOT NULL ',
+		'textarea'       => 'text  NOT NULL  ',
+		'bigtextarea'    => 'text  NOT NULL ',
+		'cutpicture'     => "int(10) NOT NULL  DEFAULT '0'",
+		'file'           => "int(10) NOT NULL  DEFAULT '0'",
+		'bool'           => "tinyint(1) NOT NULL DEFAULT '0'",
+		'color'          => "varchar(8) NOT NULL DEFAULT '#000'",
+		'umeditor'       => 'longtext  NOT NULL ',
+		'picture'        => "int(10) NOT NULL  DEFAULT '0'",
+		'batchpicture'   => "varchar(50) NOT NULL DEFAULT '' ",
+		'bdpicture'      => "int(10) NOT NULL  DEFAULT '0'",
+		'bdbatchpicture' => "varchar(50) NOT NULL DEFAULT '' ",
+		'liandong'       => "varchar(20) NOT NULL DEFAULT '' ",
+		'custom'         => '自定义表单',
+		'attribute'      => "int(10) NOT NULL  DEFAULT '0'",
 	];
 	if ($datatype && !empty($key)) {
 		return $mysqltype[$key];

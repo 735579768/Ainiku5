@@ -7,14 +7,17 @@ trait File {
 	 * @return [type] [description]
 	 */
 	public function getFileInfo() {
-		$id    = input('post.id');
-		$type  = input('post.type');
-		$data  = [];
-		$idarr = preg_replace('/\,|\||\s/', ',', $id);
+		$id   = input('param.id');
+		$type = input('param.type');
+		$data = [];
+		// $idarr = preg_replace('/\,|\||\s/', ',', $id);
 		if ($type == 'img') {
 			$data = \think\Db::name('Picture')
-				->where('picture_id', 'in', $idarr)
+				->field('picture_id as id,path,thumbpath')
+				->where('picture_id', 'in', $id)
+			// ->fetchSql()
 				->select();
+			// echo $data;
 		} else {
 			// $model = M('File');
 			// $data  = $model->where(['id' => ['in', "$idarr"]])->select();
@@ -132,7 +135,7 @@ trait File {
 			$data['uid']         = UID;
 
 			$result = \think\Db::name('Picture')
-				->insert($data);
+				->insertGetId($data);
 			if ($result) {
 				//添加水印
 				$this->markpic($thumbPath);

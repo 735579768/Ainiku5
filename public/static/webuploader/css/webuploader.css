@@ -1,11 +1,17 @@
+.upcl:after{visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
+.webuploader-container{position:relative;}
+.webuploader-element-invisible{position:absolute!important;clip:rect(1px 1px 1px 1px); /* IE6, IE7 */clip:rect(1px,1px,1px,1px);}
+.webuploader-pick{position:relative;display:inline-block;cursor:pointer;background:#00b7ee;padding:10px 15px;color:#fff;text-align:center;border-radius:3px;overflow:hidden;}
+.webuploader-pick-hover{background:#00a2d4;}
+.webuploader-pick-disable{opacity:0.6;pointer-events:none;}
 .uploader-wrap .note-sm{font-size:12px;margin-bottom:10px;text-align:center;color:#ababab;}
-.uploader-wrap{padding: 10px;}
+.uploader-wrap{padding:10px;}
 .uploader-img .queueList{border:3px dashed #e6e6e6;}
 .uploader-img .queueList.filled{margin:0;border:3px dashed transparent;}
 .uploader-img .queueList.webuploader-dnd-over{border:3px dashed #999999;}
 .uploader-img p{margin:0;}
 .element-invisible{position:absolute!important;clip:rect(1px 1px 1px 1px); /* IE6, IE7 */clip:rect(1px,1px,1px,1px);}
-.uploader-img .placeholder{padding-top:85px;text-align:center;background:url(../images/image.png) center 10px no-repeat;color:#cccccc;font-size:18px;position:relative;padding-bottom: 10px;}
+.uploader-img .placeholder{padding-top:85px;text-align:center;background:url(../images/image.png) center 10px no-repeat;color:#cccccc;font-size:18px;position:relative;padding-bottom:10px;}
 .uploader-img .placeholder .webuploader-pick{font-size:18px;background:#00b7ee;border-radius:3px;line-height:44px;padding:0 30px;*width:120px;color:#fff;display:inline-block;margin:0 auto 10px auto;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
 .uploader-img .placeholder .webuploader-pick-hover{background:#00a2d4;}
 .uploader-img .placeholder .flashTip{color:#666666;font-size:12px;position:absolute;width:100%;text-align:center;bottom:20px;}
@@ -13,7 +19,7 @@
 .uploader-img .placeholder .flashTip a:hover{text-decoration:underline;}
 .uploader-img .filelist{list-style:none;margin:0;padding:0;}
 .uploader-img .filelist:after{content:'';display:block;width:0;height:0;overflow:hidden;clear:both;}
-.uploader-img .filelist li{width:110px;height:110px;background:url(../images/bg.png) no-repeat;text-align:center;margin:0 8px 20px 0;position:relative;display:inline;float:left;overflow:hidden;font-size:12px;border: solid 1px #e4e4e4;}
+.uploader-img .filelist li{width:110px;height:110px;background:url(../images/bg.png) no-repeat;text-align:center;margin:0 8px 20px 0;position:relative;display:inline;float:left;overflow:hidden;font-size:12px;border:solid 1px #e4e4e4;}
 .uploader-img .filelist li p.log{position:relative;top:-45px;}
 .uploader-img .filelist li p.title{position:absolute;top:0;left:0;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;top:5px;text-indent:5px;text-align:left;}
 .uploader-img .filelist li p.progress{position:absolute;width:100%;bottom:0;left:0;height:8px;overflow:hidden;z-index:50;margin:0;border-radius:0;background:none;-webkit-box-shadow:0 0 0;}
@@ -54,3 +60,12 @@
 .uploader-img .statusBar .btns .uploadBtn{background:#00b7ee;color:#fff;border-color:transparent;}
 .uploader-img .statusBar .btns .uploadBtn:hover{background:#00a2d4;}
 .uploader-img .statusBar .btns .uploadBtn.disabled{pointer-events:none;opacity:0.6;}
+
+/**
+ * 图片上传成功后的预览
+ */
+.uploaded-imgitem{float:left;text-align:center;margin-left:10px;}
+.uploaded-imgitem .btn{border-radius:4px;background:#fb8924;font-size:12px;display:inline-block;padding:0px 10px;height:25px;line-height:25px;text-decoration:none;color:#fff;}
+.uploaded-imgbox{}
+.uploaded-imgpre{width:120px;height:120px;display:table-cell;vertical-align:middle;text-align:center;}
+.uploaded-imgpre img{max-width:100%;max-height:100%;}

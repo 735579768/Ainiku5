@@ -7,4 +7,6 @@
 .fa,.iframe-con .main-title,.iframe-con table th,input[type="radio"]:after,input[type="checkbox"]:after,input[type="radio"]:checked:after,input[type="checkbox"]:checked:after,.cate-tree .c-h-item,.search-tool .sch-btn{color:#44b549}
 .tab .tabnav.hover a{border-top-color:#44b549;}
 ::-webkit-scrollbar-thumb,
+.uploader-img .statusBar .btns .uploadBtn,
+.uploader-img .placeholder .webuploader-pick,
 .layui-layer-btn .layui-layer-btn0{border-color:#44b549!important;background-color:#44b549!important;}
