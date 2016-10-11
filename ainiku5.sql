@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2016-10-10 14:35:06
+Date: 2016-10-11 14:16:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,7 +41,7 @@ CREATE TABLE `kl_article` (
 -- ----------------------------
 -- Records of kl_article
 -- ----------------------------
-INSERT INTO `kl_article` VALUES ('2', '1', 'sadfasdf', '<p>sdaf</p>', '0', '0', '', '1', '0', '#000000', '', '', '', '1476081249', '1476081266');
+INSERT INTO `kl_article` VALUES ('2', '1', 'sadfasdf', '<p>sdaf</p>', '12', '0', '', '1', '0', '#000000', '', '', '', '1476081249', '1476166097');
 
 -- ----------------------------
 -- Table structure for kl_category
@@ -246,7 +246,7 @@ INSERT INTO `kl_form_item` VALUES ('72', '8', '分类SEO优化描述', '', 'meta
 INSERT INTO `kl_form_item` VALUES ('73', '7', '文章分类', '', 'category_id', 'select', 'select_category=0,article', '0', '3', '90', '1', '', '', '', '', '', '0', '1476067554', '1476069709');
 INSERT INTO `kl_form_item` VALUES ('74', '7', '文章标题', '', 'title', 'string', '', '1', '3', '91', '1', '', '', '', '', '', '0', '1476067638', '1476069712');
 INSERT INTO `kl_form_item` VALUES ('75', '7', '文章内容', '', 'content', 'umeditor', '', '0', '3', '93', '1', '', '', '', '', '', '0', '1476067664', '1476069724');
-INSERT INTO `kl_form_item` VALUES ('76', '7', '文章封面图片', '', 'pic', 'picture', '', '0', '3', '93', '1', '', '', '', '', '', '1', '1476067715', '1476069740');
+INSERT INTO `kl_form_item` VALUES ('76', '7', '文章封面图片', '', 'pic', 'bdpicture', '', '0', '3', '93', '1', '', '', '', '', '', '1', '1476067715', '1476155896');
 INSERT INTO `kl_form_item` VALUES ('77', '7', '文章状态', '', 'status', 'radio', '0:禁用\r\n1:正常\r\n2:草稿', '0', '3', '94', '1', '1', '', '', '', '', '0', '1476068050', '1476069727');
 INSERT INTO `kl_form_item` VALUES ('78', '7', '标题颜色', '', 'color', 'color', '', '0', '3', '92', '1', '#000', '', '', '', '', '0', '1476068090', '1476069716');
 INSERT INTO `kl_form_item` VALUES ('79', '7', 'SEO标题', '', 'meat_title', 'string', '', '0', '3', '90', '1', '', '', '', '', '', '1', '1476068116', '1476069733');
@@ -348,13 +348,16 @@ CREATE TABLE `kl_picture` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='上传图片';
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='上传图片';
 
 -- ----------------------------
 -- Records of kl_picture
 -- ----------------------------
 INSERT INTO `kl_picture` VALUES ('8', '1', '487655527099084608.jpg', '14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '1', '', 'ca112da45a284e97305fb985fa703c35cb065b62', '1475759973', '0');
 INSERT INTO `kl_picture` VALUES ('9', '1', '487655527099084608.jpg', '14757600065581.jpg', '/uploads/image/20161006/14757599733704.jpg', '/uploads/image/20161006/14757599733704.jpg', '1', '', 'ca112da45a284e97305fb985fa703c35cb065b62', '1475760006', '0');
+INSERT INTO `kl_picture` VALUES ('10', '1', 'untitled1.png', '147615698856836.png', '/uploads/image/20161011/147615698856836.png', '/uploads/image/thumb/20161011/147615698856836.png', '1', '', '1d060c1be3d2271598c415c1c5fe18f87b2fba1c', '1476156988', '0');
+INSERT INTO `kl_picture` VALUES ('11', '1', 'untitled1.png', '147615793915585.png', '/uploads/image/20161011/147615793915585.png', '/uploads/image/thumb/20161011/147615793915585.png', '1', '', '243916d22892148909b501eb7001f3c094811696', '1476157939', '0');
+INSERT INTO `kl_picture` VALUES ('12', '1', 'QQ截图20160704105848.png', '147616607715034.png', '/uploads/image/20161011/147616607715034.png', '/uploads/image/thumb/20161011/147616607715034.png', '1', '', '88f2806ae3d20ea4b26d2814a60a37d1abdf9180', '1476166077', '0');
 
 -- ----------------------------
 -- Table structure for kl_single
