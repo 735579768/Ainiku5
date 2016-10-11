@@ -67,5 +67,5 @@
 .uploaded-imgitem{float:left;text-align:center;margin-left:10px;}
 .uploaded-imgitem .btn{border-radius:4px;background:#fb8924;font-size:12px;display:inline-block;padding:0px 10px;height:25px;line-height:25px;text-decoration:none;color:#fff;}
 .uploaded-imgbox{}
-.uploaded-imgpre{width:120px;height:120px;display:table-cell;vertical-align:middle;text-align:center;}
+.uploaded-imgpre{cursor: pointer; width:120px;height:120px;display:table-cell;vertical-align:middle;text-align:center;}
 .uploaded-imgpre img{max-width:100%;max-height:100%;}

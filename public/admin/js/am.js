@@ -1,6 +1,24 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		delImg: function(dom) {
+			var _t = $(dom);
+			var id = _t.attr('data-id');
+			$.post(am.url.delImg, {
+				picture_id: id
+			}, function(data) {
+
+			});
+		},
+		/**
+		 * 绑定删除图片功能
+		 * @return {[type]} [description]
+		 */
+		bindDeleteImg: function() {
+			$('.deleteimg').click(function(event) {
+				am.delImg($(this).eq(0));
+			});
+		},
 		showSearch: function() {
 			layer.open({
 				shade: false,

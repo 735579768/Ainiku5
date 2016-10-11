@@ -212,4 +212,70 @@ trait File {
 		}
 		exit();
 	}
+	/**
+	 * 删除图片
+	 * @return [type] [description]
+	 */
+	public function deleteImg() {
+		$id = input('param.picture_id', '');
+		//只能删除自己上传的图片
+		$map['uid'] = UID;
+		//图片id号删除
+		if (is_numeric($id)) {
+			//删除本地文件
+			$map['picture_id'] = $id;
+			$row               = \think\Db::name('Picture')
+				->field('picture_id,path,sha1')
+				->where($map)
+				->find();
+
+			if ($row) {
+				//查找是不是有多个记录共用一个图片
+				$row2 = \think\Db::name('Picture')
+					->field('picture_id')
+					->where('sha1', $row['sha1'])
+					->find();
+
+				//删除只有一个地方引用到的情况
+				if (count($row2) == 1) {
+					unlink(realpath('.' . $row['path']));
+					unlink(realpath('.' . $row['thumbpath']));
+				}
+				$result = \think\Db::name('Picture')->delete($id);
+
+				if ($result) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+			//如果传过来的是一个图片路径
+		} else if (file_exists('.' . $id)) {
+			//判断是不是文件路径
+			//删除数据库中的图片记录
+			// $result = M('Picture')->where("uid=" . UID . "  and (path='$id' or thumbpath='$id')  ")->delete();
+			$result = \think\Db::name('Picture')
+				->where(['uid' => UID])
+				->whereOr(['path' => $id, 'thumbpath' => $id])
+				->delete();
+			if ($result) {unlink($id);return true;}
+		} else {
+			//从字符串中取图片路径
+			preg_match_all('/<img.*?src=[\'|\"]{1}(.*?)[\'|\"]{1}.*?>/', $id, $out, PREG_PATTERN_ORDER);
+			foreach ($out[1] as $val) {
+				$result = M('Picture')->where("uid=" . UID . "  and (path='$val' or thumbpath='$val')  ")->delete();
+				$result = \think\Db::name('Picture')
+					->where(['uid' => UID])
+					->whereOr(['path' => $id, 'thumbpath' => $id])
+					->delete();
+				unlink('.' . $val);
+				//删除缩略图
+				$thumbpath = str_replace('image', 'image/thumb', '.' . $val);
+				unlink($thumbpath);
+			}
+			return true;
+		}
+	}
 }

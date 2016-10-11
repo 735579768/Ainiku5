@@ -666,10 +666,6 @@ eot;
     });
     //初始化图片列表
     webUploader.initImgList(valId,imglistId,ismuli);
-    // layer.photos({
-    //   photos: imglistId
-    // });
-    // file&&file.bindDel();
 }();
 eot;
 	return ['str' => $tem_input, 'js' => $initjs];
@@ -753,7 +749,7 @@ eot;
 			  layer.photos({
 			    photos: '#uploadimg_{$name}'
 			  });
-			   file&&file.bindDel();
+			   am.bindDeleteImg();
 			}
 		});
 	}
@@ -777,7 +773,7 @@ window.uploadPicture{$name}=function(upfile, data){
       "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data.srcname+"' layer-src='"+data.path+"' src='" + data.thumbpath + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
 
-   file&&file.bindDel();
+   am.bindDeleteImg();
   } else {
     ank.msg(data);
     setTimeout(function(){
@@ -803,7 +799,7 @@ eot;
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data['srcname']+"' layer-src='"+data['path']+"' src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
 
-   file&&file.bindDel();
+   am.bindDeleteImg();
         } else {
             ank.msg(data);
             setTimeout(function(){
