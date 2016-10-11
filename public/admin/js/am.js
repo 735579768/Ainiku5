@@ -52,7 +52,7 @@
 			}, function() {
 				$.get(uri, function(data) {
 					ank.alert(data, function(data) {
-						var id = _this.attr('list-id');
+						var id = _t.attr('list-id');
 						if (id && data.code) {
 							$('#listitem' + id).remove();
 						}

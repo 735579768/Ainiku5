@@ -1,4 +1,6 @@
+html,body{height: 100%;}
 body{font-size:12px;background:#1FADED url('../images/adminbg.jpg') no-repeat;}
+body{background: url('../images/night.gif');}
 #login-form{width:300px;margin:0px auto;padding:10px 20px;    box-shadow: 2px 2px 30px #ccc;border-radius:10px;background:#fff;position:absolute;top:20%;left:50%;margin-left:-170px;}
 #login-form .fa{color: #67ad03;margin-right: 10px;vertical-align: middle;}
 #login-form .login-title .fa{font-size: 24px;vertical-align: top;margin-top: 1px;}
