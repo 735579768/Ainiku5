@@ -12,7 +12,9 @@
 .uploader-img p{margin:0;}
 .element-invisible{position:absolute!important;clip:rect(1px 1px 1px 1px); /* IE6, IE7 */clip:rect(1px,1px,1px,1px);}
 .uploader-img .placeholder{padding-top:85px;text-align:center;background:url(../images/image.png) center 10px no-repeat;color:#cccccc;font-size:18px;position:relative;padding-bottom:10px;}
-.uploader-img .placeholder .webuploader-pick{font-size:18px;background:#00b7ee;border-radius:3px;line-height:44px;padding:0 30px;*width:120px;color:#fff;display:inline-block;margin:0 auto 10px auto;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
+.uploader-img .placeholder .filePicker{position: relative; width: 168px; height: 45px;display: inline-block;}
+.uploader-img .placeholder .filePicker div{width: 100%!important;height: 100%!important;}
+.uploader-img .placeholder .webuploader-pick{font-size:18px;background:#00b7ee;border-radius:3px;line-height:44px;padding:0px;*width:120px;color:#fff;display:inline-block;margin:0 auto 10px auto;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
 .uploader-img .placeholder .webuploader-pick-hover{background:#00a2d4;}
 .uploader-img .placeholder .flashTip{color:#666666;font-size:12px;position:absolute;width:100%;text-align:center;bottom:20px;}
 .uploader-img .placeholder .flashTip a{color:#0785d1;text-decoration:none;}
@@ -55,6 +57,7 @@
 .uploader-img .statusBar .info{display:inline-block;font-size:14px;color:#666666;}
 .uploader-img .statusBar .btns{position:absolute;top:10px;right:20px;line-height:40px;}
 .filePicker2{display:inline-block;float:left;}
+.filePicker2 div{width: 100%!important;height:100%!important;}
 .uploader-img .statusBar .btns .webuploader-pick,.uploader-img .statusBar .btns .uploadBtn,.uploader-img .statusBar .btns .uploadBtn.state-uploading,.uploader-img .statusBar .btns .uploadBtn.state-paused{background:#ffffff;border:1px solid #cfcfcf;color:#565656;padding:0 18px;display:inline-block;border-radius:3px;margin-left:10px;cursor:pointer;font-size:14px;float:left;}
 .uploader-img .statusBar .btns .webuploader-pick-hover,.uploader-img .statusBar .btns .uploadBtn:hover,.uploader-img .statusBar .btns .uploadBtn.state-uploading:hover,.uploader-img .statusBar .btns .uploadBtn.state-paused:hover{background:#f0f0f0;}
 .uploader-img .statusBar .btns .uploadBtn{background:#00b7ee;color:#fff;border-color:transparent;}

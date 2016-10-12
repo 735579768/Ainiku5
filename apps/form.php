@@ -517,6 +517,7 @@ eot;
 		$uploadurl = url('file/uploadPic');
 		reg_css('css/webuploader', false);
 		reg_js('webuploader.min,demo', false);
+		// reg_js('webuploader.html5only.min,demo', false);
 		$formjsstr .= <<<eot
 <script type="text/javascript">
 window.webUploaderUrl={
@@ -701,7 +702,7 @@ eot;
     var imglistId='#imglist_bdupimage_{$name}';//上传成功预览图片列表id
     var valId='#uploadpic_bdupimage_{$name}';//当前图片值表单id
     var ismuli={$ismuli};//是否多图上传
-    webUploader.init(conId,ismuli, function(data,upObj) {
+    new webUploader.init(conId,ismuli, function(data,upObj) {
         // console.log(data);
         // console.log(upObj);
         $(valId).val(data.id);
