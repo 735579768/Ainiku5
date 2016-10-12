@@ -1,5 +1,5 @@
-! function() {
-	window.file = {
+! function(a, b) {
+	a.ot = {
 		//绑定删除图片的按钮
 		bindDel: function() {
 			$('.imgblock  .btn-danger').unbind('click');
@@ -56,4 +56,4 @@
 			_t.height(obj.scrollHeight);
 		}
 	};
-}();
+}(window);

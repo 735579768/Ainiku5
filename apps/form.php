@@ -160,7 +160,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="ot.autoHeight(this);" onblur="clearInterval(ot.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
 </div>
 eot;
 				break;
@@ -168,7 +168,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="ot.autoHeight(this);" onblur="clearInterval(ot.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
 </div>
 eot;
 				break;
@@ -298,7 +298,7 @@ eot;
 	  uescr{$name}=ue{$name}.getContent();
 	  });
 	ue{$name}.addListener('blur',function(editor){
-	  file.delEditorImg(uescr{$name},ue{$name}.getContent());
+	  ot.delEditorImg(uescr{$name},ue{$name}.getContent());
 	  });
 }();
 eot;
@@ -463,104 +463,143 @@ eot;
 	 */
 	if ($formjs['liandong'] && $formjs['liandong'] !== true) {
 		$formjs['liandong'] = true;
-		$formjsstr .= <<<eot
-<!--城市联动s start-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/js/city.min.js"></script>
-<!--城市联动js end-->\n
-eot;
+		//注册js
+		reg_js('city.min');
+// 		$formjsstr .= <<<eot
+		// <!--城市联动s start-->
+		// <script type="text/javascript" charset="utf-8" src="{$static_dir}/js/city.min.js"></script>
+		// <!--城市联动js end-->\n
+		// eot;
 	}
 	if ($formjs['color'] && $formjs['color'] !== true) {
 		$formjs['color'] = true;
-		$formjsstr .= <<<eot
-<!--颜色选择器js start-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.js"></script>
-<!--颜色选择器js end-->\n
-eot;
+		//注册js
+		reg_js('jscolor', false);
+// 		$formjsstr .= <<<eot
+		// <!--颜色选择器js start-->
+		// <script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.js"></script>
+		// <!--颜色选择器js end-->\n
+		// eot;
 	}
 	if ($formjs['datetime'] && $formjs['datetime'] !== true) {
 		$formjs['datetime'] = true;
-		$formjsstr .= <<<eot
-<!--日期js start-->
-<link href="{$static_dir}/datetimepicker/css/datetimepicker.min.css" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/datetimepicker/css/dropdown.min.css" type="text/css" rel="stylesheet" />
-<script src="{$static_dir}/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
-<script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
+		//注册css js
+		reg_css('css/datetimepicker.min,css/dropdown.min', false);
+		reg_js('bootstrap-datetimepicker.min,locales/bootstrap-datetimepicker.zh-CN', false);
+// 		$formjsstr .= <<<eot
+		// <!--日期js start-->
+		// <link href="{$static_dir}/datetimepicker/css/datetimepicker.min.css" type="text/css" rel="stylesheet" />
+		// <link href="{$static_dir}/datetimepicker/css/dropdown.min.css" type="text/css" rel="stylesheet" />
+		// <script src="{$static_dir}/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
+		// <script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
 
-<!--日期js end->\n
-eot;
+// <!--日期js end->\n
+		// eot;
 	}
 	if ($formjs['picture'] && $formjs['picture'] !== true) {
 		$formjs['picture'] = true;
-		$formjsstr .= <<<eot
-<!--上传图片js start-->
-<link href="{$static_dir}/html5upload/css/zyUpload.min.css" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/uploadify/uploadify.min.css" type="text/css" rel="stylesheet" />
-<script src="{$static_dir}/html5upload/uploadFile.min.js" type="text/javascript" ></script>
-<script src="{$static_dir}/uploadify/jquery.uploadify.min.js" type="text/javascript" ></script>
-<!--上传图片js end-->\n
+		reg_css('css/zyUpload.min,uploadify.min', false);
+		reg_js('uploadFile.min,jquery.uploadify.min', false);
+// 		$formjsstr .= <<<eot
+		// <!--上传图片js start-->
+		// <link href="{$static_dir}/html5upload/css/zyUpload.min.css" type="text/css" rel="stylesheet" />
+		// <link href="{$static_dir}/uploadify/uploadify.min.css" type="text/css" rel="stylesheet" />
+		// <script src="{$static_dir}/html5upload/uploadFile.min.js" type="text/javascript" ></script>
+		// <script src="{$static_dir}/uploadify/jquery.uploadify.min.js" type="text/javascript" ></script>
+		// <!--上传图片js end-->\n
 
-eot;
+// eot;
 	}
 	if ($formjs['bdpicture'] && $formjs['bdpicture'] !== true) {
 		$formjs['bdpicture'] = true;
-		$geturl              = url('file/getFileInfo');
-		$uploadurl           = url('file/uploadPic');
+
+		$geturl    = url('file/getFileInfo');
+		$uploadurl = url('file/uploadPic');
+		reg_css('css/webuploader', false);
+		reg_js('webuploader.min,demo', false);
 		$formjsstr .= <<<eot
-<!--百度上传图片js start-->
 <script type="text/javascript">
-// 添加编辑器放的位置路径
-var webUploaderUrl={
+window.webUploaderUrl={
  BASE_URL : '{$static_dir}/webuploader',
  FILEINFO_URL:'{$geturl}',
  UPLOADER_URL:'{$uploadurl}'
 };
 </script>
-<link href="{$static_dir}/webuploader/css/webuploader.css" type="text/css" rel="stylesheet" />
-<script src="{$static_dir}/webuploader/webuploader.min.js" type="text/javascript" ></script>
-<script src="{$static_dir}/webuploader/demo.js" type="text/javascript" ></script>
-
-<!--百度上传图片js end-->\n
-
 eot;
+// 		$formjsstr .= <<<eot
+		// <!--百度上传图片js start-->
+		// <script type="text/javascript">
+		// // 添加编辑器放的位置路径
+		// var webUploaderUrl={
+		//  BASE_URL : '{$static_dir}/webuploader',
+		//  FILEINFO_URL:'{$geturl}',
+		//  UPLOADER_URL:'{$uploadurl}'
+		// };
+		// </script>
+		// <link href="{$static_dir}/webuploader/css/webuploader.css" type="text/css" rel="stylesheet" />
+		// <script src="{$static_dir}/webuploader/webuploader.min.js" type="text/javascript" ></script>
+		// <script src="{$static_dir}/webuploader/demo.js" type="text/javascript" ></script>
+
+// <!--百度上传图片js end-->\n
+
+// eot;
 	}
 	if ($formjs['editor'] && $formjs['editor'] !== true) {
 		$formjs['editor'] = true;
+		reg_js('ueditor/ueditor.config.min,ueditor/ueditor.all.min,ueditor/lang/zh-cn/zh-cn.min', false);
 		$formjsstr .= <<<eot
 <!--ue编辑器js start-->
 <script>
 window.UEDITOR_HOME_URL='{$static_dir}/ueditor/';
 </script>
-<script type="text/javascript" src="{$static_dir}/ueditor/ueditor.config.min.js"></script>
-<script type="text/javascript" src="{$static_dir}/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="{$static_dir}/ueditor/lang/zh-cn/zh-cn.min.js"></script>
 <!--UE编辑器js end-->\n
-
 eot;
+// 		$formjsstr .= <<<eot
+		// <!--ue编辑器js start-->
+		// <script>
+		// window.UEDITOR_HOME_URL='{$static_dir}/ueditor/';
+		// </script>
+		// <script type="text/javascript" src="{$static_dir}/ueditor/ueditor.config.min.js"></script>
+		// <script type="text/javascript" src="{$static_dir}/ueditor/ueditor.all.min.js"></script>
+		// <script type="text/javascript" src="{$static_dir}/ueditor/lang/zh-cn/zh-cn.min.js"></script>
+		// <!--UE编辑器js end-->\n
+
+// eot;
 	}
 	if ($formjs['umeditor'] && $formjs['umeditor'] !== true) {
 		$formjs['umeditor'] = true;
 		$uploadurl          = url('File/umUpload');
-		$formjsstr .= <<<eot
-<!--um编辑器js start-->
-<script type="text/javascript">
-//window.UMEDITOR_HOME_URL='/';
-</script>
-<link href="{$static_dir}/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<!--<script type="text/javascript" src="{$static_dir}/umeditor/third-party/jquery.min.js"></script>-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.min.js"></script>
-<script type="text/javascript" src="{$static_dir}/umeditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript">
+		reg_css('umeditor/themes/default/css/umeditor', false);
+		reg_js(',umeditor/third-party/jquery.min,umeditor/umeditor.config,umeditor/umeditor.min,umeditor/lang/zh-cn/zh-cn', false);
+		$initjs = <<<eot
 !function(){
     window.UMEDITOR_CONFIG.imageUrl="{$uploadurl}" ;
     window.UMEDITOR_CONFIG.imagePath="" ;
     window.UMEDITOR_CONFIG.imageFieldName="upfile" ;
 }();
-
-</script>
-<!--UE编辑器js end-->\n
-
 eot;
+		reg_initjs($initjs);
+// 		$formjsstr .= <<<eot
+		// <!--um编辑器js start-->
+		// <script type="text/javascript">
+		// //window.UMEDITOR_HOME_URL='/';
+		// </script>
+		// <link href="{$static_dir}/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+		// <!--<script type="text/javascript" src="{$static_dir}/umeditor/third-party/jquery.min.js"></script>-->
+		// <script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.config.js"></script>
+		// <script type="text/javascript" charset="utf-8" src="{$static_dir}/umeditor/umeditor.min.js"></script>
+		// <script type="text/javascript" src="{$static_dir}/umeditor/lang/zh-cn/zh-cn.js"></script>
+		// <script type="text/javascript">
+		// !function(){
+		//     window.UMEDITOR_CONFIG.imageUrl="{$uploadurl}" ;
+		//     window.UMEDITOR_CONFIG.imagePath="" ;
+		//     window.UMEDITOR_CONFIG.imageFieldName="upfile" ;
+		// }();
+
+// </script>
+		// <!--UE编辑器js end-->\n
+
+// eot;
 	}
 	if ($formjs['cutpicture'] && $formjs['cutpicture'] !== true) {
 		$formjs['cutpicture'] = true;
@@ -568,16 +607,20 @@ eot;
 
 	//$data = array_merge($default_value, $data);
 	if ($initformjs) {
-		$initformjs = <<<eot
-<!--初始化表单js-->
-<script type="text/javascript">
-$(function(){
-{$initformjs}
-});
-</script>
-eot;
+		reg_initjs($initformjs);
+// 		$initformjs = <<<eot
+		// <!--初始化表单js-->
+		// <script type="text/javascript">
+		// $(function(){
+		// {$initformjs}
+		// });
+		// </script>
+		// eot;
 	}
-	$formstr .= $formjsstr . $initformjs;
+
+	// $formstr .= $formjsstr . $initformjs;
+	$formstr .= $formjsstr;
+
 	//替换成默认值
 	foreach ($default_value as $key => $value) {
 		$setvalue  = $value['value'];
@@ -704,7 +747,7 @@ window.uploadPicture{$name}=function(upfile, data){
     $("#uploadimg_{$name}").html(
       "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
-    file&&file.bindDelAttach();
+    ot&&ot.bindDelAttach();
   } else {
     ank.msg(data);
     setTimeout(function(){
@@ -949,7 +992,7 @@ eot;
 eot;
 		}
 		$str = <<<eot
-<div class="tab">
+<div  class="tab">
 	<ul class="tabnavblock cl">
 	   {$navstr}
 	</ul>
@@ -958,12 +1001,9 @@ eot;
 		{$tabblock}
 	</div>
 </div>
-<script>
-$(function(){
-     $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
-  });
-</script>
 eot;
+		reg_js('mytab');
+		reg_initjs("autoyz.init(); $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});");
 		return $str;
 	} else {
 		foreach ($field as $key => $value) {

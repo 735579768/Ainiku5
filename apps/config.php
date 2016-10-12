@@ -129,6 +129,10 @@ return [
 		'taglib_begin'    => '{',
 		// 标签库标签结束标记
 		'taglib_end'      => '}',
+		// 是否去除模板文件里面的html空格与换行
+		'strip_space'     => false,
+		// 是否开启模板编译缓存,设为false则每次都会重新编译
+		'tpl_cache'       => true,
 		// 预先加载的标签库
 		'taglib_pre_load' => '\app\common\taglib\Ank',
 		'taglib_build_in' => 'cx,\app\common\taglib\Ank',
@@ -246,7 +250,7 @@ return [
 
 	//运行过程中生成的资源缓存路径
 	'greate_cache_path'      => [
-		'jscss'      => '/data/scache',
-		'imgcache'   => '/data/imgcache',
+		'jscss'    => '/data/scache',
+		'imgcache' => '/data/imgcache',
 	],
 ];

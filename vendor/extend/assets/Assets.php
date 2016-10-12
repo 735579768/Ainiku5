@@ -24,8 +24,10 @@
 namespace assets;
 class Assets {
 	static private $_instance = null;
-	private $js               = [];
+	private $js               = []; //关闭调试后压缩成一个
+	private $js_noys          = []; //关闭调试后不压缩,还有原来路径
 	private $css              = [];
+	private $css_noys         = []; //关闭调试后不压缩,还有原来路径
 	private $jsstr            = '';
 	private $initjsstr        = ''; //初始化的js字符串
 	private $cssstr           = '';
@@ -79,29 +81,40 @@ class Assets {
 	 * @param  [type] $name [description]
 	 * @return [type]       [description]
 	 */
-	public function registerCss($name) {
+	public function registerCss($name, $ys = true) {
 		if (is_string($name)) {
 			$name = explode(',', $name);
 		}
-		$this->css = array_merge($this->css, $name);
+		if ($ys) {
+			$this->css = array_merge($this->css, $name);
+		} else {
+			$this->css_noys = array_merge($this->css_noys, $name);
+		}
+
 	}
 	/**
 	 * 注册js路径到成员变量
-	 * @param  [type] $name [description]
-	 * @return [type]       [description]
+	 * @param  [type]  $name 文章名
+	 * @param  boolean $ys   是否压缩合并成一个文件
+	 * @return [type]        [description]
 	 */
-	public function registerJs($name) {
+	public function registerJs($name, $ys = true) {
 		if (is_string($name)) {
 			$name = explode(',', $name);
 		}
-		$this->js = array_merge($this->js, $name);
+		if ($ys) {
+			$this->js = array_merge($this->js, $name);
+		} else {
+			$this->js_noys = array_merge($this->js_noys, $name);
+		}
+
 	}
 	/**
 	 * 注册一些初始化的js字符串
 	 * @return [type] [description]
 	 */
 	public function registerInitJs($str) {
-		$this->initjsstr .= $str;
+		$this->initjsstr .= $str . "\r\n";
 	}
 	/**
 	 * 取注册到类中的js和css文件
@@ -124,41 +137,54 @@ class Assets {
 		}
 		$csscache = $this->cachepath . '/' . $cssname . '.css';
 		$jscache  = $this->cachepath . '/' . $jsname . '.js';
-		//查找css文件
-		foreach ($this->css as $k => $v) {
-			$filepath = $this->getFilePath($v, 'css');
-			if ($filepath) {
-				$this->css[$k] = $filepath;
-				if (APP_DEBUG) {
+
+		$css_sj_path = cache($cssname . '_pathlist'); //css实际路径
+		if (!$css_sj_path || APP_DEBUG) {
+			//查找css文件
+			foreach ($this->css as $k => $v) {
+				$filepath = $this->getFilePath($v, 'css');
+				if ($filepath) {
+					$css_sj_path[] = $filepath;
+					$this->css[$k] = $filepath;
 					$this->cssstr .= '<link href="' . trim($filepath, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
+
 				} else {
-					if ($this->file_ismod($filepath) || !file_exists($csscache)) {
-						$ismodcss = true;
-						$this->cssstr .= $this->compress_css($filepath);
-					}
+					$this->css[$k] .= '.css--->file is not exists!';
 				}
-			} else {
-				$this->css[$k] .= '.css--->file is not exists!';
+				cache($cssname . '_pathlist', $css_sj_path);
+			}
+		} else {
+			if ($this->file_ismod($css_sj_path) || !file_exists($csscache)) {
+				$ismodcss = true;
+				foreach ($css_sj_path as $key => $value) {
+					$this->cssstr .= $this->compress_css($value);
+				}
+
 			}
 		}
 		//查找js文件
-		foreach ($this->js as $k => $v) {
-			$filepath = $this->getFilePath($v, 'js');
-			if ($filepath) {
-				$this->js[$k] = $filepath;
-				if (APP_DEBUG) {
+		$js_sj_path = cache($jsname . '_pathlist'); //js实际路径
+		if (!$js_sj_path || APP_DEBUG) {
+			foreach ($this->js as $k => $v) {
+				$filepath = $this->getFilePath($v, 'js');
+				if ($filepath) {
+					$js_sj_path[] = $filepath;
+					$this->js[$k] = $filepath;
 					$this->jsstr .= '<script src="' . trim($filepath, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
 				} else {
-					if ($this->file_ismod($filepath) || !file_exists($jscache)) {
-						$ismodjs = true;
-						$this->jsstr .= $this->compress_js($filepath);
-					}
+					$this->js[$k] .= '.js--->file is not exists!';
 				}
-			} else {
-				$this->js[$k] .= '.js--->file is not exists!';
+			}
+			cache($jsname . '_pathlist', $js_sj_path);
+		} else {
+			if ($this->file_ismod($js_sj_path) || !file_exists($jscache)) {
+				$ismodjs = true;
+				foreach ($js_sj_path as $key => $value) {
+					$this->jsstr .= $this->compress_js($value);
+				}
+
 			}
 		}
-
 		if (!APP_DEBUG) {
 			//如果关闭调试模式就进行下面处理
 			if (!file_exists(dirname($csscache))) {
@@ -179,12 +205,38 @@ class Assets {
 			}
 
 		}
-		$css = $this->cssstr;
-		$js  = '';
+		//不压缩合并的css
+		$cssnoysname  = md5(implode($this->css_noys));
+		$css_noys_str = cache($cssnoysname);
+		if (!$css_noys_str || APP_DEBUG) {
+			$css_noys_str = '';
+			foreach ($this->css_noys as $k => $v) {
+				$filepath = $this->getFilePath($v, 'css');
+				if ($filepath) {
+					$css_noys_str .= '<link href="' . trim($filepath, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
+				}
+			}
+		}
+
+		//不压缩合并的js
+		$jsnoysname  = md5(implode($this->js_noys));
+		$js_noys_str = cache($jsnoysname);
+		if (!$js_noys_str || APP_DEBUG) {
+			$js_noys_str = '';
+			foreach ($this->js_noys as $k => $v) {
+				$filepath = $this->getFilePath($v, 'js');
+				if ($filepath) {
+					$js_noys_str .= '<script src="' . trim($filepath, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
+				}
+			}
+		}
+
+		$css = $css_noys_str . $this->cssstr;
+		$js  = $js_noys_str . "\r\n";
 		if ($this->initjsstr) {
-			$js = $this->jsstr . '<script type="text/javascript">' . "\r\n" . '$(function(){' . "\r\n" . $this->initjsstr . "\r\n" . '});' . "\r\n" . '</script>';
+			$js .= $this->jsstr . '<script type="text/javascript">' . "\r\n" . '$(function(){' . "\r\n" . $this->initjsstr . "\r\n" . '});' . "\r\n" . '</script>';
 		} else {
-			$js = $this->jsstr;
+			$js .= $this->jsstr;
 		}
 		switch ($type) {
 		case 'all':
@@ -245,9 +297,12 @@ class Assets {
 				foreach ($subdir as $key => $val) {
 					$temdir = $curdir . '/' . $val;
 					// dump($curdir);
-					$fpath = "{$temdir}/{$filename}.{$type}";
+					$fpath       = "{$temdir}/{$filename}.{$type}";
+					$fpath_jsdir = "{$temdir}/js/{$filename}.{$type}";
 					if (file_exists($fpath)) {
 						return $fpath;
+					} else if (file_exists($fpath_jsdir)) {
+						return $fpath_jsdir;
 					}
 				}
 			}

@@ -662,11 +662,11 @@ function write_tofile($filename, $str) {
  * 注册资源到系统的资源管理类中
  * @return [type] [description]
  */
-function reg_css($name) {
-	$name && \assets\Assets::getInstance()->registerCss($name);
+function reg_css($name, $ys = true) {
+	$name && \assets\Assets::getInstance()->registerCss($name, $ys);
 }
-function reg_js($name) {
-	$name && \assets\Assets::getInstance()->registerJs($name);
+function reg_js($name = '', $ys = true) {
+	$name && \assets\Assets::getInstance()->registerJs($name, $ys);
 }
 function reg_initjs($jsstr) {
 	$jsstr && \assets\Assets::getInstance()->registerInitJs($jsstr);
