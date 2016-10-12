@@ -1,6 +1,7 @@
 ! function(a, b) {
     a.BASE_URL = webUploaderUrl.BASE_URL;
     a.webUploader = {
+        uploaderList: [],
         /**
          * //初始化上传插件
          * @param  {[type]}   uploaderid   上传插件容器id
@@ -9,6 +10,7 @@
          * @return {[type]}                [description]
          */
         init: function(uploaderid, uploaderType, callback) {
+            // debugger;
             if (typeof uploaderType == 'function') {
                 callback = uploaderType;
                 uploaderType = false;
@@ -156,6 +158,10 @@
                 id: uploaderid + ' .filePicker2',
                 label: '继续添加'
             });
+            // uploader.addButton({
+            //     id: uploaderid + ' .filePicker',
+            //     label: '点击添加'
+            // });
             //添加上传成功后添加图片的功能
             uploader.selectId = uploaderid;
             uploader.uploaderType = uploaderType;
@@ -513,6 +519,8 @@
 
             $upload.addClass('state-' + state);
             updateTotalProgress();
+            this.uploaderList.push(uploader);
+            return uploader;
         },
         /**
          * 上传成功后添加预览图
