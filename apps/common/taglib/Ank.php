@@ -95,7 +95,7 @@ class Ank extends TagLib {
 		if (!$suijinum) {
 			$suijinum = cache('assetsversion');
 			if (!$suijinum || APP_DEBUG) {
-				$suijinum = '?r=' . rand(10000, 99999);
+				$suijinum = '?r=' . rand(0, 10);
 				cache('assetsversion', $suijinum);
 			}
 		}
@@ -131,9 +131,9 @@ class Ank extends TagLib {
 				write_tofile($cachefilename, $compressstr);
 			}
 			if ($filetype == 'js') {
-				$jscss .= '<script src="' . trim($cachefilename, '.') . '" type="text/javascript" ></script>' . "\r\n";
+				$jscss .= '<script src="' . trim($cachefilename, '.') . $suijinum . '" type="text/javascript" ></script>' . "\r\n";
 			} else {
-				$jscss .= '<link href="' . trim($cachefilename, '.') . '" rel="stylesheet" type="text/css"  />' . "\r\n";
+				$jscss .= '<link href="' . trim($cachefilename, '.') . $suijinum . '" rel="stylesheet" type="text/css"  />' . "\r\n";
 			}
 		}
 		return $jscss;

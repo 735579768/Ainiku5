@@ -24,8 +24,8 @@ class Base extends Controller {
 	public function _initialize() {
 		parent::_initialize();
 		//初始化系统配置
-		// dump(get_sys_config());
 		config(get_sys_config());
+		// dump(config(''));
 	}
 	/**
 	 * 验证码
