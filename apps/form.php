@@ -495,7 +495,7 @@ eot;
 <!--上传图片js start-->
 <link href="{$static_dir}/html5upload/css/zyUpload.min.css" type="text/css" rel="stylesheet" />
 <link href="{$static_dir}/uploadify/uploadify.min.css" type="text/css" rel="stylesheet" />
-<script src="{$static_dir}/html5upload/js/uploadFile.min.js" type="text/javascript" ></script>
+<script src="{$static_dir}/html5upload/uploadFile.min.js" type="text/javascript" ></script>
 <script src="{$static_dir}/uploadify/jquery.uploadify.min.js" type="text/javascript" ></script>
 <!--上传图片js end-->\n
 

@@ -6,17 +6,69 @@ class Ank extends TagLib {
 	// 标签定义
 	protected $tags = [
 		// 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
-		'layer'  => ['attr' => '', 'close' => 0],
-		'insert' => ['attr' => 'type,name', 'close' => 0],
-		'single' => ['attr' => 'id', 'close' => 0],
-		'get'    => ['attr' => 'table,field,id,pic', 'close' => 0],
-		'query'  => ['attr' => 'name,sql', 'close' => 1],
-		'nav'    => ['attr' => 'name,catid,order,rows', 'close' => 1],
-		'link'   => ['attr' => 'name', 'close' => 1],
-		'module' => ['attr' => 'name', 'close' => 1],
+		'layer'     => ['attr' => '', 'close' => 0],
+		'assets'    => ['attr' => 'type', 'close' => 0],
+		'regcss'    => ['attr' => 'name', 'close' => 0],
+		'regjs'     => ['attr' => 'name', 'close' => 0],
+		'reginitjs' => ['attr' => ''],
+		'insert'    => ['attr' => 'type,name', 'close' => 0],
+		'single'    => ['attr' => 'id', 'close' => 0],
+		'get'       => ['attr' => 'table,field,id,pic', 'close' => 0],
+		'query'     => ['attr' => 'name,sql', 'close' => 1],
+		'nav'       => ['attr' => 'name,catid,order,rows', 'close' => 1],
+		'link'      => ['attr' => 'name', 'close' => 1],
+		'module'    => ['attr' => 'name', 'close' => 1],
 	];
 	public function tagLayer($tag) {
 		return '<script type="text/javascript" src="/public/static/layer/layer.js"></script>';
+	}
+	/**
+	 * 替换系统中注册的css和js文件
+	 * @param  [type] $tab [description]
+	 * @return [type]      [description]
+	 */
+	public function tagAssets($tag) {
+		$type = isset($tag['type']) ? $tag['type'] : 'css';
+		switch ($type) {
+		case 'js':
+			return \assets\Assets::getInstance()->getSource('js');
+			break;
+		default:
+			return \assets\Assets::getInstance()->getSource('css');
+			break;
+		}
+	}
+	/**
+	 * 注册css
+	 * @param  [type] $tag [description]
+	 * @return [type]      [description]
+	 */
+	public function tagRegcss($tag) {
+		$name = isset($tag['name']) ? $tag['name'] : '';
+		reg_css($name);
+	}
+	/**
+	 * 注册js
+	 * @param  [type] $tag [description]
+	 * @return [type]      [description]
+	 */
+	public function tagRegjs($tag) {
+		$name = isset($tag['name']) ? $tag['name'] : '';
+		reg_js($name);
+	}
+	/**
+	 * 注册initjs
+	 * @param  [type] $tag [description]
+	 * @return [type]      [description]
+	 */
+	// public function tagInitjs($tag, $content) {
+	// 	// $name = isset($tag['name']) ? $tag['name'] : '';
+	// 	reg_initjs($content);
+	// 	return '45644';
+	// }
+	public function tagReginitjs($tag, $content) {
+		$parseStr = '<?php' . "\r\n" . ' $initjsstr=<<<initjs' . "\r\n" . $content . "\r\n" . 'initjs;' . "\r\n" . 'reg_initjs($initjsstr);' . "\r\n" . ' ?>';
+		return $parseStr;
 	}
 	/**
 	 * insert标签解析

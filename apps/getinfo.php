@@ -46,3 +46,23 @@ function get_space($num) {
 	}
 	return $str;
 }
+/**
+ * 返回一个目录中的目录列表(只返回一级)
+ * @param string $path
+ */
+function get_dir_list($dir) {
+	$dirArray[] = null;
+	if (false != ($handle = opendir($dir))) {
+		$i = 0;
+		while (false !== ($file = readdir($handle))) {
+			//去掉"“.”、“..”以及带“.xxx”后缀的文件
+			if ($file != "." && $file != ".." && !strpos($file, ".")) {
+				$dirArray[$i] = $file;
+				$i++;
+			}
+		}
+		//关闭句柄
+		closedir($handle);
+	}
+	return $dirArray;
+}

@@ -510,14 +510,14 @@ function find_file_path($filename = '') {
 	if (empty($filename)) {
 		return '';
 	}
-	$dirarr = array(
+	$dirarr = [
 		config('view_replace_str.__JS__'),
 		config('view_replace_str.__CSS__'),
 		config('view_replace_str.__STATIC__') . '/js',
 		config('view_replace_str.__STATIC__') . '/css',
-		STATIC_DIR.'/' . request()->module() . '/' . config('default_theme'),
+		STATIC_DIR . '/' . request()->module() . '/' . config('default_theme'),
 		config('view_replace_str.__STATIC__'),
-	);
+	];
 
 	foreach ($dirarr as $key => $value) {
 		$filepath = $value . '/' . $filename;
@@ -657,4 +657,17 @@ function write_tofile($filename, $str) {
 		die(dirname($filename));
 	}
 
+}
+/**
+ * 注册资源到系统的资源管理类中
+ * @return [type] [description]
+ */
+function reg_css($name) {
+	$name && \assets\Assets::getInstance()->registerCss($name);
+}
+function reg_js($name) {
+	$name && \assets\Assets::getInstance()->registerJs($name);
+}
+function reg_initjs($jsstr) {
+	$jsstr && \assets\Assets::getInstance()->registerInitJs($jsstr);
 }

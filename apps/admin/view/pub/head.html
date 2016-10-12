@@ -1,10 +1,3 @@
-{insert name='reset,common,font-awesome.min,admin,admin-defaultcolor' /}
-{insert name="jquery-1.9.1.min,mytab,ank,am,file,json2" type="js" /}
-{layer /}
-<script type="text/javascript">
-am.url={
-updateField:"{:url('updateField')}",
-updatePwd:"{:url('sys.user/updatePwd')}",
-delImg:"{:url('file/delImg')}"
-};
-</script>
+{regcss name='reset,common,font-awesome.min,admin,admin-defaultcolor' /}
+{assets type="css" /}
+{insert name="jquery-1.9.1.min" type="js" /}
