@@ -89,3 +89,4 @@
 
 /**后台radio样式***/
 .kl-checkbox,.kl-radio{margin:0px 5px 0px 10px;vertical-align:middle;}
+.defaultimg{background: url('../images/default.png') center center no-repeat;}

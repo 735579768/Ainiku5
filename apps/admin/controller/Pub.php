@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\controller;
-use think\Db;
+use think\db;
 
 class Pub extends \app\common\Controller\Base {
 	public function index() {
@@ -28,8 +28,13 @@ class Pub extends \app\common\Controller\Base {
 			$map['is_adminlogin'] = 1;
 
 			$user = Db::view('User', '*')
-				->view('UserGroup', 'user_group_id,title,auth,admin_index,denied,status,is_adminlogin', 'UserGroup.user_group_id=User.user_id')
+				->view('UserGroup', 'user_group_id,title,auth_rule,admin_index,denied,status,is_adminlogin', 'UserGroup.user_group_id=User.user_id')
 				->where($map)->find();
+			// $user = Db::name('User')
+			// 	->alias('a')
+			// 	->join('__USER_GROUP__ b', 'a.user_group_id=b.user_group_id')
+			// 	->field('a.*,title,user_group_id,title,auth,admin_index,denied,status,is_adminlogin')
+			// 	->find();
 			if (empty($user)) {
 				//登录失败
 				cookie('__uid__', null);
