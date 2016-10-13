@@ -1,5 +1,8 @@
 <?php
-defined("ACCESS_ROOT") || die("Invalid access");
+if (!defined('THINK_PATH')) {
+	exit();
+}
+
 /**
  * Created by JetBrains PhpStorm.
  * User: taoqili

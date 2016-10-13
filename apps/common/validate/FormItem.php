@@ -28,8 +28,8 @@ class FormItem extends Validate {
 	];
 
 	protected $scene = [
-		'add'  => ['name', 'email'],
-		'edit' => ['email'],
+		// 'add'  => ['name', 'email'],
+		'edit' => ['type', 'title', 'name', 'sort'],
 	];
 
 }

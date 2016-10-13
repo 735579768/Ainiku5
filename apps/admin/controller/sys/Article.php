@@ -57,6 +57,41 @@ class Article extends Base {
 		return controller('Data', 'logic')->delete('Article');
 	}
 	/**
+	 * 移动文章到回收站
+	 * @return [type] [description]
+	 */
+	public function del() {
+		// return controller('Data', 'logic')->delete('Article');
+	}
+	/**
+	 * 回收站文章
+	 * @return [type] [description]
+	 */
+	public function recycle() {
+
+	}
+	/**
+	 * 清理回收站文章
+	 * @return [type] [description]
+	 */
+	public function clearup() {
+
+	}
+	/**
+	 * 恢复回收站文章
+	 * @return [type] [description]
+	 */
+	public function huifu() {
+
+	}
+	/**
+	 * 移动文章到其它分类
+	 * @return [type] [description]
+	 */
+	public function move() {
+
+	}
+	/**
 	 * 搜索表单
 	 * @return [type] [description]
 	 */

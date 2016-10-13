@@ -1,5 +1,8 @@
 <?php
-defined("ACCESS_ROOT") || die("Invalid access");
+if (!defined('THINK_PATH')) {
+	exit();
+}
+
 ?>
 <script src="../third-party/jquery.min.js"></script>
 <script src="../third-party/mathquill/mathquill.min.js"></script>

@@ -15,6 +15,7 @@
             <th class="td-status">状态</th>
             <th>操作</th>
         </tr>
+        {notempty name="_list"}
         {volist name="_list" id="vo"}
         <tr>
             <td>{$vo.user_group_id}</td>
@@ -29,6 +30,13 @@
             </td>
         </tr>
         {/volist}
+        {else /}
+        <tr>
+            <td colspan="4">
+            <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
     </table>
     <div class="page">{$_page}</div>
 </div>

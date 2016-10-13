@@ -630,12 +630,16 @@ eot;
 
 	//替换成默认值
 	foreach ($default_value as $key => $value) {
+
 		$setvalue  = $value['value'];
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-		if ($setvalue === '') {
-			$setvalue = input($key);
+		if ($setvalue == '') {
+			// dump('param.' . $key);
+			$setvalue = input('param.' . $key);
 		}
+		// dump('pid:' . input('param.pid'));
+		// dump($key . ':' . $setvalue);
 		$key   = preg_quote($key);
 		$value = preg_quote($setvalue);
 		$key   = str_replace('/', '\/', $key);

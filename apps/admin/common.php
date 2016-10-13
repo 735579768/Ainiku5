@@ -19,10 +19,10 @@ function select_form() {
  * @return [type] [description]
  */
 function select_menu($pid = 0) {
+	empty($pid) && ($pid = 0);
 	static $sd       = 0;
 	static $menutree = [0 => '顶级菜单'];
-	empty($pid) && ($pid = 0);
-	$list = \think\Db::name('Menu')
+	$list            = \think\Db::name('Menu')
 		->field('menu_id,pid,title,url,sort')
 		->where(['pid' => $pid])
 		->order('sort asc,menu_id asc')
@@ -45,6 +45,7 @@ function select_menu($pid = 0) {
  * @return [type] [description]
  */
 function select_category($pid = 0, $category_type = 'article') {
+	empty($pid) && ($pid = 0);
 	static $sdd      = 0;
 	static $catetree = [0 => '顶级分类'];
 
@@ -56,11 +57,36 @@ function select_category($pid = 0, $category_type = 'article') {
 	foreach ($list as $key => $value) {
 		$catetree[$value['category_id']] = get_space($sdd) . $value['title'];
 		$sdd++;
-		select_menu($value['category_id'], $category_type);
+		select_category($value['category_id'], $category_type);
 		$sdd--;
 
 	}
 	return $catetree;
+}
+/**
+ * 权限规则下拉框
+ * @return [type] [description]
+ */
+function select_auth_rule($pid = 0) {
+	empty($pid) && ($pid = 0);
+	static $sdd      = 0;
+	static $ruletree = [0 => '顶级规则'];
+
+	$list = \think\Db::name('AuthRule')
+		->field('auth_rule_id,pid,sort,title')
+		->where(['pid' => $pid])
+		->order('sort asc,auth_rule_id asc')
+		->select();
+
+	foreach ($list as $key => $value) {
+		$ruletree[$value['auth_rule_id']] = get_space($sdd) . $value['title'];
+		$sdd++;
+		select_auth_rule($value['auth_rule_id']);
+		$sdd--;
+
+	}
+
+	return $ruletree;
 }
 /**
  * 取分类类型下拉框
