@@ -516,7 +516,7 @@ eot;
 		$geturl    = url('file/getFileInfo');
 		$uploadurl = url('file/uploadPic');
 		reg_css('css/webuploader', false);
-		reg_js('webuploader.min,demo', false);
+		reg_js('webuploader.min,webuploader-init', false);
 		$formjsstr .= <<<eot
 <script type="text/javascript">
 window.webUploaderUrl={
@@ -695,21 +695,27 @@ function get_bdupload_picture_html($name, $setvalue, $muli = false, $filetype = 
 </div>
 eot;
 	$initjs = <<<eot
-!function(){
-    //初始化上传控件
-    var conId='#bdupimage_{$name}';//上传容器id
-    var imglistId='#imglist_bdupimage_{$name}';//上传成功预览图片列表id
-    var valId='#uploadpic_bdupimage_{$name}';//当前图片值表单id
-    var ismuli={$ismuli};//是否多图上传
-    webUploader.init(conId,ismuli, function(data,upObj) {
-        // console.log(data);
-        // console.log(upObj);
-        $(valId).val(data.id);
-        webUploader.addimg(imglistId,data,ismuli);
-    });
-    //初始化图片列表
-    webUploader.initImgList(valId,imglistId,ismuli);
-}();
+        var uploader{$name}=setInterval(function(){
+        if(webUploader.jiance()){
+        clearInterval(uploader{$name});
+	!function(){
+	    //初始化上传控件
+	    var conId='#bdupimage_{$name}';//上传容器id
+	    var imglistId='#imglist_bdupimage_{$name}';//上传成功预览图片列表id
+	    var valId='#uploadpic_bdupimage_{$name}';//当前图片值表单id
+	    var ismuli={$ismuli};//是否多图上传
+	    var uploader=new webUploader.create();
+	    uploader.init(conId,ismuli, function(data,upObj) {
+	        console.log(data);
+	        console.log(upObj);
+	        $(valId).val(data.id);
+	        uploader.addimg(imglistId,data,ismuli);
+	    });
+	    //初始化图片列表
+	    uploader.initImgList(valId,imglistId,ismuli);
+	}();
+         }
+        },100);
 eot;
 	return ['str' => $tem_input, 'js' => $initjs];
 }
