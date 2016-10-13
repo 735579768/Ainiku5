@@ -3,6 +3,51 @@ namespace app\admin\controller\sys;
 
 class Usergroup extends Base {
 	/**
+	 * 权限设置
+	 * @return [type] [description]
+	 */
+	public function authset() {
+		$user_group_id = input('param.user_group_id', 0);
+		$user_group_id || $this->error('id不能为空');
+		if (request()->isPost()) {
+			$auth_rule = implode(',', input('param.auth_rule_id'));
+			$result    = \think\Db::name('AuthRule')
+				->where('user_group_id', $user_group_id)
+				->save([
+					'update_time' => time(),
+					'auth_rule'   => $auth_rule,
+				]);
+			if ($result) {
+				$this->success('设置成功');
+			} else {
+				$this->error('设置失败');
+			}
+		} else {
+			$map['status'] = 1;
+			$map['pid']    = 0;
+			$list          = \think\Db::name('AuthRule')
+				->where($map)
+				->field('auth_rule_id,title,name')
+				->order('sort asc,auth_rule_id asc')
+				->select();
+			foreach ($list as $key => $value) {
+				$map['pid'] = $value['auth_rule_id'];
+				$list2      = \think\Db::name('AuthRule')
+					->where($map)
+					->field('auth_rule_id,title,name')
+					->order('sort asc,auth_rule_id asc')
+					->select();
+				$list[$key]['child'] = $list2;
+			}
+			$this->assign([
+				'meta_title'    => '用户组权限设置',
+				'_list'         => $list,
+				'user_group_id' => $user_group_id,
+			]);
+			return $this->fetch();
+		}
+	}
+	/**
 	 * 用户组列表
 	 * @return [type] [description]
 	 */

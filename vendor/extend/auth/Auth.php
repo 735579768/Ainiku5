@@ -10,50 +10,44 @@ class Auth {
 	function __construct() {
 		$this->uid     = UID;
 		$uinfo         = session('uinfo');
-		$this->_nolist = cache('okrulelist' . $uinfo['user_group_id']);
+		$this->_nolist = cache('norulelist' . $uinfo['user_group_id']);
 		if (empty($this->_nolist) || APP_DEBUG) {
-			$uinfoauth     = Db::name('UserGroup')->field('auth_rule')->find($uinfo['user_group_id']);
-			$node_idlist   = implode(',', json_decode($uinfoauth['auth'], true));
-			$node_idlist   = empty($node_idlist) ? '*' : $node_idlist;
-			$this->_nolist = Db::name('AuthRule')->where(array(
-				'name'         => array('neq', ''),
-				'status'       => 1,
-				'auth_rule_id' => array('not in', $node_idlist),
-			))->select();
-			cache('okrulelist' . $uinfo['user_group_id'], $this->_nolist);
+			$uinfoauth = Db::name('UserGroup')
+				->field('auth_rule')
+				->find($uinfo['user_group_id']);
+			$rule_idlist   = $uinfoauth['auth_rule'];
+			$map['type']   = 1;
+			$map['status'] = 1;
+			$rule_idlist && ($map['auth_rule_id'] = ['not in', $rule_idlist]);
+			$this->_nolist = Db::name('AuthRule')
+				->where($map)
+				->field('auth_rule_id,name')
+				->select();
+			cache('norulelist' . $uinfo['user_group_id'], $this->_nolist);
 		}
 
 	}
 //检测当前地址是否在允许访问的列表
 	function check() {
 		$rebool = true;
-		if (IS_ADMIN) {
-			return $rebool;
-		} else {
-			//正则匹配
-			$tembool = true;
-			//var_dump($this->_nolist);
-			foreach ($this->_nolist as $val) {
-				$pattern = '';
-				$url     = str_replace('.' . C('URL_HTML_SUFFIX'), '', U($val['name'] . '/ALL_ACTION'));
-				$url     = str_replace('ALL_ACTION', '', $url);
-				$url     = preg_quote($url);
-				$url     = preg_replace('/\//i', '\/', $url);
-				if ($val['is_all'] == 1) {
-					$pattern = '/^' . $url . '$/i';
-				} else {
-					$pattern = '/(.*)' . $url . '(.*)/i';
-				}
-				$tembool = preg_match($pattern, __SELF__);
-				// var_dump(__SELF__);
-				// var_dump($pattern);
-				// var_dump($tembool);
-				if ($tembool) {
-					$rebool = false;
-					break;}
+
+		//正则匹配
+		$tembool = true;
+		foreach ($this->_nolist as $val) {
+			$pattern     = '';
+			$uri         = str_replace('.' . config('url_html_suffix'), '', url($val['name']));
+			$uri         = preg_quote($uri);
+			$uri         = preg_replace('/\//i', '\/', $uri);
+			$pattern     = '/^' . $uri . '(.*)/i';
+			$request_url = $_SERVER["REQUEST_URI"];
+			$tembool     = preg_match($pattern, $request_url);
+			if ($tembool) {
+				$rebool = false;
+				break;
 			}
-			return $rebool;
 		}
+		return $rebool;
+
 	}
 	//把没有权限的链接替换掉
 	function replaceurl($str = null) {
@@ -71,7 +65,7 @@ class Auth {
 						$pattern = '/';
 						//把不带/的当成整个模块都不让访问
 						if (strpos($url, '/') === false) {
-							$url1 = U("{$url}/index");
+							$url1 = url("{$url}/index");
 							$url  = preg_replace('/\&a\=.*/', '', $url1);
 							$url  = preg_quote($url);
 							$url  = substr($url, 1);
@@ -81,8 +75,8 @@ class Auth {
 							$reg_arr[] = $pattern;
 							// $str       = preg_replace($pattern, '', $str);
 						} else {
-							$url = U($url);
-							$url = str_replace(array('.' . C('URL_HTML_SUFFIX')), array(''), $url);
+							$url = url($url);
+							$url = str_replace(array('.' . config('URL_HTML_SUFFIX')), array(''), $url);
 							$url = preg_quote($url);
 							$url = str_replace('/', '\/', $url);
 							//把链接按钮(带有btn的操作)替换掉

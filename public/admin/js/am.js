@@ -1,6 +1,20 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		checkAll: function(dom) {
+			var _t = $(dom);
+			var _wrap = $(dom).parents('.check-wrap');
+			var _item = _wrap.find('.check-item')
+			if (_t.is(':checked')) {
+				_item.prop({
+					checked: true
+				});
+			} else {
+				_item.prop({
+					checked: false
+				});
+			}
+		},
 		delImg: function(dom) {
 			var _t = $(dom);
 			var id = _t.attr('data-id');

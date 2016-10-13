@@ -174,3 +174,11 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .autoyz-wrap span{position:absolute;top:0px;display:none;white-space:nowrap;top:0px;}
 .empty-str{padding:10px;font-size:20px;color:#C7C7C7;text-align:center;}
 .empty-str .bq{font-size: 24px;}
+/**
+ * 权限列表样式
+ */
+.authset .auth-item{height: 25px;line-height: 25px;}
+.authset dt.auth-item{font-size: 14px;border-bottom: solid 1px #ccc;margin: 10px 0px;}
+.authset dd.auth-item{float: left;    margin-right: 10px;color: #666;}
+.authset span{}
+.authset dt span{}

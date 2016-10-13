@@ -11,6 +11,7 @@ class Base extends \app\common\Controller\Base {
 		parent::_initialize();
 		$uid = is_login();
 		$uid ? (defined('UID') or define('UID', $uid)) : $this->redirect('Pub/login');
+		// $this->_checkRule();
 		$this->uinfo = session('uinfo');
 		$this->assign([
 			'meta_title' => '首页',
@@ -22,6 +23,18 @@ class Base extends \app\common\Controller\Base {
 			$this->success($success);
 		} else {
 			$this->error($fail);
+		}
+	}
+	/**
+	 * 检查是否有访问权限
+	 * @return [type] [description]
+	 */
+	private function _checkRule() {
+		$au = new \auth\Auth();
+		if ($au->check()) {
+			return true;
+		} else {
+			$this->error('没有访问权限!');
 		}
 	}
 	/**
