@@ -525,6 +525,13 @@ window.webUploaderUrl={
  UPLOADER_URL:'{$uploadurl}'
 };
 </script>
+<!--[if IE]>
+<style>
+.ie-show-ts{display:block;}
+.uploader-wrap .note-sm,
+.uploader-img p{display:none;}
+</style>
+<![endif]-->
 eot;
 // 		$formjsstr .= <<<eot
 		// <!--百度上传图片js start-->
@@ -706,8 +713,8 @@ eot;
 	    var ismuli={$ismuli};//是否多图上传
 	    var uploader=new webUploader.create();
 	    uploader.init(conId,ismuli, function(data,upObj) {
-	        console.log(data);
-	        console.log(upObj);
+	        // console.log(data);
+	        // console.log(upObj);
 	        $(valId).val(data.id);
 	        uploader.addimg(imglistId,data,ismuli);
 	    });

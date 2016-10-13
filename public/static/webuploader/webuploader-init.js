@@ -1,4 +1,8 @@
-! function(a, b) {
+;
+if (typeof console == 'undefined') {
+    console = {};
+    console.log = function() {};
+}! function(a, b) {
     var obj = [];
     a.BASE_URL = webUploaderUrl.BASE_URL;
     var c = function() {
@@ -57,7 +61,7 @@
             var filenum = uploaderType ? 300 : 1;
             var $ = jQuery;
             // var inpname = uploaderid.replace('#', '');
-            var htmlstr = '<div class="uploader-wrap">    <div class="note-sm">您可以尝试文件拖拽，使用QQ截屏工具，然后鼠标点击虚线框内激活窗口后粘贴，或者点击添加图片按钮，来上传图片.</div>    <div class="uploader-img" class="wu-example">        <div id="queueList_[REPLACE]" class="queueList">            <div class="placeholder">                <div id="filePicker_[REPLACE]" class="filePicker"></div>                <p>或将照片拖到这里，单次最多可选300张</p>            </div>        </div>        <div class="statusBar" style="display:none;">            <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>            <div class="info"></div>            <div class="btns">                <div id="filePicker2_[REPLACE]" class="filePicker2"></div>                <div class="uploadBtn">开始上传</div>            </div>        </div>    </div></div>';
+            var htmlstr = '<div class="uploader-wrap">  <div class="ie-show-ts">IE下预览图片为空白,此为正常现象,直接点开始上传即可。建议使用谷歌,火狐,360急速等高级浏览器上传体验最佳！(:</div>  <div class="note-sm">您可以尝试文件拖拽，使用QQ截屏工具，然后鼠标点击虚线框内激活窗口后粘贴，或者点击添加图片按钮，来上传图片.</div>    <div class="uploader-img" class="wu-example">        <div id="queueList_[REPLACE]" class="queueList">            <div class="placeholder">                <div id="filePicker_[REPLACE]" class="filePicker"></div>                <p>或将照片拖到这里，单次最多可选300张</p>            </div>        </div>        <div class="statusBar" style="display:none;">            <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>            <div class="info"></div>            <div class="btns">                <div id="filePicker2_[REPLACE]" class="filePicker2"></div>                <div class="uploadBtn">开始上传</div>            </div>        </div>    </div></div>';
             htmlstr = htmlstr.replace(/\[REPLACE\]/g, domid, htmlstr);
             $(uploaderid).html(htmlstr);
             this.uploaderid = uploaderid;
@@ -129,7 +133,7 @@
                 // 选完文件后，是否自动上传。
                 auto: false,
                 // swf文件路径
-                swf: BASE_URL + '/js/Uploader.swf',
+                swf: BASE_URL + '/Uploader.swf',
                 //是否禁掉整个页面的拖拽功能，如果不禁用，图片拖进来的时候会默认被浏览器打开。
                 disableGlobalDnd: true,
                 // 是否要分片处理大文件上传。
@@ -212,10 +216,10 @@
             };
 
             _t.uploader.onFileDequeued = function(file) {
-                fileCount--;
-                fileSize -= file.size;
+                _t.fileCount--;
+                _t.fileSize -= file.size;
 
-                if (!fileCount) {
+                if (!_t.fileCount) {
                     _t.setState('pedding');
                 }
 
@@ -382,7 +386,7 @@
                         break;
                 }
 
-                if (supportTransition) {
+                if (_t.supportTransition) {
                     deg = 'rotate(' + file.rotation + 'deg)';
                     $wrap.css({
                         '-webkit-transform': deg,
@@ -417,9 +421,10 @@
         },
         // 负责view的销毁
         removeFile: function(file) {
+            var _t = this;
             var $li = $('#' + file.id);
 
-            delete percentages[file.id];
+            delete _t.percentages[file.id];
             _t.updateTotalProgress();
             $li.off().find('.file-panel').off().end().remove();
         },
@@ -577,9 +582,10 @@
     a.webUploader = {
         create: c,
         jiance: function() {
-            var l = $('.webuploader-element-invisible').length / 2;
-            console.log(l);
-            console.log(obj);
+            var l = $('.webuploader-container').length / 2;
+            // console.log(l);
+            // console.log(obj);
+            // return true;
             if (obj.length == l) {
                 return true;
             } else {

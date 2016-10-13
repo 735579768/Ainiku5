@@ -4,7 +4,9 @@
 .webuploader-pick{position:relative;display:inline-block;cursor:pointer;background:#00b7ee;padding:10px 15px;color:#fff;text-align:center;border-radius:3px;overflow:hidden;}
 .webuploader-pick-hover{background:#00a2d4;}
 .webuploader-pick-disable{opacity:0.6;pointer-events:none;}
+.ie-show-ts,
 .uploader-wrap .note-sm{font-size:12px;margin-bottom:10px;text-align:center;color:#ababab;}
+.ie-show-ts{display: none;}
 .uploader-wrap{padding:10px;}
 .uploader-img .queueList{border:3px dashed #e6e6e6;}
 .uploader-img .queueList.filled{margin:0;border:3px dashed transparent;}
