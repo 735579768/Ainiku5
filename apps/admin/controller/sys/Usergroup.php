@@ -10,10 +10,11 @@ class Usergroup extends Base {
 		$user_group_id = input('param.user_group_id', 0);
 		$user_group_id || $this->error('id不能为空');
 		if (request()->isPost()) {
-			$auth_rule = implode(',', input('param.auth_rule_id'));
-			$result    = \think\Db::name('AuthRule')
+			$auth_rule = implode(',', input('param.auth_rule_id/a', []));
+			// $auth_rule = implode(',', $_POST['auth_rule_id']);
+			$result = \think\Db::name('UserGroup')
 				->where('user_group_id', $user_group_id)
-				->save([
+				->update([
 					'update_time' => time(),
 					'auth_rule'   => $auth_rule,
 				]);
@@ -39,10 +40,13 @@ class Usergroup extends Base {
 					->select();
 				$list[$key]['child'] = $list2;
 			}
+			//设置默认值
+			$value = \think\Db::name('UserGroup')->field('auth_rule')->where(['user_group_id' => $user_group_id])->find();
 			$this->assign([
 				'meta_title'    => '用户组权限设置',
 				'_list'         => $list,
 				'user_group_id' => $user_group_id,
+				'value'         => $value['auth_rule'],
 			]);
 			return $this->fetch();
 		}
@@ -56,7 +60,8 @@ class Usergroup extends Base {
 		$this->pages([
 			'table' => 'UserGroup',
 			'where' => ['a.status' => ['gt', -1]],
-			'field' => 'user_group_id,title,status',
+			'field' => 'user_group_id,title,status,sort',
+			'order' => 'sort asc,user_group_id asc',
 		]);
 		return $this->fetch();
 	}

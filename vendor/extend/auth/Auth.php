@@ -10,6 +10,7 @@ class Auth {
 	function __construct() {
 		$this->uid     = UID;
 		$uinfo         = session('uinfo');
+		$this->_oklist = cache('okrulelist' . $uinfo['user_group_id']);
 		$this->_nolist = cache('norulelist' . $uinfo['user_group_id']);
 		if (empty($this->_nolist) || APP_DEBUG) {
 			$uinfoauth = Db::name('UserGroup')
@@ -18,35 +19,68 @@ class Auth {
 			$rule_idlist   = $uinfoauth['auth_rule'];
 			$map['type']   = 1;
 			$map['status'] = 1;
+			$rule_idlist && ($map['auth_rule_id'] = ['in', $rule_idlist]);
+			$this->_oklist = Db::name('AuthRule')
+				->where($map)
+				->field('auth_rule_id,name')
+				->select();
 			$rule_idlist && ($map['auth_rule_id'] = ['not in', $rule_idlist]);
 			$this->_nolist = Db::name('AuthRule')
 				->where($map)
 				->field('auth_rule_id,name')
 				->select();
+			cache('okrulelist' . $uinfo['user_group_id'], $this->_oklist);
 			cache('norulelist' . $uinfo['user_group_id'], $this->_nolist);
 		}
 
 	}
 //检测当前地址是否在允许访问的列表
 	function check() {
-		$rebool = true;
-
+		//当前请求的控制器/操作?参数
+		// $re_url = request()->path();
+		$param = request()->param();
+		//删除掉第一个路径信息
+		array_shift($param);
+		$param = array_change_key_case($param);
+		ksort($param);
+		// $param      = array_keys($param);
+		$controller = strtolower(request()->controller());
+		$action     = strtolower(request()->action());
+		// dump($re_url);
+		return true;
+		// dump($controller);
+		// dump($action);
+		// dump($param);
 		//正则匹配
-		$tembool = true;
-		foreach ($this->_nolist as $val) {
-			$pattern     = '';
-			$uri         = str_replace('.' . config('url_html_suffix'), '', url($val['name']));
-			$uri         = preg_quote($uri);
-			$uri         = preg_replace('/\//i', '\/', $uri);
-			$pattern     = '/^' . $uri . '(.*)/i';
-			$request_url = $_SERVER["REQUEST_URI"];
-			$tembool     = preg_match($pattern, $request_url);
-			if ($tembool) {
-				$rebool = false;
-				break;
+		foreach ($this->_oklist as $auth) {
+			$contr = '';
+			$act   = '';
+			$par   = [];
+			//解析控制器/操作?参数
+			$auth  = strtolower($auth['name']);
+			$auth  = explode('?', $auth);
+			$tem   = explode('/', $auth[0]);
+			$contr = $tem[0];
+			$act   = $tem[1];
+			if (count($auth) > 1) {
+				parse_str($auth[1], $par);
+				ksort($par);
+				// $par = array_keys($par);
+			}
+			//取请求参数和规则中参数重复一样的部分值
+			$intersect = array_intersect_assoc($param, $par);
+			// dump($contr);
+			// dump($act);
+			// dump($par);
+
+			if ($controller == $contr && $action == $act && $param == $intersect) {
+				// echo 'success';
+				// die();
+				return true;
 			}
 		}
-		return $rebool;
+		die('auth fail');
+		return false;
 
 	}
 	//把没有权限的链接替换掉

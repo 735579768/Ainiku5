@@ -12,7 +12,9 @@ class User extends Model {
 		return strtolower($value);
 	}
 
-	protected function setReg_ipAttr() {
+	protected function setRegIpAttr() {
+		// die(request()->ip());
+		// return request()->ip();
 		return get_client_ip();
 	}
 

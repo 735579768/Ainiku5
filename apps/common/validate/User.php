@@ -5,8 +5,8 @@ use think\Validate;
 class User extends Validate {
 	protected $rule = [
 		'username'   => 'require|alphaNum|length:6,20',
-		'password'   => 'require|alphaDash|length:6,25',
-		'repassport' => 'confirm:passport',
+		'password'   => 'require|length:6,25',
+		'repassword' => 'confirm:password',
 		'nickname'   => 'require|length:2,10',
 		// 'user_group_id' => 'require|number',
 		'diqu'       => 'require|regex:^.{1,},.{1,},.{1,}$',
@@ -20,9 +20,9 @@ class User extends Validate {
 		'username.alphaNum'  => '用户名只能用字母和数字',
 		'username.length'    => '用户名长度为6到20个字符',
 		'password.require'   => '密码必须填写',
-		'password.alphaDash' => '密码只能用字母和数字，下划线_及破折号-',
+		// 'password.alphaDash' => '密码只能用字母和数字，下划线_及破折号-',
 		'password.length'    => '密码长度为6到25个字符',
-		'repassport.confirm' => '两次输入的密码不一致',
+		'repassword.confirm' => '两次输入的密码不一致',
 		'diqu.require'       => '请选择地址',
 		'diqu.regex'         => '请选择地址',
 		'address.require'    => '请填写详细地址',

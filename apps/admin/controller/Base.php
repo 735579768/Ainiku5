@@ -11,7 +11,7 @@ class Base extends \app\common\Controller\Base {
 		parent::_initialize();
 		$uid = is_login();
 		$uid ? (defined('UID') or define('UID', $uid)) : $this->redirect('Pub/login');
-		// $this->_checkRule();
+		$this->_checkRule();
 		$this->uinfo = session('uinfo');
 		$this->assign([
 			'meta_title' => '首页',

@@ -56,6 +56,13 @@ class User extends Base {
 		return controller('User', 'logic')->del();
 	}
 	/**
+	 * 清空用户回收站
+	 * @return [type] [description]
+	 */
+	public function clearUp() {
+
+	}
+	/**
 	 * 彻底删除用户
 	 * @return [type] [description]
 	 */

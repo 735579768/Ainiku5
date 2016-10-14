@@ -5,7 +5,7 @@ use think\Validate;
 class UserGroup extends Validate {
 	protected $rule = [
 		'title' => 'require|max:20',
-		'title' => 'unique:User',
+		'title' => 'unique:UserGroup',
 
 	];
 

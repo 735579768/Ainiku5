@@ -5,18 +5,26 @@
     <form action="{:url('')}">
     {volist name="_list" id="vo"}
     <dl class="authset check-wrap cl">
-        <dt class="auth-item"><label><input onclick="am.checkAll(this);" type="checkbox"  value="{$vo.auth_rule_id}" />{$vo.title}</label></dt>
+        <dt class="auth-item"><label><input onclick="am.checkAll(this);" type="checkbox"  value="{$vo.auth_rule_id}" /><span>{$vo.title}</span></label></dt>
         {notempty name="vo.child"}
         {volist name="vo.child" id="v"}
-        <dd class="auth-item"><label><input class="check-item" type="checkbox" name="auth_rule_id[]" value="{$v.auth_rule_id}" />{$v.title}</label></dd>
+        <dd class="auth-item"><label><input class="check-item" type="checkbox" name="auth_rule_id[]" value="{$v.auth_rule_id}" /><span>{$v.title}</span></label></dd>
         {/volist}
         {/notempty}
     </dl>
     {/volist}
     <div class="form-group center">
     <input type="hidden" name="user_group_id" value="{$user_group_id}" />
-        <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">确定设置</a>
+        <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">确定保存</a>
     </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(function(){
+        var value=[{$value}];
+for(a in value){
+    $("input[name='auth_rule_id[]'][value='"+value[a]+"']").prop({checked:true});
+}
+    });
+</script>
 {/block}
