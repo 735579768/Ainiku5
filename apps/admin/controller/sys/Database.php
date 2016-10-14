@@ -27,7 +27,8 @@ class Database extends Base {
 	 * @return [type] [description]
 	 */
 	public function import() {
-		if (request()->isPost()) {
+		if (request()->isAjax()) {
+			$this->_import();
 		} else {
 			//列出备份文件列表
 			$path = './data/';
@@ -227,17 +228,18 @@ class Database extends Base {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function delete($time = 0) {
+		$time = input('param.time', 0);
 		if ($time) {
 			$name = date('Ymd-His', $time) . '-*.sql*';
-			$path = realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR . $name;
+			$path = './data/' . $name;
 			array_map("unlink", glob($path));
 			if (count(glob($path))) {
-				$this->success('备份文件删除失败，请检查权限！');
+				$this->error('备份文件删除失败，请检查权限！', '');
 			} else {
-				$this->success('备份文件删除成功！', U('Database/index?type=import'));
+				$this->success('备份文件删除成功！', '');
 			}
 		} else {
-			$this->error('参数错误！');
+			$this->error('参数错误！', '');
 		}
 	}
 	/**
@@ -245,11 +247,14 @@ class Database extends Base {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function _import($time = 0, $part = null, $start = null) {
+		$time  = input('param.time', 0);
+		$part  = input('param.part', null);
+		$start = input('param.start', null);
 		if (is_numeric($time) && is_null($part) && is_null($start)) {
 			//初始化
 			//获取备份文件信息
 			$name  = date('Ymd-His', $time) . '-*.sql*';
-			$path  = realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR . $name;
+			$path  = './data/' . $name;
 			$files = glob($path);
 			$list  = array();
 			foreach ($files as $name) {
@@ -259,19 +264,21 @@ class Database extends Base {
 				$list[$match[6]] = array($match[6], $name, $gz);
 			}
 			ksort($list);
-
+			// var_dump($list);
 			//检测文件正确性
 			$last = end($list);
 			if (count($list) === $last[0]) {
 				session('backup_list', $list); //缓存备份列表
-				$this->success('初始化完成！', '', array('part' => 1, 'start' => 0));
+				$this->success('<span style="color:#00C700;">初始化完成！</span>', '', array('part' => 1, 'start' => 0));
 			} else {
 				$this->error('备份文件可能已经损坏，请检查！');
 			}
 		} elseif (is_numeric($part) && is_numeric($start)) {
 			$list = session('backup_list');
-			$db   = new Database($list[$part], array(
-				'path'     => realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR,
+			// $name = date('Ymd-His', $time) . '-*.sql*';
+			$path = './data/';
+			$db   = new \ank\Database($list[$part], array(
+				'path'     => $path,
 				'compress' => $list[$part][2]));
 
 			$start = $db->import($start);
@@ -285,7 +292,7 @@ class Database extends Base {
 					$this->success("正在还原...#{$part}", '', $data);
 				} else {
 					session('backup_list', null);
-					$this->success('还原完成！');
+					$this->success('<span style="color:#00C700;">还原完成！</span>', '');
 				}
 			} else {
 				$data = array('part' => $part, 'start' => $start[0]);
@@ -299,7 +306,7 @@ class Database extends Base {
 			}
 
 		} else {
-			$this->error('参数错误！');
+			$this->error('参数错误！', '');
 		}
 	}
 }
