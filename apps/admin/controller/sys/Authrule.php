@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\controller\sys;
+use think\Cache;
 use think\Db;
 
 class Authrule extends Base {
@@ -18,19 +19,24 @@ class Authrule extends Base {
 	 * @return [type]       [description]
 	 */
 	public function tree($pid = 0) {
-		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('AuthRule')
-			->where(['pid' => $pid])
-			->field('auth_rule_id,pid,title,name,sort,status')
-			->order('status desc,sort asc')
-			->select();
-		foreach ($list as $key => $value) {
-			$list2 = Db::name('AuthRule')
-				->where(['pid' => $value['auth_rule_id']])
+		$list = Cache::tag('authrule')->get('authrule' . $pid);
+		if (!$list || APP_DEBUG) {
+			// if (!$list) {
+			// 查询状态为1的用户数据 并且每页显示10条数据
+			$list = Db::name('AuthRule')
+				->where(['pid' => $pid])
 				->field('auth_rule_id,pid,title,name,sort,status')
-				->order('sort asc,status desc')
+				->order('status desc,sort asc')
 				->select();
-			$list[$key]['child'] = $list2;
+			foreach ($list as $key => $value) {
+				$list2 = Db::name('AuthRule')
+					->where(['pid' => $value['auth_rule_id']])
+					->field('auth_rule_id,pid,title,name,sort,status')
+					->order('sort asc,status desc')
+					->select();
+				$list[$key]['child'] = $list2;
+			}
+			Cache::tag('authrule')->set('authrule' . $pid, $list);
 		}
 		$this->assign('_list', $list);
 		return $this->fetch('tree');
@@ -41,6 +47,7 @@ class Authrule extends Base {
 	 */
 	public function add() {
 		// dump(input('pid'));
+		Cache::clear('authrule');
 		return controller('Data', 'logic')->add('AuthRule');
 
 	}
@@ -49,6 +56,7 @@ class Authrule extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
+		Cache::clear('authrule');
 		return controller('Data', 'logic')->edit('AuthRule');
 	}
 	/**
@@ -56,6 +64,7 @@ class Authrule extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
+		Cache::clear('authrule');
 		$auth_rule_id = input('param.auth_rule_id');
 		($auth_rule_id == 1) && $this->error('首页权限规则不能删除!');
 		$list = \think\Db::name('AuthRule')

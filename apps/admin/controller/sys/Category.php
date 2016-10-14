@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\controller\sys;
+use think\Cache;
 use think\Db;
 
 class Category extends Base {
@@ -26,19 +27,23 @@ class Category extends Base {
 	public function tree($pid = 0, $category_type = 'article') {
 		$map['pid']           = $pid;
 		$map['category_type'] = $category_type;
-		$list                 = Db::name('Category')
-			->where($map)
-			->field('category_id,pid,title,name,sort,status')
-			->order('status desc,sort asc')
-			->select();
-		foreach ($list as $key => $value) {
-			$map['pid'] = $value['category_id'];
-			$list2      = Db::name('Category')
+		$list                 = Cache::tag('category')->get('category' . $pid);
+		if (!$list || APP_DEBUG) {
+			$list = Db::name('Category')
 				->where($map)
 				->field('category_id,pid,title,name,sort,status')
 				->order('status desc,sort asc')
 				->select();
-			$list[$key]['child'] = $list2;
+			foreach ($list as $key => $value) {
+				$map['pid'] = $value['category_id'];
+				$list2      = Db::name('Category')
+					->where($map)
+					->field('category_id,pid,title,name,sort,status')
+					->order('status desc,sort asc')
+					->select();
+				$list[$key]['child'] = $list2;
+			}
+			Cache::tag('category')->set('category' . $pid, $list);
 		}
 		$this->assign('_list', $list);
 		return $this->fetch('tree');
@@ -48,6 +53,7 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
+		Cache::clear('category');
 		return controller('Data', 'logic')->add('Category');
 
 	}
@@ -56,6 +62,7 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
+		Cache::clear('category');
 		return controller('Data', 'logic')->edit('Category');
 	}
 	/**
@@ -63,6 +70,7 @@ class Category extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
+		Cache::clear('category');
 		$category_id = input('param.category_id');
 		($category_id == 1) && $this->error('首页分类不能删除!');
 		$list = \think\Db::name('Category')

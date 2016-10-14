@@ -1,0 +1,50 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a id="export" class="btn" href="javascript:;" autocomplete="off">立即备份</a>
+            <a id="optimize" class="btn" href="{:url('optimize')}">优化表</a>
+            <a id="repair" class="btn" href="{:url('repair')}">修复表</a>
+        </div>
+    </div>
+    <!--按钮和搜索区域-->
+    <form id="export-form" method="post" width="100%" action="{:url('export')}">
+        <table width="100%" border="0" class="check-wrap">
+            <tr class="th">
+                <th width="48">
+                    <input class="check-all" onclick="am.checkAll(this);" checked="checked" type="checkbox" value="">
+                </th>
+                <th>表名</th>
+                <th width="60">数据量</th>
+                <th width="110">数据大小</th>
+                <th width="160">创建时间</th>
+                <th width="160">备份状态</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            {volist name="_list" id="table"}
+            <tr>
+                <td align="center">
+                    <input class="ids check-item" checked="checked" type="checkbox" name="tables[]" value="{$table.name}">
+                </td>
+                <td class="td-left">{$table.name}</td>
+                <td class="center">{$table.rows}</td>
+                <td class="td-left td-id">{$table.data_length|format_bytes}</td>
+                <td class="td-time">{$table.create_time}</td>
+                <td class="info center">未备份</td>
+                <td class="action center">
+                    <a href="javascript:;" class="ajax-href btn btn-primary no-refresh" onclick="ank.ajaxHref(this);" data-url="{:url('optimize?tables='.$table['name'])}">优化表</a>
+                    <a href="javascript:;" class="ajax-href btn btn-primary no-refresh" onclick="ank.ajaxHref(this);" data-url="{:url('repair?tables='.$table['name'])}">修复表</a>
+                </td>
+            </tr>
+            {/volist}
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+$(function(){
+database.init();
+});
+</script>
+{/block}

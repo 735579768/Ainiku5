@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\controller\sys;
+use think\Cache;
 use think\Db;
 
 class Menu extends Base {
@@ -20,18 +21,22 @@ class Menu extends Base {
 	 */
 	public function tree($pid = 0) {
 		// 查询状态为1的用户数据 并且每页显示10条数据
-		$list = Db::name('Menu')
-			->where(['pid' => $pid])
-			->field('menu_id,pid,title,url,sort,status')
-			->order('status desc,sort asc')
-			->select();
-		foreach ($list as $key => $value) {
-			$list2 = Db::name('Menu')
-				->where(['pid' => $value['menu_id']])
-				->field('menu_id,pid,title,url,sort,status')
+		$list = Cache::tag('menu')->get('menu' . $pid);
+		if (!$list || APP_DEBUG) {
+			$list = Db::name('Menu')
+				->where(['pid' => $pid])
+				->field('menu_id,pid,title,url,sort,status,group')
 				->order('status desc,sort asc')
 				->select();
-			$list[$key]['child'] = $list2;
+			foreach ($list as $key => $value) {
+				$list2 = Db::name('Menu')
+					->where(['pid' => $value['menu_id']])
+					->field('menu_id,pid,title,url,sort,status,group')
+					->order('status desc,sort asc')
+					->select();
+				$list[$key]['child'] = $list2;
+			}
+			Cache::tag('menu')->set('menu' . $pid, $list);
 		}
 		$this->assign('_list', $list);
 		return $this->fetch('tree');
@@ -41,6 +46,7 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function add() {
+		Cache::clear('menu');
 		return controller('Data', 'logic')->add('Menu');
 
 	}
@@ -49,6 +55,7 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function edit() {
+		Cache::clear('menu');
 		return controller('Data', 'logic')->edit('Menu');
 	}
 	/**
@@ -56,6 +63,7 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
+		Cache::clear('menu');
 		$menu_id = input('param.menu_id');
 		($menu_id == 1) && $this->error('首页菜单不能删除!');
 		$list = \think\Db::name('Menu')

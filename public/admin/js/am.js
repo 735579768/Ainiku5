@@ -560,6 +560,90 @@
 		}
 	};
 }(window);
+//数据库备份
+! function(a, b) {
+	var _t = this;
+	var $form = $("#export-form"),
+		$export = $("#export"),
+		tables
+	$optimize = $("#optimize"), $repair = $("#repair");
+	var backup = function(tab, status) {
+		status && showmsg(tab.id, "开始备份...(0%)");
+		$.get($form.attr("action"), tab, function(data) {
+			if (data.code) {
+				showmsg(tab.id, data.msg);
+
+				if (!$.isPlainObject(data.data.tab)) {
+					$export.parent().children().removeClass("disabled");
+					$export.html("备份完成，点击重新备份");
+					window.onbeforeunload = function() {
+						return null
+					}
+					ank.alert('备份完成，点击重新备份!');
+					return;
+				}
+				backup(data.data.tab, tab.id != data.data.tab.id);
+			} else {
+				ank.alert(data);
+				$export.parent().children().removeClass("disabled");
+				$export.html("立即备份");
+				setTimeout(function() {
+					$('#top-alert').find('button').click();
+					$(that).removeClass('disabled').prop('disabled', false);
+				}, 1500);
+			}
+		}, "json");
+	};
+	var showmsg = function(id, msg) {
+		// console.log(tables[id]);
+		$form.find("input[value=" + tables[id] + "]").closest("tr").find(".info").html(msg);
+	};
+	a.database = {
+		init: function() {
+			$optimize.add($repair).click(function() {
+				$.post(this.href, $form.serialize(), function(data) {
+					ank.alert(data);
+					setTimeout(function() {
+						$('#top-alert').find('button').click();
+						//  $(that).removeClass('disabled').prop('disabled',false);
+					}, 1500);
+				}, "json");
+				return false;
+			});
+
+			$export.click(function() {
+				$export.parent().children().addClass("disabled");
+				$export.html("正在发送备份请求...");
+				$.post(
+					$form.attr("action"),
+					$form.serialize(),
+					function(data) {
+						if (data.code) {
+							tables = data.data.tables;
+							$export.html(data.msg + "开始备份，请不要关闭本页面！");
+							// debugger;
+							backup(data.data.tab);
+							window.onbeforeunload = function() {
+								return "正在备份数据库，请不要关闭！"
+							}
+						} else {
+							ank.alert(data);
+							$export.parent().children().removeClass("disabled");
+							$export.html("立即备份");
+							setTimeout(function() {
+								$('#top-alert').find('button').click();
+								//$(that).removeClass('disabled').prop('disabled',false);
+							}, 1500);
+						}
+					},
+					"json"
+				);
+				return false;
+			});
+		}
+
+	};
+}(window);
 //初始化页面
 $(function() {
 	am.initPage();

@@ -1,0 +1,36 @@
+ {extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <div class="data-table table-striped">
+        <table width="100%" border="0">
+            <tr class="th">
+                <th width="200">备份名称</th>
+                <th width="40">卷数</th>
+                <th width="80">压缩</th>
+                <th width="80">数据大小</th>
+                <th width="200">备份时间</th>
+                <th>下载</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            {volist name="_list" id="data"}
+            <tr>
+                <td align="center">{$data.time|date='Ymd-His',###}</td>
+                <td class="center">{$data.part}</td>
+                <td class="center">{$data.compress}</td>
+                <td class="center">{$data.size|format_bytes}</td>
+                <td class="center">{$key}</td>
+                <td class="center">
+                    <a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank" class="download"></a>
+                </td>
+                <td class="action center">
+                    <a href="javascript:;" class="db-import btn btn-warning" onclick="am.okAction(this,'{:url('import?time='.$data['time'])}');">还原</a>&nbsp;
+                    <a href="javascript:;" class="db-import btn btn-danger" onclick="am.okAction(this,'{:url('delete?time='.$data['time'])}');">删除</a>&nbsp;
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+{/block}

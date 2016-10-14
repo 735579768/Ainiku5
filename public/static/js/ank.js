@@ -87,8 +87,14 @@
 		 * @return {[type]}            [description]
 		 */
 		alert: function(data, callback) {
-			typeof data === 'object' || (data = {
-				status: 0,
+			typeof data === 'string' && (data = {
+				code: 1,
+				wait: 3,
+				msg: data,
+				url: ''
+			});
+			typeof data === 'string' || typeof data === 'object' || (data = {
+				code: 0,
 				wait: 3,
 				msg: '返回数据格式错误',
 				url: ''

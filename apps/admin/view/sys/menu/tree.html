@@ -20,6 +20,10 @@
                 <span class="text-title">URL:</span>
                 <input data-table="Menu" data-id="{$vo.menu_id}" data-field="url"  type="text" class="form-control ajax-blur" value="{$vo.url}" />
             </div>
+            <div class="text-field">
+                <span class="text-title">分组:</span>
+                <input data-table="Menu" data-id="{$vo.menu_id}" data-field="group"  type="text" class="form-control ajax-blur" value="{$vo.group}" />
+            </div>
         </div>
         <div class="c-inp c-action">
             <a href="{:url('sys.menu/edit',['menu_id'=>$vo['menu_id']])}" class="btn">编辑</a>
