@@ -1,6 +1,49 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		importDatabase: function(dom) {
+			// $(".db-import").click(function() {
+			var _t = $(dom),
+				status = ".",
+				uri = $(dom).attr('data-url');
+			$.get(uri, success, "json");
+			window.onbeforeunload = function() {
+				return "正在还原数据库，请不要关闭！"
+			}
+			return false;
+
+			function success(data) {
+				if (data.code) {
+					if (data.data.gz) {
+						data.msg += status;
+						if (status.length === 5) {
+							status = ".";
+						} else {
+							status += ".";
+						}
+					}
+					// debugger;
+					_t.parent().prev().find('span').html(data.msg);
+					if (data.data.part) {
+						$.get(uri, {
+								"part": data.data.part,
+								"start": data.data.start
+							},
+							success,
+							"json"
+						);
+					} else {
+						window.onbeforeunload = function() {
+							return null;
+						}
+					}
+				} else {
+					ank.alert(data);
+				}
+			}
+			return false;
+			// });
+		},
 		checkAll: function(dom) {
 			var _t = $(dom);
 			var _wrap = $(dom).parents('.check-wrap');
