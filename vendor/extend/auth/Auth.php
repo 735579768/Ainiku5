@@ -126,21 +126,30 @@ class Auth {
 		if ($authlist[0]) {
 			foreach ($authlist[0] as $key => $value) {
 				if ($this->_nolist) {
+					// dump($this->_nolist);
+					// die();
 					foreach ($this->_nolist as $val) {
 						$pattern = '';
 						$uri     = trim($val['name']);
+						if (!$uri) {
+							break;
+						}
+						// trace($val);
 						// $pattern = '/';
 						//把不带/的当成整个模块都不让访问
 						if (strpos($uri, '/') === false) {
-							$uri = url($contr . '/' . $uri);
+							$uri = url(request()->controller() . '/' . $uri);
 						} else {
 							$uri = url($uri);
 						}
+
 						// $uri = trim($uri, '.' . config('url_html_suffix'));
 						$uri = str_replace('.' . config('url_html_suffix'), '', $uri);
 						// $uri = preg_quote($uri);
 						// $uri = str_replace('/', '\/', $uri);
+
 						if (strpos($value, $uri) !== false) {
+							trace($uri);
 							$str = str_replace($value, '', $str);
 							break;
 						}

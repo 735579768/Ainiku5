@@ -7,12 +7,20 @@
         <div class="btn-tool">
             <div class="down-btn btn">常用功能<i class="fa"></i>
                 <ul>
+                <!--authstart-->
                     <li><a href="{:url('sys.article/add')}" class="btn">添加文章</a></li>
+                <!--authend-->
+                <!--authstart-->
                     <li><a href="javascript:;" data-url="{:url('sys.article/move')}" onclick="am.batchAction(this);" class="btn btn-warning">移动文章</a></li>
+                <!--authend-->
+                <!--authstart-->
                     <li><a href="javascript:;" data-url="{:url('sys.article/del')}" onclick="am.batchAction(this);" class="btn btn-warning">移到回收站</a></li>
+                <!--authend-->
                 </ul>
             </div>
+            <!--authstart-->
             <a href="{:url('sys.article/recycle')}" class="btn">回收站</a>
+            <!--authend-->
         </div>
         {include file="pub/search-tool" /}
     </div>
@@ -44,7 +52,9 @@
             <!--authstart-->
                 <a href="{:url('sys.article/edit',['article_id'=>$vo['article_id']])}" class="btn">编辑</a>
             <!--authend-->
+            <!--authstart-->
                 <a href="javascript:;" list-id="{$vo.article_id}" data-url="{:url('sys.article/del',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">移到回收站</a>
+            <!--authend-->
             </td>
         </tr>
         {/volist} {else /}
