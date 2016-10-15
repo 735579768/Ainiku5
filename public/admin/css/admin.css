@@ -95,6 +95,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con .main-title b{font-size:16px;font-weight:bolder;}
 .tool-area{margin-bottom:10px;}
 .btn-tool{float:left;}
+.adv-search{float: right;}
 .search-tool{display:none;padding:10px;}
 .search-tool .form-wrap{display:block;}
 .search-tool .form-control{width:100%;}
