@@ -176,9 +176,9 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['datetime']++;
 				if ($setvalue) {
-					$setvalue = time_format($setvalue);
+					$setvalue = time_format($setvalue, 'Y-m-d');
 				} else {
-					$setvalue = date('Y-m-d HH:ii:ss');
+					$setvalue = date('Y-m-d');
 				}
 				$tem_input = <<<eot
 <div class="form-wrap">
@@ -188,10 +188,10 @@ eot;
 				$initformjs .= <<<eot
 !function(){
 	var dateobj=$('#datetime_{$name}');
-	var formstr='yyyy-mm-dd hh:ii:ss';
-	if(/^\d{4}\-\d{2}\-\d{2}$/ig.test(dateobj.val())){
-		formstr='yyyy-mm-dd';
-	}
+	var formstr='yyyy-mm-dd';
+	// if(!/^\d{4}\-\d{2}\-\d{2}$/ig.test(dateobj.val())){
+	// 	formstr='yyyy-mm-dd hh:ii:ss';
+	// }
 	dateobj.datetimepicker({
 	    format: formstr,
 	    language:"zh-CN",
@@ -474,7 +474,7 @@ eot;
 	if ($formjs['color'] && $formjs['color'] !== true) {
 		$formjs['color'] = true;
 		//注册js
-		reg_js('jscolor', false);
+		reg_js('jscolor/jscolor', false);
 // 		$formjsstr .= <<<eot
 		// <!--颜色选择器js start-->
 		// <script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.js"></script>
@@ -484,8 +484,8 @@ eot;
 	if ($formjs['datetime'] && $formjs['datetime'] !== true) {
 		$formjs['datetime'] = true;
 		//注册css js
-		reg_css('css/datetimepicker.min,css/dropdown.min', false);
-		reg_js('bootstrap-datetimepicker.min,locales/bootstrap-datetimepicker.zh-CN', false);
+		reg_css('datetimepicker/css/datetimepicker.min,datetimepicker/css/dropdown.min', false);
+		reg_js('datetimepicker/js/bootstrap-datetimepicker.min,datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN', false);
 // 		$formjsstr .= <<<eot
 		// <!--日期js start-->
 		// <link href="{$static_dir}/datetimepicker/css/datetimepicker.min.css" type="text/css" rel="stylesheet" />

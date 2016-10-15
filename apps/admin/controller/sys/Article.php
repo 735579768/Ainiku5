@@ -13,6 +13,15 @@ class Article extends Base {
 		$map         = [];
 		$category_id = input('param.category_id', 0);
 		$title       = input('param.title', '');
+		$starttime   = input('param.starttime');
+		$endtime     = input('param.endtime');
+		if ($starttime && $endtime) {
+			empty($starttime) && ($starttime = date('Y-m-d', strtotime('-1 month')));
+			empty($endtime) && ($endtime = date('Y-m-d', strtotime('+1 day')));
+			$starttime            = strtotime($starttime);
+			$endtime              = strtotime($endtime);
+			$map['a.create_time'] = [['gt', $starttime], ['lt', $endtime]];
+		}
 		$title && ($map['a.title'] = ['like', "%{$title}%"]);
 		$category_id && ($map['a.category_id'] = $category_id);
 		$map['a.status'] = ['gt', -1];
@@ -31,6 +40,8 @@ class Article extends Base {
 		$sear = [];
 		$category_id && ($sear['category_id'] = $category_id);
 		$title && ($sear['title'] = $title);
+		$sear['starttime'] = $starttime;
+		$sear['endtime']   = $endtime;
 		$this->_search($sear);
 		return $this->fetch();
 	}
@@ -169,6 +180,20 @@ class Article extends Base {
 					'title'   => '分类',
 					'extra'   => select_category(),
 					'value'   => 0,
+					'is_show' => 3,
+				],
+				[
+					'type'    => 'datetime',
+					'name'    => 'starttime',
+					'title'   => '开始时间',
+					'value'   => '',
+					'is_show' => 3,
+				],
+				[
+					'type'    => 'datetime',
+					'name'    => 'endtime',
+					'title'   => '结束时间',
+					'value'   => '',
 					'is_show' => 3,
 				],
 			],

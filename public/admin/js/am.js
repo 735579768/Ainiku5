@@ -128,6 +128,7 @@
 			layer.open({
 				shade: false,
 				type: 1,
+				offset: '10px',
 				title: '高级搜索',
 				area: ['400px'],
 				content: $('#search-tool')
