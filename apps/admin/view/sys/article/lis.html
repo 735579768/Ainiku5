@@ -41,7 +41,9 @@
             <td class="td-time">{$vo.update_time|time_format}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
+            <!--authstart-->
                 <a href="{:url('sys.article/edit',['article_id'=>$vo['article_id']])}" class="btn">编辑</a>
+            <!--authend-->
                 <a href="javascript:;" list-id="{$vo.article_id}" data-url="{:url('sys.article/del',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">移到回收站</a>
             </td>
         </tr>

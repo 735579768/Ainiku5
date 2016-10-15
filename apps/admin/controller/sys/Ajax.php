@@ -12,9 +12,13 @@ class Ajax extends Base {
 			$list = config('admin_custom_menu');
 			foreach ($list as $key => $value) {
 				foreach ($value as $k => $v) {
-					$list[$key][$k]['url'] = url($v['url']);
+					$result = \auth\Auth::getInstance()->check($v['url']);
+					if ($result) {
+						$list[$key][$k]['url'] = url($v['url']);
+					} else {
+						unset($list[$key][$k]);
+					}
 				}
-
 			}
 			return $this->success('ok', '', $list);
 		}
@@ -28,9 +32,12 @@ class Ajax extends Base {
 				->order('sort asc,menu_id asc')
 				->select();
 			foreach ($list as $key => $value) {
-				$group = $value['group'];
-				$group || ($group = '默认');
-				$data[$group][] = ['title' => $value['title'], 'url' => url($value['url'])];
+				$result = \auth\Auth::getInstance()->check($value['url']);
+				if ($result) {
+					$group = $value['group'];
+					$group || ($group = '默认');
+					$data[$group][] = ['title' => $value['title'], 'url' => url($value['url'])];
+				}
 			}
 			\think\Cache::tag('childmenu')->set($key, $data);
 		}

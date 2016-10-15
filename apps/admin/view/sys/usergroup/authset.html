@@ -21,6 +21,12 @@
 </div>
 <script type="text/javascript">
     $(function(){
+       //  var obj= $('.authset:first .auth-item input');
+       //  obj.removeAttr('onclick');
+       // obj.prop({checked:true});
+       // obj.click(function(event) {
+       //     return false;
+       // });
         var value=[{$value}];
 for(a in value){
     $("input[name='auth_rule_id[]'][value='"+value[a]+"']").prop({checked:true});

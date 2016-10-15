@@ -3,11 +3,10 @@ namespace auth;
 use think\db;
 
 class Auth {
-	//private $nodelist=null;
-	//private $accessnodelist=null;
-	private $_nolist = null; //不能被访问的节点
-	private $uid     = null;
-	function __construct() {
+	static private $_instance = null;
+	private $_nolist          = null; //不能被访问的节点
+	private $uid              = null;
+	private function __construct() {
 		$this->uid     = UID;
 		$uinfo         = session('uinfo');
 		$this->_oklist = cache('okrulelist' . $uinfo['user_group_id']);
@@ -34,23 +33,55 @@ class Auth {
 		}
 
 	}
-//检测当前地址是否在允许访问的列表
-	function check() {
+	/**
+	 * Description:私有化克隆函数，防止外界克隆对象
+	 */
+	private function __clone() {
+	}
+	static public function getInstance() {
+		if (self::$_instance === null) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
+	/**
+	 * 验证当前用户访问地址是否在允许访问的列表
+	 * @param  string $name 如果不为空就检测当前地址是否符合
+	 * @return [type]       [description]
+	 */
+	function check($name = '') {
+		if (IS_ADMIN) {
+			return IS_ADMIN;
+		}
 		//当前请求的控制器/操作?参数
-		// $re_url = request()->path();
-		$param = request()->param();
-		//删除掉第一个路径信息
-		array_shift($param);
-		$param = array_change_key_case($param);
-		ksort($param);
-		// $param      = array_keys($param);
-		$controller = strtolower(request()->controller());
-		$action     = strtolower(request()->action());
-		// dump($re_url);
-		// return true;
-		// dump($controller);
-		// dump($action);
-		// dump($param);
+		$controller = '';
+		$action     = '';
+		$param      = [];
+		if ($name) {
+			$tem        = explode('?', $name);
+			$tem1       = explode('/', $tem[0]);
+			$controller = $tem1[0];
+			$action     = $tem1[1];
+			if (isset($tem[1])) {
+				parse_str($tem[1], $param);
+			}
+		} else {
+			// $re_url = request()->path();
+			$param = request()->param();
+			//删除掉第一个路径信息
+			array_shift($param);
+			$param = array_change_key_case($param);
+			ksort($param);
+			// $param      = array_keys($param);
+			$controller = strtolower(request()->controller());
+			$action     = strtolower(request()->action());
+			// dump($re_url);
+			// return true;
+			// dump($controller);
+			// dump($action);
+			// dump($param);
+		}
+
 		//正则匹配
 		foreach ($this->_oklist as $auth) {
 			$contr = '';
@@ -79,62 +110,73 @@ class Auth {
 				return true;
 			}
 		}
-		die('auth fail');
 		return false;
 
 	}
 	//把没有权限的链接替换掉
-	function replaceurl($str = null) {
+	function replaceUrl($str = '') {
 		//return $str;
 		if (IS_ADMIN) {
 			return $str;
-		} else {
-			if (!empty($this->_nolist)) {
-				$reg_arr = [];
-				//正则替换链接
-				$are = '([^<|^>]*?)';
-				foreach ($this->_nolist as $val) {
-					$url = trim($val['name']);
-					if (!empty($url)) {
-						$pattern = '/';
+		}
+		$authlist = [];
+		preg_match_all('/<\!\-\-authstart\-\->(.*?)<\!\-\-authend\-\->/si', $str, $authlist);
+		// dump($authlist);
+		$contr = request()->controller();
+		if ($authlist[0]) {
+			foreach ($authlist[0] as $key => $value) {
+				if ($this->_nolist) {
+					foreach ($this->_nolist as $val) {
+						$pattern = '';
+						$uri     = trim($val['name']);
+						// $pattern = '/';
 						//把不带/的当成整个模块都不让访问
-						if (strpos($url, '/') === false) {
-							$url1 = url("{$url}/index");
-							$url  = preg_replace('/\&a\=.*/', '', $url1);
-							$url  = preg_quote($url);
-							$url  = substr($url, 1);
-							$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
-							$pattern .= '/';
-							$pattern   = str_replace('[tag]', '([^<|^>]*?)', $pattern);
-							$reg_arr[] = $pattern;
-							// $str       = preg_replace($pattern, '', $str);
+						if (strpos($uri, '/') === false) {
+							$uri = url($contr . '/' . $uri);
 						} else {
-							$url = url($url);
-							$url = str_replace(array('.' . config('URL_HTML_SUFFIX')), array(''), $url);
-							$url = preg_quote($url);
-							$url = str_replace('/', '\/', $url);
-							//把链接按钮(带有btn的操作)替换掉
-							if ($val['is_all'] == 1) {
-								$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
-								$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
-							} else {
-								//$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
-								$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
-								$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
-							}
-							$pattern .= '/i';
-							$pattern   = str_replace('[tag]', '([^<|^>]*?)', $pattern);
-							$reg_arr[] = $pattern;
-							// $str       = preg_replace($pattern, '', $str);
+							$uri = url($uri);
 						}
-						//echo $pattern.'--<br>';
-
+						// $uri = trim($uri, '.' . config('url_html_suffix'));
+						$uri = str_replace('.' . config('url_html_suffix'), '', $uri);
+						// $uri = preg_quote($uri);
+						// $uri = str_replace('/', '\/', $uri);
+						if (strpos($value, $uri) !== false) {
+							$str = str_replace($value, '', $str);
+							break;
+						}
 					}
 				}
-				$str = preg_replace($reg_arr, '', $str);
 			}
-			return $str;
 		}
+		return $str;
+		// if ($this->_nolist) {
+		// 	//正则替换链接
+		// 	$are = '(.*?)';
+		// 	$are = '((?!\<\!\-\-auth)*?)';
+		// 	foreach ($this->_nolist as $val) {
+		// 		$pattern = '';
+		// 		$uri     = trim($val['name']);
+		// 		// $pattern = '/';
+		// 		//把不带/的当成整个模块都不让访问
+		// 		if (strpos($uri, '/') === false) {
+		// 			$uri = url($contr . '/' . $uri);
+		// 		} else {
+		// 			$uri = url($uri);
+		// 		}
+		// 		// $uri = trim($uri, '.' . config('url_html_suffix'));
+		// 		$uri = str_replace('.' . config('url_html_suffix'), '', $uri);
+		// 		$uri = preg_quote($uri);
+		// 		$uri = str_replace('/', '\/', $uri);
+		// 		$pattern .= '<\!\-\-authstart\-\->[tag]' . $uri . '[tag]<\!\-\-authend\-\->';
+		// 		$pattern = str_replace('[tag]', $are, $pattern);
+		// 		$pattern = '/' . $pattern . '/si';
+		// 		// echo $pattern . '<br>---------';
+
+		// 		// $str = preg_replace($pattern, '', $str);
+		// 	}
+
+		// }
+		// return $str;
 	}
 }
 ?>

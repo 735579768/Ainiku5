@@ -5,7 +5,9 @@
     <div class="admin-title block">{:config('admin_title')}</div>
     <ul id="mainnav" class="mainnav block cl">
         {volist name="mainmenu" id="vo"}
+        <!--authstart-->
         <li><a href="javascript:;" data-url="{:url('sys.ajax/getLeftMenu',['pid'=>$vo['menu_id']])}" onclick="am.loadLeftMenu(this);">{$vo.title}</a></li>
+        <!--authend-->
         {/volist}
     </ul>
     <ul class="tool cl">
