@@ -5,13 +5,20 @@
     <!--按钮和搜索区域-->
     <div class="tool-area cl">
         <div class="btn-tool">
-            <a href="{:url('sys.user/recycle')}" class="btn btn-warning">清空</a>
+            <div class="down-btn btn">常用功能<i class="fa"></i>
+                <ul>
+                    <li> <a onclick="am.batchAction(this,'{:url('sys.user/clearUp')}');" href="javascript:;" class="btn btn-warning">清空用户</a></li>
+                    <li><a onclick="am.batchAction(this,'{:url('sys.user/huifu')}');" href="javascript:;" class="btn btn-warning">恢复用户</a></li>
+                </ul>
+            </div>
             <a href="{:url('sys.user/lis')}" class="btn">用户列表</a>
-
         </div>
     </div>
-    <table width="100%">
+    <table width="100%" class="check-wrap">
         <tr class="th">
+            <th class="td-id">
+                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
+            </th>
             <th class="td-id">Id</th>
             <th>用户名</th>
             <th>昵称</th>
@@ -21,9 +28,12 @@
             <th>最后登陆ip</th>
             <th>操作</th>
         </tr>
-        {notempty name="_list"}
-        {volist name="_list" id="vo"}
-        <tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.user_id}">
+            <td>
+                {neq name="vo.user_id" value="1"}
+                <input type="checkbox" class="check-item" value="{$vo.user_id}" /> {/neq}
+            </td>
             <td>{$vo.user_id}</td>
             <td class="td-left">{$vo.username}</td>
             <td class="td-left">{$vo.nickname}</td>
@@ -32,14 +42,13 @@
             <td>{$vo.login}</td>
             <td>{$vo.last_login_ip}</td>
             <td class="td-btn">
-            <a href="javascript:;" data-url="{:url('sys.user/delete',['user_id'=>$vo['user_id']])}" onclick="am.okAction(this);" class="btn btn-danger">彻底删除</a>
+                <a href="javascript:;" data-url="{:url('sys.user/delete',['user_id'=>$vo['user_id']])}" onclick="am.okAction(this);" list-id="{$vo.user_id}"  class="btn btn-danger">彻底删除</a>
             </td>
         </tr>
-        {/volist}
-        {else /}
+        {/volist} {else /}
         <tr>
-            <td colspan="8">
-            <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            <td colspan="9">
+                <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
             </td>
         </tr>
         {/notempty}

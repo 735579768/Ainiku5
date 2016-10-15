@@ -87,4 +87,16 @@ class Base extends Controller {
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		echo $content;
 	}
+	/**
+	 * 重载error返回函数
+	 * @param  string  $msg    [description]
+	 * @param  string  $url    [description]
+	 * @param  string  $data   [description]
+	 * @param  integer $wait   [description]
+	 * @param  array   $header [description]
+	 * @return [type]          [description]
+	 */
+	protected function error($msg = '', $url = '', $data = '', $wait = 3, array $header = []) {
+		return parent::error($msg, $url, $data, $wait, $header);
+	}
 }

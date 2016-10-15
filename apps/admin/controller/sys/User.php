@@ -53,14 +53,21 @@ class User extends Base {
 	 * @return [type] [description]
 	 */
 	public function del() {
-		return controller('User', 'logic')->del();
+		return controller('Data', 'logic')->del('User');
 	}
 	/**
 	 * 清空用户回收站
 	 * @return [type] [description]
 	 */
 	public function clearUp() {
-
+		return controller('Data', 'logic')->clearUp('User');
+	}
+	/**
+	 * 恢复删除的用户
+	 * @return [type] [description]
+	 */
+	public function huifu() {
+		return controller('Data', 'logic')->huifu('User');
 	}
 	/**
 	 * 彻底删除用户

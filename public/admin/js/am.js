@@ -1,6 +1,54 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		ajaxHref: function(dom) {
+			ank.ajaxHref(dom);
+		},
+		ajaxForm: function(dom) {
+			ank.ajaxForm(dom);
+		},
+		/**
+		 * 批量指定id并操作
+		 * @return {[type]} [description]
+		 */
+		batchAction: function(dom, uri) {
+			var _t = $(dom);
+			uri || (uri = _t.attr('data-url'));
+			var title = _t.text();
+			layer.confirm('确定 "<span style="color:red;">' + title + '</span>" 吗?', {
+				title: false,
+				closeBtn: false,
+				shade: 0.01,
+				btn: ['确定', '取消']
+			}, function() {
+				// debugger;
+				var ids = '';
+				// console.log($('.check-item:checked').val());
+				$('.check-item:checked').each(function(index, el) {
+					ids += ids ? ',' + $(this).val() : $(this).val();
+				});
+				if (!ids) {
+					ank.alert('请先选择信息!');
+					return;
+				}
+				$.post(uri, {
+					id: ids
+				}, function(data) {
+					ank.alert(data, function(data) {
+						if (data.code) {
+							var id = _t.attr('list-id');
+							id && $('#listitem' + id).remove();
+							if (data.url) {
+								window.location.href = data.url;
+							} else {
+								window.location.reload();
+							}
+
+						}
+					});
+				});
+			});
+		},
 		importDatabase: function(dom) {
 			// $(".db-import").click(function() {
 			var _t = $(dom),

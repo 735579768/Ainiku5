@@ -60,7 +60,7 @@ class Data extends Base {
 	}
 	/**
 	 * 添加表单
-	 * @return [type] [description]
+	 * @param string $name 表单的标识符
 	 */
 	public function add($name = '') {
 		$name || $this->error('表单标识符为空!');
@@ -77,7 +77,8 @@ class Data extends Base {
 	}
 	/**
 	 * 编辑表单
-	 * @return [type] [description]
+	 * @param  string $name 表单的标识符
+	 * @return [type]       [description]
 	 */
 	public function edit($name = '') {
 		$name || $this->error('表单标识符为空!');
@@ -93,6 +94,51 @@ class Data extends Base {
 		return $this->fetch('logic/form_edit_tpl');
 
 	}
+
+	/**
+	 * 从回收站恢复数据(设置指定状态到1)
+	 * @param  string $table 数据库名字
+	 * @param  string $id    主键id值(可以是','分隔的字符串)
+	 * @param  string $field 表示状态的字段,默认为status
+	 * @return [type]        [description]
+	 */
+	public function huifu($table = '', $id = '', $field = 'status') {
+		$idname = $this->_getPrimaryKey($table);
+		$id || ($id = input('param.' . $idname));
+		$id || ($id = input('param.id'));
+		$table || $this->error('数据表为空!');
+		$id || $this->error('id不能为空');
+		$field || $this->error('状态字段不能为空');
+		$result = \think\Db::name(ucfirst($table))
+			->where($idname, 'in', $id)
+			->update([
+				$field        => 1,
+				'update_time' => time(),
+			]);
+		$this->returnResult($result, '已经恢复成功', '恢复失败');
+	}
+	/**
+	 * 移动到回收站(设置指定状态到-1)
+	 * @param  string $table 数据库名字
+	 * @param  string $id    主键id值(可以是','分隔的字符串)
+	 * @param  string $field 表示状态的字段,默认为status
+	 * @return [type]        [description]
+	 */
+	public function del($table = '', $id = '', $field = 'status') {
+		$idname = $this->_getPrimaryKey($table);
+		$id || ($id = input('param.' . $idname));
+		$id || ($id = input('param.id'));
+		$table || $this->error('数据表为空!');
+		$id || $this->error('id不能为空');
+		$field || $this->error('状态字段不能为空');
+		$result = \think\Db::name(ucfirst($table))
+			->where($idname, 'in', $id)
+			->update([
+				$field        => -1,
+				'update_time' => time(),
+			]);
+		$this->returnResult($result, '已经移动到回收站', '移动失败');
+	}
 	/**
 	 * 删除信息
 	 * @param  string $table 数据表名字
@@ -100,14 +146,40 @@ class Data extends Base {
 	 * @return [type]        [description]
 	 */
 	public function delete($table = '', $id = '') {
+		$idname = $this->_getPrimaryKey($table);
 		$table || $this->error('数据表为空!');
-		$idname = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table))) . '_id';
 		$id || ($id = input('param.' . $idname));
+		$id || ($id = input('param.id'));
 		$id || $this->error('id不能为空!');
 		is_string($id) && ($id = explode(',', $id));
 		$result = \think\Db::name(ucfirst($table))
 			->where($idname, 'in', $id)
 			->delete();
 		$this->returnResult($result, '删除成功', '删除失败');
+	}
+	/**
+	 * 清空数据库中状态为-1的记录
+	 * @param  string $table 数据库名字
+	 * @param  string $id    主键id值(可以是','分隔的字符串)
+	 * @param  string $field 表示状态的字段,默认为status
+	 * @return [type]        [description]
+	 */
+	public function clearUp($table = '', $field = 'status') {
+		$table || $this->error('数据表为空!');
+		$result = \think\Db::name(ucfirst($table))
+			->where($field, -1)
+			->delete();
+		$this->returnResult($result, '全部删除成功', '没有数据被清理');
+	}
+	/**
+	 * 由表名反回一个主键id名字
+	 * @param  [type] $table [description]
+	 * @return [type]        [description]
+	 */
+	private function _getPrimaryKey($table = '') {
+		if (!$table) {
+			return '';
+		}
+		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table))) . '_id';
 	}
 }

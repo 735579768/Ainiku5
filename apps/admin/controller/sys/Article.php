@@ -15,6 +15,7 @@ class Article extends Base {
 		$title       = input('param.title', '');
 		$title && ($map['a.title'] = ['like', "%{$title}%"]);
 		$category_id && ($map['a.category_id'] = $category_id);
+		$map['a.status'] = ['gt', -1];
 		$this->pages([
 			'table' => 'Article',
 			'where' => $map,
@@ -61,34 +62,90 @@ class Article extends Base {
 	 * @return [type] [description]
 	 */
 	public function del() {
-		// return controller('Data', 'logic')->delete('Article');
+		return controller('Data', 'logic')->del('Article');
 	}
 	/**
 	 * 回收站文章
 	 * @return [type] [description]
 	 */
 	public function recycle() {
-
+		$map         = [];
+		$category_id = input('param.category_id', 0);
+		$title       = input('param.title', '');
+		$title && ($map['a.title'] = ['like', "%{$title}%"]);
+		$map['a.status'] = -1;
+		$category_id && ($map['a.category_id'] = $category_id);
+		$this->pages([
+			'table' => 'Article',
+			'where' => $map,
+			'join'  => [
+				['__CATEGORY__ b', 'a.category_id=b.category_id'],
+			],
+			'field' => 'a.*,b.title as category_title',
+			'order' => 'a.update_time desc,article_id desc',
+		]);
+		/**
+		 * 初始化搜索条件
+		 */
+		$sear = [];
+		$category_id && ($sear['category_id'] = $category_id);
+		$title && ($sear['title'] = $title);
+		$this->_search($sear);
+		return $this->fetch();
 	}
 	/**
 	 * 清理回收站文章
 	 * @return [type] [description]
 	 */
 	public function clearup() {
-
+		return controller('Data', 'logic')->clearUp('Article');
 	}
 	/**
 	 * 恢复回收站文章
 	 * @return [type] [description]
 	 */
 	public function huifu() {
-
+		return controller('Data', 'logic')->huifu('Article');
 	}
 	/**
 	 * 移动文章到其它分类
 	 * @return [type] [description]
 	 */
 	public function move() {
+		$ids         = input('param.id', '');
+		$category_id = input('param.category_id', '');
+		$ids || $this->error('id不能为空');
+		if ($category_id) {
+			$result = \think\Db::name('Article')
+				->where('article_id', 'in', $ids)
+				->update([
+					'update_time' => time(),
+					'category_id' => $category_id,
+				]);
+			if ($result) {
+				$this->success('文章移动成功', url('lis?category_id=' . $category_id));
+			} else {
+				$this->error('移动失败');
+			}
+		} else {
+			if (request()->isAjax()) {
+				$this->success('正在处理要移动的文章...', url('move?id=' . $ids));
+			}
+			$catetree = select_category(0, 'article');
+			unset($catetree[0]);
+			$this->assign([
+				'meta_title' => '移动文章',
+				'ids'        => $ids,
+				'data'       => null,
+				'formarr'    => [
+					'name'  => 'category_id',
+					'title' => '请选择要移动到的分类',
+					'type'  => 'select',
+					'extra' => $catetree,
+				],
+			]);
+			return $this->fetch();
+		}
 
 	}
 	/**

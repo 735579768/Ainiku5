@@ -73,9 +73,9 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit
 .btn-success:hover{background:#83EF3B;}
 .btn-danger{background:#d2322d;}
 .btn-danger:hover{background:#D85A56;}
-.down-btn{position:relative;border-radius:0px;}
-.down-btn,.down-btn .btn{border-radius:0px;border:none;margin:0px;}
-.down-btn .fa{width:10px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;}
+.down-btn{position:relative;border-radius:0px;border:none;}
+.down-btn .btn{border-radius:0px;border:none;margin:0px;}
+.down-btn .fa{margin-left:5px;color:#fff;width:10px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;}
 .down-btn .fa:before{content:"\f054";}
 .down-btn:hover .fa:before{content:"\f078";}
 .down-btn ul{position:absolute;left:0px;top:100%;width:100%;z-index:1;display:none;}
