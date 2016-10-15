@@ -47,7 +47,7 @@ class Auth {
 		$controller = strtolower(request()->controller());
 		$action     = strtolower(request()->action());
 		// dump($re_url);
-		return true;
+		// return true;
 		// dump($controller);
 		// dump($action);
 		// dump($param);
@@ -73,7 +73,7 @@ class Auth {
 			// dump($act);
 			// dump($par);
 
-			if ($controller == $contr && $action == $act && $param == $intersect) {
+			if ($controller == $contr && $action == $act && $par == $intersect) {
 				// echo 'success';
 				// die();
 				return true;
