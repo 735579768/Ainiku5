@@ -5,10 +5,10 @@
     <form action="{:url('')}">
     {volist name="_list" id="vo"}
     <dl class="authset check-wrap cl">
-        <dt class="auth-item"><label><input onclick="am.checkAll(this);" type="checkbox"  value="{$vo.auth_rule_id}" /><span>{$vo.title}</span></label></dt>
+        <dt class="auth-item"><label title="{$vo.note}"><input onclick="am.checkAll(this);" type="checkbox"  value="{$vo.auth_rule_id}" /><span>{$vo.title}</span></label></dt>
         {notempty name="vo.child"}
         {volist name="vo.child" id="v"}
-        <dd class="auth-item"><label><input class="check-item" type="checkbox" name="auth_rule_id[]" value="{$v.auth_rule_id}" /><span>{$v.title}</span></label></dd>
+        <dd class="auth-item"><label title="{$v.note}"><input class="check-item" type="checkbox" name="auth_rule_id[]" value="{$v.auth_rule_id}" /><span>{$v.title}</span></label></dd>
         {/volist}
         {/notempty}
     </dl>

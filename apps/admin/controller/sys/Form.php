@@ -68,7 +68,7 @@ class Form extends Base {
 		$note      = input('param.note');
 		$tablename = lcfirst($tablename);
 		$tablename = preg_replace('/([A-Z].*?)/', "_$1", $tablename);
-		$tablename = strtolower($tablename);
+		$tablename = $this->_getTable($info['name']);
 		$prefix    = config('database.prefix');
 		$sql       = "SHOW TABLES LIKE '{$prefix}{$tablename}'";
 		$res       = \think\Db::query($sql);
@@ -91,5 +91,16 @@ class Form extends Base {
 sql;
 			$res = \think\Db::execute($sql);
 		}
+	}
+	/**
+	 * 由表名反回一个主键id名字
+	 * @param  [type] $table [description]
+	 * @return [type]        [description]
+	 */
+	private function _getTable($table = '') {
+		if (!$table) {
+			return '';
+		}
+		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
 	}
 }

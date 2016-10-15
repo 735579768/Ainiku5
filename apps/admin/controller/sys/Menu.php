@@ -25,13 +25,13 @@ class Menu extends Base {
 		if (!$list || APP_DEBUG) {
 			$list = Db::name('Menu')
 				->where(['pid' => $pid])
-				->field('menu_id,pid,title,url,sort,status,group')
+				->field('menu_id,pid,title,url,sort,status,group,home')
 				->order('status desc,sort asc')
 				->select();
 			foreach ($list as $key => $value) {
 				$list2 = Db::name('Menu')
 					->where(['pid' => $value['menu_id']])
-					->field('menu_id,pid,title,url,sort,status,group')
+					->field('menu_id,pid,title,url,sort,status,group,home')
 					->order('status desc,sort asc')
 					->select();
 				$list[$key]['child'] = $list2;

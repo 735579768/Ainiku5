@@ -74,7 +74,7 @@ class Formitem extends Base {
 		$info = \think\Db::name('Form')->field('name')->find($tableid);
 		$info || $this->error("ID为{$tableid}数据表不存在");
 		$prefix       = config('database.prefix');
-		$tablename    = strtolower($info['name']);
+		$tablename    = $this->_getTable($info['name']);
 		$tablefield   = strtolower($tablefield);
 		$defaultvalue = input('param.value');
 
@@ -99,5 +99,16 @@ class Formitem extends Base {
 			}
 			$res = \think\Db::execute($sql);
 		}
+	}
+	/**
+	 * 由表名反回一个主键id名字
+	 * @param  [type] $table [description]
+	 * @return [type]        [description]
+	 */
+	private function _getTable($table = '') {
+		if (!$table) {
+			return '';
+		}
+		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
 	}
 }

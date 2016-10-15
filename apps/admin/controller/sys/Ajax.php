@@ -8,19 +8,26 @@ class Ajax extends Base {
 	 * @return [type]       [description]
 	 */
 	public function getLeftMenu($pid = 0) {
+		// if ($pid == 1) {
+		// 	$list = config('admin_custom_menu');
+		// 	foreach ($list as $key => $value) {
+		// 		foreach ($value as $k => $v) {
+		// 			$result = \auth\Auth::getInstance()->check($v['url']);
+		// 			if ($result) {
+		// 				$list[$key][$k]['url'] = url($v['url']);
+		// 			} else {
+		// 				unset($list[$key][$k]);
+		// 			}
+		// 		}
+		// 	}
+		// 	return $this->success('ok', '', $list);
+		// }
+		$map['status'] = 1;
+
 		if ($pid == 1) {
-			$list = config('admin_custom_menu');
-			foreach ($list as $key => $value) {
-				foreach ($value as $k => $v) {
-					$result = \auth\Auth::getInstance()->check($v['url']);
-					if ($result) {
-						$list[$key][$k]['url'] = url($v['url']);
-					} else {
-						unset($list[$key][$k]);
-					}
-				}
-			}
-			return $this->success('ok', '', $list);
+			$map['home'] = 1;
+		} else {
+			$map['pid'] = $pid;
 		}
 		$key  = 'sys_childmenu' . $pid;
 		$data = \think\Cache::get($key);
@@ -28,7 +35,7 @@ class Ajax extends Base {
 			$data = [];
 			$list = \think\Db::name('Menu')
 				->field('menu_id,title,url,group')
-				->where(['status' => 1, 'pid' => $pid])
+				->where($map)
 				->order('sort asc,menu_id asc')
 				->select();
 			foreach ($list as $key => $value) {

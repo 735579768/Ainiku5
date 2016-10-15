@@ -634,7 +634,7 @@ eot;
 		$setvalue  = $value['value'];
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-		if ($setvalue == '') {
+		if ($setvalue === '') {
 			// dump('param.' . $key);
 			$setvalue = input('param.' . $key);
 		}

@@ -28,14 +28,14 @@ class Usergroup extends Base {
 			$map['pid']    = 0;
 			$list          = \think\Db::name('AuthRule')
 				->where($map)
-				->field('auth_rule_id,title,name')
+				->field('auth_rule_id,title,name,note')
 				->order('sort asc,auth_rule_id asc')
 				->select();
 			foreach ($list as $key => $value) {
 				$map['pid'] = $value['auth_rule_id'];
 				$list2      = \think\Db::name('AuthRule')
 					->where($map)
-					->field('auth_rule_id,title,name')
+					->field('auth_rule_id,title,name,note')
 					->order('sort asc,auth_rule_id asc')
 					->select();
 				$list[$key]['child'] = $list2;

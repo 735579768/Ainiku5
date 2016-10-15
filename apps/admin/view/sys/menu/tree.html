@@ -9,6 +9,9 @@
         <div class="c-inp c-show">
             <span title="{$vo.status|get_status}" data-table="Menu" data-id="{$vo.menu_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span>
         </div>
+        <div class="c-inp c-show">
+            <span title="{$vo.status|get_status}" data-table="Menu" data-id="{$vo.menu_id}" data-field="home" data-value="{$vo.home}" class="fa yesno"></span>
+        </div>
         <div class="c-inp c-title">
             <span class="c-sign"></span>
             <a href="{:url('sys.menu/add',['pid'=>$vo['menu_id']])}"><i class="fa fa-plus-square"></i></a>

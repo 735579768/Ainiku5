@@ -7,7 +7,7 @@ return [
 	// | 会话设置
 	// +----------------------------------------------------------------------
 
-	'session'           => [
+	'session'          => [
 		'id'             => '',
 		// SESSION_ID的提交变量,解决flash上传跨域
 		'var_session_id' => '',
@@ -22,7 +22,7 @@ return [
 	// +----------------------------------------------------------------------
 	// | Cookie设置
 	// +----------------------------------------------------------------------
-	'cookie'            => [
+	'cookie'           => [
 		// cookie 名称前缀
 		'prefix'    => 'ank_admin_',
 		// cookie 保存时间
@@ -39,29 +39,29 @@ return [
 		'setcookie' => true,
 	],
 	// 视图输出字符串内容替换
-	'view_replace_str'  => [
+	'view_replace_str' => [
 		'__STATIC__' => STATIC_DIR . '/static',
 		'__IMG__'    => STATIC_DIR . '/admin/images',
 		'__CSS__'    => STATIC_DIR . '/admin/css',
 		'__JS__'     => STATIC_DIR . '/admin/js',
 	],
 	//后台菜单
-	'admin_custom_menu' => [
-		'默认' => [
-			// ['title' => '系统首页', 'url' => 'Index/index'],
-			['title' => '网站设置', 'url' => 'sys.config/group'],
-			// ['title' => '导航列表', 'url' => 'Nav/index'],
-			// ['title' => '文章列表', 'url' => 'Article/index'],
-			// ['title' => '单页列表', 'url' => 'Single/index'],
-			// ['title' => '产品列表', 'url' => 'Goods/index'],
-			// ['title' => '广告位列表', 'url' => 'Modulepos/index'],
-			['title' => '用户列表', 'url' => 'sys.user/lis'],
-			['title' => '用户组列表', 'url' => 'sys.usergroup/lis'],
-		],
-		// '系统分类' => [
-		// 	['title' => '文章分类', 'url' => 'Category/index?category_type=article'],
-		// 	['title' => '产品分类', 'url' => 'Category/index?category_type=goods'],
-		// ],
+	// 'admin_custom_menu' => [
+	// 	'默认' => [
+	// 		// ['title' => '系统首页', 'url' => 'Index/index'],
+	// 		['title' => '网站设置', 'url' => 'sys.config/group'],
+	// 		// ['title' => '导航列表', 'url' => 'Nav/index'],
+	// 		// ['title' => '文章列表', 'url' => 'Article/index'],
+	// 		// ['title' => '单页列表', 'url' => 'Single/index'],
+	// 		// ['title' => '产品列表', 'url' => 'Goods/index'],
+	// 		// ['title' => '广告位列表', 'url' => 'Modulepos/index'],
+	// 		['title' => '用户列表', 'url' => 'sys.user/lis'],
+	// 		['title' => '用户组列表', 'url' => 'sys.usergroup/lis'],
+	// 	],
+	// 	// '系统分类' => [
+	// 	// 	['title' => '文章分类', 'url' => 'Category/index?category_type=article'],
+	// 	// 	['title' => '产品分类', 'url' => 'Category/index?category_type=goods'],
+	// 	// ],
 
-	],
+	// ],
 ];
