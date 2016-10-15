@@ -161,6 +161,11 @@
 						if (id && data.code) {
 							$('#listitem' + id).remove();
 						}
+						if (data.url) {
+							window.location.href = data.url;
+						} else {
+							window.location.reload();
+						}
 					});
 				});
 			});

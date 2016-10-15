@@ -30,8 +30,9 @@ class Verify {
 		'reset'    => true, // 验证成功后是否重置
 	);
 
-	private $_image = NULL; // 验证码图片实例
-	private $_color = NULL; // 验证码字体颜色
+	private $_image     = NULL; // 验证码图片实例
+	private $_color     = NULL; // 验证码字体颜色
+	private $_color_arr = ['#f63'];
 
 	/**
 	 * 架构方法 设置参数
@@ -120,8 +121,6 @@ class Verify {
 		// 设置背景
 		imagecolorallocate($this->_image, $this->bg[0], $this->bg[1], $this->bg[2]);
 
-		// 验证码字体随机颜色
-		$this->_color = imagecolorallocate($this->_image, mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150));
 		// 验证码使用随机字体
 		$ttfPath = dirname(__FILE__) . '/' . ($this->useZh ? 'zhttfs' : 'ttfs') . '/';
 
@@ -154,15 +153,19 @@ class Verify {
 		// 绘验证码
 		$code   = array(); // 验证码
 		$codeNX = 25; // 验证码第N个字符的左边距
+		// 验证码字体随机颜色
+		$this->_color = imagecolorallocate($this->_image, mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150));
 		if ($this->useZh) {
 			// 中文验证码
 			for ($i = 0; $i < $this->length; $i++) {
-				$code[$i] = iconv_substr($this->zhSet, floor(mt_rand(0, mb_strlen($this->zhSet, 'utf-8') - 1)), 1, 'utf-8');
+				$this->_color = imagecolorallocate($this->_image, mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150));
+				$code[$i]     = iconv_substr($this->zhSet, floor(mt_rand(0, mb_strlen($this->zhSet, 'utf-8') - 1)), 1, 'utf-8');
 				imagettftext($this->_image, $this->fontSize, mt_rand(-40, 40), $this->fontSize * ($i + 1) * 1.5, $this->fontSize + mt_rand(10, 20), $this->_color, $this->fontttf, $code[$i]);
 			}
 		} else {
 			for ($i = 0; $i < $this->length; $i++) {
-				$code[$i] = $this->codeSet[mt_rand(0, strlen($this->codeSet) - 1)];
+				$this->_color = imagecolorallocate($this->_image, mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150));
+				$code[$i]     = $this->codeSet[mt_rand(0, strlen($this->codeSet) - 1)];
 				$codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.6);
 				imagettftext($this->_image, $this->fontSize, mt_rand(-40, 40), $codeNX, $this->fontSize * 1.6, $this->_color, $this->fontttf, $code[$i]);
 			}
