@@ -25,9 +25,17 @@ class Custom extends \think\Controller {
 		//注册要用到的js和css
 		// reg_css('');
 		// reg_js('');
+		$formstr = <<<eot
+<div style="color:#f00;font-size:20px;">
+没有找到自定义的表单<br>
+调用方法:{$this->_method}<br>
+表单name:{$this->_name}<br>
+表单value:{$this->_value}<br>
+</div>
+eot;
 		return [
-			'str' => '这里是自定义的表单字符串',
-			'js'  => "alert('custom form {$this->_method} is not exist!');\r\n//这里是表单初始化要用到的js",
+			'str' => $formstr,
+			'js'  => "//这里是表单初始化要用到的js",
 		];
 	}
 

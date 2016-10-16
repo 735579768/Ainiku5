@@ -69,6 +69,7 @@ function create_form($fieldarr, $data = []) {
 			// $field      = $value['field'];
 			$type       = $value['type'];
 			$name       = $value['name'];
+			$mark_name  = defined('show_mark') ? "。标识：{$name}" : '';
 			$title      = $value['title'];
 			$note       = isset($value['note']) ? $value['note'] : '';
 			$extra      = isset($value['extra']) ? $value['extra'] : [];
@@ -111,7 +112,7 @@ function create_form($fieldarr, $data = []) {
 			//等着替换的模板字符串
 			$tem_formstr = <<<eot
 <div class="form-group cl {$name}">
-	<div class="form-label"><b class="form-title">{$title}</b><span class="form-tip">{$note}</span>{$is_require}</div>
+	<div class="form-label"><b class="form-title">{$title}</b><span class="form-tip">{$note}{$mark_name}</span>{$is_require}</div>
 	<div class="form-area" >
 	[REPLACE_INPUT]
 	</div>

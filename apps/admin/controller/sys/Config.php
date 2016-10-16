@@ -15,6 +15,7 @@ class Config extends Base {
 			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
 			// dump(config(''));
+			define('show_mark', true);
 			$this->assign('meta_title', '系统配置');
 			$data = get_sys_config();
 			$this->assign('data', $data);
