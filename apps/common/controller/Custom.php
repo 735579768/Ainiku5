@@ -9,7 +9,9 @@ use think\Request;
 class Custom extends \think\Controller {
 	private $_method = ''; //生成表单调用的方法
 	private $_name   = ''; //表单的name值
-	private $_value  = ''; //表单的value值
+	//表单的value值,这里的值是类似[REPLACE_SETVALUE_send_email_btn]这样的值
+	//为啦把表单保存成缓存,这里没有使用真实的值
+	private $_value = '';
 	public function __construct($method, $name, $value) {
 		$this->_method = $method;
 		$this->_name   = $name;
@@ -38,5 +40,11 @@ eot;
 			'js'  => "//这里是表单初始化要用到的js",
 		];
 	}
-
+	public function sendEmailBtn() {
+		return [
+			'str' => '<input name="' . $this->_name . '" value="' . $this->_value . '" /><a class="btn" href="javascript:;">点击发送测试邮件</a>
+',
+			'js'  => '',
+		];
+	}
 }
