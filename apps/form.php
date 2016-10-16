@@ -314,10 +314,10 @@ eot;
     //实例化编辑器
     var um = UM.getEditor('umeditor_{$name}');
     um.addListener('blur',function(){
-        console.log('编辑器失去焦点了');
+        // console.log('编辑器失去焦点了');
     });
     um.addListener('focus',function(){
-       console.log('获得焦点了');
+       // console.log('获得焦点了');
     });
 }();
 eot;
@@ -420,7 +420,9 @@ eot;
 				$initformjs .= $daarr['js'];
 				break;
 			case 'custom':
-				$tem_input = get_custom_form($extra, $name, $set_replace_value);
+				$tdata     = get_custom_form($extra, $name, $set_replace_value);
+				$tem_input = $tdata['str'];
+				$initformjs .= $tdata['js'];
 				break;
 			case 'string':
 				$tem_input = <<<eot
@@ -577,7 +579,7 @@ eot;
 		$formjs['umeditor'] = true;
 		$uploadurl          = url('File/umUpload');
 		reg_css('umeditor/themes/default/css/umeditor', false);
-		reg_js(',umeditor/third-party/jquery.min,umeditor/umeditor.config,umeditor/umeditor.min,umeditor/lang/zh-cn/zh-cn', false);
+		reg_js('umeditor/umeditor.config,umeditor/umeditor.min,umeditor/lang/zh-cn/zh-cn', false);
 		$initjs = <<<eot
 !function(){
     window.UMEDITOR_CONFIG.imageUrl="{$uploadurl}" ;
@@ -1077,8 +1079,13 @@ function get_form_item($form_id = '') {
 function get_custom_form($method, $name, $data) {
 	// dump($method);
 	// die();
-	$form = new \Common\Controller\CustomFormController($method, $name, $data);
-	return $form->$method();
+	$form = new \app\common\Controller\Custom($method, $name, $data);
+	if (method_exists($form, $method)) {
+		return $form->$method();
+	} else {
+		return $form->index();
+	}
+
 }
 
 // }
