@@ -4,9 +4,15 @@
     {include file="pub/main-title" /}
     <div class="tool-area cl">
         <div class="btn-tool">
+        <!--authstart-->
             <a id="export" class="btn" href="javascript:;" autocomplete="off">立即备份</a>
+        <!--authend-->
+        <!--authstart-->
             <a id="optimize" class="btn" href="{:url('optimize')}">优化表</a>
+        <!--authend-->
+        <!--authstart-->
             <a id="repair" class="btn" href="{:url('repair')}">修复表</a>
+        <!--authend-->
         </div>
     </div>
     <!--按钮和搜索区域-->
@@ -34,8 +40,12 @@
                 <td class="td-time">{$table.create_time}</td>
                 <td class="info center">未备份</td>
                 <td class="action center">
+                    <!--authstart-->
                     <a href="javascript:;" class="ajax-href btn btn-primary no-refresh" onclick="ank.ajaxHref(this);" data-url="{:url('optimize?tables='.$table['name'])}">优化表</a>
+                    <!--authend-->
+                    <!--authstart-->
                     <a href="javascript:;" class="ajax-href btn btn-primary no-refresh" onclick="ank.ajaxHref(this);" data-url="{:url('repair?tables='.$table['name'])}">修复表</a>
+                    <!--authend-->
                 </td>
             </tr>
             {/volist}

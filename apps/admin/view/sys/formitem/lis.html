@@ -5,7 +5,9 @@
     <!--按钮和搜索区域-->
     <div class="tool-area cl">
         <div class="btn-tool">
+            <!--authstart-->
             <a href="{:url('sys.formitem/add',['form_id'=>input('param.form_id')])}" class="btn">添加表单项</a>
+            <!--authend-->
         </div>
     </div>
     <table width="100%">
@@ -35,8 +37,12 @@
             <td class="td-left">{$vo.tab_id|get_status='tab'}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
+            <!--authstart-->
             <a href="{:url('sys.formitem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
+            <!--authend-->
+            <!--authstart-->
             <a href="javascript:;" data-url="{:url('sys.formitem/delete',['form_item_id'=>$vo['form_item_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            <!--authend-->
             </td>
         </tr>
         {/volist}

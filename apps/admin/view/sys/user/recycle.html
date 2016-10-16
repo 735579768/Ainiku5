@@ -7,11 +7,17 @@
         <div class="btn-tool">
             <div class="down-btn btn">常用功能<i class="fa"></i>
                 <ul>
+                <!--authstart-->
                     <li> <a onclick="am.batchAction(this,'{:url('sys.user/clearUp')}');" href="javascript:;" class="btn btn-warning">清空用户</a></li>
+                <!--authend-->
+                <!--authstart-->
                     <li><a onclick="am.batchAction(this,'{:url('sys.user/huifu')}');" href="javascript:;" class="btn btn-warning">恢复用户</a></li>
+                <!--authend-->
                 </ul>
             </div>
+            <!--authstart-->
             <a href="{:url('sys.user/lis')}" class="btn">用户列表</a>
+            <!--authend-->
         </div>
     </div>
     <table width="100%" class="check-wrap">
@@ -42,7 +48,12 @@
             <td>{$vo.login}</td>
             <td>{$vo.last_login_ip}</td>
             <td class="td-btn">
+            <!--authstart-->
+                <a href="javascript:;" data-url="{:url('sys.user/huifu',['user_id'=>$vo['user_id']])}" onclick="am.okAction(this);" list-id="{$vo.user_id}"  class="btn">恢复</a>
+            <!--authend-->
+            <!--authstart-->
                 <a href="javascript:;" data-url="{:url('sys.user/delete',['user_id'=>$vo['user_id']])}" onclick="am.okAction(this);" list-id="{$vo.user_id}"  class="btn btn-danger">彻底删除</a>
+            <!--authend-->
             </td>
         </tr>
         {/volist} {else /}

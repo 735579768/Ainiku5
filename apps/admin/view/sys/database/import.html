@@ -25,55 +25,16 @@
                     <a href="/data//{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank" class="download">下载</a>
                 </td>
                 <td class="action center">
-                    <!-- <a href="javascript:;" class="db-import btn btn-warning" onclick="am.okAction(this,'{:url('import?time='.$data['time'])}');">还原 --></a>
+                    <!--authstart-->
                     <a  onclick="am.importDatabase(this);"  class="db-import btn btn-warning" data-url="{:url('import?time='.$data['time'])}" href="javascript:;">还原</a>
+                    <!--authend-->
+                    <!--authstart-->
                     <a list-id="{$data['time']}" href="javascript:;" class="db-import btn btn-danger" onclick="am.okAction(this,'{:url('delete?time='.$data['time'])}');">删除</a>
+                    <!--authend-->
                 </td>
             </tr>
             {/volist}
-            </tbody>
         </table>
     </div>
 </div>
-   <script type="text/javascript">
-    // $(".db-import").click(function() {
-    //     var self = this,
-    //         status = ".";
-    //     $.get(self.href, success, "json");
-    //     window.onbeforeunload = function() {
-    //         return "正在还原数据库，请不要关闭！"
-    //     }
-    //     return false;
-
-    //     function success(data) {
-    //         if (data.code) {
-    //             if (data.data.gz) {
-    //                 data.msg += status;
-    //                 if (status.length === 5) {
-    //                     status = ".";
-    //                 } else {
-    //                     status += ".";
-    //                 }
-    //             }
-    //             $(self).parent().prev().text(data.msg);
-    //             if (data.data.part) {
-    //                 $.get(self.href, {
-    //                         "part": data.data.part,
-    //                         "start": data.data.start
-    //                     },
-    //                     success,
-    //                     "json"
-    //                 );
-    //             } else {
-    //                 window.onbeforeunload = function() {
-    //                     return null;
-    //                 }
-    //             }
-    //         } else {
-    //             ank.alert(data);
-    //         }
-    //     }
-    //     return false;
-    // });
-    </script>
 {/block}

@@ -7,11 +7,17 @@
         <div class="btn-tool">
             <div class="down-btn btn">常用功能<i class="fa"></i>
                 <ul>
+                <!--authstart-->
                     <li> <a onclick="am.batchAction(this,'{:url('sys.article/clearUp')}');" href="javascript:;" class="btn btn-warning">清空文章</a></li>
+                <!--authend-->
+                <!--authstart-->
                     <li> <a onclick="am.batchAction(this,'{:url('sys.article/huifu')}');" href="javascript:;" class="btn btn-warning">恢复文章</a></li>
+                <!--authend-->
                 </ul>
             </div>
+            <!--authstart-->
             <a href="{:url('sys.article/lis')}" class="btn">文章列表</a>
+            <!--authend-->
         </div>
         {include file="pub/search-tool" /}
     </div>
@@ -40,8 +46,12 @@
             <td class="td-time">{$vo.update_time|time_format}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
+            <!--authstart-->
                 <a href="javascript:;" data-url="{:url('sys.article/huifu',['article_id'=>$vo['article_id']])}" onclick="ank.ajaxHref(this);" class="btn">恢复</a>
+            <!--authend-->
+            <!--authstart-->
                 <a href="javascript:;" list-id="{$vo.article_id}" data-url="{:url('sys.article/delete',['article_id'=>$vo['article_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            <!--authend-->
             </td>
         </tr>
         {/volist} {else /}

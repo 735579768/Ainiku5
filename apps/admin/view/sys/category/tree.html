@@ -22,8 +22,12 @@
             </div>
         </div>
         <div class="c-inp c-action">
+        <!--authstart-->
             <a href="{:url('sys.category/edit',['category_id'=>$vo['category_id']])}" class="btn">编辑</a>
+        <!--authend-->
+        <!--authstart-->
             <a href="javascript:;" data-url="{:url('sys.category/delete',['category_id'=>$vo['category_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+        <!--authend-->
         </div>
     </dt>
     {notempty name="vo.child"}

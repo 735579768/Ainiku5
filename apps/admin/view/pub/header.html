@@ -11,11 +11,13 @@
         {/volist}
     </ul>
     <ul class="tool cl">
-        <li><a href="javascript:;" title="(超级管理员),登陆地址:(127.0.0.1)本机地址">您好:爱你酷</a></li>
+        <li><a href="javascript:;" title="({$uinfo.title}),登陆地址:(127.0.0.1)本机地址">您好:{$uinfo.nickname}</a></li>
         <li><a href="{:config('web_domain')}" target="_blank"><i class="fa fa-home"></i>查看网站</a></li>
         <li class="downmenu"><a href="javascript:;"><i class="fa fa-user"></i>个人信息</a>
             <ul class="pwdinfo">
+            <!--authstart-->
                 <li><a href="javascript:;" data-url="{:url('sys.other/clearCache')}" onclick="am.okAction(this);" >清空缓存</a></li>
+            <!--authend-->
                 <li><a onclick="am.updatePwd(this,'{:url('sys.user/updatePwd',['user_id'=>UID])}');" href="javascript:;">修改密码</a></li>
                 <li><a href="javascript:;" data-url="{:url('sys.other/loginOut')}" onclick="am.okAction(this);" >退出系统</a></li>
             </ul>
