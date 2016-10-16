@@ -119,9 +119,10 @@ class Base extends \app\common\Controller\Base {
 		$css     = \assets\Assets::getInstance()->getSource('css');
 		$content = str_replace(['{__ASSETS_CSS__}', '{__ASSETS_JS__}'], [$css, $js], $content);
 		//去空白行
-		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		$au      = \auth\Auth::getInstance();
-		echo $au->replaceUrl($content);
-		// echo $content;
+		$content = $au->replaceUrl($content);
+		$content = preg_replace('/<\!\-\-(.*?)\-\->/i', '', $content);
+		$content = preg_replace(['/\n\s*\r/'], '', $content);
+		echo $content;
 	}
 }
