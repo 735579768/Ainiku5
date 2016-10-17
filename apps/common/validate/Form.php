@@ -4,10 +4,8 @@ use think\Validate;
 
 class Form extends Validate {
 	protected $rule = [
-		'title' => 'require|max:25',
-		'title' => 'unique:Form',
-		'name'  => 'alphaDash|max:25',
-		'name'  => 'unique:Form',
+		'title' => 'require|max:25|unique:Form',
+		'name'  => 'alphaDash|max:25|unique:Form',
 		'sort'  => 'number|between:0,100',
 		// 'search_format'  => 'require',
 		// 'list_format'    => 'require',

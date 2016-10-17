@@ -3,7 +3,7 @@ namespace app\common\model;
 
 use think\Model;
 
-class Article extends Model {
+class Goods extends Model {
 	protected $auto   = ['pic', 'content', 'position'];
 	protected $insert = [];
 	protected $update = [];

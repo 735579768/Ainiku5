@@ -28,7 +28,10 @@ return [
 	],
 	//分类类型
 	'category_type' => [
-		'article' => '文章分类',
-		'other'   => '其它分类',
+		'article'     => '文章分类',
+		'goods'       => '产品分类',
+		'article_tag' => '文章标签',
+		'goods_tag'   => '产品标签',
+		'other'       => '其它分类',
 	],
 ];

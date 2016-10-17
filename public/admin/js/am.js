@@ -1,11 +1,10 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
-		ajaxHref: function(dom) {
-			ank.ajaxHref(dom);
-		},
-		ajaxForm: function(dom) {
-			ank.ajaxForm(dom);
+		extend: function(obj) {
+			for (a in obj) {
+				am[a] || (am[a] = obj[a]);
+			}
 		},
 		/**
 		 * 批量指定id并操作

@@ -1,0 +1,70 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <div class="down-btn btn">常用功能<i class="fa"></i>
+                <ul>
+                <!--authstart-->
+                    <li><a href="{:url('com.goods/add')}" class="btn">添加产品</a></li>
+                <!--authend-->
+                <!--authstart-->
+                    <li><a href="javascript:;" data-url="{:url('com.goods/move')}" onclick="am.batchAction(this);" class="btn btn-warning">移动产品</a></li>
+                <!--authend-->
+                <!--authstart-->
+                    <li><a href="javascript:;" data-url="{:url('com.goods/del')}" onclick="am.batchAction(this);" class="btn btn-warning">移到回收站</a></li>
+                <!--authend-->
+                </ul>
+            </div>
+            <!--authstart-->
+            <a href="{:url('com.goods/recycle')}" class="btn">回收站</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">
+                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
+            </th>
+            <th class="td-id">Id</th>
+            <th>标题</th>
+            <th>分类</th>
+            <th class="td-time">创建时间</th>
+            <th class="td-time">更新时间</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.goods_id}">
+            <td>
+                <input type="checkbox" class="check-item" value="{$vo.goods_id}" />
+            </td>
+            <td>{$vo.goods_id}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-left">{$vo.category_title}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+            <!--authstart-->
+                <a href="{:url('com.goods/edit',['goods_id'=>$vo['goods_id']])}" class="btn">编辑</a>
+            <!--authend-->
+            <!--authstart-->
+                <a href="javascript:;" list-id="{$vo.goods_id}" data-url="{:url('com.goods/del',['goods_id'=>$vo['goods_id']])}" onclick="am.okAction(this);" class="btn btn-warning">移到回收站</a>
+            <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="8">
+                <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

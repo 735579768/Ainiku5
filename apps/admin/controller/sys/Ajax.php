@@ -8,20 +8,6 @@ class Ajax extends Base {
 	 * @return [type]       [description]
 	 */
 	public function getLeftMenu($pid = 0) {
-		// if ($pid == 1) {
-		// 	$list = config('admin_custom_menu');
-		// 	foreach ($list as $key => $value) {
-		// 		foreach ($value as $k => $v) {
-		// 			$result = \auth\Auth::getInstance()->check($v['url']);
-		// 			if ($result) {
-		// 				$list[$key][$k]['url'] = url($v['url']);
-		// 			} else {
-		// 				unset($list[$key][$k]);
-		// 			}
-		// 		}
-		// 	}
-		// 	return $this->success('ok', '', $list);
-		// }
 		$map['status'] = 1;
 
 		if ($pid == 1) {
@@ -49,5 +35,57 @@ class Ajax extends Base {
 			\think\Cache::tag('childmenu')->set($key, $data);
 		}
 		return $this->success('ok', '', $data);
+	}
+	/**
+	 * 弹出层添加分类或标签
+	 * @param integer $pid           [description]
+	 * @param string  $category_type [description]
+	 */
+	public function addCategory() {
+		$pid           = input('param.pid', 0);
+		$category_type = input('param.category_type', 'article_tag');
+		if (request()->isPost()) {
+			//添加
+			$result = $this->validate(input('param.'), 'Category');
+			if (true === $result) {
+				$mod    = model('Category');
+				$result = $mod
+					->data(input('param.'))
+					->allowField(true)
+					->save();
+				// $this->returnResult($result, '添加成功', '添加失败');
+				if ($result) {
+					$this->success('添加成功', '', ['id' => $mod->category_id, 'title' => input('param.title')]);
+				} else {
+					$this->error('添加失败');
+				}
+			} else {
+				$this->error($result);
+			}
+		} else {
+			$formarr = get_form_item('Category');
+			foreach ($formarr as $key => $value) {
+				$delkey = ['pid', 'category_type', 'meta_title', 'sort', 'status', 'meta_keywords', 'meta_descr', 'icon', 'list_tpl', 'detail_tpl'];
+				if (in_array($value['name'], $delkey)) {
+					unset($formarr[$key]);
+				} else if ($value['name'] == 'title') {
+					$formarr[$key]['title'] = '标签名称';
+				} else if ($value['name'] == 'name') {
+					$formarr[$key]['title'] = '标签的name标识';
+				}
+			}
+			$formstr = '<div class="addcategory" style="padding:10px;"><form method="post" action="' . url('sys.ajax/addCategory?pid=0&category_type=' . $category_type) . '">';
+			$formstr .= get_form($formarr, ['pid' => 0, 'category_type' => $category_type]);
+			$formstr .= <<<eot
+	        <div class="form-group cl center">
+	            <a href="javascript:;" onclick="am.addTag(this);" class="btn btn-large">
+	            确定添加
+	            </a>
+	        </div></form>
+eot;
+			$formstr .= '</div>';
+			return $this->success('ok', '', $formstr);
+		}
+
 	}
 }

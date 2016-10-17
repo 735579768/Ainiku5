@@ -4,10 +4,8 @@ use think\Validate;
 
 class Nav extends Validate {
 	protected $rule = [
-		'title' => 'require|max:25',
-		'title' => 'unique:Menu',
-		// 'url'   => 'alphaDash|max:25',
-		// 'url'   => 'unique:Menu',
+		'title' => 'require|max:25|unique:Nav',
+		// 'url'   => 'alphaDash|max:25|unique:Menu',
 		'sort'  => 'number|between:0,100',
 		// 'search_format'  => 'require',
 		// 'list_format'    => 'require',

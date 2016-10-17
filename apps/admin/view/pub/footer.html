@@ -1,13 +1,15 @@
 <div id="admin-footer" class="admin-footer">
 
 </div>
-{insert name="ank,am,file,json2" type="js" /}
+{insert name="ank,am,am.extend,file,json2" type="js" /}
 {layer /}
 {__ASSETS_JS__}
 <script type="text/javascript">
-am.url={
-updateField:"{:url('updateField')}",
-updatePwd:"{:url('sys.user/updatePwd')}",
-delImg:"{:url('file/delImg')}",
-};
+am.extend({
+	url:{
+		updateField:"{:url('updateField')}",
+		updatePwd:"{:url('sys.user/updatePwd')}",
+		delImg:"{:url('file/delImg')}",
+		}
+});
 </script>

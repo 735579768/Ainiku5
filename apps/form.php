@@ -616,17 +616,17 @@ eot;
 	}
 
 	//$data = array_merge($default_value, $data);
-	if ($initformjs) {
-		reg_initjs($initformjs);
-// 		$initformjs = <<<eot
-		// <!--初始化表单js-->
-		// <script type="text/javascript">
-		// $(function(){
-		// {$initformjs}
-		// });
-		// </script>
-		// eot;
-	}
+	// 	if ($initformjs) {
+	// 		reg_initjs($initformjs);
+	// // 		$initformjs = <<<eot
+	// 		// <!--初始化表单js-->
+	// 		// <script type="text/javascript">
+	// 		// $(function(){
+	// 		// {$initformjs}
+	// 		// });
+	// 		// </script>
+	// 		// eot;
+	// 	}
 
 	// $formstr .= $formjsstr . $initformjs;
 	$formstr .= $formjsstr;
@@ -688,9 +688,12 @@ eot;
 			$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $setvalue, $formstr);
 			break;
 		}
-
+		//替换初始化js里的值
+		$initformjs = str_replace("[REPLACE_SETVALUE_{$key}]", $setvalue, $initformjs);
 	}
 	//替换掉隐藏类型的值
+	$initformjs && reg_initjs($initformjs);
+
 	//替换掉没有默认值的
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/i", '', $formstr);
 	return $formstr;
@@ -967,7 +970,7 @@ function get_form($fieldarr, $data = []) {
 	if (!is_array($fieldarr)) {
 		$fieldarr = get_form_item($fieldarr);
 	}
-	is_array($fieldarr) || ($fieldarr = []);
+	// is_array($fieldarr) || ($fieldarr = []);
 	$field = [];
 	if (isset($fieldarr['title'])) {
 		$fieldarr = [$fieldarr];

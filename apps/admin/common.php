@@ -48,10 +48,12 @@ function select_category($pid = 0, $category_type = 'article') {
 	empty($pid) && ($pid = 0);
 	static $sdd      = 0;
 	static $catetree = [0 => '顶级分类'];
-
-	$list = \think\Db::name('Category')
+	$category_type || ($category_type = 'article');
+	$map['pid']           = $pid;
+	$map['category_type'] = $category_type;
+	$list                 = \think\Db::name('Category')
 		->field('category_id,pid,title,sort')
-		->where(['pid' => $pid])
+		->where($map)
 		->order('sort asc,category_id asc')
 		->select();
 	foreach ($list as $key => $value) {

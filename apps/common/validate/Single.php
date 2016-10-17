@@ -4,13 +4,9 @@ use think\Validate;
 
 class Single extends Validate {
 	protected $rule = [
-		'title'     => 'require|max:25',
-		'title'     => 'unique:Menu',
-		// 'url'   => 'alphaDash|max:25',
-		// 'url'   => 'unique:Menu',
+		'title'     => 'require|max:25|unique:Single',
 		'index_tpl' => 'require|alphaDash|max:25',
-		'name'      => 'require|alphaDash|max:25',
-		'name'      => 'unique:Single',
+		'name'      => 'require|alphaDash|max:25|unique:Single',
 		'sort'      => 'number|between:0,100',
 		// 'search_format'  => 'require',
 		// 'list_format'    => 'require',

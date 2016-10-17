@@ -1,0 +1,67 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <div class="down-btn btn">常用功能<i class="fa"></i>
+                <ul>
+                <!--authstart-->
+                    <li> <a onclick="am.batchAction(this,'{:url('sys.goods/clearUp')}');" href="javascript:;" class="btn btn-warning">清空产品</a></li>
+                <!--authend-->
+                <!--authstart-->
+                    <li> <a onclick="am.batchAction(this,'{:url('sys.goods/huifu')}');" href="javascript:;" class="btn btn-warning">恢复产品</a></li>
+                <!--authend-->
+                </ul>
+            </div>
+            <!--authstart-->
+            <a href="{:url('sys.goods/lis')}" class="btn">产品列表</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">
+                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
+            </th>
+            <th class="td-id">Id</th>
+            <th>标题</th>
+            <th>分类</th>
+            <th class="td-time">创建时间</th>
+            <th class="td-time">更新时间</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.goods_id}">
+            <td>
+                <input type="checkbox" class="check-item" value="{$vo.goods_id}" />
+            </td>
+            <td>{$vo.goods_id}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-left">{$vo.category_title}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+            <!--authstart-->
+                <a href="javascript:;" data-url="{:url('sys.goods/huifu',['goods_id'=>$vo['goods_id']])}" onclick="ank.ajaxHref(this);" class="btn">恢复</a>
+            <!--authend-->
+            <!--authstart-->
+                <a href="javascript:;" list-id="{$vo.goods_id}" data-url="{:url('sys.goods/delete',['goods_id'=>$vo['goods_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+            <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="8">
+                <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}
