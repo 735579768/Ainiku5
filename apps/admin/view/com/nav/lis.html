@@ -1,0 +1,33 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+        <!--authstart-->
+            <a href="{:url('com.nav/add',['pid'=>0])}" class="btn">添加导航</a>
+        <!--authend-->
+        </div>
+    </div>
+    <div id="cate-tree" class="cate-tree">
+        <dl class="c-h-item cl">
+            <dt class="cl">
+                <div class="c-inp c-h-ico">折叠</div>
+                <div class="c-inp c-h-id">ID</div>
+                <div class="c-inp c-h-paixu">排序</div>
+                <div class="c-inp c-h-show">状态</div>
+                <div class="c-inp c-h-show">新页面</div>
+                <div class="c-inp c-h-title">标题</div>
+                <div class="c-inp c-h-action">操作</div>
+            </dt>
+        </dl>
+{:controller('com.nav','controller')->tree()}
+    </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    catetree.init();
+});
+</script>
+{/block}

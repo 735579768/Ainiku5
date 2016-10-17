@@ -138,3 +138,50 @@ function format_bytes($size, $delimiter = '') {
 
 	return round($size, 2) . $delimiter . $units[$i];
 }
+
+/**
+ * 导航下拉框
+ * @return [type] [description]
+ */
+function select_nav($pid = 0) {
+	empty($pid) && ($pid = 0);
+	static $sdd     = 0;
+	static $navtree = [0 => '顶级导航'];
+
+	$list = \think\Db::name('Nav')
+		->field('nav_id,pid,title,sort')
+		->where(['pid' => $pid])
+		->order('sort asc,nav_id asc')
+		->select();
+	foreach ($list as $key => $value) {
+		$navtree[$value['nav_id']] = get_space($sdd) . $value['title'];
+		$sdd++;
+		select_nav($value['nav_id']);
+		$sdd--;
+
+	}
+	return $navtree;
+}
+/**
+ * 导航下拉框
+ * @return [type] [description]
+ */
+function select_single($pid = 0) {
+	empty($pid) && ($pid = 0);
+	static $sdd        = 0;
+	static $singletree = [0 => '顶级单页'];
+
+	$list = \think\Db::name('Single')
+		->field('single_id,pid,title,sort')
+		->where(['pid' => $pid])
+		->order('sort asc,single_id asc')
+		->select();
+	foreach ($list as $key => $value) {
+		$singletree[$value['single_id']] = get_space($sdd) . $value['title'];
+		$sdd++;
+		select_single($value['single_id']);
+		$sdd--;
+
+	}
+	return $singletree;
+}

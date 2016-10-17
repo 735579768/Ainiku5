@@ -66,9 +66,9 @@ class Form extends Base {
 
 		$tablename = input('param.name');
 		$note      = input('param.note');
-		$tablename = lcfirst($tablename);
-		$tablename = preg_replace('/([A-Z].*?)/', "_$1", $tablename);
-		$tablename = $this->_getTable($info['name']);
+		// $tablename = lcfirst($tablename);
+		// $tablename = preg_replace('/([A-Z].*?)/', "_$1", $tablename);
+		$tablename = $this->_getTable($tablename);
 		$prefix    = config('database.prefix');
 		$sql       = "SHOW TABLES LIKE '{$prefix}{$tablename}'";
 		$res       = \think\Db::query($sql);

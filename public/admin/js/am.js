@@ -660,10 +660,10 @@
 //数据库备份
 ! function(a, b) {
 	var _t = this;
-	var $form = $("#export-form"),
-		$export = $("#export"),
-		tables
-	$optimize = $("#optimize"), $repair = $("#repair");
+	var $form,
+		$export,
+		tables,
+		$optimize, $repair;
 	var backup = function(tab, status) {
 		status && showmsg(tab.id, "开始备份...(0%)");
 		$.get($form.attr("action"), tab, function(data) {
@@ -697,6 +697,11 @@
 	};
 	a.database = {
 		init: function() {
+			$form = $("#export-form");
+			$export = $("#export");
+			$optimize = $("#optimize");
+			$repair = $("#repair");
+
 			$optimize.add($repair).click(function() {
 				$.post(this.href, $form.serialize(), function(data) {
 					ank.alert(data);

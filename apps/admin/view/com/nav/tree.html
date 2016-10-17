@@ -1,0 +1,42 @@
+{volist name="_list" id="vo"}
+<dl class="c-item cl">
+    <dt class="cl">
+        <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
+        <div class="c-inp c-id">{$vo.nav_id}</div>
+        <div class="c-inp c-paixu">
+            <input data-table="Nav" data-id="{$vo.nav_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
+        </div>
+        <div class="c-inp c-show">
+            <span title="{$vo.status|get_status}" data-table="Nav" data-id="{$vo.nav_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span>
+        </div>
+        <div class="c-inp c-show">
+            <span title="{$vo.status|get_status}" data-table="Nav" data-id="{$vo.nav_id}" data-field="target" data-value="{$vo.target}" class="fa yesno"></span>
+        </div>
+        <div class="c-inp c-title">
+            <span class="c-sign"></span>
+            <a href="{:url('com.nav/add',['pid'=>$vo['nav_id']])}"><i class="fa fa-plus-square"></i></a>
+            <div class="text-field">
+                <span class="text-title">标题:</span>
+                <input data-table="Nav" data-id="{$vo.nav_id}" data-field="title"  type="text" class="form-control ajax-blur" value="{$vo.title}" />
+            </div>
+            <div class="text-field">
+                <span class="text-title">URL:</span>
+                <input data-table="Nav" data-id="{$vo.nav_id}" data-field="url"  type="text" class="form-control ajax-blur" value="{$vo.url}" />
+            </div>
+        </div>
+        <div class="c-inp c-action">
+        <!--authstart-->
+            <a href="{:url('com.nav/edit',['nav_id'=>$vo['nav_id']])}" class="btn">编辑</a>
+        <!--authend-->
+        <!--authstart-->
+            <a href="javascript:;" data-url="{:url('com.nav/delete',['nav_id'=>$vo['nav_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+        <!--authend-->
+        </div>
+    </dt>
+    {notempty name="vo.child"}
+    <dd class="c-sub-item">
+        {:controller('com.nav','controller')->tree($vo['nav_id'])}
+    </dd>
+    {/notempty}
+</dl>
+{/volist}
