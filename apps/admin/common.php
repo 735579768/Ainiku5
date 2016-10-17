@@ -187,3 +187,16 @@ function select_single($pid = 0) {
 	}
 	return $singletree;
 }
+/**
+ * 添加用户日志
+ * @param string $note      日志备注
+ * @param array  $json_data 备忘数据
+ */
+function add_user_log($note = '', $json_data = []) {
+	$log = model('UserLog');
+	$log->data([
+		'note'      => $note,
+		'json_data' => json_encode($json_data),
+	]);
+	$log->save();
+}

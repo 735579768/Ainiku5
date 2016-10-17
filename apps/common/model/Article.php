@@ -4,7 +4,7 @@ namespace app\common\model;
 use think\Model;
 
 class Article extends Model {
-	protected $auto   = ['pic', 'content', 'position'];
+	protected $auto   = ['pic', 'content', 'position', 'views'];
 	protected $insert = [];
 	protected $update = [];
 
@@ -16,6 +16,9 @@ class Article extends Model {
 	}
 	protected function setContentAttr($value) {
 		return $value ? $value : '';
+	}
+	protected function setViewsAttr($value) {
+		return $value ? $value : 0;
 	}
 
 }

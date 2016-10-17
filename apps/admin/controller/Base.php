@@ -125,4 +125,15 @@ class Base extends \app\common\Controller\Base {
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		echo $content;
 	}
+	/**
+	 * 反回一个不带前缀的表名
+	 * @param  [type] $table [description]
+	 * @return [type]        [description]
+	 */
+	protected function _getTable($table = '') {
+		if (!$table) {
+			return '';
+		}
+		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
+	}
 }

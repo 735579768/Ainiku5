@@ -100,15 +100,4 @@ class Formitem extends Base {
 			$res = \think\Db::execute($sql);
 		}
 	}
-	/**
-	 * 由表名反回一个主键id名字
-	 * @param  [type] $table [description]
-	 * @return [type]        [description]
-	 */
-	private function _getTable($table = '') {
-		if (!$table) {
-			return '';
-		}
-		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
-	}
 }

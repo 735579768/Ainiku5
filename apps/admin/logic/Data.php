@@ -10,33 +10,33 @@ class Data extends Base {
 	 */
 	private function addEditForm($model = '', $edit = false) {
 		$model || $this->error('模型为空!');
-		$model    = ucfirst($model);
-		$na       = preg_replace('/([A-Z])/s', '_$1', lcfirst($model));
-		$id_name  = strtolower($na) . '_id';
+		// $model    = ucfirst($model);
+		$id_name  = $this->_getTable($model) . '_id';
 		$id_value = input('param.' . $id_name);
 		if ($edit && !$id_value) {
 			//编辑状态下id不能为空
 			$this->error('id不能为空');
 		}
 		if (request()->isPost()) {
+			$postdata = input('param.');
 			if ($id_value) {
 				//编辑
-				$result = $this->validate(input('post.'), $model . '.edit');
+				$result = $this->validate($postdata, $model . '.edit');
 				if (true === $result) {
 					$result = model($model)
 						->allowField(true)
 						->isUpdate(true)
-						->save(input('post.'), [$id_name => $id_value]);
+						->save($postdata, [$id_name => $id_value]);
 					$this->returnResult($result, '更新成功', '更新失败');
 				} else {
 					$this->error($result);
 				}
 			} else {
 				//添加
-				$result = $this->validate(input('post.'), $model);
+				$result = $this->validate($postdata, $model);
 				if (true === $result) {
 					$result = model($model)
-						->data(input('post.'))
+						->data($postdata)
 						->allowField(true)
 						->save();
 					$this->returnResult($result, '添加成功', '添加失败');
@@ -177,9 +177,10 @@ class Data extends Base {
 	 * @return [type]        [description]
 	 */
 	private function _getPrimaryKey($table = '') {
+		$table = $this->_getTable($table);
 		if (!$table) {
 			return '';
 		}
-		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table))) . '_id';
+		return $table . '_id';
 	}
 }
