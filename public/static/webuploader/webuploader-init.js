@@ -546,18 +546,23 @@ if (typeof console == 'undefined') {
          * @param  {[type]} da     图片的json数据
          * @return {[type]}        [description]
          */
-        addimg: function(imglistId, da, uploaderType) {
+        addimg: function(valId, imglistId, da, uploaderType) {
             var imglist = $(imglistId);
-            var str = "<div class='uploaded-imgitem'><div class='uploaded-imgbox'><div class='uploaded-imgpre'><img layer-pid='" + da['destname'] + "' layer-src='" + da['path'] + "' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger deleteimg' data-id='" + da['id'] + "'  >删除</a></div>";
+            var valobj = $(valId);
+            var str = "<div class='uploaded-imgitem'><div class='uploaded-imgbox'><div class='uploaded-imgpre'><img title='" + da['destname'] + "' layer-pid='" + da['destname'] + "' layer-src='" + da['path'] + "' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' onclick='am.domDeleteImg(this);' data-id='" + da['id'] + "'  >删除</a></div>";
+            // debugger;
             if (uploaderType) {
+                if (valId) {
+                    var v = valobj.val();
+                    v += v ? (',' + da.id) : da.id;
+                    valobj.val(v);
+                }
                 imglist.append(str);
             } else {
+                am.deleteImg(valobj.val());
+                valId && valobj.val(da.id);
                 imglist.html(str);
             }
-            layer.photos({
-                photos: imglistId
-            });
-            am.bindDeleteImg();
         },
         initImgList: function(valId, imglistId, uploaderType) {
             var _t = this;
@@ -571,9 +576,13 @@ if (typeof console == 'undefined') {
                     var da = data.data;
                     if (da.length > 0) {
                         for (a in da) {
-                            _t.addimg(imglistId, da[a], uploaderType);
+                            _t.addimg(null, imglistId, da[a], uploaderType);
                         }
                     }
+                    layer.photos({
+                        photos: imglistId
+                    });
+                    // am.bindDeleteImg();
 
                 });
             }

@@ -13,7 +13,7 @@ trait File {
 		// $idarr = preg_replace('/\,|\||\s/', ',', $id);
 		if ($type == 'img') {
 			$data = \think\Db::name('Picture')
-				->field('picture_id as id,path,thumbpath')
+				->field('picture_id as id,destname,path,thumbpath')
 				->where('picture_id', 'in', $id)
 			// ->fetchSql()
 				->select();
@@ -39,7 +39,7 @@ trait File {
 				return array('path' => $filepath, 'sha1' => $sha1);
 			} else {
 				//删除当前路径文件
-				unlink($fpath);
+				@unlink($fpath);
 				return $list;
 			}
 		} else {
@@ -225,7 +225,7 @@ trait File {
 			//删除本地文件
 			$map['picture_id'] = $id;
 			$row               = \think\Db::name('Picture')
-				->field('picture_id,path,sha1')
+				->field('picture_id,path,thumbpath,sha1')
 				->where($map)
 				->find();
 
@@ -238,8 +238,8 @@ trait File {
 
 				//删除只有一个地方引用到的情况
 				if (count($row2) == 1) {
-					unlink(realpath('.' . $row['path']));
-					unlink(realpath('.' . $row['thumbpath']));
+					@unlink(realpath('.' . $row['path']));
+					@unlink(realpath('.' . $row['thumbpath']));
 				}
 				$result = \think\Db::name('Picture')->delete($id);
 
@@ -260,7 +260,7 @@ trait File {
 				->where(['uid' => UID])
 				->whereOr(['path' => $id, 'thumbpath' => $id])
 				->delete();
-			if ($result) {unlink($id);return true;}
+			if ($result) {@unlink($id);return true;}
 		} else {
 			//从字符串中取图片路径
 			preg_match_all('/<img.*?src=[\'|\"]{1}(.*?)[\'|\"]{1}.*?>/', $id, $out, PREG_PATTERN_ORDER);
@@ -270,10 +270,10 @@ trait File {
 					->where(['uid' => UID])
 					->whereOr(['path' => $id, 'thumbpath' => $id])
 					->delete();
-				unlink('.' . $val);
+				@unlink('.' . $val);
 				//删除缩略图
 				$thumbpath = str_replace('image', 'image/thumb', '.' . $val);
-				unlink($thumbpath);
+				@unlink($thumbpath);
 			}
 			return true;
 		}

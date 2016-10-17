@@ -725,8 +725,8 @@ eot;
 	    uploader.init(conId,ismuli, function(data,upObj) {
 	        // console.log(data);
 	        // console.log(upObj);
-	        $(valId).val(data.id);
-	        uploader.addimg(imglistId,data,ismuli);
+	        // $(valId).val(data.id);
+	        uploader.addimg(valId,imglistId,data,ismuli);
 	    });
 	    //初始化图片列表
 	    uploader.initImgList(valId,imglistId,ismuli);
