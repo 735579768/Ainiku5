@@ -13,10 +13,10 @@
 .uploader-img .queueList.webuploader-dnd-over{border:3px dashed #999999;}
 .uploader-img p{margin:0;}
 .element-invisible{position:absolute!important;clip:rect(1px 1px 1px 1px); /* IE6, IE7 */clip:rect(1px,1px,1px,1px);}
-.uploader-img .placeholder{padding-top:85px;text-align:center;background:url(../images/image.png) center 10px no-repeat;color:#cccccc;font-size:18px;position:relative;padding-bottom:10px;}
-.uploader-img .placeholder .filePicker{position: relative; width: 168px; height: 45px;display: inline-block;}
+.uploader-img .placeholder{padding-top:85px;text-align:center;background:url(../images/image.png) center 10px no-repeat;color:#cccccc;position:relative;padding-bottom:10px;}
+.uploader-img .placeholder .filePicker{position: relative;  padding:5px 0px;width:100px;height: 30px; line-height: 30px; display: inline-block;}
 .uploader-img .placeholder .filePicker div{width: 100%!important;height: 100%!important;}
-.uploader-img .placeholder .webuploader-pick{font-size:18px;background:#00b7ee;border-radius:3px;line-height:44px;padding:0px;*width:120px;color:#fff;display:inline-block;margin:0 auto 10px auto;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
+.uploader-img .placeholder .webuploader-pick{background:#00b7ee;border-radius:3px;padding:0px;*width:120px;color:#fff;display:inline-block;margin:0 auto 10px auto;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
 .uploader-img .placeholder .webuploader-pick-hover{background:#00a2d4;}
 .uploader-img .placeholder .flashTip{color:#666666;font-size:12px;position:absolute;width:100%;text-align:center;bottom:20px;}
 .uploader-img .placeholder .flashTip a{color:#0785d1;text-decoration:none;}

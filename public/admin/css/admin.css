@@ -35,12 +35,13 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 
 /*#div-block iframe{height: auto;}*/
 .form-block{padding-bottom:30px;}
+
 /**
  * 修复编辑器没有宽度
  * @type {[type]}
  */
-.edui-container,
-.edui-editor-body .edui-body-container{width: auto!important;}
+.edui-container,.edui-editor-body .edui-body-container{width:auto!important;}
+
 /**
  * 头部样式
  * @type {[type]}
@@ -100,7 +101,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con .main-title b{font-size:16px;font-weight:bolder;}
 .tool-area{margin-bottom:10px;}
 .btn-tool{float:left;}
-.adv-search{float: right;}
+.adv-search{float:right;}
 .search-tool{display:none;padding:10px;}
 .search-tool .form-wrap{display:block;}
 .search-tool .form-control{width:100%;}
@@ -188,5 +189,15 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .authset .auth-item{height:25px;line-height:25px;}
 .authset dt.auth-item{font-size:14px;margin:10px 0px;}
 .authset dd.auth-item{float:left;margin-right:10px;color:#666;}
-.authset span{display: inline-block;}
+.authset span{display:inline-block;}
 .authset dt span{}
+
+/**
+ * 图片管理列表样式
+ */
+.imglist img{border:none;vertical-align:middle;}
+.imglist .item{border:solid 1px #e2e2e2;float:left;margin:10px 0px 0px 10px;}
+.imglist .item .imgbox:hover .btn{display:block;}
+.imglist .item .imgbox .btn{z-index:99;left:0px;display:none;position:absolute;bottom:0px;}
+.imglist .item .imgbox{position:relative;width:120px;height:120px;display:table-cell;text-align:center;            /*非IE的主流浏览器识别的垂直居中的方法*/display:table-cell;vertical-align:middle;            /*设置水平居中*/text-align:center;            /* 针对IE的Hack */*display:block;*font-size:175px;            /*约为高度的0.873，200*0.873 约为175*/*font-family:Arial;            /*防止非utf-8引起的hack失效问题，如gbk编*/}
+.jindu{text-align:left;padding:10px 10px 30px 10px;font-size:14px;}

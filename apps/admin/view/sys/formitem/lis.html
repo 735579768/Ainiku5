@@ -10,6 +10,31 @@
             <!--authend-->
         </div>
     </div>
+    <div class="tab">
+    <ul id="formnav" class="tabnavblock cl">
+        <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0)])}">全部</a>
+    {foreach name=":config('systemstatus.tab')" item="vo"}
+        <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0),'tab_id'=>$key])}">{$vo}</a></li>
+    {/foreach}
+    </ul>
+    </div>
+    <script type="text/javascript">
+$(function(){
+    $('#formnav a').each(function(index, el) {
+        var pa=window.location.pathname;
+        var p=$(this).attr('href');
+        console.log(pa);
+        console.log(p);
+        if(pa==p){
+            $(this).parent().addClass('hover');
+        }
+    });
+    // debugger;
+    if(!$('#formnav li.hover').length){
+        $('#formnav li:first').addClass('hover');
+    }
+});
+    </script>
     <table width="100%">
         <tr class="th">
             <th class="td-id">Id</th>
@@ -23,11 +48,12 @@
             <th class="td-status">状态</th>
             <th>操作</th>
         </tr>
+        {notempty name="_list"}
         {volist name="_list" id="vo"}
         <tr>
             <td>{$vo.form_item_id}</td>
             <td>
-                <input data-table="FormItem" data-id="{$vo.form_item_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
+                <input data-table="FormItem" data-id="{$vo.form_item_id}" data-field="sort" type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
             </td>
             <td class="td-left">{$vo.title}</td>
             <td class="td-left">{$vo.form_title}</td>
@@ -37,15 +63,22 @@
             <td class="td-left">{$vo.tab_id|get_status='tab'}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
-            <!--authstart-->
-            <a href="{:url('sys.formitem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
-            <!--authend-->
-            <!--authstart-->
-            <a href="javascript:;" data-url="{:url('sys.formitem/delete',['form_item_id'=>$vo['form_item_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
-            <!--authend-->
+                <!--authstart-->
+                <a href="{:url('sys.formitem/edit',['form_item_id'=>$vo['form_item_id']])}" class="btn">编辑</a>
+                <!--authend-->
+                <!--authstart-->
+                <a href="javascript:;" data-url="{:url('sys.formitem/delete',['form_item_id'=>$vo['form_item_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+                <!--authend-->
             </td>
         </tr>
         {/volist}
+        {else /}
+        <tr>
+            <td colspan="10">
+                <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
     </table>
     <div class="page">{$_page}</div>
 </div>

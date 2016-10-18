@@ -1,0 +1,40 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <!--authstart-->
+            <a href="javascript:;" data-url="{:url('sys.picture/greateThumb')}" onclick="am.greateThumb(this);" class="btn btn-parmary">批量生成缩略图</a>
+            <!--authend-->
+            <!--authstart-->
+            <a href="javascript:;" data-url="{:url('sys.picture/resetSha1')}" onclick="am.resetSha1(this);" id="resetsha" class="btn btn-parmary">重置所有图片的SHA1值</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <ul id="manimg" class="imglist cl">
+        {volist name="_list" id="vo"}
+        <li class="item">
+            <div class="imgbox">
+                <a href="javascript:;">
+                    <img class="" layer-pid="{$vo.srcname}-{$vo.create_time|time_format}" layer-src="{$vo.path}" src="{$vo.thumbpath}" title="{$vo.srcname}-{$vo.create_time|time_format}" alt="{$vo.srcname}-{$vo.create_time|time_format}" width="100" height="100" /></a>
+                <!--authstart-->
+                <a data-id="{$vo.picture_id}" href="javascript:;" onclick="am.deletePicture(this);" class="btn btn-danger">删除</a>
+                <!--authend-->
+            </div>
+        </li>
+        {/volist}
+    </ul>
+    <div class="page">{$_page}</div>
+</div>
+<script type="text/javascript">
+$(function() {
+    layer.photos({
+        shade: 0.01,
+        photos: '#manimg'
+    });
+});
+</script>
+{/block}

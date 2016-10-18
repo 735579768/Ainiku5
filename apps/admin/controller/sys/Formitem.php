@@ -10,12 +10,15 @@ class Formitem extends Base {
 	 */
 	public function lis() {
 		$this->assign('meta_title', '表单项列表');
+		$tab_id  = input('param.tab_id', '');
 		$form_id = input('param.form_id');
 		$form_id || $this->error('表单id不能为空!');
 
+		$map['a.form_id']                 = $form_id;
+		($tab_id != '') && $map['tab_id'] = $tab_id;
 		$this->pages([
 			'table' => 'FormItem',
-			'where' => ['a.form_id' => $form_id],
+			'where' => $map,
 			'join'  => [
 				['__FORM__ b', 'a.form_id=b.form_id'],
 			],

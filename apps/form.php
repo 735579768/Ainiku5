@@ -726,7 +726,7 @@ eot;
 	        // console.log(data);
 	        // console.log(upObj);
 	        // $(valId).val(data.id);
-	        uploader.addimg(valId,imglistId,data,ismuli);
+	        uploader.addImg(valId,imglistId,data,ismuli);
 	    });
 	    //初始化图片列表
 	    uploader.initImgList(valId,imglistId,ismuli);

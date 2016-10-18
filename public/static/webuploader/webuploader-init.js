@@ -546,7 +546,7 @@ if (typeof console == 'undefined') {
          * @param  {[type]} da     图片的json数据
          * @return {[type]}        [description]
          */
-        addimg: function(valId, imglistId, da, uploaderType) {
+        addImg: function(valId, imglistId, da, uploaderType) {
             var imglist = $(imglistId);
             var valobj = $(valId);
             var str = "<div class='uploaded-imgitem'><div class='uploaded-imgbox'><div class='uploaded-imgpre'><img title='" + da['destname'] + "' layer-pid='" + da['destname'] + "' layer-src='" + da['path'] + "' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' onclick='am.domDeleteImg(this);' data-id='" + da['id'] + "'  >删除</a></div>";
@@ -576,10 +576,11 @@ if (typeof console == 'undefined') {
                     var da = data.data;
                     if (da.length > 0) {
                         for (a in da) {
-                            _t.addimg(null, imglistId, da[a], uploaderType);
+                            _t.addImg(null, imglistId, da[a], uploaderType);
                         }
                     }
                     layer.photos({
+                        shade: 0.01,
                         photos: imglistId
                     });
                     // am.bindDeleteImg();

@@ -105,38 +105,6 @@
 				});
 			}
 		},
-		deleteImg: function(id) {
-			if (!id) {
-				return false;
-			}
-			$.post(am.url.delImg, {
-				picture_id: id
-			}, function(data) {
-
-			});
-		},
-		/**
-		 * 绑定删除图片功能
-		 * @return {[type]} [description]
-		 */
-		domDeleteImg: function(dom) {
-			var _t = $(dom);
-			var id = _t.attr('data-id');
-			this.deleteImg(id);
-			var item = _t.parents('.uploaded-imgitem');
-			var inp = item.parent().next();
-			item.remove();
-			debugger;
-			var va = inp.val();
-			va = va.split(',');
-			for (a in va) {
-				if (va[a] == id) {
-					va.splice(a, a);
-				}
-			}
-			va = va.join(',');
-			inp.val(va);
-		},
 		showSearch: function() {
 			layer.open({
 				shade: false,
