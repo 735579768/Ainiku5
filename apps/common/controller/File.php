@@ -33,8 +33,12 @@ trait File {
 			$sha1 = sha1_file($fpath);
 			// $list = M('Picture')->where("sha1='$sha1'")->find();
 			$list = \think\Db::name('Picture')
-				->where('sha1', $sha1)
+				->where(['sha1' => $sha1])
+				->WhereOr(['re_sha1' => $sha1])
+			// ->fetchSql()
 				->find();
+			// echo $list;
+			// die();
 			if (empty($list)) {
 				return array('path' => $filepath, 'sha1' => $sha1);
 			} else {
@@ -138,8 +142,8 @@ trait File {
 				->insertGetId($data);
 			if ($result) {
 				//添加水印
-				$this->markpic($thumbPath);
-				$this->markpic($targetPath);
+				$this->markPic($thumbPath);
+				$this->markPic($targetPath);
 				$return['id'] = $result;
 			}
 		}
@@ -148,14 +152,17 @@ trait File {
 		$this->ajaxReturn(array_merge($return, $data));
 	}
 	//图片添加水印
-	private function markpic($dst = '') {
+	private function markPic($dst = '') {
 		//取水印图片
-		$src       = realpath('.' . get_picture(config('shuiyin_image')));
-		$shuiyinon = config('shuiyin_on');
-		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
-			image_water($dst, $src, $dst);
-		} else if ($shuiyinon == '2' && $dst !== false && $src !== false) {
-			image_water($dst, '', $dst, config('shuiyin_text'));
+		$src          = realpath('.' . get_picture(config('shuiyin_image')));
+		$shuiyinon    = config('shuiyin_on');
+		$shuiyinmodel = config('shuiyin_model');
+		if ($shuiyinon == '1') {
+			if ($shuiyinmodel == '1') {
+				image_water($dst, '', $dst, config('shuiyin_text'));
+			} else {
+				image_water($dst, $src, $dst);
+			}
 		}
 	}
 	/**
@@ -206,7 +213,7 @@ trait File {
 				->insert($data);
 			if ($result) {
 				//添加水印
-				$this->markpic('.' . $info['url']);
+				$this->markPic('.' . $info['url']);
 			}
 			$this->ajaxReturn($info);
 		}

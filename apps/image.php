@@ -20,7 +20,7 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		return '文件不存在';
 	}
 	//创建目录
-	create_folder(dirname($dst_img));
+	create_folder(dirname($dest_img));
 	empty($pos) && ($pos = intval(config('shuiyin_pos')));
 	switch ($pos) {
 	case 'top_left':
@@ -71,9 +71,10 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		$result = \ankimage\Image::open($src_img)->water($water_img, $pos, 80)->save($dest_img);
 	} else {
 		//文字水印
-		$color     = config('shuiyin_text_color');
-		$color     = empty($color) && ($color = '#000000');
-		$color     = hex_torgb($color);
+		$color = config('shuiyin_text_color');
+
+		empty($color) && ($color = '#000000');
+		// $color     = hex_torgb($color);
 		$font_size = intval(config('shuiyin_text_size'));
 		//使用验证码的随机字体
 		$fontpath = '';

@@ -14,6 +14,7 @@ class Picture extends Base {
 			'table' => 'Picture',
 			'where' => ['a.status' => 1],
 			'order' => 'picture_id desc',
+			'rows'  => 24,
 		]);
 		return $this->fetch();
 	}
@@ -31,7 +32,7 @@ class Picture extends Base {
 		foreach ($list as $key => $val) {
 			$i++;
 			$sha1 = sha1_file('.' . $val['path']);
-			Db::name('Picture')->where("picture_id={$val['picture_id']}")->update(['sha1' => $sha1, 'update_time' => time()]);
+			Db::name('Picture')->where("picture_id={$val['picture_id']}")->update(['re_sha1' => $sha1, 'update_time' => time()]);
 			unset($list[$key]);
 			if ($i > $num) {
 				$num = count($list);

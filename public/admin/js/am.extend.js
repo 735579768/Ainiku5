@@ -2,38 +2,38 @@
  * am扩展属性
  */
 am.extend({
-	deleteImg: function(id) {
-		if (!id) {
-			return false;
-		}
-		$.post(am.url.delImg, {
-			picture_id: id
-		}, function(data) {
+	// deleteImg: function(id) {
+	// 	if (!id) {
+	// 		return false;
+	// 	}
+	// 	$.post(am.url.delImg, {
+	// 		picture_id: id
+	// 	}, function(data) {
 
-		});
-	},
-	/**
-	 * 绑定删除上传换件的图片功能
-	 * @return {[type]} [description]
-	 */
-	domDeleteImg: function(dom) {
-		var _t = $(dom);
-		var id = _t.attr('data-id');
-		this.deleteImg(id);
-		var item = _t.parents('.uploaded-imgitem');
-		var inp = item.parent().next();
-		item.remove();
-		debugger;
-		var va = inp.val();
-		va = va.split(',');
-		for (a in va) {
-			if (va[a] == id) {
-				va.splice(a, 1);
-			}
-		}
-		va = va.join(',');
-		inp.val(va);
-	},
+	// 	});
+	// },
+	// /**
+	//  * 绑定删除上传换件的图片功能
+	//  * @return {[type]} [description]
+	//  */
+	// domDeleteImg: function(dom) {
+	// 	var _t = $(dom);
+	// 	var id = _t.attr('data-id');
+	// 	this.deleteImg(id);
+	// 	var item = _t.parents('.uploaded-imgitem');
+	// 	var inp = item.parent().next();
+	// 	item.remove();
+	// 	debugger;
+	// 	var va = inp.val();
+	// 	va = va.split(',');
+	// 	for (a in va) {
+	// 		if (va[a] == id) {
+	// 			va.splice(a, 1);
+	// 		}
+	// 	}
+	// 	va = va.join(',');
+	// 	inp.val(va);
+	// },
 	/**
 	 * 取添加标签的表单
 	 * @param  {[type]} dom [description]
@@ -80,11 +80,5 @@ am.extend({
 				layer.closeAll();
 			}
 		});
-	},
-	ajaxHref: function(dom, callback) {
-		ank.ajaxHref(dom, callback);
-	},
-	ajaxForm: function(dom, callback) {
-		ank.ajaxForm(dom, callback);
 	}
 });

@@ -23,8 +23,6 @@ $(function(){
     $('#formnav a').each(function(index, el) {
         var pa=window.location.pathname;
         var p=$(this).attr('href');
-        console.log(pa);
-        console.log(p);
         if(pa==p){
             $(this).parent().addClass('hover');
         }

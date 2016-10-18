@@ -60,37 +60,66 @@ am.extend({
 		});
 	},
 	resetSha1: function(dom) {
+		// layer.confirm();
+		var _tt = this;
 		var _t = $(dom);
 		var uri = _t.attr('data-url');
-		var jindu = layer.open({
-			type: 1,
-			area: ['500px', '400px'],
-			title: '重置图片SHA1值',
-			content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
+		layer.confirm('确定 "<span style="color:red;">重新生成所有图片的SHA1值</span>" 吗?', {
+			title: false,
+			closeBtn: false,
+			shade: 0.01,
+			btn: ['确定', '取消']
+		}, function(index) {
+			var jindu = layer.open({
+				type: 1,
+				area: ['500px', '400px'],
+				title: '重置图片SHA1值',
+				content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
+			});
+			var jindutex = $('#chulijindu');
+			$.get(uri, function(data) {
+				jindutex.append('<br>' + data.msg);
+				if (data.code) {
+					jindutex.append('<br>处理完成! :)');
+				}
+			});
+			layer.close(index);
 		});
-		var jindutex = $('#chulijindu');
-		$.get(uri, function(data) {
-			jindutex.append('<br>' + data.msg);
-			if (data.code) {
-				jindutex.append('<br>处理完成! :)');
-			}
-		});
+
 	},
 	greateThumb: function(dom) {
 		var _t = $(dom);
 		var uri = _t.attr('data-url');
-		var jindu = layer.open({
-			type: 1,
-			area: ['500px', '400px'],
-			title: '生成图片缩略图',
-			content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
+		var _tt = this;
+		layer.confirm('确定 "<span style="color:red;">重新生成所有图片的缩略图</span>" 吗?', {
+			title: false,
+			closeBtn: false,
+			shade: 0.01,
+			btn: ['确定', '取消']
+		}, function(index) {
+			var jindu = layer.open({
+				type: 1,
+				area: ['500px', '400px'],
+				title: '生成图片缩略图',
+				content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
+			});
+			var jindutex = $('#chulijindu');
+			$.get(uri, function(data) {
+				jindutex.append('<br>' + data.msg);
+				if (data.code) {
+					jindutex.append('<br>处理完成! :)');
+				}
+			});
+			layer.close(index);
 		});
-		var jindutex = $('#chulijindu');
-		$.get(uri, function(data) {
-			jindutex.append('<br>' + data.msg);
-			if (data.code) {
-				jindutex.append('<br>处理完成! :)');
-			}
-		});
+
+
+
+	},
+	ajaxHref: function(dom, callback) {
+		ank.ajaxHref(dom, callback);
+	},
+	ajaxForm: function(dom, callback) {
+		ank.ajaxForm(dom, callback);
 	}
 });

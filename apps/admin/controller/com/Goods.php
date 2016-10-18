@@ -80,6 +80,7 @@ class Goods extends Base {
 	 * @return [type] [description]
 	 */
 	public function recycle() {
+		$this->assign('meta_title', '产品回收站');
 		$map         = [];
 		$category_id = input('param.category_id', 0);
 		$title       = input('param.title', '');

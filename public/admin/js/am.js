@@ -1,6 +1,11 @@
 ! function(a, b) {
 	"use strict";
 	a.am = {
+		/**
+		 * 扩展属性方法
+		 * @param  {[type]} obj [description]
+		 * @return {[type]}     [description]
+		 */
 		extend: function(obj) {
 			for (a in obj) {
 				am[a] || (am[a] = obj[a]);
