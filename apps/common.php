@@ -677,7 +677,7 @@ function reg_initjs($jsstr) {
  */
 function widget($name = '', $args = []) {
 	$name = explode('/', $name);
-	$obj  = controller('widget.' . $name[0], 'controller');
+	$obj  = controller($name[0], 'widget');
 	if (method_exists($obj, $name[1])) {
 		echo call_user_func_array([$obj, $name[1]], $args);
 	} else {

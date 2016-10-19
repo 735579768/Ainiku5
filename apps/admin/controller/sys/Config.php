@@ -2,6 +2,10 @@
 namespace app\admin\controller\sys;
 
 class Config extends Base {
+	/**
+	 * 输出系统环境信息
+	 * @return [type] [description]
+	 */
 	public function index() {
 		return $this->fetch();
 	}

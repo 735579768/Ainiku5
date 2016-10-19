@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller\widget;
+namespace app\admin\widget;
 
 class Sysinfo extends Base {
 	public function sinfo() {

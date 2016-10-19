@@ -243,7 +243,7 @@ return [
 	'default_theme'          => '',
 	/* 文件上传相关配置 */
 	'file_upload'            => [
-		'maxSize'  => 2, //上传的文件大小限制 (0-不做限制)
+		'maxSize'  => 2 * 1024 * 1024, //上传的文件大小限制 (0-不做限制)
 		'exts'     => [".gif", ".png", ".jpg", ".jpeg", ".bmp"], //允许上传的文件后缀
 		'rootPath' => '/uploads', //保存图片根路径
 	],
