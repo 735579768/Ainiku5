@@ -144,8 +144,8 @@ if (typeof console == 'undefined') {
                 // server: './fileupload.php',
                 server: webUploaderUrl.UPLOADER_URL,
                 fileNumLimit: filenum,
-                fileSizeLimit: 5 * 1024 * 1024, // 200 M
-                fileSingleSizeLimit: 1 * 1024 * 1024, // 50 M
+                fileSizeLimit: webUploaderUrl.FILE_SIZE * 30, // 200 M
+                fileSingleSizeLimit: webUploaderUrl.FILE_SIZE, // 50 M
                 // 配置生成缩略图的选项。
                 thumb: {
                     width: 110,

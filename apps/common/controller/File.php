@@ -66,11 +66,17 @@ trait File {
 			'url'      => '',
 			'data'     => '',
 		);
-		$SITE_PATH  = SITE_PATH; //网站根目录
+		// $SITE_PATH  = SITE_PATH; //网站根目录
 		$targetPath = '.' . config('file_upload.rootPath') . '/image/' . date('Ymd'); //保存图片的根目录
 		$thumbPath  = str_replace('/image/', '/image/thumb/', $targetPath);
 		$data       = array();
 		if (!empty($_FILES)) {
+			$maxSize = config('file_upload.maxSize');
+			if ($_FILES['filelist']['size'] > $maxSize) {
+				$return['info']   = '不支持此文件类型';
+				$return['status'] = 0;
+				$this->ajaxreturn($return);
+			}
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
 			$extend   = explode(".", strtolower($_FILES['filelist']['name']));
@@ -91,9 +97,9 @@ trait File {
 			$thumbPath .= '/' . $filename;
 
 			// Validate the file type
-			$fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // File extensions
+			$fileTypes = config('file_upload.exts'); // File extensions
 
-			if (in_array($extend[$va], $fileTypes)) {
+			if (in_array('.' . $extend[$va], $fileTypes)) {
 				$bl = move_uploaded_file($tempFile, $targetPath);
 
 				// $thumbPath = str_replace('/image/', '/image/thumb/', $targetPath);
@@ -104,16 +110,16 @@ trait File {
 					$targetPath   = $shafile['path'];
 					$data['sha1'] = $shafile['sha1'];
 					//如果是图片就生成缩略图
-					if (in_array($extend[$va], array('jpg', 'jpeg', 'gif', 'png', 'bmp'))) {
-						//生成缩略图
-						//缩略图路径
-						$wh = explode('*', config('thumb_size'));
-						$re = create_thumb($targetPath, $thumbPath, $wh[0], $wh[1]);
-						if ($re !== true) {
-							$thumbPath = trim($targetPath, '.');
-						}
-
+					// if ('.'.in_array($extend[$va], array('jpg', 'jpeg', 'gif', 'png', 'bmp'))) {
+					//生成缩略图
+					//缩略图路径
+					$wh = explode('*', config('thumb_size'));
+					$re = create_thumb($targetPath, $thumbPath, $wh[0], $wh[1]);
+					if ($re !== true) {
+						$thumbPath = trim($targetPath, '.');
 					}
+
+					// }
 					$return['path'] = trim($targetPath, '.');
 				} else {
 					$return['info']   = '上传错误' . $tempFile . '->' . $targetPath;
@@ -173,8 +179,8 @@ trait File {
 		//上传配置
 		$config = array(
 			"savePath"   => '.' . config('file_upload.rootPath') . "/image/", //存储文件夹
-			"maxSize"    => 1000, //允许的文件最大尺寸，单位KB
-			"allowFiles" => array(".gif", ".png", ".jpg", ".jpeg", ".bmp"), //允许的文件格式
+			"maxSize"    => config('file_upload.maxSize'), //允许的文件最大尺寸，单位KB
+			"allowFiles" => config('file_upload.exts'), //允许的文件格式
 		);
 		//上传文件目录
 		$Path = '.' . config('file_upload.rootPath') . "/image/";

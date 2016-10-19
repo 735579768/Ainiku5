@@ -520,12 +520,14 @@ eot;
 		$uploadurl = url('file/uploadPic');
 		reg_css('css/webuploader', false);
 		reg_js('webuploader.min,webuploader-init', false);
+		$filesize = config('file_upload.maxSize');
 		$formjsstr .= <<<eot
 <script type="text/javascript">
 window.webUploaderUrl={
  BASE_URL : '{$static_dir}/webuploader',
  FILEINFO_URL:'{$geturl}',
- UPLOADER_URL:'{$uploadurl}'
+ UPLOADER_URL:'{$uploadurl}',
+ FILE_SIZE:{$filesize}
 };
 </script>
 <!--[if IE]>

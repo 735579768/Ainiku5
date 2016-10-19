@@ -467,7 +467,7 @@ function get_picture($id = null, $field = null, $wh = null) {
 				$wharr = explode('_', $wh);
 
 				if (count($wharr == 2)) {
-					$revalue = '.' . str_replace('/uploads/image/', config('greate_cache_path.imgcache') . '/', $picture['path']);
+					$revalue = '.' . str_replace(config('file_upload.rootPath') . '/image/', config('greate_cache_path.imgcache') . '/', $picture['path']);
 					$fname   = basename($revalue);
 					$rename  = $wh . '_' . $fname;
 					$revalue = str_replace($fname, $rename, $revalue);
