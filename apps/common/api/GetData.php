@@ -25,15 +25,16 @@ class GetData {
 	 * @param  [type] $args          [description]
 	 * @return [type]                [description]
 	 */
-	public function __call($function_name, $args) {
+	public function __call($funname, $args) {
 		if (!$this->_table) {
 			// 使用think自带异常类抛出异常
 			throw new \think\Exception('没有定义数据表', 100006);
 		}
-		$funname         = substr($funname, 3);
-		$funname         = str_replace('By', '####', $funname);
-		$funname         = strtolower(preg_replace('/([A-Z]*?)/', '_$1', $funname));
-		$funname         = explode('####', $funname);
+		$funname = substr($funname, 3);
+		$funname = str_replace('By', '####', $funname);
+		$funname = strtolower(preg_replace('/([A-Z])/', '_$1', $funname));
+		$funname = explode('####', $funname);
+
 		$this->_getfield = trim($funname[0], '_');
 		$this->_byfield  = trim($funname[1], '_');
 		if ($this->_getfield == 'info') {

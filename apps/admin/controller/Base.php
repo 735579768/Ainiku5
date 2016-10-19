@@ -134,6 +134,6 @@ class Base extends \app\common\Controller\Base {
 		if (!$table) {
 			return '';
 		}
-		return strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
+		return strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($table)));
 	}
 }

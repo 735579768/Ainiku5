@@ -6,5 +6,6 @@ class Index extends Base {
 		// config('template.view_path', 'default');
 		// $this->view->config('view_path', 'default');
 		// dump($this->view);
-		return $this->fetch();}
+		return $this->fetch();
+	}
 }

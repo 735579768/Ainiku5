@@ -11,27 +11,27 @@
         </div>
     </div>
     <div class="tab">
-    <ul id="formnav" class="tabnavblock cl">
-        <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0)])}">全部</a>
-    {foreach name=":config('systemstatus.tab')" item="vo"}
-        <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0),'tab_id'=>$key])}">{$vo}</a></li>
-    {/foreach}
-    </ul>
+        <ul id="formnav" class="tabnavblock cl">
+            <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0)])}">全部</a> {foreach name=":config('systemstatus.tab')" item="vo"}
+                <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0),'tab_id'=>$key])}">{$vo}</a></li>
+                {/foreach}
+        </ul>
     </div>
     <script type="text/javascript">
-$(function(){
-    $('#formnav a').each(function(index, el) {
-        var pa=window.location.pathname;
-        var p=$(this).attr('href');
-        if(pa==p){
-            $(this).parent().addClass('hover');
+    $(function() {
+        $('#formnav a').each(function(index, el) {
+            var pa = window.location.pathname;
+            var p = $(this).attr('href');
+            p = p.replace(/http\:\/\/.*?\//ig, '/');
+            if (pa == p) {
+                $(this).parent().addClass('hover');
+            }
+        });
+        // debugger;
+        if (!$('#formnav li.hover').length) {
+            $('#formnav li:first').addClass('hover');
         }
     });
-    // debugger;
-    if(!$('#formnav li.hover').length){
-        $('#formnav li:first').addClass('hover');
-    }
-});
     </script>
     <table width="100%">
         <tr class="th">
@@ -46,8 +46,7 @@ $(function(){
             <th class="td-status">状态</th>
             <th>操作</th>
         </tr>
-        {notempty name="_list"}
-        {volist name="_list" id="vo"}
+        {notempty name="_list"} {volist name="_list" id="vo"}
         <tr>
             <td>{$vo.form_item_id}</td>
             <td>
@@ -69,8 +68,7 @@ $(function(){
                 <!--authend-->
             </td>
         </tr>
-        {/volist}
-        {else /}
+        {/volist} {else /}
         <tr>
             <td colspan="10">
                 <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>

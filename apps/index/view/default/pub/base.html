@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>首页欢迎页面</title>
-<meta name="keywords" content="关键字" />
-<meta name="description" content="描述" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>首页欢迎页面</title>
+    <meta name="keywords" content="关键字" />
+    <meta name="description" content="描述" />
+{insert name="reset,common" /}
+{__ASSETS_CSS__}
+{insert name="jquery-1.9.1.min" type="js" /}
 </head>
+
 <body>
-	<!-- 页头 -->
-	<div class="header">
-		<div class="header-inner"></div>
-	</div>
-	<!-- 正文 -->
-	<div class="container"></div>
-	<!-- 页脚 -->
-	<div class="footer">
-		<div class="footer-inner"></div>
-	</div>
+    {block name="header"}{/block}
+    {block name="body"}{/block}
+    {block name="footer"}{/block}
+    <!-- 页头 -->
+    <div class="header">
+        <div class="header-inner"></div>
+    </div>
+    <!-- 正文 -->
+    <div class="container"></div>
+    <!-- 页脚 -->
+    <div class="footer">
+        <div class="footer-inner"></div>
+    </div>
+    {__ASSETS_JS__}
 </body>
+
 </html>
