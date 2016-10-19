@@ -6,18 +6,50 @@ use think\Request;
  * 模块共用空控制器
  */
 class Error extends \think\Controller {
-	public function index(Request $request) {
-		if (APP_DEBUG) {
-			//根据当前控制器名来判断要执行那个城市的操作
-			$controllerName = $request->controller();
-			$actionName     = $request->action();
-			// 使用think自带异常类抛出异常
-			$errstr = "无法找到控制器:{$controllerName}/{$actionName}";
-			throw new \think\Exception($errstr, 100006);
-		} else {
-			$this->assign('static_dir', STATIC_DIR);
-			return $this->fetch(APP_PATH . 'common/view/404.html');
+	public function _empty() {
+		$this->index();
+	}
+	public function index() {
+		//不存在的控制器就当成插件去调用
+		//根据当前控制器名来判断要执行那个城市的操作
+		$controllerName = request()->controller();
+		$actionName     = request()->action();
+		/**
+		 * 找不到的控制器就当成是扩展来加载
+		 * @var string
+		 */
+		$name = "\\addons\\" . strtolower($controllerName) . "\\" . ucfirst($controllerName);
+		if (strtolower(request()->module()) == 'admin') {
+			$name .= "Admin";
 		}
+		$cpath = SITE_PATH . $name . '.php';
+		if (file_exists($cpath)) {
+			include $cpath;
+			if (class_exists($name)) {
+				$addon = new $name();
+				if (method_exists($addon, $actionName)) {
+					$addon->$actionName();
+					// exit();
+				} else {
+					$errstr = "无法找到插件类{$controllerName}的方法:{$actionName}";
+					throw new \think\Exception($errstr, 100006);
+				}
+			} else {
+				$errstr = "无法找插件类:{$controllerName}";
+				throw new \think\Exception($errstr, 100006);
+			}
+
+		} else {
+			if (APP_DEBUG) {
+				// 使用think自带异常类抛出异常
+				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
+				throw new \think\Exception($errstr, 100006);
+			} else {
+				$this->assign('static_dir', STATIC_DIR);
+				return $this->fetch(APP_PATH . 'common/view/404.html');
+			}
+		}
+
 	}
 
 }

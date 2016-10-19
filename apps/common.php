@@ -671,3 +671,18 @@ function reg_js($name = '', $ys = true) {
 function reg_initjs($jsstr) {
 	$jsstr && \assets\Assets::getInstance()->registerInitJs($jsstr);
 }
+/**
+ * 输出一个小挂件
+ * @return [type] [description]
+ */
+function widget($name = '', $args = []) {
+	$name = explode('/', $name);
+	$obj  = controller('widget.' . $name[0], 'controller');
+	if (method_exists($obj, $name[1])) {
+		echo call_user_func_array([$obj, $name[1]], $args);
+	} else {
+		$errstr = "方法不存在:{$name[1]}";
+		throw new \think\Exception($errstr, 100006);
+	}
+
+}

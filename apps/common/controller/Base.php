@@ -26,6 +26,11 @@ class Base extends Controller {
 		//初始化系统配置
 		config(get_sys_config());
 		// dump(config(''));
+		// $map = [
+		// 	'think\Log'      => LIB_PATH . 'think\Log.php',
+		// 	'org\util\array' => LIB_PATH . 'org\util\Array.php',
+		// ];
+		// Loader::addClassMap($map);
 	}
 	/**
 	 * 验证码
