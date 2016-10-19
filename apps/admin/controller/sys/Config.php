@@ -16,7 +16,7 @@ class Config extends Base {
 		//取上传目录大小
 		$uploadsize = cache('uploadsize');
 
-		if (request()->isPost()) {
+		if (request()->isAjax()) {
 			if (empty($runsize)) {
 				$runsize = (get_dir_size(RUNTIME_PATH) / 1000) . 'k';
 				cache('runsize', $runsize);

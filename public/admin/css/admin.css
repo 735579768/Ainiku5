@@ -820,15 +820,16 @@ input[type="checkbox"]:disabled:after {
  * widget块的样式
  */
 .widget {
-    transition: all .3s;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    -o-transition: all .3s;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-o-transition: all .3s;
 	display: inline-block;
 	margin: 10px 0px 0px 10px;
 	box-shadow: 2px 2px 4px #ccc;
 }
-.widget:hover{
+
+.widget:hover {
 	box-shadow: 2px 2px 60px #ccc;
 }
 
@@ -850,4 +851,9 @@ input[type="checkbox"]:disabled:after {
 	display: block;
 	clear: both;
 }
-.widget td{padding:5px 10px!important;text-align: left!important;}
+
+.iframe-con .widget td,
+.widget td {
+	padding: 5px 10px;
+	text-align: left;
+}
