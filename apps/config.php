@@ -250,7 +250,7 @@ return [
 
 	//运行过程中生成的资源缓存路径
 	'greate_cache_path'      => [
-		'jscss'    => '/data/scache',
-		'imgcache' => '/data/imgcache',
+		'jscss'    => DATA_DIR . '/scache',
+		'imgcache' => DATA_DIR . '/imgcache',
 	],
 ];

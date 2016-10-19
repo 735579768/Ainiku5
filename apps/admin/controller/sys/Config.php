@@ -7,6 +7,44 @@ class Config extends Base {
 	 * @return [type] [description]
 	 */
 	public function index() {
+		//取运行缓存目录大小
+		$runsize = cache('runsize');
+		//取jscss缓存目录大小
+		$jscsssize = cache('jscsssize');
+		//取图片缩略图缓存目录大小
+		$imagesize = cache('imagesize');
+		//取上传目录大小
+		$uploadsize = cache('uploadsize');
+
+		if (request()->isPost()) {
+			if (empty($runsize)) {
+				$runsize = (get_dir_size(RUNTIME_PATH) / 1000) . 'k';
+				cache('runsize', $runsize);
+			}
+
+			if (empty($jscsssize)) {
+				$jscsssize = (get_dir_size(SITE_PATH . config('greate_cache_path.jscss')) / 1000) . 'k';
+				cache('jscsssize', $jscsssize);
+			}
+
+			if (empty($imagesize)) {
+				$imagesize = (get_dir_size(SITE_PATH . config('greate_cache_path.imgcache')) / 1000) . 'k';
+				cache('imagesize', $imagesize);
+			}
+
+			if (empty($uploadsize)) {
+				$uploadsize = (get_dir_size(SITE_PATH . config('file_upload.rootPath')) / 1000) . 'k';
+				cache('uploadsize', $uploadsize);
+			}
+			$this->success('查询成功!');
+		}
+
+		$this->assign([
+			'runsize'    => $runsize,
+			'uploadsize' => $uploadsize,
+			'jscsssize'  => $jscsssize,
+			'imagesize'  => $imagesize,
+		]);
 		return $this->fetch();
 	}
 	public function group() {

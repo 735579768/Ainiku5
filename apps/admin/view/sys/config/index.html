@@ -1,5 +1,60 @@
 {extend name="pub/base-iframe" /} {block name="center"}
 <div class="iframe-con">
 {:widget('sysinfo/sinfo')}
+<div class="widget">
+    <div class="title">路径信息</div>
+    <div class="con">
+        <table>
+            <tr>
+                <td>缓存路径</td>
+                <td>{$Think.const.DATA_DIR}</td>
+            </tr>
+            <tr>
+                <td>上传路径</td>
+                <td>{:config('file_upload.rootPath')}</td>
+            </tr>
+            <tr>
+                <td>运行缓存大小</td>
+                <td>{$runsize|default=0}</td>
+            </tr>
+            <tr>
+                <td>图片缓存大小</td>
+                <td>{$imagesize|default=0}</td>
+            </tr>
+            <tr>
+                <td>JSSCSS压缩缓存大小</td>
+                <td>{$jscsssize|default=0}</td>
+            </tr>
+            <tr>
+                <td>上传目录大小</td>
+                <td>{$uploadsize|default=0}
+                </td>
+            </tr>
+            <tr>
+            	<td colspan="2">
+            		<a data-url="{:url('index')}" class="btn" href="javascript:;" id="checksize">重新查询</a>
+            	</td>
+            </tr>
+        </table>
+    </div>
 </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+		//查询上传目录大小
+		$('#checksize').bind('click',function(){
+			var _t=$(this);
+			$.post($(this).attr('data-url'), {}, function(data, textStatus, xhr) {
+				ank.alert(data,function(){
+					if(data.code){
+						location.reload();
+					}
+				});
+			});
+			var da={code:1,url:'',norefresh:1,msg:'请求已经发送请稍后刷新查看'};
+			ank.alert(da);
+			return false;
+			});
+		});
+</script>
 {/block}

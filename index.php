@@ -17,9 +17,9 @@ define('APP_DEBUG', true);
 define('APP_PATH', __DIR__ . '/apps/');
 // 绑定当前访问到模块
 define('BIND_MODULE', 'admin');
-
+define('DATA_DIR', '/data');
 //应用运行时目录
-define('RUNTIME_PATH', SITE_PATH . '/data/runtime/');
+define('RUNTIME_PATH', SITE_PATH . DATA_DIR . '/runtime/');
 //扩展目录位置
 define('EXTEND_PATH', SITE_PATH . '/vendor/extend/');
 define('STATIC_DIR', '/public');

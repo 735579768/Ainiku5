@@ -398,6 +398,9 @@ function del_all_file($fpath, $delself = false, $delfolder = true) {
  *检测目录大小
  */
 function get_dir_size($dir) {
+	if (!file_exists($dir)) {
+		return 0;
+	}
 	$sizeResult = 0;
 	$handle     = opendir($dir); //打开文件流
 	while (false !== ($FolderOrFile = readdir($handle))) //循环判断文件是否可读
@@ -423,20 +426,6 @@ function create_folder($path) {
 	} else {
 		return true;
 	}
-}
-/**
- *把路径格式化为本地文件的绝对路径
- */
-function path_a($path) {
-	$path = str_replace(array('\\', './', SITE_PATH), array('/', '/', ''), $path);
-	return SITE_PATH . $path;
-}
-/**
- *把路径格式化为相对于网站根目录的路径
- */
-function path_r($path) {
-	$path = str_replace(array('\\', './', SITE_PATH), array('/', '/', ''), $path);
-	return $path;
 }
 /**
  * 获取图片
@@ -523,7 +512,7 @@ function find_file_path($filename = '') {
 		$filepath = $value . '/' . $filename;
 		// \Think\Log::write($filepath, 'WARN');
 
-		if (file_exists(path_a($filepath))) {
+		if (file_exists('.' . $filepath)) {
 			return $filepath;
 		}
 	}
@@ -541,15 +530,15 @@ function file_ismod($filepath) {
 	}
 	$rebool = false;
 	foreach ($filearr as $val) {
-		$sval = path_a($val);
-		// $modtime = date('Y-m-d h:i:s', filemtime($sval));
-		$modtime = filemtime($sval);
+		$val = '.' . $val;
+		// $modtime = date('Y-m-d h:i:s', filemtime($val));
+		$modtime = filemtime($val);
 		if ($modtime) {
 			$path     = str_replace(array('/', '\\'), array('_'), $val);
 			$key      = '_modfile/' . $path;
 			$modstime = cache($key);
 			if ($modtime !== $modstime['time']) {
-				cache($key, ['time' => $modtime, 'path' => $sval]);
+				cache($key, ['time' => $modtime, 'path' => $val]);
 				$rebool = true;
 			}
 		}
