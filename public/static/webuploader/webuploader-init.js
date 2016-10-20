@@ -575,9 +575,14 @@ if (typeof console == 'undefined') {
                     // debugger;
                     var da = data.data;
                     if (da.length > 0) {
+                        var idstr = '';
                         for (a in da) {
                             _t.addImg(null, imglistId, da[a], uploaderType);
+                            idstr += idstr ? (',' + da[a]['id']) : da[a]['id'];
                         }
+                        $(valId).val(idstr);
+                    } else {
+                        $(valId).val('');
                     }
                     layer.photos({
                         shade: 0.01,

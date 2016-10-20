@@ -22,22 +22,34 @@ am.extend({
 	 * @return {[type]} [description]
 	 */
 	domDeleteImg: function(dom) {
+		var _tt = this;
 		var _t = $(dom);
-		var id = _t.attr('data-id');
-		this.deleteImg(id);
-		var item = _t.parents('.uploaded-imgitem');
-		var inp = item.parent().next();
-		item.remove();
-		debugger;
-		var va = inp.val();
-		va = va.split(',');
-		for (a in va) {
-			if (va[a] == id) {
-				va.splice(a, 1);
+		layer.confirm('确定 "<span style="color:red;">删除图片</span>" 吗?', {
+			title: false,
+			closeBtn: false,
+			shade: 0.01,
+			btn: ['确定', '取消']
+		}, function(index) {
+			var id = _t.attr('data-id');
+			_tt.deleteImg(id);
+			var item = _t.parents('.uploaded-imgitem');
+			var inp = item.parent().next();
+			item.remove();
+			// debugger;
+			var va = inp.val();
+			va = va.split(',');
+			for (a in va) {
+				if (va[a] == id) {
+					va.splice(a, 1);
+				}
 			}
-		}
-		va = va.join(',');
-		inp.val(va);
+			va = va.join(',');
+			inp.val(va);
+			layer.close(index);
+		});
+
+
+
 	},
 	/**
 	 * 删除图片管理中的图片
