@@ -51,15 +51,8 @@ class Config extends Base {
 		if (request()->isPost()) {
 			$data     = input('param.');
 			$sys_conf = get_sys_config();
-			// foreach ($data as $key => $value) {
-			// 	if(isset($sys_conf[$key])){
-			// 		$sys_conf[$key]=$value;
-			// 	}else{
-			// 		$sys_conf[$key]=$value;
-			// 	}
-			// }
-			$data   = json_encode(array_merge($sys_conf, $data));
-			$result = model('Config')
+			$data     = json_encode(array_merge($sys_conf, $data));
+			$result   = model('Config')
 				->isUpdate(true)
 				->save(['value' => $data], ['config_id' => 1]);
 			cache('sys_config', $data);
