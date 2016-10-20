@@ -2,9 +2,19 @@
 <div class="iframe-con">
     <!--主标题-->
     {include file="pub/main-title" /}
-    <div class="form-block">
+    <div id="formnav" class="form-block">
+        <div class="tab">
+        <ul id="formnav" class="tabnavblock cl">
+           {foreach name=":config('systemstatus.tab')" item="vo"}
+           {if condition="$key gt 1"}
+                <li class="tabnav"><a href="{:url('group',['tab_id'=>$key])}">{$vo}</a></li>
+            {/if}
+                {/foreach}
+
+        </ul>
+    </div>
         <form class="autosubmit" action="{:url('')}" method="post">
-            {:get_form('Config',$data)}
+            {:get_form($formarr,$data)}
             <div class="form-group cl center">
 
                 <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
@@ -12,6 +22,23 @@
                 </a>
             </div>
         </form>
+
     </div>
 </div>
+    <script type="text/javascript">
+    $(function() {
+        $('#formnav a').each(function(index, el) {
+            var pa = window.location.pathname;
+            var p = $(this).attr('href');
+            p = p.replace(/http\:\/\/.*?\//ig, '/');
+            if (pa == p) {
+                $(this).parent().addClass('hover');
+            }
+        });
+        // debugger;
+        if (!$('#formnav li.hover').length) {
+            $('#formnav li:first').addClass('hover');
+        }
+    });
+    </script>
 {/block}

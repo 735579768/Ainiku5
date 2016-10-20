@@ -49,7 +49,16 @@ class Config extends Base {
 	}
 	public function group() {
 		if (request()->isPost()) {
-			$data   = json_encode(input('post.'));
+			$data     = input('param.');
+			$sys_conf = get_sys_config();
+			// foreach ($data as $key => $value) {
+			// 	if(isset($sys_conf[$key])){
+			// 		$sys_conf[$key]=$value;
+			// 	}else{
+			// 		$sys_conf[$key]=$value;
+			// 	}
+			// }
+			$data   = json_encode(array_merge($sys_conf, $data));
 			$result = model('Config')
 				->isUpdate(true)
 				->save(['value' => $data], ['config_id' => 1]);
@@ -57,10 +66,18 @@ class Config extends Base {
 			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
 			// dump(config(''));
+			$map['tab_id'] = input('param.tab_id', 3);
+			$list          = \think\Db::name('FormItem')
+				->where($map)
+				->select();
 			define('show_mark', true);
-			$this->assign('meta_title', '系统配置');
+
 			$data = get_sys_config();
-			$this->assign('data', $data);
+			$this->assign([
+				'meta_title' => '系统配置',
+				'formarr'    => $list,
+				'data'       => $data,
+			]);
 			return $this->fetch();
 		}
 

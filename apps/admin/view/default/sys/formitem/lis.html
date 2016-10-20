@@ -12,9 +12,10 @@
     </div>
     <div class="tab">
         <ul id="formnav" class="tabnavblock cl">
-            <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0)])}">全部</a> {foreach name=":config('systemstatus.tab')" item="vo"}
-                <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0),'tab_id'=>$key])}">{$vo}</a></li>
-                {/foreach}
+            <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0)])}">全部</a></li>
+            {foreach name=":config('systemstatus.tab')" item="vo"}
+            <li class="tabnav"><a href="{:url('lis',['form_id'=>input('param.form_id'),'page'=>input('param.page',0),'tab_id'=>$key])}">{$vo}</a></li>
+            {/foreach}
         </ul>
     </div>
     <script type="text/javascript">
