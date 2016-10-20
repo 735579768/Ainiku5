@@ -46,7 +46,7 @@ eot;
 	 */
 	public function sendEmailBtn() {
 		return [
-			'str' => '<input name="' . $this->_name . '" value="' . $this->_value . '" /><a class="btn" href="javascript:;">点击发送测试邮件</a>
+			'str' => '<a class="btn" onclick="am.ajaxHref(this);" data-url="' . url('sys.notice/testEmail') . '" href="javascript:;">点击发送测试邮件</a>
 ',
 			'js'  => '',
 		];

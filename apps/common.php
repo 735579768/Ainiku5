@@ -675,3 +675,138 @@ function widget($name = '', $args = []) {
 	}
 
 }
+/*
+ *功能：发送邮件
+ *@param:$to     要发送的目标邮箱
+ *@param:$$subject          邮件的主题
+ *@param:$body              邮件的主体内容
+ *@param:FromName           发送人的用户名(昵称)
+ *@param:toname             接收人的用户名(昵称)
+ *@param:extra_msg          附加信息(可为空)
+ */
+
+function send_mail($conf = array()) {
+	//ini_set("memory_limit","100M");
+	$to         = isset($conf['toemail']) ? $conf['toemail'] : '';
+	$subject    = isset($conf['subject']) ? $conf['subject'] : '';
+	$body       = isset($conf['body']) ? $conf['body'] : '';
+	$fromname   = isset($conf['fromname']) ? $conf['fromname'] : config('mail_smtp_fromname'); //来源名称
+	$toname     = isset($conf['toname']) ? $conf['toname'] : '';
+	$extra_msg  = isset($conf['extra_msg']) ? $conf['extra_msg'] : '';
+	$host       = isset($conf['host']) ? $conf['host'] : '';
+	$port       = isset($conf['port']) ? $conf['port'] : '';
+	$uname      = isset($conf['username']) ? $conf['username'] : '';
+	$pwd        = isset($conf['password']) ? $conf['password'] : '';
+	$attachment = isset($conf['attachment']) ? $conf['attachment'] : '';
+	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : config('mail_smtp_frommail'); //来源邮箱
+
+	$host  = empty($host) ? config('mail_smtp_host') : $host;
+	$port  = empty($port) ? config('mail_smtp_port') : $port;
+	$uname = empty($uname) ? config('mail_smtp_user') : $uname;
+	$pwd   = empty($pwd) ? config('mail_smtp_pwd') : $pwd;
+
+	$fromname = empty($fromname) ? $uname : $fromname;
+	$body     = empty($body) ? config('mail_smtp_test') : $body;
+	// $body     = to_utf8($body);
+
+	if (empty($uname)) {
+		return '收件人邮箱不能为空';
+	}
+
+	if (empty($host)) {
+		return '主机址不能为空';
+	}
+
+	if (empty($body)) {
+		return '邮件内容不能为空';
+	}
+
+	if (empty($pwd)) {
+		return '密码不能为空';
+	}
+	if (empty($fromemail)) {
+		return '来源邮箱不能为空';
+	}
+
+	// import('Ainiku.PHPMailer');
+	$mail = new \ank\PHPMailer();
+
+	$mail->SMTPDebug = 0; // 关闭SMTP调试功能
+	$mail->IsSMTP(); // send via SMTP
+	$mail->Host     = $host; // SMTP servers
+	$mail->SMTPAuth = true; // turn on SMTP
+	$mail->Username = $uname; // SMTP username
+	$mail->Password = $pwd; // SMTP password
+	$mail->From     = $fromemail; // 发件人邮箱
+	$mail->FromName = $fromname; // 发件人
+	$mail->CharSet  = "utf-8"; // 这里指定字符集！
+	$mail->Encoding = "base64";
+	$mail->AddAddress($to, $toname); // 收件人邮箱和姓名
+	$mail->IsHTML(true); // send as HTML
+	//$mail->SMTPSecure = 'ssl';   // 使用安全协议用qq邮箱时要用
+	$mail->Subject  = $subject; // 邮件主题
+	$mail->Body     = $body;
+	$mail->WordWrap = 50; // set word wrap 换行字数
+	$mail->AltBody  = "text/html";
+	$mail->AddReplyTo($fromemail, $fromname); //快捷回复
+	if (!empty($attachment)) {
+		$mail->AddAttachment($attachment);
+	}
+	//$mail->AddAttachment("sendmail.rar");     // attachment 附件
+	//$mail->AddAttachment("psd.jpg", "psd.jpg");  //添加一个附件并且重命名
+
+	if (!$mail->Send()) {
+		return APP_DEBUG ? $mail->ErrorInfo : '邮件发送错误!';
+	} else {
+		return true;
+	}
+}
+/**
+ *把字符串转成utf8如果本身就是utf8的话原样返回
+ *
+ **/
+function is_utf8($str) {
+	$len = strlen($str);
+	for ($i = 0; $i < $len; $i++) {
+		$c = ord($str[$i]);
+		if ($c > 128) {
+			if (($c > 247)) {
+				return false;
+			} elseif ($c > 239) {
+				$bytes = 4;
+			} elseif ($c > 223) {
+				$bytes = 3;
+			} elseif ($c > 191) {
+				$bytes = 2;
+			} else {
+				return false;
+			}
+
+			if (($i + $bytes) > $len) {
+				return false;
+			}
+
+			while ($bytes > 1) {
+				$i++;
+				$b = ord($str[$i]);
+				if ($b < 128 || $b > 191) {
+					return false;
+				}
+
+				$bytes--;
+			}
+		}
+	}
+	return true;
+}
+/**
+ *把字符串转成utf
+ *
+ **/
+function to_utf8($str = null) {
+	if (is_utf8($str)) {
+		return $str;
+	} else {
+		return iconv('gbk', 'utf-8', $str);
+	}
+}

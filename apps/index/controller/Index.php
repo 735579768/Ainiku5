@@ -7,6 +7,28 @@ class Index extends Base {
 		// $this->view->config('view_path', 'default');
 		// dump(config(''));
 		// dump(get_article_list());
+
+		// $conf = array(
+		// 	'host'      => config('mail_smtp_host'),
+		// 	'port'      => config('mail_smtp_port'),
+		// 	'username'  => config('mail_smtp_user'),
+		// 	'password'  => config('mail_smtp_pwd'),
+
+		// 	'fromname'  => config('mail_smtp_fromname'), //发件人
+		// 	'fromemail' => config('mail_smtp_fromemail'),
+		// 	'toemail'   => config('mail_smtp_receiveemail'),
+		// 	'toname'    => config('mail_smtp_receiveemail'),
+		// 	'subject'   => config('mail_smtp_subject'), //主题标题
+
+		// 	'body'      => config('mail_smtp_test'), //邮件内容
+		// );
+		// dump($conf);
+		// $result = send_mail($conf);
+		// if ($result === true) {
+		// 	echo 'send mail success';
+		// } else {
+		// 	echo $result;
+		// }
 		return $this->fetch();
 	}
 }
