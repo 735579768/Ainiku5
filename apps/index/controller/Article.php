@@ -23,11 +23,9 @@ class Article extends Base {
 
 		$category = get_category($info['category_id']);
 		$tpl      = empty($category['detail_tpl']) ? 'detail' : $category['detail_tpl'];
-
-		M('Article')->where("article_id=$article_id")->setInc('views');
+		$info     = get_article($article_id);
 		$this->assign('arcinfo', $info);
 		$this->assign('category', $category);
 		$this->display($tpl);
-		return $this->fetch();
 	}
 }

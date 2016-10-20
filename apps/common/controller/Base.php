@@ -25,6 +25,28 @@ class Base extends Controller {
 		parent::_initialize();
 		//初始化系统配置
 		config(get_sys_config());
+		//加上模板主题的支持
+		$theme  = 'default';
+		$module = request()->module();
+		if ($module == 'admin') {
+			$theme = config('admin_theme');
+		} else {
+			$theme = config('admin_index');
+		}
+		$theme || ($theme = 'default');
+		$tpl_path = APP_PATH . $module . '/view/';
+		$this->view->config('view_path', $tpl_path . $theme . DS);
+		//替换模板中的字符串
+		$replace_str = [
+			'__STATIC__' => STATIC_DIR . '/static',
+			'__IMG__'    => STATIC_DIR . '/' . $module . '/' . $theme . '/images',
+			'__CSS__'    => STATIC_DIR . '/' . $module . '/' . $theme . '/css',
+			'__JS__'     => STATIC_DIR . '/' . $module . '/' . $theme . '/js',
+		];
+		$this->view->config('tpl_replace_string', $replace_str);
+		config('view_replace_str', $replace_str);
+
+		// dump(config('view_replace_str'));
 		// dump(config(''));
 		// $map = [
 		// 	'think\Log'      => LIB_PATH . 'think\Log.php',

@@ -7,7 +7,7 @@ return [
 	// | 会话设置
 	// +----------------------------------------------------------------------
 
-	'session'          => [
+	'session' => [
 		'id'             => '',
 		// SESSION_ID的提交变量,解决flash上传跨域
 		'var_session_id' => '',
@@ -22,7 +22,7 @@ return [
 	// +----------------------------------------------------------------------
 	// | Cookie设置
 	// +----------------------------------------------------------------------
-	'cookie'           => [
+	'cookie'  => [
 		// cookie 名称前缀
 		'prefix'    => 'ank_admin_',
 		// cookie 保存时间
@@ -39,12 +39,12 @@ return [
 		'setcookie' => true,
 	],
 	// 视图输出字符串内容替换
-	'view_replace_str' => [
-		'__STATIC__' => STATIC_DIR . '/static',
-		'__IMG__'    => STATIC_DIR . '/admin/images',
-		'__CSS__'    => STATIC_DIR . '/admin/css',
-		'__JS__'     => STATIC_DIR . '/admin/js',
-	],
+	// 'view_replace_str' => [
+	// 	'__STATIC__' => STATIC_DIR . '/static',
+	// 	'__IMG__'    => STATIC_DIR . '/admin/default/images',
+	// 	'__CSS__'    => STATIC_DIR . '/admin/default/css',
+	// 	'__JS__'     => STATIC_DIR . '/admin/default/js',
+	// ],
 	//后台菜单
 	// 'admin_custom_menu' => [
 	// 	'默认' => [

@@ -12,7 +12,7 @@
 // \think\Route::domain('ainiku5.loc', 'admin');
 return [
 	//域名绑定
-	'__domain__'         => [
+	'__domain__'          => [
 		''     => 'admin',
 		//后台
 		'user' => 'admin',
@@ -22,7 +22,7 @@ return [
 		// '*.user' => 'user',
 		// '*'      => 'book',
 	],
-	'__pattern__'        => [
+	'__pattern__'         => [
 		'name' => '\w+',
 	],
 	// '[hello]'               => [
@@ -30,9 +30,11 @@ return [
 	// 	':name' => ['index/hello', ['method' => 'post']],
 	// ],
 
-	'/'                  => 'index', // 首页访问路由
-	'detail/:article_id' => 'article/detail', // 静态地址路由
-	'gdetail/:goods_id'  => 'goods/detail', // 静态地址路由
+	'/'                   => 'index', // 首页访问路由
+	'alist/:category_id'  => 'article/index',
+	'glist/:category_id'  => 'goods/index',
+	'adetail/:article_id' => 'article/detail', // 静态地址路由
+	'gdetail/:goods_id'   => 'goods/detail', // 静态地址路由
 	// 'blog/:id'              => 'blog/read', // 静态地址和动态地址结合
 	// 'new/:year/:month/:day' => 'news/read', // 静态地址和动态地址结合
 	// ':user/:blog_id'        => 'blog/read', // 全动态地址
