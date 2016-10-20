@@ -144,6 +144,9 @@
 				}
 			}
 			return cookieValue;
+		},
+		errImg: function(dom) {
+			dom.src = '/public/static/images/default.png';
 		}
 	};
 }(window);

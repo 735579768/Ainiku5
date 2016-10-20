@@ -549,7 +549,7 @@ if (typeof console == 'undefined') {
         addImg: function(valId, imglistId, da, uploaderType) {
             var imglist = $(imglistId);
             var valobj = $(valId);
-            var str = "<div class='uploaded-imgitem'><div class='uploaded-imgbox'><div class='uploaded-imgpre'><img title='" + da['destname'] + "' layer-pid='" + da['destname'] + "' layer-src='" + da['path'] + "' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' onclick='am.domDeleteImg(this);' data-id='" + da['id'] + "'  >删除</a></div>";
+            var str = "<div class='uploaded-imgitem'><div class='uploaded-imgbox'><div class='uploaded-imgpre'><img onerror='ank.errImg(this);' title='" + da['destname'] + "' layer-pid='" + da['destname'] + "' layer-src='" + da['path'] + "' src='" + da['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' onclick='am.domDeleteImg(this);' data-id='" + da['id'] + "'  >删除</a></div>";
             // debugger;
             if (uploaderType) {
                 if (valId) {
