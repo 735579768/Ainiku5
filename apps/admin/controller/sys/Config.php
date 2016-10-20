@@ -70,6 +70,7 @@ class Config extends Base {
 				'meta_title' => '系统配置',
 				'formarr'    => $list,
 				'data'       => $data,
+				'tab_id'     => $map['tab_id'],
 			]);
 			return $this->fetch();
 		}

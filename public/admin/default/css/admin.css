@@ -564,7 +564,6 @@ input[type="checkbox"]:disabled:after {
 	border: 1px solid transparent;
 	border-top-width: 2px;
 }
-
 .tab .tabnav.hover a {
 	border-color: #44b549 #e0e0e0 #fff;
 	border-bottom-color: #fff;
