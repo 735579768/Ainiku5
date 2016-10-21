@@ -1,0 +1,45 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <!--authstart-->
+            <a  href="{:url('sys.addon/lis')}"  class="btn">已装插件</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">插件标识</th>
+            <th class="td-time">插件名字</th>
+            <th class="td-time">插件版本</th>
+            <th class="td-time">插件作者</th>
+            <th>插件描述</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr >
+            <td class="td-left">{$vo.name}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-left">{$vo.version}</td>
+            <td class="td-left">{$vo.author}</td>
+            <td class="td-left">{$vo.descr}</td>
+            <td class="td-btn">
+                <!--authstart-->
+                <a href="{:url('sys.addon/install',['name'=>$vo['name']])}" class="btn">安装</a>
+                <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="8">
+                <div class="empty-str">啊哦，没有已经安装的插件! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+</div>
+{/block}

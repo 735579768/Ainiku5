@@ -1,0 +1,54 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <!--authstart-->
+            <a  href="{:url('sys.addon/install')}"  class="btn">安装插件</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">
+                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
+            </th>
+            <th class="td-id">Id</th>
+            <th>插件标识</th>
+            <th>插件名字</th>
+            <th class="td-time">创建时间</th>
+            <th class="td-time">更新时间</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.addon_id}">
+            <td>
+                <input type="checkbox" class="check-item" value="{$vo.addon_id}" />
+            </td>
+            <td>{$vo.addon_id}</td>
+            <td class="td-left">{$vo.name}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+                <!--authstart-->
+                <a href="{:url('sys.addon/unInstall',['name'=>$vo['name']])}" class="btn btn-warning">卸载</a>
+                <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="8">
+                <div class="empty-str">啊哦，没有已经安装的插件! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

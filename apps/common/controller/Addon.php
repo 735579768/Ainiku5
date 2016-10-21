@@ -5,6 +5,13 @@ namespace app\common\controller;
  * 插件的基类
  */
 class Addon extends \think\Controller {
+	protected $config = array(
+		'version' => '1.0.0',
+		'author'  => '插件作者',
+		'title'   => '插件名字',
+		'descr'   => '插件描述',
+		'param'   => []
+	);
 	// 视图类实例
 	protected $view;
 	// Request实例
@@ -42,4 +49,29 @@ class Addon extends \think\Controller {
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		return $content;
 	}
+	/**
+	 * 获取插件的配置信息
+	 */
+	public function getConfig($name = '') {
+		// $conf = \think\Db::name('Addon')->where(['name' => strtolower(__CLASS__)])->find();
+		// if (!$conf) {
+		// 	return null;
+		// } else {
+		// 	$this->config = $conf;
+		// }
+		if ($name && isset($this->config[$name])) {
+			return $this->config[$name];
+		} else {
+			return $this->config;
+		}
+
+	}
+	//必须实现安装
+	public function install() {}
+
+	//必须卸载插件方法
+	public function unInstall() {}
+
+	//必须插件后台菜单设置
+	public function set() {}
 }
