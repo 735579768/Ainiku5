@@ -761,52 +761,52 @@ function send_mail($conf = array()) {
 		return true;
 	}
 }
-/**
- *把字符串转成utf8如果本身就是utf8的话原样返回
- *
- **/
-function is_utf8($str) {
-	$len = strlen($str);
-	for ($i = 0; $i < $len; $i++) {
-		$c = ord($str[$i]);
-		if ($c > 128) {
-			if (($c > 247)) {
-				return false;
-			} elseif ($c > 239) {
-				$bytes = 4;
-			} elseif ($c > 223) {
-				$bytes = 3;
-			} elseif ($c > 191) {
-				$bytes = 2;
-			} else {
-				return false;
-			}
+// /**
+//  *把字符串转成utf8如果本身就是utf8的话原样返回
+//  *
+//  **/
+// function is_utf8($str) {
+// 	$len = strlen($str);
+// 	for ($i = 0; $i < $len; $i++) {
+// 		$c = ord($str[$i]);
+// 		if ($c > 128) {
+// 			if (($c > 247)) {
+// 				return false;
+// 			} elseif ($c > 239) {
+// 				$bytes = 4;
+// 			} elseif ($c > 223) {
+// 				$bytes = 3;
+// 			} elseif ($c > 191) {
+// 				$bytes = 2;
+// 			} else {
+// 				return false;
+// 			}
 
-			if (($i + $bytes) > $len) {
-				return false;
-			}
+// 			if (($i + $bytes) > $len) {
+// 				return false;
+// 			}
 
-			while ($bytes > 1) {
-				$i++;
-				$b = ord($str[$i]);
-				if ($b < 128 || $b > 191) {
-					return false;
-				}
+// 			while ($bytes > 1) {
+// 				$i++;
+// 				$b = ord($str[$i]);
+// 				if ($b < 128 || $b > 191) {
+// 					return false;
+// 				}
 
-				$bytes--;
-			}
-		}
-	}
-	return true;
-}
-/**
- *把字符串转成utf
- *
- **/
-function to_utf8($str = null) {
-	if (is_utf8($str)) {
-		return $str;
-	} else {
-		return iconv('gbk', 'utf-8', $str);
-	}
-}
+// 				$bytes--;
+// 			}
+// 		}
+// 	}
+// 	return true;
+// }
+// /**
+//  *把字符串转成utf
+//  *
+//  **/
+// function to_utf8($str = null) {
+// 	if (is_utf8($str)) {
+// 		return $str;
+// 	} else {
+// 		return iconv('gbk', 'utf-8', $str);
+// 	}
+// }

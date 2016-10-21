@@ -146,7 +146,7 @@
 			return cookieValue;
 		},
 		errImg: function(dom) {
-			dom.src = '/public/static/images/default.png';
+			dom.src = '/public/static/images/err.png';
 		}
 	};
 }(window);
