@@ -1,0 +1,23 @@
+<style>
+table{ border-collapse:collapse;}
+</style>
+<table  border="0">
+  <tbody>
+    <tr>
+      <td width="60">姓名</td>
+      <td>{$info.name}</td>
+    </tr>
+    <tr>
+      <td>邮箱</td>
+      <td>{$info.email}</td>
+    </tr>
+    <tr>
+      <td>地址</td>
+      <td>{$info.content}</td>
+    </tr>
+    <tr>
+      <td>文章</td>
+      <td><a href="{$Think.config.WEBDOMIN}/Article/{$info['arc_id']}.html" target="_blank">{$Think.config.WEBDOMIN}/Article/{$info['arc_id']}.html</a></td>
+    </tr>
+  </tbody>
+</table>

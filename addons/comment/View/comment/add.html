@@ -1,0 +1,66 @@
+<div  style="clear: both;"></div>
+<div class="comments" style=" margin:0px auto;">
+<div id="comments-form">
+<form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
+<eq name="conf.name" value="1">
+  <div class="form-section">
+    <label class="input-label">名字</label>
+    <input type="text" name="name" id="comments-name" class="auto-label" data-msg="请输入您的名字"  placeholder="名字">
+  </div>
+</eq>
+<eq name="conf.email" value="1">
+    <div class="form-section">
+    <label class="input-label">邮箱</label>
+    <input type="text" name="email" id="comments-email" class="auto-label" data-msg="请输入您的邮箱"  placeholder="邮箱">
+  </div>
+</eq>
+<eq name="conf.url" value="1">
+     <div class="form-section">
+    <label class="input-label">网站地址</label>
+    <input type="text" name="url" id="comments-homeurl"  class="auto-label" data-msg="请输入您的网站地址"  placeholder="网站地址">
+  </div>
+</eq>
+    <div class="form-section">
+    <label class="input-label">留言内容</label>
+    <textarea name="content" id="comments-content" class="auto-label" data-msg="请输入留言内容" placeholder="留言内容"></textarea>
+  </div>
+      <div class="form-section form-verify">
+    <label class="input-label">验证码</label>
+    <input type="text" name="verify" id="verifyimg"  class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
+<div id="verify" class="verifyimg" style="display:inline-block;">
+    <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
+
+    </div>
+
+  </div>
+  <div class="form-section" style="height:50px;border:none;">
+    <span class="email-notify">
+    <input name="email_notify" value="1" type="checkbox" checked="checked" />有回复时邮件通知我
+      </span> <div class="commentsbtn">
+    <input name="arc_id" type="hidden" value="{$arc_id|default=0}" />
+    <input id="commentpid" name="pid" type="hidden" value="0" />
+    <a href="javascript:;" onclick="commentsobj.addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
+    <a href="javascript:;" style="display:none;" class="btn btn-large" id="cancelbtn" onClick="commentsobj.cancelhuifu(this);">取消回复</a>
+    </div>
+  </div>
+</form>
+</div>
+<div id="comments-list" class="comments-list">
+
+</div>
+<php>
+\Ainiku\AssetsManager::getInstance()->registerjs('comments');
+\Ainiku\AssetsManager::getInstance()->registercss('comments');
+</php>
+<script>
+var commentsconf={
+url:"{:UP('Comments/ajaxlist',array('arc_id'=>$arc_id))}",
+name:<eq name="conf.name" value="1">true<else />false</eq>,
+email:<eq name="conf.email" value="1">true<else />false</eq>,
+homeurl:<eq name="conf.url" value="1">true<else />false</eq>
+};
+function _after_func() {
+  $('#verifyimg').click();
+}
+</script>
+</div>

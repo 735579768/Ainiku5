@@ -1,0 +1,30 @@
+<form method="post" class="form-h" action="{:UP('Comments/add')}">
+  <div class="form-group">
+    <label class="form-label"for="exampleInputEmail1">昵称</label>
+    <input type="text" name="name" class="form-control input-middle"  placeholder="输入您的昵称">
+  </div>
+    <div class="form-group">
+    <label class="form-label"for="exampleInputEmail1">邮箱</label>
+    <input type="text" name="email" class="form-control input-middle"  placeholder="输入你的邮箱">
+  </div>
+    <div class="form-group">
+    <label class="form-label"for="exampleInputEmail1">内容</label>
+    <textarea name="content" class="form-control input-large" placeholder="输入内容"></textarea>
+  </div>
+      <div class="form-group">
+    <label class="form-label"for="exampleInputEmail1">验证码</label>
+    <input type="text" name="verify" class="form-control input-middle" placeholder="输入验证码">
+<div id="verify">
+    <img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
+    </div>
+  </div>
+    <div class="form-group center">
+    <input name="article_id" type="hidden" value="{$info.article_id}" />
+    <button type="submit" class="btn btn-large ajax-post">提交评论</button>
+  </div>
+</form>
+<script>
+function  _after_func(){
+	$('#verifyimg').click();
+	}
+</script>

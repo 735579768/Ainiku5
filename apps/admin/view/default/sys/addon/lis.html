@@ -13,9 +13,6 @@
     </div>
     <table width="100%" class="check-wrap">
         <tr class="th">
-            <th class="td-id">
-                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
-            </th>
             <th class="td-id">Id</th>
             <th>插件标识</th>
             <th>插件名字</th>
@@ -26,9 +23,6 @@
         </tr>
         {notempty name="_list"} {volist name="_list" id="vo"}
         <tr id="listitem{$vo.addon_id}">
-            <td>
-                <input type="checkbox" class="check-item" value="{$vo.addon_id}" />
-            </td>
             <td>{$vo.addon_id}</td>
             <td class="td-left">{$vo.name}</td>
             <td class="td-left">{$vo.title}</td>

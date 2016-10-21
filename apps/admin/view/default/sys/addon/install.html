@@ -29,14 +29,14 @@
             <td class="td-left">{$vo.descr}</td>
             <td class="td-btn">
                 <!--authstart-->
-                <a href="{:url('sys.addon/install',['name'=>$vo['name']])}" class="btn">安装</a>
+                <a data-url="{:url('sys.addon/install',['name'=>$vo['name']])}" onclick="am.okAction(this);" class="btn">安装</a>
                 <!--authend-->
             </td>
         </tr>
         {/volist} {else /}
         <tr>
             <td colspan="8">
-                <div class="empty-str">啊哦，没有已经安装的插件! <span class="bq">:(</span></div>
+                <div class="empty-str">啊哦，所有插件都已经安装! <span class="bq">:(</span></div>
             </td>
         </tr>
         {/notempty}

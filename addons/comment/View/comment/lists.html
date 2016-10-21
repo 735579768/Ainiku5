@@ -1,0 +1,68 @@
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:UP('Comments/set')}" class="btn">留言配置</a>
+<a href="{:UP('Comments/del')}" class="btn btn-danger klbatch">批量删除</a>
+<a href="{:UP('Comments/delall')}" class="btn btn-danger ajax-href">全部清空</a>
+<div class="searchform">
+<form class="form-h form-group-h form-tip-hidden" action="{:UP('Comments/lists')}" method="post">
+<div class="form-group">
+<input name="name" type="text" value="{:I('name')}" class="form-control input-mid" placeholder="请输入姓名" />
+</div>
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+        <th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
+		<th width="50" style="text-align:center;">序号</th>
+		<th>姓名</th>
+        <th>内容</th>
+        <th>IP</th>
+        <th>物理地址</th>
+        <th>评论时间</th>
+        <th>显示</th>
+		<th width="120" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+  <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+    <td style="text-align:center;">{$key+1}</td>
+    <td>{$vo.name}</td>
+    <td>{$vo.content|msubstr=###,0,10}</td>
+    <td>{$vo.ip}</td>
+<td>{$vo.location}</td>
+ <td>{$vo.create_time|time_format}</td>
+     <td><span data-table="Comments" data-id="{$vo.id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
+    <td>
+      <a href="javascript:dialogAjax('{:UP('Comments/check?id='.$vo['id'])}','查看留言');" class="btn btn-primary check">查看</a>
+      <a href="{:UP('Comments/del?id='.$vo['id'])}" class="btn btn-danger ajax-list-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<script>
+//$(function(){
+//	$('.check').click(function(e) {
+//        var url=$(this).attr('href');
+//	        $.myMsg.msg({
+//			title:'查看留言',
+//			iframe:url,
+//			width:500,
+//			height:300,
+//			button:false
+//			});	
+//		return false;	
+//    	});
+//	});
+</script>
+<!--content end-->

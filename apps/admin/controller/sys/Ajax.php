@@ -16,7 +16,7 @@ class Ajax extends Base {
 			$map['pid'] = $pid;
 		}
 		$key  = 'sys_childmenu' . $pid;
-		$data = \think\Cache::get($key);
+		$data = \think\Cache::tag('mainchildmenu')->get($key);
 		if (!$data || APP_DEBUG) {
 			$data = [];
 			$list = \think\Db::name('Menu')
@@ -32,7 +32,7 @@ class Ajax extends Base {
 					$data[$group][] = ['title' => $value['title'], 'url' => url($value['url'])];
 				}
 			}
-			\think\Cache::tag('childmenu')->set($key, $data);
+			\think\Cache::tag('mainchildmenu')->set($key, $data);
 		}
 		return $this->success('ok', '', $data);
 	}

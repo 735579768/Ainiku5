@@ -123,7 +123,7 @@ class Base extends Controller {
 	 * @param  array   $header [description]
 	 * @return [type]          [description]
 	 */
-	protected function error($msg = '', $url = '', $data = '', $wait = 3, array $header = []) {
+	protected function error($msg = '', $url = null, $data = '', $wait = 3, array $header = []) {
 		return parent::error($msg, $url, $data, $wait, $header);
 	}
 	/**

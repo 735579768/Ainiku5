@@ -268,7 +268,7 @@ eot;
 				$extra    = parse_extra($extra);
 				// is_array($extra) || ($extra = []);
 				foreach ($extra as $key => $val) {
-					$checkstr = <<<eot
+					$checkstr .= <<<eot
 <label class="form-checkbox">
 	<input type="checkbox" name="{$name}[]" value="{$key}"   {$sel}  />
 	<span title="{$val}">{$val}</span>

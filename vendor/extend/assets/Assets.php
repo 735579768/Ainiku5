@@ -315,6 +315,9 @@ class Assets {
 	 */
 	private function get_dir_list($dir) {
 		$dirArray[] = null;
+		if (!file_exists($dir)) {
+			return [];
+		}
 		if (false != ($handle = opendir($dir))) {
 			$i = 0;
 			while (false !== ($file = readdir($handle))) {

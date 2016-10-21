@@ -72,7 +72,7 @@ class Authrule extends Base {
 			->find();
 		$list && $this->error('请先删除此权限规则下的子权限规则!');
 		//清除掉childmenu标签的数据
-		\think\Cache::clear('childmenu');
+		\think\Cache::clear('mainchildmenu');
 		controller('Data', 'logic')->delete('AuthRule', $auth_rule_id);
 	}
 }

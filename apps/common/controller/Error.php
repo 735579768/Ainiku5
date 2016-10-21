@@ -18,6 +18,18 @@ class Error extends \think\Controller {
 		 * 找不到的控制器就当成是扩展来加载
 		 * @var string
 		 */
+		$info = \think\Db::name('Addon')->field('addon_id')->where('name', strtolower($controllerName))->find();
+		if (!$info) {
+			if (APP_DEBUG) {
+				// 使用think自带异常类抛出异常
+				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
+				throw new \think\Exception($errstr, 100006);
+			} else {
+				$this->assign('static_dir', STATIC_DIR);
+				return $this->fetch(APP_PATH . 'common/view/404.html');
+			}
+		}
+		//插件已经安装的情况
 		$name = "\\addons\\" . strtolower($controllerName) . "\\" . ucfirst($controllerName);
 		if (strtolower(request()->module()) == 'admin') {
 			$name .= "Admin";
@@ -28,7 +40,7 @@ class Error extends \think\Controller {
 			if (class_exists($name)) {
 				$addon = new $name();
 				if (method_exists($addon, $actionName)) {
-					$addon->$actionName();
+					return $addon->$actionName();
 					// exit();
 				} else {
 					$errstr = "无法找到插件类{$controllerName}的方法:{$actionName}";
@@ -40,6 +52,7 @@ class Error extends \think\Controller {
 			}
 
 		} else {
+			//插件已经安装但文件丢失
 			if (APP_DEBUG) {
 				// 使用think自带异常类抛出异常
 				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
