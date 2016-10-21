@@ -1,0 +1,57 @@
+{extend name="pub/base" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <!--authstart-->
+            <a href="{:url('comment/config')}" class="btn">留言配置</a>
+            <!--authend-->
+            <!--authstart-->
+            <a href="javascript:;" data-url="{:url('comment/clearUp')}" onclick="am.okAction(this);" class="btn btn-warning">清空</a>
+            <!--authend-->
+        </div>
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">
+                <input type="checkbox" onclick="am.checkAll(this);" class="check-all" />
+            </th>
+            <th class="td-id">Id</th>
+            <th>标题</th>
+            <th>名字</th>
+            <th class="td-time">留言时间</th>
+            <th class="td-status">状态</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.comment_id}">
+            <td>
+                <input type="checkbox" class="check-item" value="{$vo.comment_id}" />
+            </td>
+            <td>{$vo.comment_id}</td>
+            <td class="td-left">{$vo.title}</td>
+            <td class="td-left">{$vo.name}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td>{$vo.status|get_status}</td>
+            <td class="td-btn">
+                <!--authstart-->
+                <a  href="{:url('comment/check',['comment_id'=>$vo['comment_id']])}"  class="btn">查看</a>
+                <!--authend-->
+                <!--authstart-->
+                <a href="javascript:;" list-id="{$vo.comment_id}" data-url="{:url('comment/delete',['comment_id'=>$vo['comment_id']])}" onclick="am.okAction(this);" class="btn btn-warning">删除</a>
+                <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="8">
+                <div class="empty-str">啊哦，没有信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}

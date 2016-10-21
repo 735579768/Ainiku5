@@ -133,7 +133,7 @@ class Base extends Controller {
 	 */
 	protected function pages($conf = []) {
 		$join          = isset($conf['join']) ? $conf['join'] : [];
-		$table         = isset($conf['table']) ? $conf['table'] : $thier->error('数据表不能为空!');
+		$table         = isset($conf['table']) ? $conf['table'] : $this->error('数据表不能为空!');
 		$table1        = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
 		$whe           = isset($conf['where']) ? $conf['where'] : [];
 		$field         = isset($conf['field']) ? $conf['field'] : '*';

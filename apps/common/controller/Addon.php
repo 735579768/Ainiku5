@@ -125,4 +125,39 @@ class Addon extends \think\Controller {
 	public function set() {
 		echo '此插件没有配置项';
 	}
+	/**
+	 * 分页类
+	 * @param  array  $conf [description]
+	 * @return [type]       [description]
+	 */
+	protected function pages($conf = []) {
+		$join   = isset($conf['join']) ? $conf['join'] : [];
+		$table  = isset($conf['table']) ? $conf['table'] : $this->error('数据表不能为空!');
+		$table1 = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
+		$whe    = isset($conf['where']) ? $conf['where'] : [];
+		$field  = isset($conf['field']) ? $conf['field'] : '*';
+		// $default_order = strtolower($table1 . '_id') . ' desc';
+		$order = isset($conf['order']) ? $conf['order'] : '';
+		$rows  = isset($conf['rows']) ? $conf['rows'] : config('list_rows');
+		$url   = isset($conf['url']) ? $conf['url'] : '';
+		$pobj  = \think\Db::name(ucfirst($table))->alias('a');
+		$join && ($pobj = $pobj->join($join));
+		// //循环where
+		// if ($whe) {
+		// 	foreach ($whe as $key => $value) {
+		// 		$pobj = call_user_func_array([$pobj, 'where'], $value);
+		// 	}
+		// }
+		$list = $pobj
+			->where($whe)
+			->field($field)
+			->order($order)
+			// ->fetchSql()
+			->paginate($rows);
+		// echo $list;
+		// 获取分页显示
+		$page = $list->render();
+		$this->assign('_list', $list);
+		$this->assign('_page', $page);
+	}
 }

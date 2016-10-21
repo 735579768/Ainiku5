@@ -57,7 +57,7 @@ function time_format($time = NULL, $format = 'Y-m-d H:i:s') {
 	if (preg_match('/\d{1,4}[^\d]+\d{1,2}[^\d]+\d{1,2}(\s+\d{1,2}[^\d]+\d{1,2}[^\d]+\d{1,2})?/', $time)) {
 		return $time;
 	} else {
-		$time = $time === NULL ? NOW_TIME : intval($time);
+		$time = $time === NULL ? time() : intval($time);
 		return date($format, $time);
 	}
 }
