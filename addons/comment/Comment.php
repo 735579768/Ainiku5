@@ -25,7 +25,7 @@ class Comment extends \app\common\controller\Addon {
 		} else {
 			$this->assign('_list', $list);
 			$this->_page = preg_replace('/href\=\"(.*?)\"/i', 'href="javascript:;" data-url="$1"', $this->_page);
-			$info        = $this->fetch('ajaxlist');
+			$info        = $this->fetch('index_ajaxlist');
 			$this->ajaxreturn(array('status' => 1, 'data' => $info));
 		}
 		die();
@@ -41,13 +41,13 @@ class Comment extends \app\common\controller\Addon {
 		if (empty($list)) {
 			echo '';
 		} else {
-			echo $this->fetch('tree');
+			echo $this->fetch('index_tree');
 		}
 
 	}
 	public function add($arc_id = 0) {
 
-		if (IS_POST) {
+		if (request()->isPost()) {
 			$verify = input('verify');
 			if (empty($verify)) {$this->error('请输入验证码!');}
 			if (!check_verify($verify)) {
@@ -78,16 +78,19 @@ class Comment extends \app\common\controller\Addon {
 				$this->error($model->geterror());
 			}
 		} else {
+			reg_css('addon/comment/css/comment');
+			reg_js('addon/comment/js/comment');
 			//取插件配置参数
-			$conf = cache('plugin_comments');
+			$data = cache('plugin_comment');
 			if (empty($conf) || APP_DEBUG) {
-				$data = M('Addons')->field('param')->where("mark='Comments'")->find();
-				$conf = json_decode($data['param'], true);
-				cache('plugin_comments', $conf);
+				$data = $this->getParam();
+				cache('plugin_comment', $data);
 			}
 			$this->assign('arc_id', $arc_id);
-			$this->assign('conf', $conf);
-			$this->display('add');
+			$this->assign('conf', $data);
+			// dump(\assets\Assets::getInstance());
+			// dump(\assets\Assets::getInstance()->getSource('CSS'));
+			echo $this->fetch('index_add');
 		}
 	}
 	/**
@@ -141,17 +144,5 @@ class Comment extends \app\common\controller\Addon {
 		redirect('http://' . $url);
 		die('');
 	}
-	public function check() {
-		//只允许后台访问
-		if (MODULE_NAME !== 'Admin') {
-			die('');
-		}
 
-		$id = input('get.id');
-		empty($id) && die('ID不能为空');
-		$data = M('PluginComments')->find($id);
-		$this->assign('info', $data);
-		$this->display('check');
-		die();
-	}
 }

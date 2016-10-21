@@ -45,6 +45,7 @@ class Assets {
 			config('view_replace_str.__STATIC__') . '/css',
 			STATIC_DIR . '/' . request()->module() . '/' . config('default_theme'),
 			config('view_replace_str.__STATIC__'),
+			STATIC_DIR,
 		];
 	}
 	/**
@@ -285,6 +286,7 @@ class Assets {
 	private function getFilePath($filename, $type = 'css') {
 		foreach ($this->sourcePath as $value) {
 			$filepath = '.' . "{$value}/{$filename}.{$type}";
+			// trace($filepath);
 			if (file_exists($filepath)) {
 				return $filepath;
 			}
@@ -307,6 +309,7 @@ class Assets {
 				}
 			}
 		}
+		// trace($filename . ' is not find!');
 		return false;
 	}
 	/**

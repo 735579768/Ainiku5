@@ -32,6 +32,9 @@ class Error extends \think\Controller {
 		//插件已经安装的情况
 		$name = "\\addons\\" . strtolower($controllerName) . "\\" . ucfirst($controllerName);
 		if (strtolower(request()->module()) == 'admin') {
+			if (!is_login()) {
+				$this->redirect(url('pub/login'));
+			}
 			$name .= "Admin";
 		}
 		$cpath = SITE_PATH . $name . '.php';
