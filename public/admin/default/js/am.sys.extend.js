@@ -2,6 +2,19 @@
  * am扩展属性
  */
 am.extend({
+	unInstall: function(dom) {
+		var _t = $(dom);
+		layer.confirm('<span style="color:red;">卸载插件会删除插件数据,确认要卸载吗?</span>', {
+			title: false,
+			closeBtn: false,
+			shade: 0.01,
+			btn: ['确定', '取消']
+		}, function(index) {
+			am.ajaxHref(dom);
+			layer.close(index);
+		});
+		return false;
+	},
 	/**
 	 * 删除系统中已经上传的的图片
 	 * @param  {[type]} id [description]

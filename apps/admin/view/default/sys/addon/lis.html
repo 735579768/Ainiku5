@@ -31,7 +31,7 @@
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">
                 <!--authstart-->
-                <a href="{:url('sys.addon/unInstall',['name'=>$vo['name']])}" class="btn btn-warning">卸载</a>
+                <a href="javascript:;" data-url="{:url('sys.addon/unInstall',['name'=>$vo['name']])}" onclick="am.unInstall(this);" class="btn btn-warning">卸载</a>
                 <!--authend-->
             </td>
         </tr>

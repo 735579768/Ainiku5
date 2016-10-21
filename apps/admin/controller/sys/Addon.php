@@ -99,7 +99,7 @@ class Addon extends Base {
 					\think\Db::name('Addon')->where(['addon_id' => $info['addon_id']])->delete();
 					\think\Db::name('Menu')->where(['menu_id' => $info['menu_id']])->delete();
 					\think\Cache::clear('mainchildmenu');
-					$this->success('卸载成功');
+					$this->success('卸载成功', url('lis'));
 				} else {
 					$this->error('卸载失败');
 				}
