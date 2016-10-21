@@ -635,14 +635,20 @@ eot;
 
 	//替换成默认值
 	foreach ($default_value as $key => $value) {
-
-		$setvalue  = $value['value'];
+		// dump('param.' . $key);
+		$setvalue = $value['value'];
+		// dump($setvalue);
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-		if ($setvalue === '') {
-			// dump('param.' . $key);
-			$setvalue = input('param.' . $key);
-		}
+		// if ($setvalue === '') {
+		// 	dump('param.' . $key);
+
+		// }
+		//以url传过来的参数为主覆盖默认值
+		// dump('param.' . $key);
+		// dump($setvalue);
+		$setvalue = input('param.' . $key, $setvalue);
+		// dump($setvalue);
 		// dump('pid:' . input('param.pid'));
 		// dump($key . ':' . $setvalue);
 		$key   = preg_quote($key);

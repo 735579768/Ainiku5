@@ -2,6 +2,10 @@
   Options +FollowSymlinks -Multiviews
   RewriteEngine On
 
+  #把找不到的图片都设置成404图片
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)\.(jpg|gif|png|bmp)$ /public/static/images/err.png [QSA,PT,L]
+
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]

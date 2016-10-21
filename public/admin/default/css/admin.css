@@ -443,6 +443,7 @@ input[type="checkbox"]:disabled:after {
 .c-item {
 	position: relative;
 }
+.c-item dt:hover{background: #f8f8f8;}
 
 .cate-tree .c-inp input {
 	display: inline-block;

@@ -13,7 +13,7 @@ class Category extends Base {
 		$category_type  = input('param.category_type', 'article');
 		$category_title = get_status($category_type, 'category_type');
 		$this->assign([
-			'meta_title'     => $category_title . '分类列表',
+			'meta_title'     => $category_title . '列表',
 			'category_type'  => $category_type,
 			'category_title' => $category_title,
 		]);
@@ -45,7 +45,10 @@ class Category extends Base {
 			}
 			Cache::tag('category')->set('category' . $pid, $list);
 		}
-		$this->assign('_list', $list);
+		$this->assign([
+			'_list'         => $list,
+			'category_type' => $category_type,
+		]);
 		return $this->fetch('tree');
 	}
 	/**
