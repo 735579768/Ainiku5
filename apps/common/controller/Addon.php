@@ -12,14 +12,22 @@ class Addon extends \think\Controller {
 		'descr'   => '插件描述',
 		'param'   => []
 	);
+	private $addonName = ''; //当前的插件标识
 	// 视图类实例
 	protected $view;
 	// Request实例
 	protected $request;
 	public function __construct() {
-		$conf              = \think\Config::get('template');
-		$controllerName    = request()->controller();
-		$conf['view_path'] = SITE_PATH . '/addons/' . $controllerName . '/view/';
+		$name            = get_class($this);
+		$name            = explode('\\', $name);
+		$name            = strtolower($name[count($name) - 1]);
+		$name            = str_replace('admin', '', $name);
+		$this->addonName = $name;
+
+		$conf           = \think\Config::get('template');
+		$controllerName = request()->controller();
+
+		$conf['view_path'] = SITE_PATH . '/addons/' . $name . '/view/';
 		$this->view        = new \think\View($conf, \think\Config::get('view_replace_str'));
 		// 控制器初始化
 		$this->_initialize();
@@ -29,6 +37,7 @@ class Addon extends \think\Controller {
 		parent::_initialize();
 		//初始化系统配置
 		config(get_sys_config());
+
 		$module = request()->module();
 		if ($module == 'admin') {
 			$theme = config('admin_theme');
@@ -60,6 +69,9 @@ class Addon extends \think\Controller {
 	 * @throws Exception
 	 */
 	public function fetch($template = '', $vars = [], $replace = [], $config = [], $renderContent = false) {
+		//更改当前控制器名,为啦查找插件的模板
+		$conName = request()->controller();
+		request()->controller($this->addonName);
 		$content = parent::fetch($template, $vars, $replace, $config, $renderContent);
 		//替换静态资源文件
 		$js      = \assets\Assets::getInstance()->getSource('js');
@@ -68,6 +80,7 @@ class Addon extends \think\Controller {
 		//去空白行
 		$content = preg_replace('/<\!\-\-(.*?)\-\->/i', '', $content);
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
+		request()->controller($conName);
 		return $content;
 	}
 	/**

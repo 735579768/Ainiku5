@@ -676,6 +676,37 @@ function widget($name = '', $args = []) {
 	}
 
 }
+/**
+ * addon插件调用方法
+ */
+function addon($name = '', $args = []) {
+	if (empty($name)) {
+		return null;
+	}
+	$name   = strtolower($name);
+	$name   = explode('/', $name);
+	$method = $name[1];
+	$name   = $name[0];
+
+	$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . '.php';
+	if (file_exists($addon_path)) {
+		include $addon_path;
+		$name = "\\addons\\{$name}\\" . ucfirst($name);
+		return call_user_func_array([new $name(), $method], $args);
+	} else {
+		$errstr = "插件不存在:{$name}";
+		throw new \think\Exception($errstr, 100006);
+	}
+
+	// $obj = controller($name[0], 'widget');
+	// if (method_exists($obj, $name[1])) {
+	// 	echo call_user_func_array([$obj, $name[1]], $args);
+	// } else {
+	// 	$errstr = "方法不存在:{$name[1]}";
+	// 	throw new \think\Exception($errstr, 100006);
+	// }
+
+}
 /*
  *功能：发送邮件
  *@param:$to     要发送的目标邮箱
