@@ -28,11 +28,17 @@ class Addon extends Base {
 			}
 		} else {
 			$dirlist   = get_dir_list(SITE_PATH . '/addons');
-			$addonlist = [];
-			foreach ($dirlist as $key => $value) {
-				$conf         = $this->runAddonMethod($value, 'getConfig');
-				$conf['name'] = $value;
-				$addonlist[]  = $conf;
+			$addonlist = cache('newaddon');
+			if (!$addonlist || APP_DEBUG) {
+				foreach ($dirlist as $key => $value) {
+					$info = \think\Db::name('Addon')->where(['name' => strtolower($value)])->find();
+					if (!$info) {
+						$conf         = $this->runAddonMethod($value, 'getConfig');
+						$conf['name'] = $value;
+						$addonlist[]  = $conf;
+					}
+				}
+				cache('newaddon', $addonlist);
 			}
 			// dump($addoninfo);
 			$this->assign([
@@ -46,16 +52,12 @@ class Addon extends Base {
 
 	//卸载插件方法
 	public function unInstall() {
-		if (request()->isAjax()) {
-			$name   = input('param.name', '');
-			$result = $this->runAddonMethod($name, 'unInstall');
-			if ($result === true) {
-				$this->success('卸载成功');
-			} else {
-				$this->error('卸载失败');
-			}
+		$name   = input('param.name', '');
+		$result = $this->runAddonMethod($name, 'unInstall');
+		if ($result === true) {
+			$this->success('卸载成功');
 		} else {
-			$this->error('访问错误');
+			$this->error('卸载失败');
 		}
 	}
 
@@ -68,11 +70,16 @@ class Addon extends Base {
 			return '';
 		}
 		$name       = strtolower($name);
-		$addon_path = SITE_PATH . '/addons';
-		include $addon_path . '/' . $name . '/' . ucfirst($name) . 'Admin.php';
-		$name = "\\addons\\{$name}\\" . ucfirst($name) . 'Admin';
-		$obj  = new $name();
-		return $obj->$method();
+		$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . 'Admin.php';
+		if (file_exists($addon_path)) {
+			include $addon_path;
+			$name = "\\addons\\{$name}\\" . ucfirst($name) . 'Admin';
+			$obj  = new $name();
+			return $obj->$method();
+		} else {
+			return '';
+		}
+
 	}
 
 }
