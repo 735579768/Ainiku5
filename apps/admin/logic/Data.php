@@ -69,6 +69,10 @@ class Data extends Base {
 			->where(['name' => $name])
 			->find();
 		$title = $info['title'];
+		if (request()->isPost()) {
+			add_user_log('添加' . $title, input('param.'));
+		}
+
 		$this->assign([
 			'meta_title' => '添加' . $title,
 			'formstr'    => $this->addEditForm($name),
@@ -87,6 +91,9 @@ class Data extends Base {
 			->where(['name' => $name])
 			->find();
 		$title = $info['title'];
+		if (request()->isPost()) {
+			add_user_log('编辑' . $title, input('param.'));
+		}
 		$this->assign([
 			'meta_title' => '编辑' . $title,
 			'formstr'    => $this->addEditForm($name, true),

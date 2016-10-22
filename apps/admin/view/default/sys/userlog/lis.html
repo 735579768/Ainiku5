@@ -1,0 +1,50 @@
+{extend name="pub/base-iframe" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <!--authstart-->
+            <a href="javascript:;" data-url="{:url('sys.userlog/clearUp')}" onclick="am.okAction(this);" class="btn btn-warning">清空日志</a>
+            <!--authend-->
+        </div>
+        {include file="pub/search-tool" /}
+    </div>
+    <table width="100%" class="check-wrap">
+        <tr class="th">
+            <th class="td-id">Id</th>
+            <th>备注</th>
+            <th>操作用户名</th>
+            <th>操作者名称</th>
+            <th class="td-time">操作者用户组</th>
+            <th>操作时间</th>
+            <th>操作ip</th>
+            <th>操作</th>
+        </tr>
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <tr id="listitem{$vo.user_log_id}">
+            <td>{$vo.user_log_id}</td>
+            <td class="td-left">{$vo.note}</td>
+            <td class="td-left">{$vo.username}</td>
+            <td class="td-left">{$vo.nickname}</td>
+            <td>{$vo.title}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+            <td>{$vo.ip}</td>
+            <td class="td-btn">
+                <!--authstart-->
+                <a href="javascript:;" data-url="{:url('sys.userlog/delete',['user_log_id'=>$vo['user_log_id']])}" onclick="am.okAction(this);" list-id="{$vo.user_log_id}" class="btn btn-warning">删除</a>
+                <!--authend-->
+            </td>
+        </tr>
+        {/volist} {else /}
+        <tr>
+            <td colspan="10">
+                <div class="empty-str">啊哦，没有日志信息! <span class="bq">:(</span></div>
+            </td>
+        </tr>
+        {/notempty}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}
