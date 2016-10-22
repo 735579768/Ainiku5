@@ -136,7 +136,7 @@ sql;
 				],
 				[
 					'type'    => 'radio',
-					'name'    => 'address',
+					'name'    => 'url',
 					'title'   => '地址',
 					'extra'   => [
 						1 => '显示',

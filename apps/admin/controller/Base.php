@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 class Base extends \app\common\Controller\Base {
+
 	protected $uinfo = null;
 	/**
 	 * 后台登录检测

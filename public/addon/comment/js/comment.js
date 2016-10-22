@@ -1,9 +1,9 @@
-$(function() {
+! function() {
   window.commentsobj = {
     conf: {},
     formhtml: '',
     init: function(conf) {
-      //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //$('#comments-name').val(commentsobj.readCookie('ank_comment_name'));
       commentsobj.setliuyan();
       if (this.formhtml == '') {
         this.formhtml = $('#comments-form').html();
@@ -104,14 +104,14 @@ $(function() {
       // $('#commentsform').remove();
       var _t = $(obj);
       var dobj = _t.parents('dt').next();
-      // ank.msgDialog({
+      // ank.alertDialog({
       //   title: '留言回复:@' + _t.parents('span').children().eq(0).html(),
       //   width: 450,
       //   height: 'auto',
       //   content: '',
       //   cancel: function() {
       //     $('#comments-form').append(commentsobj.formhtml);
-      //     //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //     //$('#comments-name').val(commentsobj.readCookie('ank_comment_name'));
       //     commentsobj.setliuyan();
       //     commentsobj.initfocus();
       //   }
@@ -125,7 +125,7 @@ $(function() {
           // debugger;
 
           // $('#comments-form').append(commentsobj.formhtml);
-          //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+          //$('#comments-name').val(commentsobj.readCookie('ank_comment_name'));
           // commentsobj.setliuyan();
           // commentsobj.initfocus();
         },
@@ -134,7 +134,7 @@ $(function() {
         }
       });
       $('#dialog-conn').append(this.formhtml);
-      //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //$('#comments-name').val(commentsobj.readCookie('ank_comment_name'));
       commentsobj.setliuyan();
       // pid = pid ? pid : id;
       $('#commentpid').val(id);
@@ -144,7 +144,7 @@ $(function() {
     //取消回复按钮
     cancelhuifu: function(obj) {
       $('#comments-form').html($('#commentsform'));
-      // //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      // //$('#comments-name').val(commentsobj.readCookie('ank_comment_name'));
       commentsobj.setliuyan();
       $('#commentsform').show();
       $('#commentpid').val(0);
@@ -155,9 +155,9 @@ $(function() {
      */
     setliuyan: function() {
 
-      $('#comments-name').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_name')));
-      $('#comments-email').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_email')));
-      $('#comments-homeurl').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_url')));
+      $('#comments-name').val(decodeURIComponent(commentsobj.readCookie('ank_comment_name')));
+      $('#comments-email').val(decodeURIComponent(commentsobj.readCookie('ank_comment_email')));
+      $('#comments-homeurl').val(decodeURIComponent(commentsobj.readCookie('ank_comment_url')));
     },
     //提交评论
     addcomments: function() {
@@ -166,29 +166,29 @@ $(function() {
         return false;
       });
       if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
-        ank.msg('请填入正确的验证码!');
+        ank.alert('请填入正确的验证码!');
         return false;
       }
       if (/^\s*$/.test($('#comments-content').val())) {
-        ank.msg('请填入内容!');
+        ank.alert('请填入内容!');
         return false;
       }
       if (this.conf.name) {
         if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
-          ank.msg('请填入正确的名字!');
+          ank.alert('请填入正确的名字!');
           return false;
         }
       }
       if (this.conf.email) {
         if (!(/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test($('#comments-email').val()))) {
-          ank.msg('请填入正确的邮箱!');
+          ank.alert('请填入正确的邮箱!');
           return false;
         }
       }
       if (this.conf.homeurl) {
         //if (!(/^http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
         if (!(/^(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
-          ank.msg('请填入正确的网址!');
+          ank.alert('请填入正确的网址!');
           return false;
         }
       }
@@ -202,26 +202,26 @@ $(function() {
         datatype: "JSON",
         data: postdata,
         success: function(da) {
-          if (da.status == '1') {
+          if (da.code) {
             commentsobj.cancelhuifu();
-            ank.msg(da.info.msg);
-            var o = $('#comments-huifulist-' + da.info.pid);
-            if (da.info.pid == 0) {
-              $('#comments-list').prepend(da.info.content);
+            ank.alert(da);
+            var o = $('#comments-huifulist-' + da.data.pid);
+            if (da.data.pid == 0) {
+              $('#comments-list').prepend(da.data.content);
             } else {
-              o.prepend(da.info.content);
+              o.prepend(da.data.content);
             }
             $('#dialog-wrap').remove();
             /*            var len = formobj.parents('#comments-list').length;
 
                         if (len === 1) {
-                          formobj.before(da.info.content);
+                          formobj.before(da.data.content);
                           cancelhuifu();
                         } else {
-                          $('#comments-list').prepend(da.info.content);
+                          $('#comments-list').prepend(da.data.content);
                         }*/
           } else {
-            ank.msg(da.info);
+            ank.alert(da);
           }
           $('#addcommentsbtn').html('提交评论');
         }
@@ -258,12 +258,8 @@ $(function() {
   commentsobj.init(commentsconf);
   commentsobj.initfocus();
   //ank.loadhtml(commentsobj.conf.url, {}, , 'POST');
-  $.ajax({
-    url: commentsobj.conf.url,
-    type: 'GET',
-    success: function(da) {
-      $('#comments-list').append(da.data);
-    }
+  $.get(commentsobj.conf.url, function(da) {
+    $('#comments-list').append(da.data);
   });
 
-});
+}();
