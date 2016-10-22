@@ -37,7 +37,8 @@ class Error extends \think\Controller {
 			}
 			$name .= "Admin";
 		}
-		$cpath = SITE_PATH . $name . '.php';
+		$cpath = str_replace('\\', '/', SITE_PATH . $name . '.php');
+		// dump($cpath);
 		if (file_exists($cpath)) {
 			include $cpath;
 			if (class_exists($name)) {
