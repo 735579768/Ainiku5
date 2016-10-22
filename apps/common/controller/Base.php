@@ -3,7 +3,7 @@ namespace app\common\controller;
 use think\Controller;
 
 class Base extends Controller {
-	use \app\common\traits\controller\common;
+	use \app\common\traits\controller\Common;
 	// /**
 	//  * 模块共用空操作方法
 	//  * @param  [type] $name [description]

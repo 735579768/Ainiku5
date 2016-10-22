@@ -1,5 +1,5 @@
 <?php
-namespace app\common\controller;
+namespace app\common\traits\controller;
 
 trait File {
 	/**

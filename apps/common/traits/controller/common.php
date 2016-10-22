@@ -2,7 +2,7 @@
 namespace app\common\traits\controller;
 use think\Controller;
 
-trait common {
+trait Common {
 	/**
 	 * 模块共用空操作方法
 	 * @param  [type] $name [description]

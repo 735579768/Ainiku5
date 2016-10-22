@@ -5,7 +5,7 @@ namespace app\common\controller;
  * 插件的基类
  */
 class Addon extends \think\Controller {
-	use \app\common\traits\controller\common;
+	use \app\common\traits\controller\Common;
 
 	protected $config = array(
 		'version' => '1.0.0',
