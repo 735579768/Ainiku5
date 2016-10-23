@@ -421,13 +421,14 @@
 		},
 		initYesNo: function() {
 			//y n 插件
-			$(".yesno").each(function(index, element) {
+			$(".yesno").not('.inited').each(function(index, element) {
 				var _t = $(this);
 				var da = _t.attr("data-value");
+				_t.addClass('inited');
 				if (da == 1) {
-					$(this).addClass("yes");
+					_t.addClass("yes");
 				} else {
-					$(this).addClass("no");
+					_t.addClass("no");
 				}
 				_t.click(function(e) {
 					// debugger;
@@ -596,17 +597,19 @@
 		cateid: Math.ceil(Math.random() * 100000),
 		init: function() {
 			//初始化把没有子菜单的去掉图标
-			var obj = $('#cate-tree .c-item');
+			var obj = $('#cate-tree .c-item').not('.inited');
 			obj.each(function(index, el) {
-				var icon = $(this).children('dt').children('.c-ico').children('i');
+				var _t = $(this);
+				var icon = _t.children('dt').children('.c-ico').children('i');
 				icon.prop({
 					id: 'catetree_' + catetree.cateid + index
 				});
 				icon.data('id', index);
-				var len = $(this).children('.c-sub-item').length;
+				var len = _t.children('.c-sub-item').length;
 				if (len) {
 					icon.addClass('menuclose');
 				}
+				_t.addClass('inited');
 			});
 			//把状态保存到cookie进行初始化打开菜单
 			var sta = ank.readCookie('catetreejson');
@@ -622,6 +625,28 @@
 		 */
 		menuClick: function(dom) {
 			var _t = $(dom);
+			var jsondata = _t.data('data');
+			if (jsondata) {
+				//已经加载过子菜单啦
+				this.openCloseMenu(_t);
+			} else {
+				_t.data('data', true);
+				//还没有加载过子菜单
+				var uri = _t.attr('data-url');
+				if (uri) {
+					$.get(uri, function(da) {
+						_t.parents('dt').next().append(da);
+						catetree.init();
+						am.initYesNo();
+						catetree.openCloseMenu(_t);
+					});
+				}
+			}
+
+
+		},
+		openCloseMenu: function($dom) {
+			var _t = $dom;
 			var subitem = _t.parents('dl').eq(0).children('.c-sub-item');
 			if (_t.hasClass('menuopen')) {
 				_t.removeClass('menuopen');
@@ -632,15 +657,18 @@
 				_t.addClass('menuopen');
 				subitem.show();
 			}
+
+			//保存状态到cookie
 			var sel = '';
 			$('#cate-tree .c-ico i.menuopen').each(function(index, el) {
 				var id = $(this).data('id');
-				// sel.push(id);
 				sel += sel ? (',' + id) : id;
-
 			});
 			ank.writeCookie('catetreejson', sel);
-			// console.log(sel);
+		},
+		//打开添加新分类的窗口
+		addCategory: function() {
+
 		}
 	};
 }(window);

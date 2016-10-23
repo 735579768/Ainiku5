@@ -1,7 +1,7 @@
 {volist name="_list" id="vo"}
 <dl class="c-item cl">
     <dt class="cl">
-        <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
+        <div class="c-inp c-ico"><i data-url="{:url('sys.menu/tree',['pid'=>$vo['menu_id']])}" onclick="catetree.menuClick(this);" class="fa"></i></div>
         <div class="c-inp c-id">{$vo.menu_id}</div>
         <div class="c-inp c-paixu">
             <input data-table="Menu" data-id="{$vo.menu_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />

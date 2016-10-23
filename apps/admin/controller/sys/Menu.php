@@ -39,7 +39,12 @@ class Menu extends Base {
 			Cache::tag('menu')->set('menu' . $pid, $list);
 		}
 		$this->assign('_list', $list);
+		// if (request()->isAjax()) {
+		// 	$this->success('ok', '', $this->fetch('tree'));
+		// } else {
 		return $this->fetch('tree');
+		// }
+
 	}
 	/**
 	 * 添加菜单

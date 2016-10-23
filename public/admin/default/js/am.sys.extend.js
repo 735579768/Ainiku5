@@ -2,6 +2,9 @@
  * am扩展属性
  */
 am.extend({
+	openAddCategory: function(dom) {
+
+	},
 	unInstall: function(dom) {
 		var _t = $(dom);
 		layer.confirm('<span style="color:red;">卸载插件会删除插件数据,确认要卸载吗?</span>', {
