@@ -90,7 +90,7 @@ class Picture extends Base {
 				}
 			} else {
 				$failjishu++;
-				$failstr .= '<span style="color:red;">' . $src_path . "此路径文件丢失数据库id为{$val['picture_id]']}请联系管理员自行处理</span><br>";
+				$failstr .= '<span style="color:red;">' . $src_path . "此路径文件丢失数据库id为{$val['picture_id']}请联系管理员自行处理</span><br>";
 			}
 			unset($list[$key]);
 			if ($i > $num) {

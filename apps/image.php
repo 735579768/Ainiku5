@@ -8,7 +8,7 @@
  * @param  string $pos        水印位置
  * @return [type]             返回 boolean类型,成功返回true,失败返回字符串
  */
-function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text = '', $pos = 'bottom_right') {
+function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text = '', $pos = '') {
 	$isshuiyin = intval(config('shuiyin_on'));
 	if ($isshuiyin == 0) {
 		return true;
@@ -21,7 +21,7 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 	}
 	//创建目录
 	create_folder(dirname($dest_img));
-	empty($pos) && ($pos = intval(config('shuiyin_pos')));
+	empty($pos) && ($pos = config('shuiyin_pos'));
 	switch ($pos) {
 	case 'top_left':
 		$pos = 1;
@@ -63,12 +63,32 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		$pos = 1;
 	}
 
-	$result = false;
+	$result  = false;
+	$imgobj  = \ankimage\Image::open($src_img);
+	$minsize = config('shuiyin_minsize');
+	if ($minsize != '0') {
+		list($tw, $th) = explode('*', $minsize);
+		// 返回图片的宽度
+		$width = $imgobj->width();
+		// 返回图片的高度
+		$height = $imgobj->height();
+		// // 返回图片的类型
+		// $type = $imgobj->type();
+		// // 返回图片的mime类型
+		// $mime = $imgobj->mime();
+		// // 返回图片的尺寸数组 0 图片宽度 1 图片高度
+		// $size = $imgobj->size();
+		if ($width < intval($tw) || $height < intval($th)) {
+			//宽高任意一个小于预定大小不添加水印
+			return true;
+		}
+	}
+
 	if (empty($water_text)) {
 		if (!file_exists($water_img)) {
 			return '水印图片文件不存在';
 		}
-		$result = \ankimage\Image::open($src_img)->water($water_img, $pos, 80)->save($dest_img);
+		$result = $imgobj->water($water_img, $pos, 80)->save($dest_img);
 	} else {
 		//文字水印
 		$color = config('shuiyin_text_color');
@@ -91,7 +111,7 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		$fontpath = $ttfs[array_rand($ttfs)];
 		$fontpath = $ttfPath . $fontpath;
 
-		$result = \ankimage\Image::open($src_img)->text($water_text, $fontpath, $font_size, $color, $pos)->save($dest_img);
+		$result = $imgobj->text($water_text, $fontpath, $font_size, $color, $pos)->save($dest_img);
 
 	}
 	if ($result) {

@@ -62,6 +62,7 @@ class Config extends Base {
 			$map['tab_id'] = input('param.tab_id', 3);
 			$list          = \think\Db::name('FormItem')
 				->where($map)
+				->order('sort asc,form_item_id asc')
 				->select();
 			define('show_mark', true);
 
