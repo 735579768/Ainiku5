@@ -612,7 +612,8 @@
 			var sta = ank.readCookie('catetreejson');
 			sta = sta ? sta.split(',') : [];
 			for (a in sta) {
-				$('#catetree_' + catetree.cateid + sta[a]).click();
+				var o = $('#catetree_' + catetree.cateid + sta[a]);
+				o && o.hasClass('menuclose') && o.click();
 			}
 		},
 		/**
