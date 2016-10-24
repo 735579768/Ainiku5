@@ -626,22 +626,28 @@
 			sta = sta ? sta.split(',') : [];
 			for (a in sta) {
 				var o = $('#catetree_' + catetree.cateid + '_' + sta[a]);
-				o && o.hasClass('menuclose') && o.click();
+				// debugger;
+				o && o.hasClass('menuclose') && this.menuClick(o, false);
 			}
 		},
 		/**
-		 * 打开关闭菜单
-		 * @return {[type]} [description]
+		 * 菜单单击后打开关闭
+		 * @param  {[type]} dom         单击的ico菜单图标
+		 * @param  {[type]} writeCookie 是否记录cookie,默认是记录
+		 * @return {[type]}             [description]
 		 */
-		menuClick: function(dom) {
+		menuClick: function(dom, writeCookie) {
+			if (typeof writeCookie === 'undefined') {
+				writeCookie = true;
+			}
 			var _t = $(dom);
 			var jsondata = _t.data('data');
 			if (jsondata) {
 				//已经加载过子菜单啦
-				this.openCloseMenu(_t);
+				this.openCloseMenu(_t, writeCookie);
 			} else {
 				_t.data('data', true);
-				catetree.openCloseMenu(_t);
+				catetree.openCloseMenu(_t, writeCookie);
 				var d = _t.parents('dt').next();
 				d.html('<div class="loading loadtree"></div>')
 					//还没有加载过子菜单
@@ -652,16 +658,22 @@
 						catetree.init();
 						am.initYesNo();
 						am.blusChange();
-						debugger;
-						catetree.openMenuByCookie();
-
 					});
 				}
 			}
 
 
 		},
-		openCloseMenu: function($dom) {
+		/**
+		 * 打开指定ico的菜单
+		 * @param  {[type]} $dom        菜单图标
+		 * @param  {[type]} writeCookie 是否记录到cookie,默认为记录
+		 * @return {[type]}             [description]
+		 */
+		openCloseMenu: function($dom, writeCookie) {
+			if (typeof writeCookie === 'undefined') {
+				writeCookie = true;
+			}
 			var _t = $dom;
 			var subitem = _t.parents('dl').eq(0).children('.c-sub-item');
 			if (_t.hasClass('menuopen')) {
@@ -673,14 +685,15 @@
 				_t.addClass('menuopen');
 				subitem.show();
 			}
-
-			//保存状态到cookie
-			var sel = '';
-			$('#cate-tree .c-ico i.menuopen').each(function(index, el) {
-				var id = $(this).data('id');
-				sel += sel ? (',' + id) : id;
-			});
-			ank.writeCookie('catetreejson', sel);
+			if (writeCookie) {
+				//保存状态到cookie
+				var sel = '';
+				$('#cate-tree .c-ico i.menuopen').each(function(index, el) {
+					var id = $(this).data('id');
+					sel += sel ? (',' + id) : id;
+				});
+				ank.writeCookie('catetreejson', sel);
+			}
 		},
 		//打开添加新分类的窗口
 		addCategory: function() {
