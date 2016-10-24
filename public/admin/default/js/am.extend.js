@@ -2,38 +2,25 @@
  * am扩展属性
  */
 am.extend({
-	// deleteImg: function(id) {
-	// 	if (!id) {
-	// 		return false;
-	// 	}
-	// 	$.post(am.url.delImg, {
-	// 		picture_id: id
-	// 	}, function(data) {
-
-	// 	});
-	// },
-	// /**
-	//  * 绑定删除上传换件的图片功能
-	//  * @return {[type]} [description]
-	//  */
-	// domDeleteImg: function(dom) {
-	// 	var _t = $(dom);
-	// 	var id = _t.attr('data-id');
-	// 	this.deleteImg(id);
-	// 	var item = _t.parents('.uploaded-imgitem');
-	// 	var inp = item.parent().next();
-	// 	item.remove();
-	// 	debugger;
-	// 	var va = inp.val();
-	// 	va = va.split(',');
-	// 	for (a in va) {
-	// 		if (va[a] == id) {
-	// 			va.splice(a, 1);
-	// 		}
-	// 	}
-	// 	va = va.join(',');
-	// 	inp.val(va);
-	// },
+	/**
+	 * 设置框架对象对应的tab标题
+	 * @param  {[type]} f [description]
+	 * @return {[type]}   [description]
+	 */
+	setChromeTabTitle: function(f, title) {
+		if (!title) {
+			return;
+		}
+		var frames = document.getElementsByTagName("iframe"); //获取父页面所有iframe
+		for (i = 0; i < frames.length; i++) { //遍历，匹配时弹出id
+			if (frames[i].contentWindow == f) {
+				// debugger;
+				var id = $(frames[i]).parent().prop('id');
+				id = id.replace('iframeblock', 'iframenav');
+				$('#' + id + ' span').html(title);
+			}
+		}
+	},
 	/**
 	 * 取添加标签的表单
 	 * @param  {[type]} dom [description]

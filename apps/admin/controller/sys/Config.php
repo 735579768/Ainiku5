@@ -40,6 +40,7 @@ class Config extends Base {
 		}
 
 		$this->assign([
+			'meta_title' => '系统环境',
 			'runsize'    => $runsize,
 			'uploadsize' => $uploadsize,
 			'jscsssize'  => $jscsssize,
@@ -67,8 +68,9 @@ class Config extends Base {
 			define('show_mark', true);
 
 			$data = get_sys_config();
+			$sta  = config('systemstatus.tab');
 			$this->assign([
-				'meta_title' => '系统配置',
+				'meta_title' => $sta[$map['tab_id']] . '配置',
 				'formarr'    => $list,
 				'data'       => $data,
 				'tab_id'     => $map['tab_id'],
