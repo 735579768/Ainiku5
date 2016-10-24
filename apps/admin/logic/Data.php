@@ -75,9 +75,13 @@ class Data extends Base {
 
 		$this->assign([
 			'meta_title' => '添加' . $title,
-			'formstr'    => $this->addEditForm($name),
 		]);
-		return $this->fetch('logic/form_edit_tpl');
+		$this->addEditForm($name);
+		if (request()->isAjax()) {
+			return $this->fetch('logic/ajax_form_edit_tpl');
+		} else {
+			return $this->fetch('logic/form_edit_tpl');
+		}
 	}
 	/**
 	 * 编辑表单
@@ -96,9 +100,14 @@ class Data extends Base {
 		}
 		$this->assign([
 			'meta_title' => '编辑' . $title,
-			'formstr'    => $this->addEditForm($name, true),
+			// 'formstr'    => ,
 		]);
-		return $this->fetch('logic/form_edit_tpl');
+		$this->addEditForm($name, true);
+		if (request()->isAjax()) {
+			return $this->fetch('logic/ajax_form_edit_tpl');
+		} else {
+			return $this->fetch('logic/form_edit_tpl');
+		}
 
 	}
 
