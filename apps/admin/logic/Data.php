@@ -77,11 +77,11 @@ class Data extends Base {
 			'meta_title' => '添加' . $title,
 		]);
 		$this->addEditForm($name);
-		if (request()->isAjax()) {
-			return $this->fetch('logic/ajax_form_edit_tpl');
-		} else {
-			return $this->fetch('logic/form_edit_tpl');
-		}
+		// if (request()->isAjax()) {
+		// 	return $this->fetch('logic/ajax_form_edit_tpl');
+		// } else {
+		return $this->fetch('logic/form_edit_tpl');
+		// }
 	}
 	/**
 	 * 编辑表单
@@ -103,11 +103,11 @@ class Data extends Base {
 			// 'formstr'    => ,
 		]);
 		$this->addEditForm($name, true);
-		if (request()->isAjax()) {
-			return $this->fetch('logic/ajax_form_edit_tpl');
-		} else {
-			return $this->fetch('logic/form_edit_tpl');
-		}
+		// if (request()->isAjax()) {
+		// 	return $this->fetch('logic/ajax_form_edit_tpl');
+		// } else {
+		return $this->fetch('logic/form_edit_tpl');
+		// }
 
 	}
 

@@ -121,7 +121,7 @@ if (!class_exists('\addons\comment\Comment')) {
 		 */
 		private function sendemail() {
 			$pid = input('post.pid', 0);
-			$url = config('WEBDOMIN') . "/article/{$rows['arc_id']}.html";
+			$url = config('web_domain') . "/article/{$rows['arc_id']}.html";
 			//给站长发邮件
 			$site_email = config('SITE_EMAIL');
 			$site_title = config('WEB_SITE_TITLE');
