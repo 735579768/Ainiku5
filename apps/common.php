@@ -457,6 +457,7 @@ function find_file_path($filename = '') {
 		config('view_replace_str.__STATIC__') . '/css',
 		STATIC_DIR . '/' . request()->module() . '/' . config('default_theme'),
 		config('view_replace_str.__STATIC__'),
+		STATIC_DIR,
 
 	];
 

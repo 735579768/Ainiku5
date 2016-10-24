@@ -10,9 +10,28 @@ class Nav extends Base {
 	 * @return [type] [description]
 	 */
 	public function lis() {
-		$this->assign('meta_title', '导航列表');
+		$map['pid'] = 0;
+		$list       = $this->pages([
+			'table' => 'Nav',
+			'where' => $map,
+			'order' => 'sort asc',
+		]);
+		$list = $list[0];
+		foreach ($list as $key => $value) {
+			$list2 = Db::name('Nav')
+				->where(['pid' => $value['nav_id']])
+				->field('nav_id,pid,title,url,sort,status,target')
+				->order('status desc,sort asc')
+				->find();
+			$list[$key]['child'] = $list2;
+		}
+
+		$this->assign([
+			'meta_title' => '导航列表',
+			'_list'      => $list,
+		]);
 		return $this->fetch();
-		$this->tree();
+
 	}
 	/**
 	 * 取导航列表
@@ -39,7 +58,7 @@ class Nav extends Base {
 			Cache::tag('nav')->set('nav' . $pid, $list);
 		}
 		$this->assign('_list', $list);
-		return $this->fetch('tree');
+		$this->success('ok', '', $this->fetch('tree'));
 	}
 	/**
 	 * 添加导航
