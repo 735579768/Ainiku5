@@ -128,8 +128,6 @@ trait Common {
 		$css     = \assets\Assets::getInstance()->getSource('css');
 		$content = str_replace(['{__ASSETS_CSS__}', '{__ASSETS_JS__}'], [$css, $js], $content);
 		//去空白行
-		$au      = \auth\Auth::getInstance();
-		$content = $au->replaceUrl($content);
 		$content = preg_replace('/<\!\-\-(.*?)\-\->/i', '', $content);
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		return $content;

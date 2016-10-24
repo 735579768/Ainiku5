@@ -397,28 +397,28 @@ function get_picture($id = null, $field = null, $wh = null) {
 		$revalue = false;
 	}
 	$swh = $wh;
-	$wh  = explode('*', config('thumb_size'));
 	if (is_numeric($id)) {
 		$cakey = md5($id . '_' . $field . '_' . $swh);
-		//$revalue=cache('_picture/'.$cakey);
-		$pkey    = '_picture/' . ($id % 100);
-		$picarr  = cache($pkey);
-		$revalue = $picarr[$cakey];
+		//$revalue=cache('_picture_'.$cakey);
+		// $pkey    = '_picture_' . ($id % 100);
+		$pkey    = '_picture_' . $cakey;
+		$revalue = cache($pkey);
+		// $revalue = $picarr[$cakey];
 		if (empty($revalue) || APP_DEBUG) {
 			$picture = \think\Db::name('Picture')
 				->where(['picture_id' => $id, 'status' => 1])
 				->find();
-			if (!empty($field) && !empty($wh)) {
+			if (!is_null($field) && !is_null($wh)) {
 				$wharr = explode('_', $wh);
 
-				if (count($wharr == 2)) {
+				if (count($wharr) == 2) {
 					$revalue = '.' . str_replace(config('file_upload.rootPath') . '/image/', config('greate_cache_path.imgcache') . '/', $picture['path']);
 					$fname   = basename($revalue);
 					$rename  = $wh . '_' . $fname;
 					$revalue = str_replace($fname, $rename, $revalue);
 					//判断之前是不是已经生成
 					if (!file_exists($revalue)) {
-						$result = create_thumb($picture['path'], $revalue, $wharr[0], $wharr[1]);
+						$result = create_thumb('.' . $picture['path'], $revalue, $wharr[0], $wharr[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -428,7 +428,8 @@ function get_picture($id = null, $field = null, $wh = null) {
 				$revalue = '.' . $picture[$field];
 				if ($field == 'thumbpath') {
 					if (!file_exists($revalue)) {
-						$result = create_thumb('.' . $picture['path'], $revalue, $wh[0], $wh[1]);
+						$twh    = explode('*', config('thumb_size'));
+						$result = create_thumb('.' . $picture['path'], $revalue, $twh[0], $twh[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -437,9 +438,7 @@ function get_picture($id = null, $field = null, $wh = null) {
 			} else {
 				$revalue = $picture['path'];
 			}
-
-			$picarr[$cakey] = $revalue;
-			cache($pkey, $picarr);
+			cache($pkey, $revalue);
 		}
 	} else {
 		$revalue = $id;

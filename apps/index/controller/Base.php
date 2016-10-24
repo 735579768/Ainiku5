@@ -29,8 +29,4 @@ class Base extends \app\common\Controller\Base {
 		$content = preg_replace(['/\n\s*\r/'], '', $content);
 		return $content;
 	}
-
-	public function display($template = '', $vars = [], $replace = [], $config = [], $renderContent = false) {
-		echo $this->fetch($template, $vars, $replace, $config, $renderContent);
-	}
 }
