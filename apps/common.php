@@ -398,12 +398,8 @@ function get_picture($id = null, $field = null, $wh = null) {
 	}
 	$swh = $wh;
 	if (is_numeric($id)) {
-		$cakey = md5($id . '_' . $field . '_' . $swh);
-		//$revalue=cache('_picture_'.$cakey);
-		// $pkey    = '_picture_' . ($id % 100);
-		$pkey    = '_picture_' . $cakey;
+		$pkey    = md5('_picture_' . $id . '_' . $field . '_' . $swh);
 		$revalue = cache($pkey);
-		// $revalue = $picarr[$cakey];
 		if (empty($revalue) || APP_DEBUG) {
 			$picture = \think\Db::name('Picture')
 				->where(['picture_id' => $id, 'status' => 1])
