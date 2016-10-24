@@ -42,7 +42,7 @@
             <th>所属表单</th>
             <th>表单类型</th>
             <th class="td-time">表单标识符</th>
-            <th>排序</th>
+            <th>必填</th>
             <th>表单TAB</th>
             <th class="td-status">状态</th>
             <th>操作</th>
@@ -57,7 +57,9 @@
             <td class="td-left">{$vo.form_title}</td>
             <td class="td-left">{$vo.type}</td>
             <td class="td-left">{$vo.name}</td>
-            <td>{$vo.sort}</td>
+            <td>
+<span  data-table="FormItem" data-id="{$vo.form_item_id}" data-field="is_require" data-value="{$vo.is_require}" class="fa yesno"></span>
+            </td>
             <td class="td-left">{$vo.tab_id|get_status='tab'}</td>
             <td>{$vo.status|get_status}</td>
             <td class="td-btn">

@@ -1037,9 +1037,11 @@ eot;
 		reg_initjs("autoyz.init(); $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});");
 		return $str;
 	} else {
+		reg_initjs("autoyz.init();");
 		foreach ($field as $key => $value) {
 			return create_form($value, $data);
 		}
+
 	}
 }
 /**

@@ -126,7 +126,7 @@ class Assets {
 		$ismodcss        = false;
 		$ismodjs         = false;
 		static $suijinum = 0;
-		if (empty($this->css_noys) && empty($this->js_noys) && empty($this->css) && empty($this->js)) {
+		if (empty($this->css_noys) && empty($this->js_noys) && empty($this->css) && empty($this->js) && empty($this->initjsstr)) {
 			return "";
 		}
 		$cssname  = md5(implode($this->css));
