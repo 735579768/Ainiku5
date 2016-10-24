@@ -1,7 +1,7 @@
 {volist name="_list" id="vo"}
 <dl class="c-item cl">
     <dt class="cl">
-        <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
+        <div class="c-inp c-ico"><i data-url="{:url('sys.category/tree',['pid'=>$vo['category_id'],'category_type'=>$category_type])}"  onclick="catetree.menuClick(this);" class="fa"></i></div>
         <div class="c-inp c-id">{$vo.category_id}</div>
         <div class="c-inp c-paixu">
             <input data-table="Category" data-id="{$vo.category_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
@@ -32,7 +32,7 @@
     </dt>
     {notempty name="vo.child"}
     <dd class="c-sub-item">
-        {:controller('sys.category','controller')->tree($vo['category_id'],$category_type)}
+
     </dd>
     {/notempty}
 </dl>

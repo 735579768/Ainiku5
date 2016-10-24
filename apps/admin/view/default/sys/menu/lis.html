@@ -22,8 +22,9 @@
                 <div class="c-inp c-h-action">操作</div>
             </dt>
         </dl>
-{:controller('sys.menu','controller')->tree()}
+{include file="/sys/menu/tree" /}
     </div>
+    <div class="page">{$_page}</div>
 </div>
 <script type="text/javascript">
 $(function() {

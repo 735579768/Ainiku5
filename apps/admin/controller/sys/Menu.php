@@ -10,9 +10,28 @@ class Menu extends Base {
 	 * @return [type] [description]
 	 */
 	public function lis() {
-		$this->assign('meta_title', '菜单列表');
+		$map['pid'] = 0;
+		$list       = $this->pages([
+			'table' => 'Menu',
+			'where' => $map,
+			'order' => 'sort asc',
+		]);
+		$list = $list[0];
+		foreach ($list as $key => $value) {
+			$list2 = Db::name('Menu')
+				->where(['pid' => $value['menu_id']])
+				->field('menu_id,pid,title,url,sort,status,group,home')
+				->order('status desc,sort asc')
+				->find();
+			$list[$key]['child'] = $list2;
+		}
+
+		$this->assign([
+			'meta_title' => '菜单列表',
+			'_list'      => $list,
+		]);
 		return $this->fetch();
-		$this->tree();
+
 	}
 	/**
 	 * 取菜单列表
@@ -39,11 +58,7 @@ class Menu extends Base {
 			Cache::tag('menu')->set('menu' . $pid, $list);
 		}
 		$this->assign('_list', $list);
-		// if (request()->isAjax()) {
-		// 	$this->success('ok', '', $this->fetch('tree'));
-		// } else {
-		return $this->fetch('tree');
-		// }
+		$this->success('ok', '', $this->fetch('tree'));
 
 	}
 	/**

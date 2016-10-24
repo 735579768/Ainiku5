@@ -1,7 +1,7 @@
 {volist name="_list" id="vo"}
 <dl class="c-item cl">
     <dt class="cl">
-        <div class="c-inp c-ico"><i onclick="catetree.menuClick(this);" class="fa"></i></div>
+        <div class="c-inp c-ico"><i data-url="{:url('sys.authrule/tree',['pid'=>$vo['auth_rule_id']])}"  onclick="catetree.menuClick(this);" class="fa"></i></div>
         <div class="c-inp c-id">{$vo.auth_rule_id}</div>
         <div class="c-inp c-paixu">
             <input data-table="AuthRule" data-id="{$vo.auth_rule_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" value="{$vo.sort}" />
@@ -16,10 +16,12 @@
                 <span class="text-title">标题:</span>
                 <input data-table="AuthRule" data-id="{$vo.auth_rule_id}" data-field="title"  type="text" class="form-control ajax-blur" value="{$vo.title}" />
             </div>
+            {eq name="vo.type" value="1"}
             <div class="text-field">
                 <span class="text-title">标识:</span>
                 <input data-table="AuthRule" data-id="{$vo.auth_rule_id}" data-field="name"  type="text" class="form-control ajax-blur" value="{$vo.name}" />
             </div>
+            {/eq}
         </div>
         <div class="c-inp c-action">
         <!--authstart-->
@@ -32,7 +34,7 @@
     </dt>
     {notempty name="vo.child"}
     <dd class="c-sub-item">
-        {:controller('sys.authrule','controller')->tree($vo['auth_rule_id'])}
+
     </dd>
     {/notempty}
 </dl>

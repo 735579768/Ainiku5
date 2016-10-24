@@ -394,7 +394,7 @@
 		 * @return {[type]} [description]
 		 */
 		blusChange: function(dom) {
-			var objlist = $('.ajax-blur');
+			var objlist = $('.ajax-blur').not('.inited');
 			objlist.focus(function(event) {
 				$(this).data('value', $(this).val());
 			});
@@ -417,6 +417,7 @@
 					});
 				}
 			});
+			objlist.addClass('inited');
 
 		},
 		initYesNo: function() {
@@ -601,21 +602,30 @@
 			obj.each(function(index, el) {
 				var _t = $(this);
 				var icon = _t.children('dt').children('.c-ico').children('i');
+				var idd = _t.children('dt').children('.c-id').html();
+				// debugger;
 				icon.prop({
-					id: 'catetree_' + catetree.cateid + index
+					id: 'catetree_' + catetree.cateid + '_' + idd
 				});
-				icon.data('id', index);
+				icon.data('id', idd);
 				var len = _t.children('.c-sub-item').length;
 				if (len) {
 					icon.addClass('menuclose');
 				}
 				_t.addClass('inited');
 			});
+			this.openMenuByCookie();
+		},
+		/**
+		 * 通过cookie打开菜单
+		 * @return {[type]} [description]
+		 */
+		openMenuByCookie: function() {
 			//把状态保存到cookie进行初始化打开菜单
 			var sta = ank.readCookie('catetreejson');
 			sta = sta ? sta.split(',') : [];
 			for (a in sta) {
-				var o = $('#catetree_' + catetree.cateid + sta[a]);
+				var o = $('#catetree_' + catetree.cateid + '_' + sta[a]);
 				o && o.hasClass('menuclose') && o.click();
 			}
 		},
@@ -631,14 +641,20 @@
 				this.openCloseMenu(_t);
 			} else {
 				_t.data('data', true);
-				//还没有加载过子菜单
+				catetree.openCloseMenu(_t);
+				var d = _t.parents('dt').next();
+				d.html('<div class="loading loadtree"></div>')
+					//还没有加载过子菜单
 				var uri = _t.attr('data-url');
 				if (uri) {
 					$.get(uri, function(da) {
-						_t.parents('dt').next().append(da);
+						d.html(da.data);
 						catetree.init();
 						am.initYesNo();
-						catetree.openCloseMenu(_t);
+						am.blusChange();
+						debugger;
+						catetree.openMenuByCookie();
+
 					});
 				}
 			}

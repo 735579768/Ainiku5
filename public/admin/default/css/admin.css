@@ -543,7 +543,7 @@ input[type="checkbox"]:disabled:after {
 .cate-tree .c-sub-item {
 	display: none;
 }
-
+.loadtree{height: 25px; line-height: 25px;background-position: 20px center;}
 /**
  * 编辑块的tab特效
  */

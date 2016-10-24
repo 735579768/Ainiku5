@@ -12,10 +12,28 @@ class Category extends Base {
 	public function lis() {
 		$category_type  = input('param.category_type', 'article');
 		$category_title = get_status($category_type, 'category_type');
+
+		$map['pid']           = 0;
+		$map['category_type'] = $category_type;
+		$list                 = $this->pages([
+			'table' => 'Category',
+			'where' => $map,
+			'order' => 'sort asc',
+		]);
+		$list = $list[0];
+		foreach ($list as $key => $value) {
+			$list2 = Db::name('Category')
+				->where(['pid' => $value['category_id']])
+				->field('category_id,pid,title,name,sort,status')
+				->order('status desc,sort asc')
+				->find();
+			$list[$key]['child'] = $list2;
+		}
 		$this->assign([
 			'meta_title'     => $category_title . '列表',
 			'category_type'  => $category_type,
 			'category_title' => $category_title,
+			'_list'          => $list,
 		]);
 		return $this->fetch();
 	}
@@ -49,7 +67,7 @@ class Category extends Base {
 			'_list'         => $list,
 			'category_type' => $category_type,
 		]);
-		return $this->fetch('tree');
+		$this->success('ok', '', $this->fetch('tree'));
 	}
 	/**
 	 * 添加分类

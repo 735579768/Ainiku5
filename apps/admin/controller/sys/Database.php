@@ -31,7 +31,7 @@ class Database extends Base {
 			$this->_import();
 		} else {
 			//列出备份文件列表
-			$path = './data/';
+			$path = '.' . DATA_DIR . '/';
 			$flag = \FilesystemIterator::KEY_AS_FILENAME;
 			$glob = new \FilesystemIterator($path, $flag);
 

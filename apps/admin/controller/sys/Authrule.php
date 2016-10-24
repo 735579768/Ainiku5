@@ -9,9 +9,28 @@ class Authrule extends Base {
 	 * @return [type] [description]
 	 */
 	public function lis() {
-		$this->assign('meta_title', '权限规则列表');
+		$map['pid'] = 0;
+		$list       = $this->pages([
+			'table' => 'AuthRule',
+			'where' => $map,
+			'field' => 'auth_rule_id,pid,title,name,sort,status,type',
+			'order' => 'sort asc',
+		]);
+		$list = $list[0];
+		foreach ($list as $key => $value) {
+			$list2 = Db::name('AuthRule')
+				->where(['pid' => $value['auth_rule_id']])
+				->field('auth_rule_id,pid,title,name,sort,status,type')
+				->order('status desc,sort asc')
+				->find();
+			$list[$key]['child'] = $list2;
+		}
+
+		$this->assign([
+			'meta_title' => '权限规则列表',
+			'_list'      => $list,
+		]);
 		return $this->fetch();
-		$this->tree();
 	}
 	/**
 	 * 取权限规则列表
@@ -25,13 +44,13 @@ class Authrule extends Base {
 			// 查询状态为1的用户数据 并且每页显示10条数据
 			$list = Db::name('AuthRule')
 				->where(['pid' => $pid])
-				->field('auth_rule_id,pid,title,name,sort,status')
+				->field('auth_rule_id,pid,title,name,sort,status,type')
 				->order('status desc,sort asc')
 				->select();
 			foreach ($list as $key => $value) {
 				$list2 = Db::name('AuthRule')
 					->where(['pid' => $value['auth_rule_id']])
-					->field('auth_rule_id,pid,title,name,sort,status')
+					->field('auth_rule_id,pid,title,name,sort,status,type')
 					->order('sort asc,status desc')
 					->select();
 				$list[$key]['child'] = $list2;
@@ -39,7 +58,7 @@ class Authrule extends Base {
 			Cache::tag('authrule')->set('authrule' . $pid, $list);
 		}
 		$this->assign('_list', $list);
-		return $this->fetch('tree');
+		$this->success('ok', '', $this->fetch('tree'));
 	}
 	/**
 	 * 添加权限规则
