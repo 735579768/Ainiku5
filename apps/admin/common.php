@@ -256,8 +256,7 @@ function select_theme($name = 'admin') {
 	foreach ($list as $key => $value) {
 		$filepath = $path . $value . '/tpl.ini';
 		if (file_exists($filepath)) {
-			$con           = file_get_contents($filepath);
-			$con           = json_decode($con, true);
+			$con           = parse_ini_file($filepath, true);
 			$rearr[$value] = $con['name'];
 		} else {
 			$rearr[$value] = $value;

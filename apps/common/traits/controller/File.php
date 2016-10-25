@@ -15,12 +15,8 @@ trait File {
 			$data = \think\Db::name('Picture')
 				->field('picture_id as id,destname,path,thumbpath')
 				->where('picture_id', 'in', $id)
-			// ->fetchSql()
 				->select();
-			// echo $data;
 		} else {
-			// $model = M('File');
-			// $data  = $model->where(['id' => ['in', "$idarr"]])->select();
 			$data = \think\Db::name('File')
 				->where('file_id', 'in', $idarr)
 				->select();
@@ -31,14 +27,10 @@ trait File {
 		$fpath = $filepath;
 		if (file_exists($fpath)) {
 			$sha1 = sha1_file($fpath);
-			// $list = M('Picture')->where("sha1='$sha1'")->find();
 			$list = \think\Db::name('Picture')
 				->where(['sha1' => $sha1])
 				->WhereOr(['re_sha1' => $sha1])
-			// ->fetchSql()
 				->find();
-			// echo $list;
-			// die();
 			if (empty($list)) {
 				return array('path' => $filepath, 'sha1' => $sha1);
 			} else {
@@ -79,9 +71,10 @@ trait File {
 			}
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
-			$extend   = explode(".", strtolower($_FILES['filelist']['name']));
-			$va       = count($extend) - 1;
-			$filename = time() . mt_rand(10000, 99999) . "." . $extend[$va];
+			// $extend   = explode(".", );
+			// $va       = count($extend) - 1;
+			$ext      = pathinfo(strtolower($_FILES['filelist']['name']), PATHINFO_EXTENSION);
+			$filename = time() . mt_rand(10000, 99999) . "." . $ext;
 			if (!create_folder($targetPath)) {
 				$return['info']   = '创建目录错误：' . $targetPath;
 				$return['status'] = 0;
@@ -99,7 +92,7 @@ trait File {
 			// Validate the file type
 			$fileTypes = config('file_upload.exts'); // File extensions
 
-			if (in_array('.' . $extend[$va], $fileTypes)) {
+			if (in_array('.' . $ext, $fileTypes)) {
 				$bl = move_uploaded_file($tempFile, $targetPath);
 
 				// $thumbPath = str_replace('/image/', '/image/thumb/', $targetPath);
