@@ -450,24 +450,28 @@ function find_file_path($filename = '') {
 	if (empty($filename)) {
 		return '';
 	}
-	$dirarr = [
-		config('view_replace_str.__JS__'),
-		config('view_replace_str.__CSS__'),
-		config('view_replace_str.__STATIC__') . '/js',
-		config('view_replace_str.__STATIC__') . '/css',
-		STATIC_DIR . '/' . request()->module() . '/' . config('default_theme'),
-		config('view_replace_str.__STATIC__'),
-		STATIC_DIR,
+	$filepath = cache($filename);
+	if (!$filepath || APP_DEBUG) {
+		$dirarr = [
+			config('view_replace_str.__JS__'),
+			config('view_replace_str.__CSS__'),
+			config('view_replace_str.__STATIC__') . '/js',
+			config('view_replace_str.__STATIC__') . '/css',
+			STATIC_DIR . '/' . request()->module() . '/' . config('default_theme'),
+			config('view_replace_str.__STATIC__'),
+			STATIC_DIR,
 
-	];
-
-	foreach ($dirarr as $key => $value) {
-		$filepath = $value . '/' . $filename;
-		// \Think\Log::write($filepath, 'WARN');
-
-		if (file_exists('.' . $filepath)) {
-			return $filepath;
+		];
+		foreach ($dirarr as $key => $value) {
+			$filepath = $value . '/' . $filename;
+			// \Think\Log::write($filepath, 'WARN');
+			if (file_exists('.' . $filepath)) {
+				cache($filename, $filepath);
+				return $filepath;
+			}
 		}
+	} else {
+		return $filepath;
 	}
 	return 'http://' . $filename;
 }
