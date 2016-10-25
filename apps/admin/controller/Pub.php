@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\controller;
-use think\db;
+use think\Db;
 
 class Pub extends \app\common\Controller\Base {
 	public function index() {

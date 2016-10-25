@@ -1,6 +1,6 @@
 <?php
 namespace auth;
-use think\db;
+use think\Db;
 
 class Auth {
 	static private $_instance = null;

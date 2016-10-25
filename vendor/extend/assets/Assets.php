@@ -139,9 +139,10 @@ class Assets {
 		$csscache = $this->cachepath . '/' . $cssname . '.css';
 		$jscache  = $this->cachepath . '/' . $jsname . '.js';
 
+		//查找css文件
 		$css_sj_path = cache($cssname . '_pathlist'); //css实际路径
 		if (!$css_sj_path || APP_DEBUG) {
-			//查找css文件
+
 			foreach ($this->css as $k => $v) {
 				$filepath = $this->getFilePath($v, 'css');
 				if ($filepath) {
