@@ -155,6 +155,7 @@
 						}
 					});
 				});
+				layer.closeAll();
 			});
 		},
 		initPage: function() {

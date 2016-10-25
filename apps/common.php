@@ -758,13 +758,14 @@ function send_mail($conf = array()) {
  * @return string
  */
 function url($url = '', $vars = '', $suffix = true, $domain = false) {
-	$key = json_encode([$url, $vars, $suffix, $domain]);
-	$uri = \think\Cache::get($key);
-	if (!$uri || config('app_debug')) {
-		$uri = \think\Url::build($url, $vars, $suffix, $domain);
-		\think\Cache::tag('url')->set($key, $uri);
-	}
-	return $uri;
+	// $key = json_encode([$url, $vars, $suffix, $domain]);
+	// $uri = \think\Cache::get($key);
+	// if (!$uri || config('app_debug')) {
+	// 	$uri = \think\Url::build($url, $vars, $suffix, $domain);
+	// 	\think\Cache::tag('url')->set($key, $uri);
+	// }
+	// return $uri;
+	return \think\Url::build($url, $vars, $suffix, $domain);
 }
 
 // /**

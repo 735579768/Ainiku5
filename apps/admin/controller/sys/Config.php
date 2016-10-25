@@ -56,7 +56,7 @@ class Config extends Base {
 			$result   = model('Config')
 				->isUpdate(true)
 				->save(['value' => $data], ['config_id' => 1]);
-			cache('sys_config', $data);
+			cache('sys_config', null);
 			add_user_log('更新网站配置', input('param.'));
 			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
@@ -69,7 +69,8 @@ class Config extends Base {
 			define('show_mark', true);
 
 			$data = get_sys_config();
-			$sta  = config('systemstatus.tab');
+			// dump($data);
+			$sta = config('systemstatus.tab');
 			$this->assign([
 				'meta_title' => $sta[$map['tab_id']] . '配置',
 				'formarr'    => $list,
