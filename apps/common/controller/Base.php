@@ -11,7 +11,7 @@ class Base extends Controller {
 	//  */
 	// public function _empty($name) {
 	// 	// die('404');
-	// 	if (APP_DEBUG) {
+	// 	if (config('app_debug')) {
 	// 		throw new \think\Exception('没有此方法:' . $name, 100006);
 	// 	} else {
 	// 		return $this->fetch(APP_PATH . 'common/view/404.html');

@@ -7,7 +7,7 @@ use think\Cache;
 function select_form() {
 	$list   = \think\Db::name('Form')->where('status', 1)->field('form_id,title')->select();
 	$relist = Cache::get('form_select');
-	if (APP_DEBUG || !$relist) {
+	if (config('app_debug') || !$relist) {
 		foreach ($list as $key => $value) {
 			$relist[$value['form_id']] = $value['title'];
 		}
@@ -42,7 +42,7 @@ function digui_select_menu($pid = 0) {
 
 function select_menu($pid = 0) {
 	$relist = Cache::get('menu_select');
-	if (!$relist || APP_DEBUG) {
+	if (!$relist || config('app_debug')) {
 		$relist = digui_select_menu($pid);
 		Cache::tag('menu')->set('menu_select', $relist);
 	}
@@ -76,7 +76,7 @@ function digui_select_category($pid = 0, $category_type = 'article') {
 }
 function select_category($pid = 0, $category_type = 'article') {
 	$relist = Cache::get('category_select');
-	if (!$relist || APP_DEBUG) {
+	if (!$relist || config('app_debug')) {
 		$relist = digui_select_category($pid, $category_type);
 		Cache::tag('category')->set('category_select', $relist);
 	}
@@ -110,7 +110,7 @@ function digui_select_auth_rule($pid = 0) {
 }
 function select_auth_rule($pid = 0) {
 	$relist = Cache::get('authrule_select');
-	if (!$relist || APP_DEBUG) {
+	if (!$relist || config('app_debug')) {
 		$relist = digui_select_auth_rule($pid);
 		Cache::tag('authrule')->set('authrule_select', $relist);
 	}
@@ -134,7 +134,7 @@ function select_user_group() {
 		->field('user_group_id,title')
 		->select();
 	$relist = Cache::get('usergroup_select');
-	if (APP_DEBUG || !$relist) {
+	if (config('app_debug') || !$relist) {
 		foreach ($list as $key => $value) {
 			$relist[$value['user_group_id']] = $value['title'];
 		}
@@ -193,7 +193,7 @@ function digui_select_nav($pid = 0) {
 }
 function select_nav($pid = 0) {
 	$relist = Cache::get('nav_select');
-	if (!$relist || APP_DEBUG) {
+	if (!$relist || config('app_debug')) {
 		$relist = digui_select_nav($pid);
 		Cache::tag('nav')->set('nav_select', $relist);
 	}
@@ -225,7 +225,7 @@ function digui_select_single($pid = 0) {
 }
 function select_single($pid = 0) {
 	$relist = Cache::get('single_select');
-	if (!$relist || APP_DEBUG) {
+	if (!$relist || config('app_debug')) {
 		$relist = digui_select_single($pid);
 		Cache::tag('single')->set('single_select', $relist);
 	}

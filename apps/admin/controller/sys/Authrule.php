@@ -39,7 +39,7 @@ class Authrule extends Base {
 	 */
 	public function tree($pid = 0) {
 		$list = Cache::tag('authrule')->get('authrule' . $pid);
-		if (!$list || APP_DEBUG) {
+		if (!$list || config('app_debug')) {
 			// if (!$list) {
 			// 查询状态为1的用户数据 并且每页显示10条数据
 			$list = Db::name('AuthRule')

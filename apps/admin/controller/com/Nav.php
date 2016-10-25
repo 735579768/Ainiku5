@@ -41,7 +41,7 @@ class Nav extends Base {
 	public function tree($pid = 0) {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Cache::tag('nav')->get('nav' . $pid);
-		if (!$list || APP_DEBUG) {
+		if (!$list || config('app_debug')) {
 			$list = Db::name('Nav')
 				->where(['pid' => $pid])
 				->field('nav_id,pid,title,url,sort,status,target')

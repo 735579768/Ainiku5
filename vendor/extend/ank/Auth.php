@@ -11,7 +11,7 @@ class Auth {
 		$uinfo         = session('uinfo');
 		$this->_oklist = cache('okrulelist' . $uinfo['user_group_id']);
 		$this->_nolist = cache('norulelist' . $uinfo['user_group_id']);
-		if (empty($this->_nolist) || APP_DEBUG) {
+		if (empty($this->_nolist) || config('app_debug')) {
 			$uinfoauth = Db::name('UserGroup')
 				->field('auth_rule')
 				->find($uinfo['user_group_id']);

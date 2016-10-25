@@ -52,7 +52,7 @@ class Article extends TagLib {
 		//if(!empty($position))$parse .='$maplist[\'_string\']=array(\'like\',\'%'.$position.'%\');';
 		$parse .= '$cachek=md5(json_encode($maplist).\'' . $rows . $order . '\');';
 		$parse .= '$__ARTICLE_LIST__=S($cachek);';
-		$parse .= 'if(empty($__ARTICLE_LIST__) || APP_DEBUG):';
+		$parse .= 'if(empty($__ARTICLE_LIST__) || config(\'app_debug\')):';
 		$parse .= '$__ARTICLE_LIST__ = M(\'Article\')->where($maplist)->order(\'' . $order . ' article_id desc\')->limit(\'' . $rows . '\')->select();';
 		$parse .= 'S($cachek,$__ARTICLE_LIST__);';
 		$parse .= 'endif;';
@@ -91,7 +91,7 @@ class Article extends TagLib {
 		$parse .= '$skey=json_encode($map2).\'' . $order . $rows . '\'.I(\'get.p\');';
 		$parse .= '$__SHOW__=S($skey.\'pageshow\');';
 		$parse .= '$__PAGE_LIST__=S($skey.\'pagelist\');';
-		$parse .= 'if(empty($__SHOW__) || empty($__PAGE_LIST__)  || APP_DEBUG):';
+		$parse .= 'if(empty($__SHOW__) || empty($__PAGE_LIST__)  || config(\'app_debug\')):';
 		$parse .= '$__COUNT__ = M(\'Article\')->where($map2)->order(\'' . $order . ' article_id desc\')->count();';
 		$parse .= '$Page= new \Think\Page($__COUNT__,' . $rows . ');';
 		$parse .= '$Page->setConfig(\'theme\',\'%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%\');';

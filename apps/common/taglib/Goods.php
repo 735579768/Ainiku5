@@ -51,7 +51,7 @@ class Goods extends TagLib {
 
 		$parse .= '$cachek=md5(json_encode($maplist).\'' . $rows . $order . '\');';
 		$parse .= '$__Goods_LIST__=S($cachek);';
-		$parse .= 'if(empty($__Goods_LIST__) || APP_DEBUG):';
+		$parse .= 'if(empty($__Goods_LIST__) || config(\'app_debug\')):';
 		$parse .= '$__Goods_LIST__ = M(\'Goods\')->where($maplist)->order(\'' . $order . ' Goods_id desc\')->limit(\'' . $rows . '\')->select();';
 		$parse .= 'S($cachek,$__Goods_LIST__);';
 		$parse .= 'endif;';
@@ -87,7 +87,7 @@ class Goods extends TagLib {
 		$parse .= '$skey=json_encode($map2).\'' . $order . $rows . '\'.I(\'get.p\');';
 		$parse .= '$__SHOW__=S($skey.\'pageshow\');';
 		$parse .= '$__PAGE_LIST__=S($skey.\'pagelist\');';
-		$parse .= 'if(empty($__SHOW__) || empty($__PAGE_LIST__)  || APP_DEBUG):';
+		$parse .= 'if(empty($__SHOW__) || empty($__PAGE_LIST__)  || config(\'app_debug\')):';
 		$parse .= '$__COUNT__ = M(\'Goods\')->where($map2)->order(\'' . $order . ' Goods_id desc\')->count();';
 		$parse .= '$Page= new \Think\Page($__COUNT__,' . $rows . ');';
 		$parse .= '$Page->setConfig(\'theme\',\'%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%\');';

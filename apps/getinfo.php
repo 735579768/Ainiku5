@@ -24,7 +24,7 @@ function get_status($status = 0, $type = 'status') {
  */
 function get_sys_config() {
 	$data = cache('sys_config');
-	if (!$data || APP_DEBUG) {
+	if (!$data || config('app_debug')) {
 		$info = \think\Db::name('Config')->field('value')->find(1);
 		$data = json_decode($info['value'], true);
 		cache('sys_config', $data);
@@ -80,7 +80,7 @@ function get_category($id = '', $field = '') {
 		$map['name'] = $id;
 	}
 	$info = \think\Cache::tag('category')->get('category' . $id);
-	if (!$info || APP_DEBUG) {
+	if (!$info || config('app_debug')) {
 		$info = \think\Db::name('Category')->where($map)->find();
 		\think\Cache::tag('category')->set('category' . $id, $info);
 	}
@@ -100,7 +100,7 @@ function get_form($id = '', $field = '') {
 		$map['name'] = $id;
 	}
 	$info = \think\Cache::tag('form')->get('form' . $id);
-	if (!$info || APP_DEBUG) {
+	if (!$info || config('app_debug')) {
 		$info = \think\Db::name('Form')->where($map)->find();
 		\think\Cache::tag('form')->set('form' . $id, $info);
 	}

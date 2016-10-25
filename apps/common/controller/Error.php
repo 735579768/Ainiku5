@@ -20,7 +20,7 @@ class Error extends \think\Controller {
 		 */
 		$info = \think\Db::name('Addon')->field('addon_id')->where('name', strtolower($controllerName))->find();
 		if (!$info) {
-			if (APP_DEBUG) {
+			if (config('app_debug')) {
 				// 使用think自带异常类抛出异常
 				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
 				throw new \think\Exception($errstr, 100006);
@@ -57,7 +57,7 @@ class Error extends \think\Controller {
 
 		} else {
 			//插件已经安装但文件丢失
-			if (APP_DEBUG) {
+			if (config('app_debug')) {
 				// 使用think自带异常类抛出异常
 				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
 				throw new \think\Exception($errstr, 100006);

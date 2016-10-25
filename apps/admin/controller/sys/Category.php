@@ -46,7 +46,7 @@ class Category extends Base {
 		$map['pid']           = $pid;
 		$map['category_type'] = $category_type;
 		$list                 = Cache::tag('category')->get('category' . $pid);
-		if (!$list || APP_DEBUG) {
+		if (!$list || config('app_debug')) {
 			$list = Db::name('Category')
 				->where($map)
 				->field('category_id,pid,title,name,sort,status')

@@ -400,7 +400,7 @@ function get_picture($id = null, $field = null, $wh = null) {
 	if (is_numeric($id)) {
 		$pkey    = md5('_picture_' . $id . '_' . $field . '_' . $swh);
 		$revalue = cache($pkey);
-		if (empty($revalue) || APP_DEBUG) {
+		if (empty($revalue) || config('app_debug')) {
 			$picture = \think\Db::name('Picture')
 				->where(['picture_id' => $id, 'status' => 1])
 				->find();
@@ -451,7 +451,7 @@ function find_file_path($filename = '') {
 		return '';
 	}
 	$filepath = cache($filename);
-	if (!$filepath || APP_DEBUG) {
+	if (!$filepath || config('app_debug')) {
 		$dirarr = [
 			config('view_replace_str.__JS__'),
 			config('view_replace_str.__CSS__'),
@@ -744,7 +744,7 @@ function send_mail($conf = array()) {
 	//$mail->AddAttachment("psd.jpg", "psd.jpg");  //添加一个附件并且重命名
 
 	if (!$mail->Send()) {
-		return APP_DEBUG ? $mail->ErrorInfo : '邮件发送错误!';
+		return config('app_debug') ? $mail->ErrorInfo : '邮件发送错误!';
 	} else {
 		return true;
 	}
@@ -760,7 +760,7 @@ function send_mail($conf = array()) {
 function url($url = '', $vars = '', $suffix = true, $domain = false) {
 	$key = json_encode([$url, $vars, $suffix, $domain]);
 	$uri = \think\Cache::get($key);
-	if (!$uri || APP_DEBUG) {
+	if (!$uri || config('app_debug')) {
 		$uri = \think\Url::build($url, $vars, $suffix, $domain);
 		\think\Cache::tag('url')->set($key, $uri);
 	}

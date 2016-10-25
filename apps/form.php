@@ -61,7 +61,7 @@ function create_form($fieldarr, $data = []) {
 	$initformjs    = ''; //要初始化的表单js
 	$formjsstr     = ''; //要引入的js文件
 	$default_value = [];
-	if (empty($formstr) || APP_DEBUG) {
+	if (empty($formstr) || config('app_debug')) {
 		$formstr = '';
 		// dump($fieldarr);
 		foreach ($fieldarr as $key => $value) {
@@ -1055,7 +1055,7 @@ function get_form_item($form_id = '') {
 	}
 	$key  = 'sys_form' . $form_id;
 	$list = cache($key);
-	if (!$list || APP_DEBUG) {
+	if (!$list || config('app_debug')) {
 		$map = [];
 		if (is_numeric($form_id)) {
 			$map['form_id'] = $form_id;

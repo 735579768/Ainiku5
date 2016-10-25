@@ -64,7 +64,7 @@ class Addon extends Base {
 		} else {
 			$dirlist   = get_dir_list(SITE_PATH . '/addons');
 			$addonlist = cache('newaddon');
-			if (!$addonlist || APP_DEBUG) {
+			if (!$addonlist || config('app_debug')) {
 				$addonlist = [];
 				foreach ($dirlist as $key => $value) {
 					$info = \think\Db::name('Addon')->field('addon_id')->where(['name' => strtolower($value)])->find();

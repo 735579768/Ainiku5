@@ -132,7 +132,7 @@ class Assets {
 		$cssname  = md5(implode($this->css));
 		$jsname   = md5(implode($this->js));
 		$suijinum = cache('assetsversion');
-		if (!$suijinum || APP_DEBUG) {
+		if (!$suijinum || config('app_debug')) {
 			$suijinum = '?r=' . rand(0, 10);
 			cache('assetsversion', $suijinum);
 		}
@@ -141,7 +141,7 @@ class Assets {
 
 		//查找css文件
 		$css_sj_path = cache($cssname . '_pathlist'); //css实际路径
-		if (!$css_sj_path || APP_DEBUG) {
+		if (!$css_sj_path || config('app_debug')) {
 			$css_sj_path = [];
 			foreach ($this->css as $k => $v) {
 				$filepath = $this->getFilePath($v, 'css');
@@ -166,7 +166,7 @@ class Assets {
 		}
 		//查找js文件
 		$js_sj_path = cache($jsname . '_pathlist'); //js实际路径
-		if (!$js_sj_path || APP_DEBUG) {
+		if (!$js_sj_path || config('app_debug')) {
 			$js_sj_path = [];
 			foreach ($this->js as $k => $v) {
 				$filepath = $this->getFilePath($v, 'js');
@@ -188,7 +188,7 @@ class Assets {
 
 			}
 		}
-		if (!APP_DEBUG) {
+		if (!config('app_debug')) {
 			//如果关闭调试模式就进行下面处理
 			if (!file_exists(dirname($csscache))) {
 				mkdir(dirname($csscache), 0777, true);
@@ -211,7 +211,7 @@ class Assets {
 		//不压缩合并的css
 		$cssnoysname  = md5(implode($this->css_noys));
 		$css_noys_str = cache($cssnoysname);
-		if (!$css_noys_str || APP_DEBUG) {
+		if (!$css_noys_str || config('app_debug')) {
 			$css_noys_str = '';
 			foreach ($this->css_noys as $k => $v) {
 				$filepath = $this->getFilePath($v, 'css');
@@ -225,7 +225,7 @@ class Assets {
 		//不压缩合并的js
 		$jsnoysname  = md5(implode($this->js_noys));
 		$js_noys_str = cache($jsnoysname);
-		if (!$js_noys_str || APP_DEBUG) {
+		if (!$js_noys_str || config('app_debug')) {
 			$js_noys_str = '';
 			foreach ($this->js_noys as $k => $v) {
 				$filepath = $this->getFilePath($v, 'js');

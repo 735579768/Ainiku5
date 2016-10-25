@@ -17,7 +17,7 @@ class Ajax extends Base {
 		}
 		$key  = 'sys_childmenu' . $pid;
 		$data = \think\Cache::tag('mainchildmenu')->get($key);
-		if (!$data || APP_DEBUG) {
+		if (!$data || config('app_debug')) {
 			$data = [];
 			$list = \think\Db::name('Menu')
 				->field('menu_id,title,url,group')

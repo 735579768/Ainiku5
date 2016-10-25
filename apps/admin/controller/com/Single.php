@@ -22,7 +22,7 @@ class Single extends Base {
 	public function tree($pid = 0) {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Cache::tag('single')->get('single' . $pid);
-		if (!$list || APP_DEBUG) {
+		if (!$list || config('app_debug')) {
 			$list = Db::name('Single')
 				->where(['pid' => $pid])
 				->field('single_id,pid,title,name,sort,status')

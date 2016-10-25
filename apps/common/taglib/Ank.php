@@ -94,7 +94,7 @@ class Ank extends TagLib {
 		$newname = sha1($hname);
 		if (!$suijinum) {
 			$suijinum = cache('assetsversion');
-			if (!$suijinum || APP_DEBUG) {
+			if (!$suijinum || config('app_debug')) {
 				$suijinum = '?r=' . rand(0, 10);
 				cache('assetsversion', $suijinum);
 			}
@@ -106,7 +106,7 @@ class Ank extends TagLib {
 			$filepath     = $val . '.' . $filetype;
 			$temarr[$key] = find_file_path($filepath);
 		}
-		if (APP_DEBUG) {
+		if (config('app_debug')) {
 			foreach ($temarr as $key => $val) {
 				if ($filetype == 'js') {
 					$jscss .= '<script src="' . $val . $suijinum . '" type="text/javascript" ></script>' . "\r\n";
@@ -154,7 +154,7 @@ class Ank extends TagLib {
 		$parse = '<?php ';
 		$parse .= '$skey=md5("_single' . $id . '");';
 		$parse .= '$__SINGLE_LIST__=S($skey);';
-		$parse .= 'if(empty($__SINGLE_LIST__)||APP_DEBUG):';
+		$parse .= 'if(empty($__SINGLE_LIST__)||config(\'app_debug\')):';
 		$parse .= '$__SINGLE_LIST__ = M(\'Single\')->where(\'status=1\')->find(' . $id . ');';
 		$parse .= 'S($skey,$__SINGLE_LIST__);';
 		$parse .= 'endif;';
@@ -181,7 +181,7 @@ class Ank extends TagLib {
 		$parse = '<?php ';
 		$parse .= '$skey=md5("' . $table . $id . $field . $pic . '");';
 		$parse .= '$__GET_LIST__=S($skey);';
-		$parse .= 'if(empty($__GET_LIST__)||APP_DEBUG):';
+		$parse .= 'if(empty($__GET_LIST__)||config(\'app_debug\')):';
 		$parse .= '$__GET_LIST__ = M(\'' . $table . '\')->field(\'' . $field . '\')->find(' . $id . ');';
 		$parse .= 'S($skey,$__GET_LIST__);';
 		$parse .= 'endif;';
@@ -215,7 +215,7 @@ class Ank extends TagLib {
 
 		$parse = '<?php ';
 		$parse .= '$__QUERY_LIST__=S(md5("' . md5($sql) . '"));';
-		$parse .= 'if(empty($__NAV_LIST__)  || APP_DEBUG):';
+		$parse .= 'if(empty($__NAV_LIST__)  || config(\'app_debug\')):';
 		$parse .= '$__QUERY_LIST__ = M(\'\')->query("' . $sql . '");';
 		$parse .= 'S(md5(\'' . md5($sql) . '\'),$__QUERY_LIST__);';
 		$parse .= 'endif;';
@@ -237,7 +237,7 @@ class Ank extends TagLib {
 		$order = isset($tag['order']) ? ($tag['order'] . ',') : '';
 		$parse = '<?php ';
 		$parse .= '$__NAV_LIST__=cache("sys_navhome_list");';
-		$parse .= 'if(empty($__NAV_LIST__)  || APP_DEBUG):';
+		$parse .= 'if(empty($__NAV_LIST__)  || config(\'app_debug\')):';
 		$parse .= '$__NAV_LIST__ = M(\'nav\')->where(\'status>0 and pid=0\')->order(\'' . $order . ' sort asc,nav_id desc\')->select();';
 		$parse .= 'cache(\'sys_navhome_list\',$__NAV_LIST__);';
 		$parse .= 'endif;';
@@ -258,7 +258,7 @@ class Ank extends TagLib {
 		$name  = isset($tag['name']) ? $tag['name'] : 'vo';
 		$parse = '<?php ';
 		$parse .= '$__LINK_LIST__=cache("sys_link_tree");';
-		$parse .= 'if(empty($__LINK_LIST__) || APP_DEBUG):';
+		$parse .= 'if(empty($__LINK_LIST__) || config(\'app_debug\')):';
 		$parse .= '$__LINK_LIST__ = M(\'link\')->where(\'status>0\')->order(\' sort asc,link_id desc\')->select();';
 		$parse .= 'cache(\'sys_link_tree\',$__LINK_LIST__);';
 		$parse .= 'endif;';
@@ -296,7 +296,7 @@ class Ank extends TagLib {
 		}
 
 		$parse .= '$__MODULE_LIST__=S(json_encode($mapmodule));';
-		$parse .= 'if(empty($__MODULE_LIST__) || APP_DEBUG):';
+		$parse .= 'if(empty($__MODULE_LIST__) || config(\'app_debug\')):';
 		$parse .= '$__MODULE_LIST__ = M(\'module\')->field(\'*,' . __DB_PREFIX__ . 'module.title as title,' . __DB_PREFIX__ . 'module.pic as pic,b.title as postitle,' . __DB_PREFIX__ . 'module.sort as sort\')->join(\'' . __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id\')->where($mapmodule)->order(\' ' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc\')->select();';
 		$parse .= 'S(json_encode($mapmodule),$__MODULE_LIST__);';
 		$parse .= 'endif;';

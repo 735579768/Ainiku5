@@ -41,7 +41,7 @@ class Menu extends Base {
 	public function tree($pid = 0) {
 		// 查询状态为1的用户数据 并且每页显示10条数据
 		$list = Cache::tag('menu')->get('menu' . $pid);
-		if (!$list || APP_DEBUG) {
+		if (!$list || config('app_debug')) {
 			$list = Db::name('Menu')
 				->where(['pid' => $pid])
 				->field('menu_id,pid,title,url,sort,status,group,home')

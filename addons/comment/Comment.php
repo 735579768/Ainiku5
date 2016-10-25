@@ -104,7 +104,7 @@ if (!class_exists('\addons\comment\Comment')) {
 				reg_js('addon/comment/js/comment');
 				//取插件配置参数
 				$data = cache('plugin_comment');
-				if (empty($conf) || APP_DEBUG) {
+				if (empty($conf) || config('app_debug')) {
 					$data = $this->getParam();
 					cache('plugin_comment', $data);
 				}
