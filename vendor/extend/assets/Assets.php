@@ -142,7 +142,7 @@ class Assets {
 		//查找css文件
 		$css_sj_path = cache($cssname . '_pathlist'); //css实际路径
 		if (!$css_sj_path || APP_DEBUG) {
-
+			$css_sj_path = [];
 			foreach ($this->css as $k => $v) {
 				$filepath = $this->getFilePath($v, 'css');
 				if ($filepath) {
@@ -167,6 +167,7 @@ class Assets {
 		//查找js文件
 		$js_sj_path = cache($jsname . '_pathlist'); //js实际路径
 		if (!$js_sj_path || APP_DEBUG) {
+			$js_sj_path = [];
 			foreach ($this->js as $k => $v) {
 				$filepath = $this->getFilePath($v, 'js');
 				if ($filepath) {
@@ -218,6 +219,7 @@ class Assets {
 					$css_noys_str .= '<link href="' . trim($filepath, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 				}
 			}
+			cache($cssnoysname, $css_noys_str);
 		}
 
 		//不压缩合并的js
@@ -231,6 +233,7 @@ class Assets {
 					$js_noys_str .= '<script src="' . trim($filepath, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
 				}
 			}
+			cache($jsnoysname, $js_noys_str);
 		}
 
 		$css = $css_noys_str . $this->cssstr;
