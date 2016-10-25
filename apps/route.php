@@ -13,7 +13,6 @@
 return [
 	//域名绑定
 	'__domain__'          => [
-		''     => 'admin',
 		//后台
 		'user' => 'admin',
 		//前台

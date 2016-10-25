@@ -4,6 +4,7 @@ namespace app\admin\controller;
 class Index extends Base {
 	public function index() {
 		// var_dump(config(''));
+		config('app_trace', false);
 		$list = \think\Db::name('Menu')
 			->field('menu_id,title,url')
 			->where(['status' => 1, 'pid' => 0])

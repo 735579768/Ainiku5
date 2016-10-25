@@ -54,7 +54,8 @@ class Userlog extends Base {
 			die('error');
 		} else {
 			$info = \think\Db::name('UserLog')->where(['user_log_id' => $user_log_id])->field('json_data')->find();
-			dump(json_decode($info['json_data'], true));
+			$str  = dump(json_decode($info['json_data'], true), false);
+			echo "<div style='padding:10px;'>{$str}</div>";
 		}
 	}
 }

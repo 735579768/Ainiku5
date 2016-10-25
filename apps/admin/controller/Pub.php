@@ -79,8 +79,8 @@ class Pub extends \app\common\Controller\Base {
 			if (is_login() || $this->autoLogin()) {
 				$user = session('uinfo');
 				// $uri  = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
-				$uri = 'index/index';
-				$this->redirect(url($uri));
+				$uri = url('index/index');
+				$this->redirect($uri);
 				// $this->redirect('Index/index');
 			} else {
 				return $this->fetch();
