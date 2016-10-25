@@ -52,6 +52,7 @@ class User extends Controller {
 					// controller('sys.other')->loginOut();
 					// session(null, config('session.prefix'));
 					// cookie(null, config('cookie.prefix'));
+					add_user_log("更新用户密码", input('param.'));
 					$this->success('密码更新成功!');
 				} else {
 					$this->error('密码修改失败');

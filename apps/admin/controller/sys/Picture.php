@@ -22,6 +22,7 @@ class Picture extends Base {
 	function resetSha1() {
 		$list = cache('resetshalist');
 		if (empty($list)) {
+			add_user_log("生成图片sha1值", input('param.'));
 			$list = Db::name('Picture')->field('picture_id,path')->select();
 			cache('resetshalist', $list);
 			cache('resetshalistnum', count($list));
@@ -52,6 +53,7 @@ class Picture extends Base {
 	function greateThumb() {
 		$list = cache('thumbpath');
 		if (empty($list)) {
+			add_user_log("生成图片缩略图", input('param.'));
 			$list = Db::name('Picture')->field('picture_id,path')->select();
 			cache('thumbpath', $list);
 			cache('listnum', count($list));

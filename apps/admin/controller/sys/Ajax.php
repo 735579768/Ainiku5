@@ -55,6 +55,7 @@ class Ajax extends Base {
 					->save();
 				// $this->returnResult($result, '添加成功', '添加失败');
 				if ($result) {
+					add_user_log('添加标签', input('param.'));
 					$this->success('添加成功', '', ['id' => $mod->category_id, 'title' => input('param.title')]);
 				} else {
 					$this->error('添加失败');

@@ -91,5 +91,6 @@ class Form extends Base {
 sql;
 			$res = \think\Db::execute($sql);
 		}
+		add_user_log("更新{$prefix}{$tablename}表结构", input('param.'));
 	}
 }

@@ -135,6 +135,8 @@ class Article extends Base {
 					'category_id' => $category_id,
 				]);
 			if ($result) {
+
+				add_user_log('移动文章', input('param.'));
 				$this->success('文章移动成功', url('lis?category_id=' . $category_id));
 			} else {
 				$this->error('移动失败');

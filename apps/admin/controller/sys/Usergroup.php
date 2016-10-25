@@ -19,6 +19,7 @@ class Usergroup extends Base {
 					'auth_rule'   => $auth_rule,
 				]);
 			if ($result) {
+				add_user_log("更新用户组权限", input('param.'));
 				$this->success('设置成功');
 			} else {
 				$this->error('设置失败');

@@ -5,6 +5,7 @@ class Other extends Base {
 	/* 退出登录 */
 	public function loginOut() {
 		if (is_login()) {
+			add_user_log("退出登陆", input('param.'));
 			session(null, config('session.prefix'));
 			cookie(null, config('cookie.prefix'));
 			$this->success('退出成功！', url('Pub/login'));
@@ -17,6 +18,7 @@ class Other extends Base {
 	 * 清空系统缓存目录
 	 * **/
 	public function clearCache($type = 'img') {
+		add_user_log("清理缓存", input('param.'));
 		$arr      = array();
 		$jscss    = SITE_PATH . config('greate_cache_path.jscss') . '/';
 		$imgcache = SITE_PATH . config('greate_cache_path.imgcache') . '/';

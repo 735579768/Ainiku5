@@ -9,6 +9,9 @@ class Base extends \app\common\Controller\Base {
 	 * @return [type] [description]
 	 */
 	public function _initialize() {
+		if (get_naps_bot() !== false) {
+			die('');
+		}
 		parent::_initialize();
 		$uid = is_login();
 		$uid ? (defined('UID') or define('UID', $uid)) : $this->redirect('Pub/login');

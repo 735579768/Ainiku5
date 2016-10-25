@@ -57,6 +57,7 @@ class Config extends Base {
 				->isUpdate(true)
 				->save(['value' => $data], ['config_id' => 1]);
 			cache('sys_config', $data);
+			add_user_log('更新网站配置', input('param.'));
 			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
 			// dump(config(''));

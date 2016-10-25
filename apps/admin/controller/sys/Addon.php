@@ -19,6 +19,7 @@ class Addon extends Base {
 	//实现安装
 	public function install() {
 		if (request()->isAjax()) {
+
 			$name = input('param.name', '');
 			$info = \think\Db::name('Addon')->where(['name' => strtolower($name)])->find();
 			if ($info) {
@@ -55,6 +56,7 @@ class Addon extends Base {
 				];
 				$id = \think\Db::name('Addon')->insertGetId($data);
 				\think\Cache::clear('mainchildmenu');
+				add_user_log('安装插件', input('param.'));
 				$this->success('安装成功');
 			} else {
 				$this->error('插件安装失败');
@@ -99,6 +101,7 @@ class Addon extends Base {
 					\think\Db::name('Addon')->where(['addon_id' => $info['addon_id']])->delete();
 					\think\Db::name('Menu')->where(['menu_id' => $info['menu_id']])->delete();
 					\think\Cache::clear('mainchildmenu');
+					add_user_log('卸载插件', input('param.'));
 					$this->success('卸载成功', url('lis'));
 				} else {
 					$this->error('卸载失败');

@@ -29,9 +29,11 @@ class Userlog extends Base {
 	public function clearUp() {
 		// return controller('Data', 'logic')->clearUp('UserLog');
 		// $table || $this->error('数据表为空!');
+
 		$result = \think\Db::name('UserLog')
 			->where('1=1')
 			->delete();
+		add_user_log("清空日志", input('param.'));
 		$this->returnResult($result, '日志已经清空', '没有数据被清理');
 	}
 
@@ -41,5 +43,18 @@ class Userlog extends Base {
 	 */
 	public function delete() {
 		return controller('Data', 'logic')->delete('UserLog');
+	}
+	/**
+	 * 查看日志
+	 * @return [type] [description]
+	 */
+	public function checkLog() {
+		$user_log_id = input('param.user_log_id', 0);
+		if (!$user_log_id) {
+			die('error');
+		} else {
+			$info = \think\Db::name('UserLog')->where(['user_log_id' => $user_log_id])->field('json_data')->find();
+			dump(json_decode($info['json_data'], true));
+		}
 	}
 }

@@ -24,6 +24,7 @@ class Notice extends Base {
 			);
 			$result = send_mail($conf);
 			if ($result === true) {
+				add_user_log("发送测试邮件", input('param.'));
 				$this->success('邮件发送成功!', '');
 			} else {
 				$this->error($result);

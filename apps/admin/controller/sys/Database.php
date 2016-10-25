@@ -9,6 +9,7 @@ class Database extends Base {
 	 */
 	public function export() {
 		if (request()->isAjax()) {
+			add_user_log('导出数据库', input('param.'));
 			$this->_export();
 		} else {
 
@@ -28,6 +29,7 @@ class Database extends Base {
 	 */
 	public function import() {
 		if (request()->isAjax()) {
+			add_user_log('导入数据库', input('param.'));
 			$this->_import();
 		} else {
 			//列出备份文件列表
@@ -73,6 +75,7 @@ class Database extends Base {
 	public function optimize() {
 		$tables = input('param.tables/a');
 		if ($tables) {
+			add_user_log('优化数据表', input('param.'));
 			if (is_array($tables)) {
 				$tables = implode('`,`', $tables);
 				$list   = Db::query("OPTIMIZE TABLE `{$tables}`");
@@ -101,6 +104,7 @@ class Database extends Base {
 	public function repair() {
 		$tables = input('param.tables/a');
 		if ($tables) {
+			add_user_log('修复数据表', input('param.'));
 			if (is_array($tables)) {
 				$tables = implode('`,`', $tables);
 				$list   = Db::query("REPAIR TABLE `{$tables}`");
@@ -236,6 +240,7 @@ class Database extends Base {
 			if (count(glob($path))) {
 				$this->error('备份文件删除失败，请检查权限！', '');
 			} else {
+				add_user_log('删除备份文件', input('param.'));
 				$this->success('备份文件删除成功！', '');
 			}
 		} else {

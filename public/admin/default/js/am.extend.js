@@ -2,6 +2,17 @@
  * am扩展属性
  */
 am.extend({
+	checkLog: function(dom) {
+		var uri = $(dom).attr('data-url');
+		$.get(uri, function(data) {
+			parent.layer.open({
+				title: '日志记录数据',
+				type: 1,
+				area: ['800px', '600px'],
+				content: data
+			});
+		});
+	},
 	/**
 	 * 设置框架对象对应的tab标题
 	 * @param  {[type]} f [description]

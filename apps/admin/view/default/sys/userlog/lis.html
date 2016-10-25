@@ -35,6 +35,9 @@
                 <!--authstart-->
                 <a href="javascript:;" data-url="{:url('sys.userlog/delete',['user_log_id'=>$vo['user_log_id']])}" onclick="am.okAction(this);" list-id="{$vo.user_log_id}" class="btn btn-warning">删除</a>
                 <!--authend-->
+                <!--authstart-->
+                <a href="javascript:;" data-url="{:url('sys.userlog/checkLog',['user_log_id'=>$vo['user_log_id']])}" onclick="am.checkLog(this);"  class="btn">详情</a>
+                <!--authend-->
             </td>
         </tr>
         {/volist} {else /}

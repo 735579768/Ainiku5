@@ -102,5 +102,6 @@ class Formitem extends Base {
 			}
 			$res = \think\Db::execute($sql);
 		}
+		add_user_log("更新{$prefix}{$tablename}.{$tablefield}字段结构", input('param.'));
 	}
 }

@@ -131,6 +131,12 @@ class Data extends Base {
 				$field        => 1,
 				'update_time' => time(),
 			]);
+
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $table])
+			->find();
+		add_user_log('恢复' . $info['title'], input('param.'));
 		$this->returnResult($result, '已经恢复成功', '恢复失败');
 	}
 	/**
@@ -153,6 +159,11 @@ class Data extends Base {
 				$field        => -1,
 				'update_time' => time(),
 			]);
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $table])
+			->find();
+		add_user_log($info['title'] . '移动到回收站', input('param.'));
 		$this->returnResult($result, '已经移动到回收站', '移动失败');
 	}
 	/**
@@ -171,6 +182,11 @@ class Data extends Base {
 		$result = \think\Db::name(ucfirst($table))
 			->where($idname, 'in', $id)
 			->delete();
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $table])
+			->find();
+		add_user_log('删除' . $info['title'], input('param.'));
 		$this->returnResult($result, '删除成功', '删除失败');
 	}
 	/**
@@ -185,6 +201,11 @@ class Data extends Base {
 		$result = \think\Db::name(ucfirst($table))
 			->where($field, -1)
 			->delete();
+		$info = \think\Db::name('Form')
+			->field('title')
+			->where(['name' => $table])
+			->find();
+		add_user_log('清空回收站的' . $info['title'], input('param.'));
 		$this->returnResult($result, '全部删除成功', '没有数据被清理');
 	}
 	/**

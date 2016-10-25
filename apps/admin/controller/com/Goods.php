@@ -135,6 +135,7 @@ class Goods extends Base {
 					'category_id' => $category_id,
 				]);
 			if ($result) {
+				add_user_log("移动产品", input('param.'));
 				$this->success('产品移动成功', url('lis?category_id=' . $category_id));
 			} else {
 				$this->error('移动失败');
