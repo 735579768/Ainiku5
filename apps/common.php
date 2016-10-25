@@ -609,13 +609,13 @@ function write_tofile($filename, $str) {
  * @return [type] [description]
  */
 function reg_css($name, $ys = true) {
-	$name && \assets\Assets::getInstance()->registerCss($name, $ys);
+	$name && \ank\Assets::getInstance()->registerCss($name, $ys);
 }
 function reg_js($name = '', $ys = true) {
-	$name && \assets\Assets::getInstance()->registerJs($name, $ys);
+	$name && \ank\Assets::getInstance()->registerJs($name, $ys);
 }
 function reg_initjs($jsstr) {
-	$jsstr && \assets\Assets::getInstance()->registerInitJs($jsstr);
+	$jsstr && \ank\Assets::getInstance()->registerInitJs($jsstr);
 }
 // /**
 //  * 输出一个小挂件

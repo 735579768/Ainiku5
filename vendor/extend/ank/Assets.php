@@ -2,10 +2,10 @@
 /**
  *资源管理类
  *到最后渲染的时候这些资源文件会添加到页面的head标签中
- *\assets\Assets::getInstance()->register();
- *echo \assets\Assets::getInstance()->getSource();
+ *\ank\Assets::getInstance()->register();
+ *echo \ank\Assets::getInstance()->getSource();
  *使用方法
- *$assets = \assets\Assets::getInstance();
+ *$assets = \ank\Assets::getInstance();
  *设置资源路径
  *$assets->addSourcePath(array(
  *__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
@@ -21,7 +21,7 @@
  *echo ($assets->getSource());
  *dump($assets);
  **/
-namespace assets;
+namespace ank;
 class Assets {
 	static private $_instance = null;
 	private $js               = []; //关闭调试后压缩成一个

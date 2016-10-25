@@ -1,5 +1,5 @@
 <?php
-namespace auth;
+namespace ank;
 use think\Db;
 
 class Auth {

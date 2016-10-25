@@ -108,8 +108,8 @@ class Base extends Controller {
 	// // public function fetch($template = '', $vars = [], $replace = [], $config = [], $renderContent = false) {
 	// // 	$content = parent::fetch($template, $vars, $replace, $config, $renderContent);
 	// // 	//替换静态资源文件
-	// // 	$js      = \assets\Assets::getInstance()->getSource('js');
-	// // 	$css     = \assets\Assets::getInstance()->getSource('css');
+	// // 	$js      = \ank\Assets::getInstance()->getSource('js');
+	// // 	$css     = \ank\Assets::getInstance()->getSource('css');
 	// // 	$content = str_replace(['{__ASSETS_CSS__}', '{__ASSETS_JS__}'], [$css, $js], $content);
 	// // 	//去空白行
 	// // 	$content = preg_replace(['/\n\s*\r/'], '', $content);

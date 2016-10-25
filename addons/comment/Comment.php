@@ -110,8 +110,8 @@ if (!class_exists('\addons\comment\Comment')) {
 				}
 				$this->assign('arc_id', $arc_id);
 				$this->assign('conf', $data);
-				// dump(\assets\Assets::getInstance());
-				// dump(\assets\Assets::getInstance()->getSource('CSS'));
+				// dump(\ank\Assets::getInstance());
+				// dump(\ank\Assets::getInstance()->getSource('CSS'));
 				echo $this->fetch('index_add');
 			}
 		}

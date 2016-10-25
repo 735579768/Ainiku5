@@ -31,10 +31,10 @@ class Ank extends TagLib {
 	// 	$type = isset($tag['type']) ? $tag['type'] : 'css';
 	// 	switch ($type) {
 	// 	case 'js':
-	// 		return \assets\Assets::getInstance()->getSource('js');
+	// 		return \ank\Assets::getInstance()->getSource('js');
 	// 		break;
 	// 	default:
-	// 		return \assets\Assets::getInstance()->getSource('css');
+	// 		return \ank\Assets::getInstance()->getSource('css');
 	// 		break;
 	// 	}
 	// }

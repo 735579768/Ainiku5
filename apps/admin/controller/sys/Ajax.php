@@ -25,7 +25,7 @@ class Ajax extends Base {
 				->order('sort asc,menu_id asc')
 				->select();
 			foreach ($list as $key => $value) {
-				$result = \auth\Auth::getInstance()->check($value['url']);
+				$result = \ank\Auth::getInstance()->check($value['url']);
 				if ($result) {
 					$group = $value['group'];
 					$group || ($group = '默认');
