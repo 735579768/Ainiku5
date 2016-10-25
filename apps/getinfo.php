@@ -86,3 +86,23 @@ function get_category($id = '', $field = '') {
 	}
 	return $field ? (isset($info[$field]) ? $info[$field] : $info) : $info;
 }
+/**
+ * 取表单信息
+ * @param  string $id    id
+ * @param  string $field 字段
+ * @return [type]
+ */
+function get_form($id = '', $field = '') {
+	$map = [];
+	if (is_numeric($id)) {
+		$map['form_id'] = $id;
+	} else {
+		$map['name'] = $id;
+	}
+	$info = \think\Cache::tag('form')->get('form' . $id);
+	if (!$info || APP_DEBUG) {
+		$info = \think\Db::name('Form')->where($map)->find();
+		\think\Cache::tag('form')->set('form' . $id, $info);
+	}
+	return $field ? (isset($info[$field]) ? $info[$field] : $info) : $info;
+}

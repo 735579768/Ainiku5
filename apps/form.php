@@ -974,7 +974,7 @@ eot;
  * 自动返回一个带tab标签的表单
  * @return [type] [description]
  */
-function get_form($fieldarr, $data = []) {
+function get_form_str($fieldarr, $data = []) {
 	if (!is_array($fieldarr)) {
 		$fieldarr = get_form_item($fieldarr);
 	}

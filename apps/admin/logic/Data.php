@@ -64,24 +64,15 @@ class Data extends Base {
 	 */
 	public function add($name = '') {
 		$name || $this->error('表单标识符为空!');
-		$info = \think\Db::name('Form')
-			->field('title')
-			->where(['name' => $name])
-			->find();
-		$title = $info['title'];
+		$title = get_form($name, 'title');
 		if (request()->isPost()) {
 			add_user_log('添加' . $title, input('param.'));
 		}
-
 		$this->assign([
 			'meta_title' => '添加' . $title,
 		]);
 		$this->addEditForm($name);
-		// if (request()->isAjax()) {
-		// 	return $this->fetch('logic/ajax_form_edit_tpl');
-		// } else {
 		return $this->fetch('logic/form_edit_tpl');
-		// }
 	}
 	/**
 	 * 编辑表单
@@ -90,11 +81,7 @@ class Data extends Base {
 	 */
 	public function edit($name = '') {
 		$name || $this->error('表单标识符为空!');
-		$info = \think\Db::name('Form')
-			->field('title')
-			->where(['name' => $name])
-			->find();
-		$title = $info['title'];
+		$title = get_form($name, 'title');
 		if (request()->isPost()) {
 			add_user_log('编辑' . $title, input('param.'));
 		}
@@ -103,11 +90,7 @@ class Data extends Base {
 			// 'formstr'    => ,
 		]);
 		$this->addEditForm($name, true);
-		// if (request()->isAjax()) {
-		// 	return $this->fetch('logic/ajax_form_edit_tpl');
-		// } else {
 		return $this->fetch('logic/form_edit_tpl');
-		// }
 
 	}
 

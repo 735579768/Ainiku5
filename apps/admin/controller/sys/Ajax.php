@@ -76,7 +76,7 @@ class Ajax extends Base {
 				}
 			}
 			$formstr = '<div class="addcategory" style="padding:10px;"><form method="post" action="' . url('sys.ajax/addCategory?pid=0&category_type=' . $category_type) . '">';
-			$formstr .= get_form($formarr, ['pid' => 0, 'category_type' => $category_type]);
+			$formstr .= get_form_str($formarr, ['pid' => 0, 'category_type' => $category_type]);
 			$formstr .= <<<eot
 	        <div class="form-group cl center">
 	            <a href="javascript:;" onclick="am.addTag(this);" class="btn btn-large">
