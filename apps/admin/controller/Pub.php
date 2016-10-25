@@ -72,8 +72,8 @@ class Pub extends \app\common\Controller\Base {
 				}
 				// $this->success('登录成功', url('Index/index'));
 				// $uri = $user['admin_index'] ? $user['admin_index'] : 'Index/index';
-				$uri = 'index/index';
-				return $isauto ? $user['user_id'] : ($this->success('登录成功！', url($uri)));
+				$uri = url('index/index');
+				return $isauto ? $user['user_id'] : ($this->success('登录成功！', $uri));
 			}
 		} else {
 			if (is_login() || $this->autoLogin()) {

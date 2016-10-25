@@ -26,6 +26,7 @@ class Base extends Controller {
 		parent::_initialize();
 		//初始化系统配置
 		config(get_sys_config());
+		// dump(config());
 		//加上模板主题的支持
 		$theme  = 'default';
 		$module = request()->module();
