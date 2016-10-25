@@ -99,7 +99,7 @@ class Category extends Base {
 			->find();
 		$list && $this->error('请先删除此分类下的子分类!');
 		//清除掉childcategory标签的数据
-		\think\Cache::clear('childcategory');
+		Cache::clear('childcategory');
 		controller('Data', 'logic')->delete('Category', $category_id);
 	}
 }

@@ -23,6 +23,7 @@ class Form extends Base {
 	 */
 	public function add() {
 		$this->addNewTable();
+		Cache::clear('form');
 		return controller('Data', 'logic')->add('Form');
 	}
 	/**
@@ -31,6 +32,7 @@ class Form extends Base {
 	 */
 	public function edit() {
 		$this->addNewTable();
+		Cache::clear('form');
 		return controller('Data', 'logic')->edit('Form');
 
 	}
@@ -39,6 +41,7 @@ class Form extends Base {
 	 * @return [type] [description]
 	 */
 	public function delete() {
+		Cache::clear('form');
 		$form_id = input('param.form_id');
 		$form_id || $this->error('id不能为空!');
 		// //删除所有表单项
