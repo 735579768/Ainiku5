@@ -749,6 +749,24 @@ function send_mail($conf = array()) {
 		return true;
 	}
 }
+/**
+ * Url生成
+ * @param string        $url 路由地址
+ * @param string|array  $vars 变量
+ * @param bool|string   $suffix 生成的URL后缀
+ * @param bool|string   $domain 域名
+ * @return string
+ */
+function url($url = '', $vars = '', $suffix = true, $domain = false) {
+	$key = json_encode([$url, $vars, $suffix, $domain]);
+	$uri = \think\Cache::get($key);
+	if (!$uri || APP_DEBUG) {
+		$uri = \think\Url::build($url, $vars, $suffix, $domain);
+		\think\Cache::tag('url')->set($key, $uri);
+	}
+	return $uri;
+}
+
 // /**
 //  *把字符串转成utf8如果本身就是utf8的话原样返回
 //  *

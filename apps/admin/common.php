@@ -1,24 +1,26 @@
 <?php
+use think\Cache;
 /**
  * 取当前下拉form
  * @return [type] [description]
  */
 function select_form() {
 	$list   = \think\Db::name('Form')->where('status', 1)->field('form_id,title')->select();
-	$relist = cache('sys_form');
+	$relist = Cache::get('form_select');
 	if (APP_DEBUG || !$relist) {
 		foreach ($list as $key => $value) {
 			$relist[$value['form_id']] = $value['title'];
 		}
 		cache('sys_form', $relist);
+		Cache::tag('form')->set('form_select', $relist);
 	}
 	return $relist;
 }
 /**
- * 菜单下拉框
+ * 菜单下拉框,递归调用
  * @return [type] [description]
  */
-function select_menu($pid = 0) {
+function digui_select_menu($pid = 0) {
 	empty($pid) && ($pid = 0);
 	static $sd       = 0;
 	static $menutree = [0 => '顶级菜单'];
@@ -26,25 +28,32 @@ function select_menu($pid = 0) {
 		->field('menu_id,pid,title,url,sort')
 		->where(['pid' => $pid])
 		->order('sort asc,menu_id asc')
-	// ->fetchSql()
 		->select();
-	// echo $list;
-	// die();
 	foreach ($list as $key => $value) {
 		$menutree[$value['menu_id']] = get_space($sd) . $value['title'];
 		$sd++;
 		// $relist = array_merge($relist, select_menu($value['menu_id']));
-		select_menu($value['menu_id']);
+		digui_select_menu($value['menu_id']);
 		$sd--;
 
 	}
 	return $menutree;
 }
+
+function select_menu($pid = 0) {
+	$relist = Cache::get('menu_select');
+	if (!$relist || APP_DEBUG) {
+		$relist = digui_select_menu($pid);
+		Cache::tag('menu')->set('menu_select', $relist);
+	}
+	return $relist;
+
+}
 /**
  * 分类下拉框
  * @return [type] [description]
  */
-function select_category($pid = 0, $category_type = 'article') {
+function digui_select_category($pid = 0, $category_type = 'article') {
 	empty($pid) && ($pid = 0);
 	static $sdd      = 0;
 	static $catetree = [0 => '顶级分类'];
@@ -59,17 +68,26 @@ function select_category($pid = 0, $category_type = 'article') {
 	foreach ($list as $key => $value) {
 		$catetree[$value['category_id']] = get_space($sdd) . $value['title'];
 		$sdd++;
-		select_category($value['category_id'], $category_type);
+		digui_select_category($value['category_id'], $category_type);
 		$sdd--;
 
 	}
 	return $catetree;
 }
+function select_category($pid = 0, $category_type = 'article') {
+	$relist = Cache::get('category_select');
+	if (!$relist || APP_DEBUG) {
+		$relist = digui_select_category($pid, $category_type);
+		Cache::tag('category')->set('category_select', $relist);
+	}
+	return $relist;
+
+}
 /**
  * 权限规则下拉框
  * @return [type] [description]
  */
-function select_auth_rule($pid = 0) {
+function digui_select_auth_rule($pid = 0) {
 	empty($pid) && ($pid = 0);
 	static $sdd      = 0;
 	static $ruletree = [0 => '顶级规则'];
@@ -90,6 +108,15 @@ function select_auth_rule($pid = 0) {
 
 	return $ruletree;
 }
+function select_auth_rule($pid = 0) {
+	$relist = Cache::get('authrule_select');
+	if (!$relist || APP_DEBUG) {
+		$relist = digui_select_auth_rule($pid);
+		Cache::tag('authrule')->set('authrule_select', $relist);
+	}
+	return $relist;
+
+}
 /**
  * 取分类类型下拉框
  * @return [type] [description]
@@ -106,12 +133,12 @@ function select_user_group() {
 		->where('status', 1)
 		->field('user_group_id,title')
 		->select();
-	$relist = cache('sys_user_group');
+	$relist = Cache::get('usergroup_select');
 	if (APP_DEBUG || !$relist) {
 		foreach ($list as $key => $value) {
 			$relist[$value['user_group_id']] = $value['title'];
 		}
-		cache('sys_user_group', $relist);
+		Cache::tag('usergroup')->set('usergroup_select', $relist);
 	}
 	return $relist;
 }
@@ -145,7 +172,7 @@ function format_bytes($size, $delimiter = '') {
  * 导航下拉框
  * @return [type] [description]
  */
-function select_nav($pid = 0) {
+function digui_select_nav($pid = 0) {
 	empty($pid) && ($pid = 0);
 	static $sdd     = 0;
 	static $navtree = [0 => '顶级导航'];
@@ -164,11 +191,20 @@ function select_nav($pid = 0) {
 	}
 	return $navtree;
 }
+function select_nav($pid = 0) {
+	$relist = Cache::get('nav_select');
+	if (!$relist || APP_DEBUG) {
+		$relist = digui_select_nav($pid);
+		Cache::tag('nav')->set('nav_select', $relist);
+	}
+	return $relist;
+
+}
 /**
  * 导航下拉框
  * @return [type] [description]
  */
-function select_single($pid = 0) {
+function digui_select_single($pid = 0) {
 	empty($pid) && ($pid = 0);
 	static $sdd        = 0;
 	static $singletree = [0 => '顶级单页'];
@@ -186,6 +222,15 @@ function select_single($pid = 0) {
 
 	}
 	return $singletree;
+}
+function select_single($pid = 0) {
+	$relist = Cache::get('single_select');
+	if (!$relist || APP_DEBUG) {
+		$relist = digui_select_single($pid);
+		Cache::tag('single')->set('single_select', $relist);
+	}
+	return $relist;
+
 }
 /**
  * 添加用户日志

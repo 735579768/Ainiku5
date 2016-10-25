@@ -133,7 +133,7 @@ return [
 		// 是否去除模板文件里面的html空格与换行
 		'strip_space'     => false,
 		// 是否开启模板编译缓存,设为false则每次都会重新编译
-		'tpl_cache'       => false,
+		'tpl_cache'       => true,
 		// 预先加载的标签库
 		'taglib_pre_load' => '\app\common\taglib\Ank',
 		'taglib_build_in' => 'cx,\app\common\taglib\Ank',
