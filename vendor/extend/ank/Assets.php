@@ -141,53 +141,69 @@ class Assets {
 
 		//查找css文件
 		$css_sj_path = cache($cssname . '_pathlist'); //css实际路径
-		if (!$css_sj_path || config('app_debug')) {
+		if ((!$css_sj_path || config('app_debug')) && $this->css) {
 			$css_sj_path = [];
 			foreach ($this->css as $k => $v) {
-				$filepath = $this->getFilePath($v, 'css');
-				if ($filepath) {
-					$css_sj_path[] = $filepath;
-					$this->css[$k] = $filepath;
-					$this->cssstr .= '<link href="' . trim($filepath, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
-
-				} else {
-					$this->css[$k] .= '.css--->file is not exists!';
-				}
-				cache($cssname . '_pathlist', $css_sj_path);
+				$css_sj_path[] = $this->getFilePath($v);
 			}
-		} else {
-			if ($this->file_ismod($css_sj_path) || !file_exists($csscache)) {
-				$ismodcss = true;
-				foreach ($css_sj_path as $key => $value) {
-					$this->cssstr .= $this->compress_css($value);
-				}
+			cache($cssname . '_pathlist', $css_sj_path);
+		}
+		// dump($css_sj_path);
+		if ($css_sj_path) {
+			if (config('app_debug')) {
+				foreach ($css_sj_path as $k => $v) {
+					$filepath = $v;
+					if ($filepath) {
+						$this->css[$k] = $filepath;
+						$this->cssstr .= '<link href="' . trim($filepath, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 
+					} else {
+						$this->css[$k] .= '.css--->file is not exists!';
+					}
+				}
+			} else {
+				if ($this->file_ismod($css_sj_path) || !file_exists($csscache)) {
+					$ismodcss = true;
+					foreach ($css_sj_path as $key => $value) {
+						$this->cssstr .= $this->compress_css($value);
+					}
+
+				}
 			}
 		}
 		//查找js文件
 		$js_sj_path = cache($jsname . '_pathlist'); //js实际路径
-		if (!$js_sj_path || config('app_debug')) {
+		if ((!$js_sj_path || config('app_debug')) && $this->js) {
 			$js_sj_path = [];
 			foreach ($this->js as $k => $v) {
-				$filepath = $this->getFilePath($v, 'js');
-				if ($filepath) {
-					$js_sj_path[] = $filepath;
-					$this->js[$k] = $filepath;
-					$this->jsstr .= '<script src="' . trim($filepath, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
-				} else {
-					$this->js[$k] .= '.js--->file is not exists!';
-				}
+				$js_sj_path[] = $this->getFilePath($v, 'js');
 			}
 			cache($jsname . '_pathlist', $js_sj_path);
-		} else {
-			if ($this->file_ismod($js_sj_path) || !file_exists($jscache)) {
-				$ismodjs = true;
-				foreach ($js_sj_path as $key => $value) {
-					$this->jsstr .= $this->compress_js($value);
+		}
+		// dump($js_sj_path);
+		if ($js_sj_path) {
+			if (config('app_debug')) {
+				foreach ($js_sj_path as $k => $v) {
+					$filepath = $v;
+					if ($filepath) {
+						$this->js[$k] = $filepath;
+						$this->jsstr .= '<script src="' . trim($filepath, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
+					} else {
+						$this->js[$k] .= '.js--->file is not exists!';
+					}
 				}
+				cache($jsname . '_pathlist', $js_sj_path);
+			} else {
+				if ($this->file_ismod($js_sj_path) || !file_exists($jscache)) {
+					$ismodjs = true;
+					foreach ($js_sj_path as $key => $value) {
+						$this->jsstr .= $this->compress_js($value);
+					}
 
+				}
 			}
 		}
+
 		if (!config('app_debug')) {
 			//如果关闭调试模式就进行下面处理
 			if (!file_exists(dirname($csscache))) {
@@ -198,12 +214,12 @@ class Assets {
 				mkdir(dirname($jscache), 0777, true);
 			}
 
-			($ismodcss || !file_exists($csscache)) && file_put_contents($csscache, $this->cssstr);
-			($ismodjs || !file_exists($jscache)) && file_put_contents($jscache, $this->jsstr);
-			if (!empty($this->css)) {
+			($ismodcss || !file_exists($csscache)) && $this->cssstr && file_put_contents($csscache, $this->cssstr);
+			($ismodjs || !file_exists($jscache)) && $this->jsstr && file_put_contents($jscache, $this->jsstr);
+			if ($this->css) {
 				$this->cssstr = '<link href="' . trim($csscache, '.') . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 			}
-			if (!empty($this->js)) {
+			if ($this->js) {
 				$this->jsstr = '<script src="' . trim($jscache, '.') . $suijinum . '" type="text/javascript" ></script>' . "\n";
 			}
 

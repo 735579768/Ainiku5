@@ -91,7 +91,7 @@ class Ank extends TagLib {
 			return '';
 		}
 
-		$newname = sha1($hname);
+		$newname = md5($hname);
 		if (!$suijinum) {
 			$suijinum = cache('assetsversion');
 			if (!$suijinum || config('app_debug')) {
