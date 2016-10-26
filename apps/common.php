@@ -757,14 +757,7 @@ function send_mail($conf = array()) {
  * @param bool|string   $domain 域名
  * @return string
  */
-function url($url = '', $vars = '', $suffix = true, $domain = false) {
-	// $key = json_encode([$url, $vars, $suffix, $domain]);
-	// $uri = \think\Cache::get($key);
-	// if (!$uri || config('app_debug')) {
-	// 	$uri = \think\Url::build($url, $vars, $suffix, $domain);
-	// 	\think\Cache::tag('url')->set($key, $uri);
-	// }
-	// return $uri;
+function url($url = '', $vars = '', $suffix = true, $domain = null) {
 	return \think\Url::build($url, $vars, $suffix, $domain);
 }
 
