@@ -70,7 +70,8 @@ sql;
 		echo $this->fetch('admin_check');
 	}
 	function delete() {
-		$id = input('param.comment_id');
+		$id        = input('param.comment_id');
+		$id || $id = input('param.id');
 		if (empty($id)) {
 			$this->error('请先进行选择');
 		}

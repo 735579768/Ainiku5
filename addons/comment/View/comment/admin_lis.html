@@ -9,6 +9,9 @@
             <a href="{:url('comment/config')}" class="btn">留言配置</a>
             <!--authend-->
             <!--authstart-->
+            <a href="javascript:;" data-url="{:url('comment/delete')}" onclick="am.batchAction(this);" class="btn btn-warning">批量删除</a>
+            <!--authend-->
+            <!--authstart-->
             <a href="javascript:;" data-url="{:url('comment/clearUp')}" onclick="am.okAction(this);" class="btn btn-warning">清空</a>
             <!--authend-->
         </div>
