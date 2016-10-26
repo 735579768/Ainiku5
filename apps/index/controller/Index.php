@@ -3,6 +3,9 @@ namespace app\index\controller;
 
 class Index extends Base {
 	public function index() {
+		// $phpexcel  = new \PHPExcel();
+		// $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+		// dump($objReader);
 		// config('template.view_path', 'default');
 		// $this->view->config('view_path', 'default');
 		// dump(config(''));
