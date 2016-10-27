@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 class Index extends Base {
 	public function index() {
+		create_qrcode('测试内asdfasdfasf容', 200, 'd:/logo.jpg');
 		// $phpexcel  = new \PHPExcel();
 		// $objReader = \PHPExcel_IOFactory::createReader('Excel5');
 		// dump($objReader);
