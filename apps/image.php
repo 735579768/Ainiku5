@@ -211,8 +211,8 @@ function create_qrcode($content = '', $size = 100, $logo = '') {
 	$imgsize              = $size; //图片的大小(像素)
 	$matrixPointSize      = $imgsize / 32.89973996; //生成图片大小
 
-	$back_color = 0xFFFF00;
-	$fore_color = 0xFF00FF;
+	$back_color = 0xFFFFFF;
+	$fore_color = 0x000000;
 	if (!$logo) {
 		header('Content-type: image/png');
 		\ank\QRcode::png($content, false, $errorCorrectionLevel, $matrixPointSize, 2, false, $back_color, $fore_color);
