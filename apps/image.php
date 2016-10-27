@@ -222,7 +222,7 @@ function create_qrcode($content = '', $size = 100, $logo = '') {
 		create_folder(dirname($filename));
 		\ank\QRcode::png($content, $filename, $errorCorrectionLevel, $matrixPointSize, 2, false, $back_color, $fore_color);
 		$QR     = $filename; //已经生成的原始二维码图
-		$logobg = EXTEND_PATH . '/ank/yjx.jpg'; //圆角图片
+		$logobg = EXTEND_PATH . '/ank/yjx.png'; //圆角图片
 		$QR     = imagecreatefromstring(file_get_contents($QR));
 		//把logo处理成圆角的
 		//取圆角图片大小
