@@ -221,50 +221,40 @@ function create_qrcode($content = '', $size = 100, $logo = '') {
 		$filename = './data/cache/erweima/qrcode.png';
 		create_folder(dirname($filename));
 		\ank\QRcode::png($content, $filename, $errorCorrectionLevel, $matrixPointSize, 2, false, $back_color, $fore_color);
-		$QR     = $filename; //已经生成的原始二维码图
-		$logobg = EXTEND_PATH . '/ank/yjx.png'; //圆角图片
-		$QR     = imagecreatefromstring(file_get_contents($QR));
-		//把logo处理成圆角的
-		//取圆角图片大小
-		//$logobg = imagecreatefromstring(file_get_contents($logobg));
-		$logobg = imagecreatetruecolor(200, 200);
-		$white  = imagecolorallocate($logobg, 255, 255, 255);
-		imagefill($logobg, 0, 0, $white);
+		// $QR     = $filename; //已经生成的原始二维码图
 
-		$logo = imagecreatefromstring(file_get_contents($logo));
-		//处理成圆角
-		$logo          = imgradius($logo);
-		$logobg_width  = imagesx($logobg);
-		$logobg_height = imagesy($logobg);
+		//添加圆角图片
+		$yjpath   = EXTEND_PATH . '/ank/yjx.png'; //圆角图片
+		$qrcode   = \ankimage\Image::open($filename);
+		$yuanjiao = \ankimage\Image::open($yjpath);
+		$qr_w     = $qrcode->width();
+		$qr_h     = $qrcode->height();
+		$yj_w     = $yuanjiao->width();
+		$yj_h     = $yuanjiao->height();
 
-		$logo_width  = imagesx($logo);
-		$logo_height = imagesy($logo);
-		//logo需要是正方形
-		if ($logo_width > $logo_height) {
-			$logo_width = $logo_height;
+		if ($qr_h / 3 < $yj_w) {
+			$yj_w       = $qr_h / 3;
+			$yj_h       = $qr_h / 3;
+			$yjpath_tem = './data/cache/erweima/yj.png';
+			$yuanjiao->thumb($yj_w, $yj_h, 3)->save($yjpath_tem);
+			$qrcode->water($yjpath_tem, 5)->save($filename);
 		} else {
-			$logo_height = $logo_width;
+			$qrcode->water($yjpath, 5)->save($filename);
 		}
 
-		imagecopyresampled($logobg, $logo, 15, 15, 0, 0, $logobg_width - 30, $logobg_height - 30, $logo_width, $logo_height);
-		$QR_width  = imagesx($QR);
-		$QR_height = imagesy($QR);
+		//重新打开二维码图在中间添加logo
+		$qrcode = \ankimage\Image::open($filename);
+		//裁剪logo
+		$logoObj  = \ankimage\Image::open($logo);
+		$logo_tem = './data/cache/erweima/logo.png';
+		$logoObj->thumb($yj_w - 15, $yj_h - 15, 3)->save($logo_tem);
+		$qrcode->water($logo_tem, 5)->save($filename);
 
-		$logo = $logobg;
-
-		$logo_width  = imagesx($logo);
-		$logo_height = imagesy($logo);
-
-		$logo_qr_width  = $QR_width / 3; //中间的logo大小
-		$scale          = $logo_width / $logo_qr_width;
-		$logo_qr_height = $logo_height / $scale;
-		$from_width     = ($QR_width - $logo_qr_width) / 2;
-		$from_height    = ($QR_height - $logo_qr_height) / 2;
-
-		imagecopyresampled($QR, $logo, $from_width, $from_height, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
+		// imagecopyresampled($QR, $logo, $from_width, $from_height, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
 		header('Content-type: image/png');
-		imagepng($QR);
-		imagedestroy($QR);
+		$qr = imagecreatefrompng($filename);
+		imagepng($qr);
+		imagedestroy($qr);
 	}
 	die();
 }

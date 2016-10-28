@@ -241,7 +241,12 @@ class Image {
 			//创建新图像
 			$img = imagecreatetruecolor($width, $height);
 			// 调整默认颜色
-			$color = imagecolorallocate($img, 255, 255, 255);
+			$color = null;
+			if ('png' == $this->info['type']) {
+				$color = imagecolorallocatealpha($img, 255, 255, 255, 127);
+			} else {
+				$color = imagecolorallocate($img, 255, 255, 255);
+			}
 			imagefill($img, 0, 0, $color);
 			//裁剪
 			imagecopyresampled($img, $this->im, 0, 0, $x, $y, $width, $height, $w, $h);
