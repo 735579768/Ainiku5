@@ -760,7 +760,26 @@ function send_mail($conf = array()) {
 function url($url = '', $vars = '', $suffix = true, $domain = null) {
 	return \think\Url::build($url, $vars, $suffix, $domain);
 }
-
+function fenci($str = '') {
+	if (!$str) {
+		return '';
+	}
+	$pa = new \ank\PhpAnalysis();
+	$pa->SetSource($str);
+	$pa->resultType = 2;
+	$pa->StartAnalysis(true);
+	// 获得最终全部分词结果
+	return $pa->GetFinallyResult(',');
+	// 获得粗分结果
+	// print_r($pa->GetSimpleResult());
+	// 获得包含属性信息的粗分结果
+	// print_r($pa->GetSimpleResultAll());
+	// 函数说明：获取出现频率最高的指定词条数（通常用于提取文档关键字）
+	// 参数列表：$num = 10 返回词条个数
+	// return $pa->GetFinallyKeywords(10);
+	// 获取hash索引数组
+	// print_r($pa->GetFinallyIndex());
+}
 // /**
 //  *把字符串转成utf8如果本身就是utf8的话原样返回
 //  *

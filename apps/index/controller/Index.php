@@ -3,7 +3,8 @@ namespace app\index\controller;
 
 class Index extends Base {
 	public function index() {
-		create_qrcode('测试内asdfasdfasf容asd 中中中中中中吕国国 ；中是日 ； 日', 150, 'd:/logo.png');
+		echo fenci('让TortoiseGit 记住远程仓库登陆的用户名和密码');
+		// create_qrcode('测试内asdfasdfasf容asd 中中中中中中吕国国 ；中是日 ； 日', 150, 'd:/logo.png');
 		// $phpexcel  = new \PHPExcel();
 		// $objReader = \PHPExcel_IOFactory::createReader('Excel5');
 		// dump($objReader);
