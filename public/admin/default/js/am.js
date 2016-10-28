@@ -330,7 +330,7 @@
 					var s1 = menustr.replace('[#title#]', a);
 					var s2 = '';
 					for (b in data[a]) {
-						s2 += menuitem.replace('[#title#]', data[a][b]['title']).replace('[#url#]', data[a][b]['url']);
+						s2 += menuitem.replace('[#title#]', data[a][b]['title']).replace('[#url#]', data[a][b]['url']).replace('[#icon_class#]', data[a][b]['icon_class']);
 					}
 					s1 = s1.replace('[#menu_item_list#]', s2);
 					str += s1;

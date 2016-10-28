@@ -20,7 +20,7 @@ class Ajax extends Base {
 		if (!$data || config('app_debug')) {
 			$data = [];
 			$list = \think\Db::name('Menu')
-				->field('menu_id,title,url,group')
+				->field('menu_id,title,url,group,icon_class')
 				->where($map)
 				->order('sort asc,menu_id asc')
 				->select();
@@ -29,7 +29,7 @@ class Ajax extends Base {
 				if ($result) {
 					$group = $value['group'];
 					$group || ($group = '默认');
-					$data[$group][] = ['title' => $value['title'], 'url' => url($value['url'])];
+					$data[$group][] = ['title' => $value['title'], 'url' => url($value['url']), 'icon_class' => $value['icon_class']];
 				}
 			}
 			\think\Cache::tag('mainchildmenu')->set($key, $data);

@@ -243,7 +243,7 @@ function add_user_log($note = '', $json_data = []) {
 		'note'      => $note,
 		'json_data' => json_encode($json_data),
 	]);
-	$log->save();
+	$log->isUpdate(false)->save();
 }
 /**
  * 取系统模板主题列表

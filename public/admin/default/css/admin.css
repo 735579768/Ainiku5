@@ -238,7 +238,9 @@ input[type="checkbox"]:disabled:after {
 	height: 30px;
 	line-height: 30px;
 }
-
+.mainnav>li a i {
+	margin: 5px;
+}
 .tool>li a i {
 	margin: 5px;
 }
@@ -286,7 +288,11 @@ input[type="checkbox"]:disabled:after {
 	top: 12px;
 	font-size: 16px;
 }
-
+.menu .menu-item i{
+position: absolute;
+top: 12px;
+left: 10px;
+}
 .menu .menu-title .menu-open:before {
 	content: "\f115";
 }
@@ -312,6 +318,7 @@ input[type="checkbox"]:disabled:after {
 
 .menu .menu-item {
 	display: none;
+	position: relative;
 }
 
 /**

@@ -6,7 +6,7 @@ class Index extends Base {
 		// var_dump(config(''));
 		config('app_trace', false);
 		$list = \think\Db::name('Menu')
-			->field('menu_id,title,url')
+			->field('menu_id,title,url,icon_class')
 			->where(['status' => 1, 'pid' => 0])
 			->order('sort asc,menu_id asc')
 			->select();
