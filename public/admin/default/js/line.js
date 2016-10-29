@@ -107,12 +107,14 @@
 		//SCREEN_WIDTH = window.innerWidth;
 		//SCREEN_HEIGHT = window.innerHeight;
 
-		canvas.width = SCREEN_WIDTH;
-		canvas.height = SCREEN_HEIGHT;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 
 		canvas.style.position = 'absolute';
-		canvas.style.left = (window.innerWidth - SCREEN_WIDTH) * .5 + 'px';
-		canvas.style.top = (window.innerHeight - SCREEN_HEIGHT) * .5 + 'px';
+		// canvas.style.left = (window.innerWidth - SCREEN_WIDTH) * .5 + 'px';
+		// canvas.style.top = (window.innerHeight - SCREEN_HEIGHT) * .5 + 'px';
+		canvas.style.left = 0 + 'px';
+		canvas.style.top = 0 + 'px';
 	}
 
 	function loop() {
