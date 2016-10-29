@@ -2,7 +2,59 @@
  * am扩展属性
  */
 am.extend({
-	openAddCategory: function(dom) {
+	/**
+	 * 列表单击后排序
+	 * @param  {[type]} dom [description]
+	 * @return {[type]}     [description]
+	 */
+	listOrder: function(dom, initOrder) {
+		if (initOrder) {
+			initOrder = initOrder.split(' ');
+			$('.th .list-order').each(function(index, el) {
+				var _t = $(this);
+				var field = _t.attr('data-field');
+				if (initOrder[0] == field) {
+					// debugger;
+					// alert('ok');
+					_t.removeClass('fa-sort-amount-asc');
+					_t.removeClass('fa-sort-amount-desc');
+					_t.addClass('active');
+					_t.addClass('fa-sort-amount-' + initOrder[1]);
+				}
+			});
+		} else {
+			var _t = $(dom);
+			var inputorder = $('#listorder');
+			var field = _t.attr('data-field');
+			var searform = $('#search-tool form');
+			if (!field || !searform.length) {
+				return;
+			}
+			if (!inputorder.length) {
+				searform.append('<input id="listorder" type="hidden" name="listorder" value=""  />');
+				inputorder = $('#listorder');
+			}
+
+			if (_t.hasClass('active')) {
+				if (_t.hasClass('fa-sort-amount-desc')) {
+					inputorder.val(field + ' asc');
+					_t.removeClass('fa-sort-amount-desc');
+					_t.addClass('fa-sort-amount-asc');
+					// searform.submit();
+				} else if (_t.hasClass('fa-sort-amount-asc')) {
+					inputorder.val('');
+					_t.removeClass('fa-sort-amount-asc');
+					_t.removeClass('active');
+					_t.addClass('fa-sort-amount-desc');
+				}
+
+			} else {
+				inputorder.val(field + ' desc');
+				_t.addClass('active');
+
+			}
+			searform.submit();
+		}
 
 	},
 	unInstall: function(dom) {

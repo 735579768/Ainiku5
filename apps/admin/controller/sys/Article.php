@@ -15,6 +15,7 @@ class Article extends Base {
 		$title       = input('param.title', '');
 		$starttime   = input('param.starttime');
 		$endtime     = input('param.endtime');
+		$listorder   = input('param.listorder', '');
 		if ($starttime && $endtime) {
 			empty($starttime) && ($starttime = date('Y-m-d', strtotime('-1 month')));
 			empty($endtime) && ($endtime = date('Y-m-d', strtotime('+1 day')));
@@ -25,6 +26,9 @@ class Article extends Base {
 		$title && ($map['a.title'] = ['like', "%{$title}%"]);
 		$category_id && ($map['a.category_id'] = $category_id);
 		$map['a.status'] = ['gt', -1];
+		//排序设置
+		$order = 'a.update_time desc,article_id desc';
+		$listorder && ($order = $listorder . ',' . $order);
 		$this->pages([
 			'table' => 'Article',
 			'where' => $map,
@@ -32,7 +36,7 @@ class Article extends Base {
 				['__CATEGORY__ b', 'a.category_id=b.category_id'],
 			],
 			'field' => 'a.*,b.title as category_title',
-			'order' => 'a.update_time desc,article_id desc',
+			'order' => $order,
 		]);
 		/**
 		 * 初始化搜索条件
