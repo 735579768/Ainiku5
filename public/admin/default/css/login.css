@@ -14,3 +14,17 @@ body{font-size:12px;background:#1FADED url('../images/adminbg.jpg') no-repeat;}
 #loginbtn{padding:8px 0px;font-size:14px;display: block;}
 #verifyimg{display: inline-block;height: 50px;}
 #verifyimg img{max-width: 100%;}
+/**
+ * 透明背景
+ */
+#login-form{
+	color: #fff;
+    box-shadow: 0 0 26px #191919;
+    border-top: 8px solid #42EC00;
+    border-radius: 32px;
+    border-radius: 32px;
+    border: 1px solid transparent;
+    background: rgba(0,0,0,0);}
+#login-form .form-group{background: #fff;}
+#login-form .form-group .form-label,
+#login-form .form-group input{height: 50px; line-height: 50px;}
