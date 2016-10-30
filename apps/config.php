@@ -183,6 +183,7 @@ return [
 	'trace'                  => [
 		// 内置Html Console 支持扩展
 		'type'       => 'Html',
+		'trace_file' => APP_PATH . 'common/view' . DS . 'page_trace.tpl',
 		// 使用浏览器console输出trace信息
 		// 'type'       => 'console',
 		'trace_tabs' => [
