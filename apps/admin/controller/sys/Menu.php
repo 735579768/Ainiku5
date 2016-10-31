@@ -90,8 +90,6 @@ class Menu extends Base {
 			->where('pid', $menu_id)
 			->find();
 		$list && $this->error('请先删除此菜单下的子菜单!');
-		//清除掉childmenu标签的数据
-		\think\Cache::clear('mainchildmenu');
 		controller('Data', 'logic')->delete('Menu', $menu_id);
 	}
 }
