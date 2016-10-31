@@ -16,7 +16,7 @@ class Config extends Base {
 		//取上传目录大小
 		$uploadsize = cache('uploadsize');
 
-		if (request()->isAjax()) {
+		if ($this->request->isAjax()) {
 			if (empty($runsize)) {
 				$runsize = (get_dir_size(RUNTIME_PATH) / 1000) . 'k';
 				cache('runsize', $runsize);
@@ -49,7 +49,7 @@ class Config extends Base {
 		return $this->fetch();
 	}
 	public function group() {
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			$data     = input('param.');
 			$sys_conf = get_sys_config();
 			$data     = json_encode(array_merge($sys_conf, $data));

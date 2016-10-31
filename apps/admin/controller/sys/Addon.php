@@ -18,7 +18,7 @@ class Addon extends Base {
 
 	//实现安装
 	public function install() {
-		if (request()->isAjax()) {
+		if ($this->request->isAjax()) {
 
 			$name = input('param.name', '');
 			$info = \think\Db::name('Addon')->where(['name' => strtolower($name)])->find();

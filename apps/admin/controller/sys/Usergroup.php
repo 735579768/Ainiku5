@@ -9,7 +9,7 @@ class Usergroup extends Base {
 	public function authset() {
 		$user_group_id = input('param.user_group_id', 0);
 		$user_group_id || $this->error('id不能为空');
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			$auth_rule = implode(',', input('param.auth_rule_id/a', []));
 			// $auth_rule = implode(',', $_POST['auth_rule_id']);
 			$result = \think\Db::name('UserGroup')

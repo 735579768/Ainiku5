@@ -141,7 +141,7 @@ class Goods extends Base {
 				$this->error('移动失败');
 			}
 		} else {
-			if (request()->isAjax()) {
+			if ($this->request->isAjax()) {
 				$this->success('正在处理要移动的产品...', url('move?id=' . $ids));
 			}
 			$catetree = select_category(0, 'goods');

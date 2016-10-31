@@ -7,7 +7,7 @@ class Notice extends Base {
 	 * 测试发送邮件
 	 * **/
 	public function testEmail($type = 'img') {
-		if (request()->isAjax()) {
+		if ($this->request->isAjax()) {
 			$conf = array(
 				'host'      => config('mail_smtp_host'),
 				'port'      => config('mail_smtp_port'),

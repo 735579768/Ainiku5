@@ -67,7 +67,7 @@ trait File {
 			if ($_FILES['filelist']['size'] > $maxSize) {
 				$return['info']   = '不支持此文件类型';
 				$return['status'] = 0;
-				$this->ajaxreturn($return);
+				$this->ajaxReturn($return);
 			}
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -78,12 +78,12 @@ trait File {
 			if (!create_folder($targetPath)) {
 				$return['info']   = '创建目录错误：' . $targetPath;
 				$return['status'] = 0;
-				$this->ajaxreturn($return);
+				$this->ajaxReturn($return);
 			}
 			if (!create_folder($thumbPath)) {
 				$return['info']   = '创建目录错误：' . $thumbPath;
 				$return['status'] = 0;
-				$this->ajaxreturn($return);
+				$this->ajaxReturn($return);
 			}
 
 			$targetPath .= '/' . $filename;

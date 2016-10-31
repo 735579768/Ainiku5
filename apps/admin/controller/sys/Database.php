@@ -8,7 +8,7 @@ class Database extends Base {
 	 * @return [type] [description]
 	 */
 	public function export() {
-		if (request()->isAjax()) {
+		if ($this->request->isAjax()) {
 			add_user_log('导出数据库', input('param.'));
 			$this->_export();
 		} else {
@@ -28,7 +28,7 @@ class Database extends Base {
 	 * @return [type] [description]
 	 */
 	public function import() {
-		if (request()->isAjax()) {
+		if ($this->request->isAjax()) {
 			add_user_log('导入数据库', input('param.'));
 			$this->_import();
 		} else {
@@ -137,7 +137,7 @@ class Database extends Base {
 		$tables = input('param.tables/a');
 		$id     = input('param.id', '');
 		$start  = input('param.start');
-		if (request()->isPost() && !empty($tables) && is_array($tables)) {
+		if ($this->request->isPost() && !empty($tables) && is_array($tables)) {
 			//初始化
 			//读取备份配置
 			$config = array(
@@ -183,7 +183,7 @@ class Database extends Base {
 			} else {
 				$this->error('初始化失败，备份文件创建失败！');
 			}
-		} elseif (request()->isGET() && is_numeric($id) && is_numeric($start)) {
+		} elseif ($this->request->isGET() && is_numeric($id) && is_numeric($start)) {
 			//备份数据
 			$tables = session('backup_tables');
 			//备份指定表

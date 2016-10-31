@@ -62,7 +62,7 @@ class Formitem extends Base {
 	 */
 	private function addNewField() {
 		$auto_greate = input('param.auto_greate', 0);
-		if (!request()->isPost()) {
+		if (!$this->request->isPost()) {
 			return false;
 		}
 		if (!$auto_greate) {

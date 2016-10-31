@@ -12,7 +12,7 @@ class Pub extends \app\common\Controller\Base {
 	 * @return [type] [description]
 	 */
 	public function login($username = '', $password = '', $isauto = false) {
-		if (request()->isPost() || $isauto) {
+		if ($this->request->isPost() || $isauto) {
 			$verify = input('post.verify');
 			$username || ($username = input('post.username'));
 			$password || ($password = input('post.password'));

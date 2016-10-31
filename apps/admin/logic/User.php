@@ -32,7 +32,7 @@ class User extends Controller {
 	public function updatePwd($user_id = 0) {
 		$user_id || ($user_id = input('param.user_id', 0));
 		$user_id || $this->error('请输入用户id');
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			$password   = input('post.password');
 			$repassword = input('post.repassword');
 			if (empty($password)) {

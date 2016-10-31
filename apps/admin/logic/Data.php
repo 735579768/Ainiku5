@@ -17,7 +17,7 @@ class Data extends Base {
 			//编辑状态下id不能为空
 			$this->error('id不能为空');
 		}
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			$postdata = input('param.');
 			if ($id_value) {
 				//编辑
@@ -65,7 +65,7 @@ class Data extends Base {
 	public function add($name = '') {
 		$name || $this->error('表单标识符为空!');
 		$title = get_form($name, 'title');
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			add_user_log('添加' . $title, input('param.'));
 		}
 		$this->assign([
@@ -82,7 +82,7 @@ class Data extends Base {
 	public function edit($name = '') {
 		$name || $this->error('表单标识符为空!');
 		$title = get_form($name, 'title');
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			add_user_log('编辑' . $title, input('param.'));
 		}
 		$this->assign([

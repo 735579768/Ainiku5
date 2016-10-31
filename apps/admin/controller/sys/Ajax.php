@@ -44,7 +44,7 @@ class Ajax extends Base {
 	public function addCategory() {
 		$pid           = input('param.pid', 0);
 		$category_type = input('param.category_type', 'article_tag');
-		if (request()->isPost()) {
+		if ($this->request->isPost()) {
 			//添加
 			$result = $this->validate(input('param.'), 'Category');
 			if (true === $result) {
