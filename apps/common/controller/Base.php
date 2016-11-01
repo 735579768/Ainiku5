@@ -26,6 +26,11 @@ class Base extends Controller {
 		parent::_initialize();
 		//初始化系统配置
 		config(get_sys_config());
+		//加载调试文件
+		if (file_exists(SITE_PATH . '/debug.php')) {
+			$conf = require_once SITE_PATH . '/debug.php';
+			config($conf);
+		}
 		// dump(config());
 		//加上模板主题的支持
 		$theme  = 'default';
