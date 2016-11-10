@@ -34,6 +34,6 @@ class Article extends Validate {
 	];
 	//设置验证场景
 	protected $scene = [
-		'edit' => ['title' => 'require|max:25', 'category_id', 'content'],
+		'edit' => ['title' => 'require|max:100', 'category_id', 'content'],
 	];
 }

@@ -181,8 +181,8 @@ trait File {
 		//背景保存在临时目录中
 		$config["savePath"] = $Path;
 		$up                 = new \Uploader("upfile", $config);
-		$type               = @$_REQUEST['type'];
-		$callback           = @$_GET['callback'];
+		$type               = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
+		$callback           = isset($_GET['callback']) ? $_GET['callback'] : '';
 
 		$info        = $up->getFileInfo();
 		$info['url'] = trim($info['url'], '.');
