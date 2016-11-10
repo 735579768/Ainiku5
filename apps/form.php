@@ -1207,7 +1207,7 @@ function select_form_type($key = null, $datatype = false) {
 		'attribute'      => '内容属性',
 	];
 	$mysqltype = [
-		'string'         => "varchar(50) NOT NULL DEFAULT '' ",
+		'string'         => "varchar(255) NOT NULL DEFAULT '' ",
 		'select'         => "varchar(50) NOT NULL DEFAULT '' ",
 		'radio'          => "varchar(50) NOT NULL DEFAULT '' ",
 		'checkbox'       => "varchar(50) NOT NULL DEFAULT '' ",

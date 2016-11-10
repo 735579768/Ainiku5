@@ -11,6 +11,12 @@ class Article extends Model {
 	protected function setPositionAttr($value) {
 		return implode(',', input('param.position/a', []));
 	}
+	protected function setContentAttr($value) {
+		return $value ? $value : '';
+	}
+	protected function setViewsAttr($value) {
+		return $value ? $value : 0;
+	}
 	protected function setPicAttr($value) {
 		if ($value) {
 			return $value;
@@ -25,12 +31,6 @@ class Article extends Model {
 		} else {
 			return $value ? $value : 0;
 		}
-	}
-	protected function setContentAttr($value) {
-		return $value ? $value : '';
-	}
-	protected function setViewsAttr($value) {
-		return $value ? $value : 0;
 	}
 	protected function setMetaKeywordsAttr($value) {
 		if ($value) {
@@ -64,6 +64,8 @@ class Article extends Model {
 		$content = strip_tags($content);
 		if ($content) {
 			return msubstr($content, 0, 80) . '...';
+		} else {
+			return '';
 		}
 	}
 	/**
