@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-return [
+$app_config = [
 	'version'                => '1.0.0',
 	// +----------------------------------------------------------------------
 	// | 应用设置
@@ -268,3 +268,9 @@ return [
 		'imgcache' => DATA_DIR . '/imgcache',
 	],
 ];
+//加载调试文件
+if (file_exists(SITE_PATH . '/debug.php')) {
+	$conf       = require_once SITE_PATH . '/debug.php';
+	$app_config = array_merge($app_config, $conf);
+}
+return $app_config;
