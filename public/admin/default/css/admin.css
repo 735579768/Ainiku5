@@ -865,3 +865,12 @@ left: 10px;
 	text-align: left;
 }
 .iframe-con .list-order{color: #ccc;margin-left: 5px;cursor: pointer;}
+/**
+ * 显示缩略图
+ * @type {[type]}
+ */
+.showthumb{position: relative;}
+.showthumb .thumb{position: absolute;right: 10%;bottom: -100px;display: none;    border: solid 1px #ccc;box-shadow: 2px 2px 60px #676767; }
+.showthumb .thumb img{max-width: 100px; max-height: 100px;}
+.showthumb .thumb .thumb-wrap{text-align: center; background: #fff; padding:10px;width: 100px;height: 100px;display: table-cell;vertical-align: middle;}
+.showthumb:hover .thumb{display: block;}
