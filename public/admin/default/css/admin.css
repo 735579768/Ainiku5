@@ -874,3 +874,10 @@ left: 10px;
 .showthumb .thumb img{max-width: 100px; max-height: 100px;}
 .showthumb .thumb .thumb-wrap{text-align: center; background: #fff; padding:10px;width: 100px;height: 100px;display: table-cell;vertical-align: middle;}
 .showthumb:hover .thumb{display: block;}
+/**
+ * 编辑器样式
+ */
+.edui-modal-backdrop {
+    opacity: 0.1!important;
+    filter: alpha(opacity=10)!important;
+}
