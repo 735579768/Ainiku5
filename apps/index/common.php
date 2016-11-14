@@ -34,3 +34,31 @@ function get_article_list($map = [], $rows = 10) {
 	}
 	return $info;
 }
+/**
+ * 导航树
+ * @return [type] [description]
+ */
+function digui_nav_tree($pid = 0) {
+	empty($pid) && ($pid = 0);
+	// static $sdd     = 0;
+	// $navtree = [];
+
+	$list = \think\Db::name('Nav')
+		->field('nav_id,pid,title,target,url,sort')
+		->where(['pid' => $pid])
+		->order('sort asc,nav_id asc')
+		->select();
+	foreach ($list as $key => $value) {
+		$list[$key]['child'] = digui_nav_tree($value['nav_id']);
+	}
+	return $list;
+}
+function get_nav_tree($pid = 0) {
+	$relist = \think\Cache::get('nav_tree');
+	if (!$relist || config('app_debug')) {
+		$relist = digui_nav_tree($pid);
+		\think\Cache::tag('nav')->set('nav_tree', $relist);
+	}
+	return $relist;
+
+}

@@ -1,1 +1,15 @@
-.header{}
+.wpage{width:1100px;}
+.header-inner,.header-inner{margin:0px auto;}
+.container{margin:0px auto;}
+
+/**
+ * 导航
+ */
+.nav-inner{width:80%;margin:0px auto;max-width:1200px;}
+.nav-item{float:left;position:relative;}
+.nav-item a{display:block;height:50px;line-height:50px;padding:0px 15px;font-size:16px;white-space:nowrap;font-weight:bolder;}
+.nav-item a.hover,.nav-item a:hover{background:#f4645f;color:#fff;}
+.nav-item .nav-sub{display: none; position:absolute;left:0px;background:#fff;}
+.nav-item .nav-sub .nav-item{width:100%;}
+.nav-item .nav-sub a{white-space:nowrap;display:block;}
+.nav-item:hover .nav-sub{display:block;}
