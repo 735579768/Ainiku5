@@ -165,7 +165,47 @@ class Image {
 	public function size() {
 		return [$this->info['width'], $this->info['height']];
 	}
+	/**
+	 * 从x轴扭曲图片
+	 * @param  integer $pix       扭曲角度如果为带px的像素直接当成偏移值,如果是数字就当成倾斜度数
+	 * @param  string  $direction 扭曲方向默认为1:left,2:right
+	 * @return [type]             [description]
+	 */
+	public function niuqu($pix = 15, $direction = 1) {
+		if (is_string($pix) && strpos($pix, 'px') !== false) {
+			$pix = str_replace('px', '', $pix);
+		} else {
+			//正切值算x轴偏移
+			$pix = (int) $this->height() / tan(deg2rad($pix));
+		}
 
+		$distImage = imagecreatetruecolor($this->width() + $pix, $this->height());
+
+		// $background = imagecolorallocate($im, 180, 0, 255);
+		$bg = imagecolorallocatealpha($distImage, 255, 255, 255, 127); //拾取一个完全透明的颜色
+		imagefill($distImage, 0, 0, $bg);
+		//设定保存完整的 alpha 通道信息
+		// imagesavealpha($distImage, true);
+		for ($x = 0; $x < $this->width(); $x++) {
+			for ($y = 0; $y < $this->height(); $y++) {
+				$rgbColor = imagecolorat($this->im, $x, $y);
+				//s形扭曲
+				// imagesetpixel($distImage, (int) ($x + sin($y / $this->height() * 2 * M_PI - M_PI * 0.5) * 3), $y, $rgbColor);
+
+				//X轴扭曲
+				if ($direction == 1) {
+					//向左扭曲
+					imagesetpixel($distImage, (int) ($x + $y * $pix / $this->height()), $y, $rgbColor);
+				} else {
+					//向右扭曲
+
+					imagesetpixel($distImage, (int) ($x + ($this->height() - $y) * $pix / $this->height()), $y, $rgbColor);
+				}
+			}
+		}
+		$this->im = $distImage;
+		return $this;
+	}
 	/**
 	 * 旋转图像
 	 * @param int $degrees 顺时针旋转的度数
