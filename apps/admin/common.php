@@ -101,7 +101,7 @@ function digui_select_auth_rule($pid = 0) {
 	foreach ($list as $key => $value) {
 		$ruletree[$value['auth_rule_id']] = get_space($sdd) . $value['title'];
 		$sdd++;
-		select_auth_rule($value['auth_rule_id']);
+		digui_select_auth_rule($value['auth_rule_id']);
 		$sdd--;
 
 	}
@@ -185,7 +185,7 @@ function digui_select_nav($pid = 0) {
 	foreach ($list as $key => $value) {
 		$navtree[$value['nav_id']] = get_space($sdd) . $value['title'];
 		$sdd++;
-		select_nav($value['nav_id']);
+		digui_select_nav($value['nav_id']);
 		$sdd--;
 
 	}
@@ -217,7 +217,7 @@ function digui_select_single($pid = 0) {
 	foreach ($list as $key => $value) {
 		$singletree[$value['single_id']] = get_space($sdd) . $value['title'];
 		$sdd++;
-		select_single($value['single_id']);
+		digui_select_single($value['single_id']);
 		$sdd--;
 
 	}

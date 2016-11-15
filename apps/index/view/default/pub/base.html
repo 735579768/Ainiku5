@@ -7,29 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>首页欢迎页面</title>
     <meta name="keywords" content="关键字" />
-    <meta name="description" content="描述" />
-{insert name="reset,common,index" /}
-{__ASSETS_CSS__}
-{insert name="jquery-1.9.1.min" type="js" /}
+    <meta name="description" content="描述" /> {insert name="reset,common,index" /} {__ASSETS_CSS__} {insert name="jquery-1.9.1.min" type="js" /}
 </head>
 
 <body>
-    {block name="header"}{/block}
-    {block name="body"}{/block}
-    {block name="footer"}{/block}
-    <!-- 页头 -->
-    <div class="header">
-        <div class="header-inner"></div>
-    </div>
+    {block name="header"} {include file="pub/header" /} {/block}
     <!-- 正文 -->
-    <div class="container"></div>
-    <!-- 页脚 -->
-    <div class="footer">
-        <div class="footer-inner"></div>
+    <div class="container wpage">
+        {block name="body"}{/block}
     </div>
-{insert name="ank" type="js" /}
-{__ASSETS_JS__}
-{layer /}
+    {block name="footer"}{include file="pub/footer" /}{/block} {insert name="ank,init" type="js" /} {__ASSETS_JS__} {layer /}
 </body>
 
 </html>

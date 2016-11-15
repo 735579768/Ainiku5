@@ -1,0 +1,20 @@
+<!-- 页头 -->
+<header class="header">
+    <div class="header-inner wpage">
+        <nav id='nav'>
+            <ul class="nav-inner cl">
+            {volist name=":get_nav_tree()" id="vo"}
+                <li class="nav-item"><a {eq name="vo.target" value="1"} target="_blank" {/eq} href="{$vo.url}">{$vo.title}</a>
+                {notempty name="vo.child"}
+                <ul class="nav-sub">
+                {volist name="vo.child" id="v"}
+                <li class="nav-item"> <a {eq name="v.target" value="1"} target="_blank" {/eq} href="{$v.url}">{$v.title}</a></li>
+                {/volist}
+                </ul>
+                {/notempty}
+                </li>
+            {/volist}
+            </ul>
+        </nav>
+    </div>
+</header>
