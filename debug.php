@@ -1,10 +1,41 @@
 <?php
 return [
 	// 应用调试模式
-	'app_debug' => true,
+	'app_debug'         => true,
 	// 应用Trace
-	'app_trace' => true,
-	'template'  => [
+	'app_trace'         => true,
+	// 域名部署,此配置开启后生成的url地址会带有域名
+	'url_domain_deploy' => false,
+	'route'             => [
+		//域名绑定
+		'__domain__'          => [
+			//后台
+			'user' => 'admin',
+			//前台
+			'www'  => 'index',
+			// 泛域名规则建议在最后定义
+			// '*.user' => 'user',
+			// '*'      => 'book',
+		],
+		'__pattern__'         => [
+			'name' => '\w+',
+		],
+		// '[hello]'               => [
+		// 	':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
+		// 	':name' => ['index/hello', ['method' => 'post']],
+		// ],
+
+		'/'                   => 'index', // 首页访问路由
+		'alist/:category_id'  => 'article/index',
+		'glist/:category_id'  => 'goods/index',
+		'adetail/:article_id' => 'article/detail', // 静态地址路由
+		'gdetail/:goods_id'   => 'goods/detail', // 静态地址路由
+		// 'blog/:id'              => 'blog/read', // 静态地址和动态地址结合
+		// 'new/:year/:month/:day' => 'news/read', // 静态地址和动态地址结合
+		// ':user/:blog_id'        => 'blog/read', // 全动态地址
+
+	],
+	'template'          => [
 		// 模板引擎类型 支持 php think 支持扩展
 		'type'            => 'Think',
 		// 模板路径
@@ -29,7 +60,7 @@ return [
 		'taglib_pre_load' => '\app\common\taglib\Ank',
 		'taglib_build_in' => 'cx,\app\common\taglib\Ank',
 	],
-	'database'  => [
+	'database'          => [
 		// 数据库类型
 		'type'           => 'mysql',
 		// 服务器地址

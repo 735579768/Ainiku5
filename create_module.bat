@@ -1,2 +1,2 @@
-php think build --module demo
+php think build --module tool
 pause
