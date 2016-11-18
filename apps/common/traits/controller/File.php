@@ -218,6 +218,128 @@ trait File {
 		}
 		exit();
 	}
+	public function ueUpload() {
+		// die('run');
+		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents((SITE_PATH . STATIC_DIR . "/static/ueditor/php/config.json"))), true);
+		//"imagePathFormat": "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		$CONFIG['imageMaxSize']           = 4 * 1024 * 1000; //单位是B
+		$CONFIG['imagePathFormat']        = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['scrawlPathFormat']       = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['snapscreenPathFormat']   = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['catcherPathFormat']      = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['videoPathFormat']        = "./uploads/file/video/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['filePathFormat']         = "./uploads/file/other/{yyyy}{mm}{dd}/{time}{rand:6}";
+		$CONFIG['fileManagerListPath']    = "./uploads/file/"; /* 指定要列出文件的目录 */
+		$CONFIG['imageManagerListPath']   = "./uploads/image/";
+		$CONFIG['imageManagerAllowFiles'] = [".png", ".jpg", ".jpeg", ".gif", ".bmp"];
+		$action                           = $_GET['action'];
+
+		switch ($action) {
+		case 'config':
+			$result = json_encode($CONFIG);
+			break;
+
+		/* 上传图片 */
+		case 'uploadimage':
+		/* 上传涂鸦 */
+		case 'uploadscrawl':
+		/* 上传视频 */
+		case 'uploadvideo':
+		/* 上传文件 */
+		case 'uploadfile':
+			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_upload.php";
+			break;
+
+		/* 列出图片 */
+		case 'listimage':
+			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_list.php";
+			break;
+		/* 列出文件 */
+		case 'listfile':
+			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_list.php";
+			break;
+
+		/* 抓取远程文件 */
+		case 'catchimage':
+			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_crawler.php";
+			break;
+
+		default:
+			$result = json_encode(array(
+				'state' => '请求地址出错',
+			));
+			break;
+		}
+
+		/* 输出结果 */
+		if (isset($_GET["callback"])) {
+			if (preg_match("/^[\w_]+$/", $_GET["callback"])) {
+				echo htmlspecialchars($_GET["callback"]) . '(' . $result . ')';
+			} else {
+				echo json_encode(array(
+					'state' => 'callback参数不合法',
+				));
+			}
+		} else {
+			// dump($result);
+			//保存到数据库
+			$result = json_decode($result, true);
+			//判断是不是已经上传过类似图片
+			if (isset($result['url'])) {
+				$shafile       = $this->checksha($result['url']);
+				$result['url'] = trim($shafile['path'], '.');
+			}
+			echo json_encode($result);
+			// exit();
+			if (isset($result['url'])) {
+				if ($action == 'uploadimage') {
+					// $thumb = str_replace("./uploads/image/", "./uploads/image/thumb/", $result['url']);
+					// create_folder(dirname($thumb));
+					//生成缩略图
+					// $srcpath = $result['url'];
+					// $srcpath = str_replace('\\', '/', $srcpath);
+					// $re      = create_thumb($srcpath, $thumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+					// $thumb   = file_exists('.' . $thumb) ? $thumb : $result['url'];
+					$data = [
+						'sha1'        => $shafile['sha1'],
+						'srcname'     => $result['original'],
+						'destname'    => $result['title'],
+						'path'        => $result['url'],
+						'thumbpath'   => $result['url'],
+						'create_time' => time(),
+						// 'from'        => 'ueditor',
+						'uid'         => UID,
+					];
+
+					$result = \think\Db::name('Picture')
+						->insert($data);
+					if ($result) {
+						//添加水印
+						// $this->markpic($JDthumb);
+						$this->markpic('.' . $result['url']);
+					}
+
+				} else {
+					//把附件信息保存到数据库
+					$data = [
+						'path'        => $result['url'],
+						'destname'    => $result['title'],
+						'srcname'     => $result['original'],
+						'size'        => $result['size'],
+						'create_time' => time(),
+						'uid'         => UID,
+					];
+					$result = \think\Db::name('File')
+						->insert($data);
+					if (!$result) {
+						\Think\Log::record('ue编辑器把附件信息写到数据库时出错');
+
+					}
+				}
+			}
+		}
+		exit();
+	}
 	/**
 	 * 删除图片
 	 * @return [type] [description]

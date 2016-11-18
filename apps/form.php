@@ -83,7 +83,7 @@ function create_form($fieldarr, $data = []) {
 			$data_ts  = isset($value['data_ts']) ? $value['data_ts'] : '';
 			$data_err = isset($value['data_err']) ? $value['data_err'] : '';
 
-			($type == 'editor') && ($type = 'umeditor');
+			// ($type == 'editor') && ($type = 'umeditor');
 			//保存默认值
 			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
 			//要替换的值字符串
@@ -284,22 +284,23 @@ eot;
  <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">{$set_replace_value}</script>
 eot;
+				$upurl = url('File/ueUpload');
 				$initformjs .= <<<eot
 !function(){
 	//保存编辑器初始化数据
 	var uescr{$name}='';
 	var ue{$name} = UE.getEditor("{$name}",{
-	    serverUrl:ainiku.ueupload,
+	    serverUrl:'{$upurl}',
 	    initialFrameHeight:300,
 	    imagePath:'',
 	    focus: true
 
 	});
 	ue{$name}.addListener('focus',function(editor){
-	  uescr{$name}=ue{$name}.getContent();
+	  // uescr{$name}=ue{$name}.getContent();
 	  });
 	ue{$name}.addListener('blur',function(editor){
-	  ot.delEditorImg(uescr{$name},ue{$name}.getContent());
+	  // ot.delEditorImg(uescr{$name},ue{$name}.getContent());
 	  });
 }();
 eot;
@@ -558,7 +559,7 @@ eot;
 	}
 	if ($formjs['editor'] && $formjs['editor'] !== true) {
 		$formjs['editor'] = true;
-		reg_js('ueditor/ueditor.config.min,ueditor/ueditor.all.min,ueditor/lang/zh-cn/zh-cn.min', false);
+		reg_js('ueditor/ueditor.config,ueditor/ueditor.all.min,ueditor/lang/zh-cn/zh-cn', false);
 		$formjsstr .= <<<eot
 <!--ue编辑器js start-->
 <script>
