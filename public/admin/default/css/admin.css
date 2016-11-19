@@ -46,9 +46,15 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * 头部样式
  * @type {[type]}
  */
+@keyframes dh{
+0%{transform:rotate(0deg);}
+20%{transform:rotate(0deg);}
+60%{transform:rotate(3600deg);}
+100%{transform:rotate(0deg);}
+}
 #admin-header .block{float:left;}
 .admin-title{margin:10px 10px 0px 10px;font-size:22px;font-weight:bolder;width:100px;}
-.touxiang img{background:#fff;border-radius:25px;overflow:hidden;width:40px;height:40px;padding:3px;border:solid 1px #D8D8D8;margin:1px 5px;}
+.touxiang img{background:#fff;border-radius:25px;overflow:hidden;width:40px;height:40px;padding:3px;border:solid 1px #D8D8D8;margin:1px 5px;animation:dh 15s infinite;}
 .updatepwd{display:block;padding:10px;}
 .updatepwd .form-wrap{display:block;}
 
