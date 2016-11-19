@@ -25,7 +25,7 @@ trait File {
 	}
 	private function checksha($filepath = '') {
 		$fpath = $filepath;
-		if (file_exists($fpath)) {
+		if (is_file($fpath) && file_exists($fpath)) {
 			$sha1 = sha1_file($fpath);
 			$list = \think\Db::name('Picture')
 				->where(['sha1' => $sha1])
@@ -185,8 +185,12 @@ trait File {
 		$type               = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
 		$callback           = isset($_GET['callback']) ? $_GET['callback'] : '';
 
-		$info        = $up->getFileInfo();
-		$info['url'] = trim($info['url'], '.');
+		$info = $up->getFileInfo();
+		if ($info['url']) {
+			// die($info['state']);
+			$info['url'] = trim($info['url'], '.');
+		}
+
 		/**
 		 * 返回数据
 		 */
@@ -197,24 +201,26 @@ trait File {
 			// {"originalName":"487655527099084608.jpg","name":"14757547794679.jpg","url":"\/uploads\/20161006\/14757547794679.jpg","size":55516,"type":".jpg","state":"SUCCESS"}
 			//插入数据库
 			//判断是不是已经上传过类似图片
-			$data         = [];
-			$shafile      = $this->checksha('.' . $info['url']);
-			$info['url']  = trim($shafile['path'], '.');
-			$data['sha1'] = $shafile['sha1'];
-			//保存文件信息到数据库
-			$data['path']        = $info['url'];
-			$data['thumbpath']   = $info['url'];
-			$data['destname']    = $info['name'];
-			$data['srcname']     = $info['originalName'];
-			$data['create_time'] = time();
-			$data['uid']         = UID;
-			$data['extra']       = 'umeditor';
+			if ($info['url']) {
+				$data         = [];
+				$shafile      = $this->checksha('.' . $info['url']);
+				$info['url']  = trim($shafile['path'], '.');
+				$data['sha1'] = $shafile['sha1'];
+				//保存文件信息到数据库
+				$data['path']        = $info['url'];
+				$data['thumbpath']   = $info['url'];
+				$data['destname']    = $info['name'];
+				$data['srcname']     = $info['originalName'];
+				$data['create_time'] = time();
+				$data['uid']         = UID;
+				$data['extra']       = 'umeditor';
 
-			$result = \think\Db::name('Picture')
-				->insert($data);
-			if ($result) {
-				//添加水印
-				$this->markPic('.' . $info['url']);
+				$result = \think\Db::name('Picture')
+					->insert($data);
+				if ($result) {
+					//添加水印
+					$this->markPic('.' . $info['url']);
+				}
 			}
 			$this->ajaxReturn($info);
 		}
