@@ -230,19 +230,19 @@ trait File {
 		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")), true);
 		$conf   = [
 			/* 上传大小限制，单位B */
-			'imageMaxSize'           => 4 * 1024 * 1000, //单位是B
+			'imageMaxSize'           => config('file_upload.maxSize'), //单位是B
 			/* 上传保存路径,可以自定义保存路径和文件名格式 */
-			'imagePathFormat'        => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'imagePathFormat'        => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 			/* 涂鸦图片上传保存路径,可以自定义保存路径和文件名格式 */
-			'scrawlPathFormat'       => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-			'snapscreenPathFormat'   => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'scrawlPathFormat'       => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'snapscreenPathFormat'   => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 			/* 远程图片本地化上传保存路径,可以自定义保存路径和文件名格式 */
-			'catcherPathFormat'      => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-			'videoPathFormat'        => "/uploads/file/video/{yyyy}{mm}{dd}/{time}{rand:6}",
-			'filePathFormat'         => "/uploads/file/other/{yyyy}{mm}{dd}/{time}{rand:6}",
-			'fileManagerListPath'    => "/uploads/file/",
-			'imageManagerListPath'   => "/uploads/image/",
-			'imageManagerAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
+			'catcherPathFormat'      => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'videoPathFormat'        => config('file_upload.rootPath') . "/file/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'filePathFormat'         => config('file_upload.rootPath') . "/file/other/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'fileManagerListPath'    => config('file_upload.rootPath') . "/file/",
+			'imageManagerListPath'   => config('file_upload.rootPath') . "/image/",
+			'imageManagerAllowFiles' => config('file_upload.exts'),
 			'catchRemoteImageEnable' => true, //编辑器远程图片本地化
 		];
 		// dump($CONFIG);
