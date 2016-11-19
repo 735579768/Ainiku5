@@ -1,5 +1,7 @@
 <?php
-
+if (!defined('THINK_PATH')) {
+	exit();
+}
 /**
  * Created by JetBrains PhpStorm.
  * User: taoqili

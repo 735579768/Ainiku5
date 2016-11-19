@@ -136,6 +136,7 @@ trait File {
 			$data['srcname']     = $_FILES['filelist']['name'];
 			$data['create_time'] = time();
 			$data['uid']         = UID;
+			$data['extra']       = 'uploadpic';
 
 			$result = \think\Db::name('Picture')
 				->insertGetId($data);
@@ -168,7 +169,7 @@ trait File {
 	 * um编辑器上传图片
 	 */
 	public function umUpload() {
-		include SITE_PATH . STATIC_DIR . "/static/umeditor/php/Uploader.class.php";
+		include __DIR__ . "/umeditor/Uploader.class.php";
 		//上传配置
 		$config = array(
 			"savePath"   => '.' . config('file_upload.rootPath') . "/image/", //存储文件夹
@@ -207,6 +208,7 @@ trait File {
 			$data['srcname']     = $info['originalName'];
 			$data['create_time'] = time();
 			$data['uid']         = UID;
+			$data['extra']       = 'umeditor';
 
 			$result = \think\Db::name('Picture')
 				->insert($data);
@@ -219,20 +221,29 @@ trait File {
 		exit();
 	}
 	public function ueUpload() {
-		// die('run');
-		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents((SITE_PATH . STATIC_DIR . "/static/ueditor/php/config.json"))), true);
-		//"imagePathFormat": "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-		$CONFIG['imageMaxSize']           = 4 * 1024 * 1000; //单位是B
-		$CONFIG['imagePathFormat']        = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['scrawlPathFormat']       = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['snapscreenPathFormat']   = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['catcherPathFormat']      = "./uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['videoPathFormat']        = "./uploads/file/video/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['filePathFormat']         = "./uploads/file/other/{yyyy}{mm}{dd}/{time}{rand:6}";
-		$CONFIG['fileManagerListPath']    = "./uploads/file/"; /* 指定要列出文件的目录 */
-		$CONFIG['imageManagerListPath']   = "./uploads/image/";
-		$CONFIG['imageManagerAllowFiles'] = [".png", ".jpg", ".jpeg", ".gif", ".bmp"];
-		$action                           = $_GET['action'];
+		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")), true);
+		$conf   = [
+			/* 上传大小限制，单位B */
+			'imageMaxSize'           => 4 * 1024 * 1000, //单位是B
+			/* 上传保存路径,可以自定义保存路径和文件名格式 */
+			'imagePathFormat'        => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			/* 涂鸦图片上传保存路径,可以自定义保存路径和文件名格式 */
+			'scrawlPathFormat'       => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'snapscreenPathFormat'   => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			/* 远程图片本地化上传保存路径,可以自定义保存路径和文件名格式 */
+			'catcherPathFormat'      => "/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'videoPathFormat'        => "/uploads/file/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'filePathFormat'         => "/uploads/file/other/{yyyy}{mm}{dd}/{time}{rand:6}",
+			'fileManagerListPath'    => "/uploads/file/",
+			'imageManagerListPath'   => "/uploads/image/",
+			'imageManagerAllowFiles' => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
+			'catchRemoteImageEnable' => true, //编辑器远程图片本地化
+		];
+		// dump($CONFIG);
+		// DIE(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")));
+		$CONFIG = array_merge($CONFIG, $conf);
+
+		$action = input('param.action');
 
 		switch ($action) {
 		case 'config':
@@ -247,21 +258,21 @@ trait File {
 		case 'uploadvideo':
 		/* 上传文件 */
 		case 'uploadfile':
-			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_upload.php";
+			$result = include __DIR__ . "/ueditor/action_upload.php";
 			break;
 
 		/* 列出图片 */
 		case 'listimage':
-			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_list.php";
+			$result = include __DIR__ . "/ueditor/action_list.php";
 			break;
 		/* 列出文件 */
 		case 'listfile':
-			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_list.php";
+			$result = include __DIR__ . "/ueditor/action_list.php";
 			break;
 
 		/* 抓取远程文件 */
 		case 'catchimage':
-			$result = include SITE_PATH . STATIC_DIR . "/static/ueditor/php/action_crawler.php";
+			$result = include __DIR__ . "/ueditor/action_crawler.php";
 			break;
 
 		default:
@@ -286,20 +297,12 @@ trait File {
 			$result = json_decode($result, true);
 			//判断是不是已经上传过类似图片
 			if (isset($result['url'])) {
-				$shafile       = $this->checksha($result['url']);
+				$shafile       = $this->checksha('.' . $result['url']);
 				$result['url'] = trim($shafile['path'], '.');
 			}
-			echo json_encode($result);
-			// exit();
+
 			if (isset($result['url'])) {
 				if ($action == 'uploadimage') {
-					// $thumb = str_replace("./uploads/image/", "./uploads/image/thumb/", $result['url']);
-					// create_folder(dirname($thumb));
-					//生成缩略图
-					// $srcpath = $result['url'];
-					// $srcpath = str_replace('\\', '/', $srcpath);
-					// $re      = create_thumb($srcpath, $thumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
-					// $thumb   = file_exists('.' . $thumb) ? $thumb : $result['url'];
 					$data = [
 						'sha1'        => $shafile['sha1'],
 						'srcname'     => $result['original'],
@@ -311,11 +314,9 @@ trait File {
 						'uid'         => UID,
 					];
 
-					$result = \think\Db::name('Picture')
+					$res = \think\Db::name('Picture')
 						->insert($data);
-					if ($result) {
-						//添加水印
-						// $this->markpic($JDthumb);
+					if ($res) {
 						$this->markpic('.' . $result['url']);
 					}
 
@@ -329,14 +330,37 @@ trait File {
 						'create_time' => time(),
 						'uid'         => UID,
 					];
-					$result = \think\Db::name('File')
+					$res = \think\Db::name('File')
 						->insert($data);
-					if (!$result) {
+					if (!$res) {
 						\Think\Log::record('ue编辑器把附件信息写到数据库时出错');
 
 					}
 				}
+			} elseif ($action == 'catchimage') {
+				//抓取远程图片
+				foreach ($result['list'] as $key => $value) {
+					$shafile      = $this->checksha('.' . $value['url']);
+					$value['url'] = trim($shafile['path'], '.');
+					$data         = [
+						'sha1'        => $shafile['sha1'],
+						'srcname'     => $value['original'],
+						'destname'    => $value['title'],
+						'path'        => $value['url'],
+						'thumbpath'   => $value['url'],
+						'create_time' => time(),
+						'extra'       => 'ueditor',
+						'uid'         => UID,
+					];
+
+					$res = \think\Db::name('Picture')
+						->insert($data);
+					if ($res) {
+						$this->markpic('.' . $value['url']);
+					}
+				}
 			}
+			$this->ajaxReturn($result);
 		}
 		exit();
 	}
