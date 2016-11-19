@@ -50,7 +50,11 @@ am.extend({
 				content: str,
 			});
 		} else {
+			var ind = layer.load(1, {
+				shade: false
+			});
 			$.get(uri, function(data) {
+				layer.close(ind);
 				layer.open({
 					type: 1,
 					// btn: true,
