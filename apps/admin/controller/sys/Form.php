@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\controller\sys;
+use think\Cache;
 use think\Db;
 
 class Form extends Base {
