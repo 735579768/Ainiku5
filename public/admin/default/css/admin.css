@@ -40,7 +40,8 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * 修复编辑器没有宽度
  * @type {[type]}
  */
-.edui-container,.edui-editor-body .edui-body-container{	/*width: auto !important;*/}
+.edui-container,.edui-editor-body .edui-body-container{	width: auto !important;}
+.edui-editor-body  textarea{width:100%!important;}
 
 /**
  * 头部样式
