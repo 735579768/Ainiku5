@@ -72,6 +72,7 @@ eot;
 	private function _addTag($category_type = 'article_tag') {
 		$map                  = [];
 		$map['category_type'] = $category_type;
+		$map['status']        = 1;
 		$list                 = \think\Db::name('Category')
 			->where($map)
 			->select();
