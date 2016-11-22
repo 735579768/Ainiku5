@@ -58,11 +58,13 @@ class Pub extends \app\common\Controller\Base {
 					//如果有验证码的话就再次设置记录时间cookie
 					$b = 0;
 					switch ($remember) {
-					case 1:$b = 24 * 3600;
+					case 1:$b = 1 * 3600;
 						break;
-					case 2:$b = 24 * 3600 * 7;
+					case 2:$b = 24 * 3600;
 						break;
-					case 3:$b = 24 * 3600 * 30;
+					case 3:$b = 24 * 3600 * 7;
+						break;
+					case 4:$b = 24 * 3600 * 30;
 						break;
 					default:$b = -1;
 					}
