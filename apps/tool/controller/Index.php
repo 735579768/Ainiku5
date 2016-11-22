@@ -51,9 +51,10 @@ class Index {
 	];
 	public function index() {
 		// var_dump($this->_getAllField('kl_article'));
-		$this->moveArticle();
+		// $this->moveArticle();
 		// $this->moveCategory();
 		// $this->moveRes();
+		$this->moveNav();
 		return 'ok';
 	}
 	/**
@@ -188,6 +189,27 @@ class Index {
 		dump($adddata);
 		// $this->_getDb('db1')->name('File')->where('1=1')->delete();
 		// $result = $this->_getDb('db1')->name('File')->insertAll($adddata);
+	}
+	function moveNav() {
+		$datalist = $this->_getDb('db2')->name('Nav')->select();
+		//移图片
+		$adddata = [];
+		foreach ($datalist as $key => $value) {
+			$adddata[] = [
+				'nav_id'      => $value['nav_id'],
+				'pid'         => $value['pid'],
+				'title'       => $value['title'],
+				'url'         => $value['url'],
+				'sort'        => $value['sort'],
+				'target'      => $value['target'],
+				'status'      => $value['status'],
+				'create_time' => time(),
+				'update_time' => time(),
+			];
+		}
+		dump($adddata);
+		// $this->_getDb('db1')->name('Nav')->where('1=1')->delete();
+		// $result = $this->_getDb('db1')->name('Nav')->insertAll($adddata);
 	}
 	/**
 	 * 从旧数据库导入数据到新数据库
