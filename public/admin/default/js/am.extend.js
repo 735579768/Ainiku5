@@ -14,6 +14,36 @@ am.extend({
 		});
 	},
 	/**
+	 * 过滤标签
+	 * @return {[type]} [description]
+	 */
+	searTag: function(dom) {
+		var _t = $(dom);
+		// debugger;
+		if (!_t.data('init')) {
+			_t.data('init', true);
+			$('#tagcontainer').append('<div style="display:none;height:30px;line-height:30px;color:#666;" class="empty-tag">没有相关标签。:(</span>');
+			_t.bind('keyup', function() {
+				var str = $(this).val();
+				var obj = $('#tagcontainer label span');
+				obj.each(function(index, el) {
+					var s = $(this).text();
+					if (s.indexOf(str) !== -1) {
+						$(this).parent().show();
+					} else {
+						$(this).parent().hide();
+					}
+				});
+				if ($('#tagcontainer label').filter(':visible').length == 0) {
+					$('#tagcontainer').children('div').show();
+				} else {
+					$('#tagcontainer').children('div').hide();
+				}
+			});
+		}
+
+	},
+	/**
 	 * 设置框架对象对应的tab标题
 	 * @param  {[type]} f [description]
 	 * @return {[type]}   [description]

@@ -75,7 +75,7 @@ eot;
 		$list                 = \think\Db::name('Category')
 			->where($map)
 			->select();
-		$addtag = '<a style="margin-bottom:10px;" href="javascript:;"onclick="am.getAddTagForm(this,\'' . url('sys.ajax/addCategory?category_type=' . $category_type) . '\');" class="btn">添加标签</a>';
+		$addtag = '<a style="margin-bottom:10px;" href="javascript:;"onclick="am.getAddTagForm(this,\'' . url('sys.ajax/addCategory?category_type=' . $category_type) . '\');" class="btn">添加标签</a> <input onfocus="am.searTag(this);" class="form-control input-small" value="" placeholder="输入关键词过滤标签" />';
 		$str    = $addtag;
 		$str .= '<div id="tagcontainer"  class="controls">';
 		foreach ($list as $key => $value) {
