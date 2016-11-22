@@ -48,7 +48,8 @@ function get_space($num) {
 }
 /**
  * 返回一个目录中的目录列表(只返回一级)
- * @param string $path
+ * @param  [type] $dir 目录路径
+ * @return [type]      [description]
  */
 function get_dir_list($dir) {
 	$dirArray[] = null;
