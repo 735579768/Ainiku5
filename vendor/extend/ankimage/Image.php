@@ -133,7 +133,13 @@ class Image {
 	public function width() {
 		return $this->info['width'];
 	}
-
+	/**
+	 * 返回当前图片对象
+	 * @return [type] [description]
+	 */
+	public function getImage() {
+		return $this->im ? $this->im : null;
+	}
 	/**
 	 * 返回图像高度
 	 * @return int 图像高度
@@ -204,6 +210,65 @@ class Image {
 			}
 		}
 		$this->im = $distImage;
+		return $this;
+	}
+	/**
+	 * 处理圆角图片
+	 * @param  integer $radius  圆角半径长度默认为15,处理成圆型
+	 * @return [type]           [description]
+	 */
+	public function radius($radius = 15) {
+		// $wh = getimagesize($imgpath);
+		$w = $this->width();
+		$h = $this->height();
+		// $radius = $radius == 0 ? (min($w, $h) / 2) : $radius;
+		$img = imagecreatetruecolor($w, $h);
+		//这一句一定要有
+		imagesavealpha($img, true);
+		//拾取一个完全透明的颜色,最后一个参数127为全透明
+		$bg = imagecolorallocatealpha($img, 255, 255, 255, 127);
+		imagefill($img, 0, 0, $bg);
+		$r = $radius; //圆 角半径
+		for ($x = 0; $x < $w; $x++) {
+			for ($y = 0; $y < $h; $y++) {
+				$rgbColor = imagecolorat($this->im, $x, $y);
+				if (($x >= $radius && $x <= ($w - $radius)) || ($y >= $radius && $y <= ($h - $radius))) {
+					//不在四角的范围内,直接画
+					imagesetpixel($img, $x, $y, $rgbColor);
+				} else {
+					//在四角的范围内选择画
+					//上左
+					$y_x = $r; //圆心X坐标
+					$y_y = $r; //圆心Y坐标
+					if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+						imagesetpixel($img, $x, $y, $rgbColor);
+						continue;
+					}
+					//上右
+					$y_x = $w - $r; //圆心X坐标
+					$y_y = $r; //圆心Y坐标
+					if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+						imagesetpixel($img, $x, $y, $rgbColor);
+						continue;
+					}
+					//下左
+					$y_x = $r; //圆心X坐标
+					$y_y = $h - $r; //圆心Y坐标
+					if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+						imagesetpixel($img, $x, $y, $rgbColor);
+						continue;
+					}
+					//下右
+					$y_x = $w - $r; //圆心X坐标
+					$y_y = $h - $r; //圆心Y坐标
+					if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+						imagesetpixel($img, $x, $y, $rgbColor);
+						continue;
+					}
+				}
+			}
+		}
+		$this->im = $img;
 		return $this;
 	}
 	/**
@@ -405,17 +470,24 @@ class Image {
 	 * @return $this
 	 */
 	public function water($source, $locate = self::WATER_SOUTHEAST, $alpha = 100) {
-		if (!is_file($source)) {
-			throw new ImageException('水印图像不存在');
+		$water = null;
+		if (is_string($source)) {
+			if (!is_file($source)) {
+				throw new ImageException('水印图像不存在');
+			}
+			//获取水印图像信息
+			$info = getimagesize($source);
+			if (false === $info || (IMAGETYPE_GIF === $info[2] && empty($info['bits']))) {
+				throw new ImageException('非法水印文件');
+			}
+			//创建水印图像资源
+			$fun   = 'imagecreatefrom' . image_type_to_extension($info[2], false);
+			$water = $fun($source);
+		} else {
+			$water = $source;
+			$info  = [imagesx($water), imagesy($water)];
+			// var_dump($info);
 		}
-		//获取水印图像信息
-		$info = getimagesize($source);
-		if (false === $info || (IMAGETYPE_GIF === $info[2] && empty($info['bits']))) {
-			throw new ImageException('非法水印文件');
-		}
-		//创建水印图像资源
-		$fun   = 'imagecreatefrom' . image_type_to_extension($info[2], false);
-		$water = $fun($source);
 		//设定水印图像的混色模式
 		imagealphablending($water, true);
 		/* 设定水印位置 */
