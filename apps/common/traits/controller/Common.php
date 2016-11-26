@@ -80,14 +80,18 @@ trait Common {
 		// 		$pobj = call_user_func_array([$pobj, 'where'], $value);
 		// 	}
 		// }
+		array_shift($_GET);
 		$list = $pobj
 			->where($whe)
 			->field($field)
 			->order($order)
 			// ->fetchSql()
-			->paginate($rows);
+			->paginate($rows, false, [
+				'query' => $_GET,
+			]);
 		// echo $list;
 		// 获取分页显示
+
 		$page = $list->render();
 		$list = $list->toArray();
 		$list = $list['data'];
