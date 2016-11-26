@@ -1,6 +1,6 @@
 	<dl class="arc-list">
 		<dt class="arc-m-title"> <h2><i class="fa fa-envira"></i><empty name="title">{$category.title}<else />{$title}</empty></h2></dt>
-		<volist name="_list" id="vo">
-		<dd class="arc-item"><a  target="_blank"  class="el" href="{:U('article/'.$vo['article_id'])}"><i class="fa fa-fire"></i>{$vo.title}</a><span class="datetime">{$vo.views}</span></dd>
-		</volist>
+		{volist name="_list" id="vo"}
+		<dd class="arc-item"><a  target="_blank"  class="el" href="{:url('article/'.$vo['article_id'])}"><i class="fa fa-fire"></i>{$vo.title}</a><span class="datetime">{$vo.views}</span></dd>
+		{/volist}
 	</dl>

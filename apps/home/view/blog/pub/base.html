@@ -5,8 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-{insert name="reset,common,index,font-awesome" /}
+{insert name="reset,common,index,font-awesome.min" /}
+{__ASSETS_CSS__}
 {insert name="jquery-1.9.1.min,init" type="js"  /}
+{layer /}
 {block name="meta"}
 <title>{:get_seo_title(@$category,@$single,@$arcinfo)}</title>
 <meta name="keywords" content="{:get_seo_keywords(@$category,@$single,@$arcinfo)}" />
@@ -34,5 +36,6 @@
 {block name="footer"}
 {include file="pub/footer" /}
 {/block}
+{__ASSETS_JS__}
 </body>
 </html>

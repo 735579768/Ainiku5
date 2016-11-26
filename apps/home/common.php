@@ -161,7 +161,7 @@ function get_seo_descr($category, $single, $article) {
 	}
 	if ($article) {
 		if (empty($article['meta_descr'])) {
-			$article_descr = removehtml($article['content'], 0, 100);
+			$article_descr = remove_html($article['content'], 0, 100);
 		} else {
 			$article_descr = $article['meta_descr'];
 
@@ -180,9 +180,10 @@ function remove_html($str, $start = 0, $length, $charset = "utf-8", $suffix = tr
 	return msubstr($str, $start = 0, $length, $charset = "utf-8", $suffix = true);
 }
 /**
- * 格式化文章标签
+ * 取出标签数组
+ * @return [type] [description]
  */
-function format_tag($tagid = '') {
+function get_tag_arr($category_type = 'article_tag') {
 	$tags = \think\Cache::get('tags');
 	if (!$tags || config('app_debug')) {
 		$tags                 = [];
@@ -197,12 +198,19 @@ function format_tag($tagid = '') {
 		foreach ($list as $key => $value) {
 			$tags[$value['category_id']] = $value['title'];
 		}
-		\think\Cache::tag('category')->set('tags', $tags);
+		\think\Cache::tag('category')->set($category_type, $tags);
 	}
+	return $tags;
+}
+/**
+ * 格式化文章标签
+ */
+function format_tag($tagid = '') {
+	$tags   = get_tag_arr('article_tag');
 	$tagarr = explode(',', $tagid);
 	$str    = '';
 	foreach ($tagarr as $key => $value) {
-		if ($value != 0) {
+		if ($value != 0 && isset($tags[$value])) {
 			$str .= '<a href="' . url('tag/' . $value) . '">' . $tags[$value] . '</a>';
 		}
 	}

@@ -1,13 +1,13 @@
 {extend name="pub/base" /}
-<block name="left">
+{block name="left"}
 <div class="con-left">
 <!--搜索列表 start-->
 
 <!--图文列表 start-->
 	<ul class="img-con-list cl">
 		<li class="list-title"><h2><i class="fa fa-envira"></i>当前分类：{$category.title|default='全部'}</h2></li>
-			<include file="Public/lists_imgtext" />
+			{include file="pub/lists_imgtext" /}
 	</ul>
-	<div class="page cl">{$_page}</div>
+	<div class="page cl"><div class="page-inner cl">{$_page}</div></div>
 </div>
-</block>
+{/block}

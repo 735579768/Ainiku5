@@ -2,10 +2,20 @@
 namespace app\home\controller;
 
 class Article extends Base {
-	public function index() {
-		// config('template.view_path', 'default');
-		// $this->view->config('view_path', 'default');
-		// dump($this->view);
+	public function index($fenlei = '') {
+		$info = get_category($fenlei);
+		//if (empty($info)) {$this->_empty();}
+		//$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
+		$map['status']                      = 1;
+		empty($info) || $map['category_id'] = $info['category_id'];
+		$this->pages(array(
+			'table' => 'Article',
+			'where' => $map,
+			'rows'  => 10,
+			'order' => 'article_id desc',
+			'url'   => '/',
+		));
+		$this->assign('category', $info);
 		return $this->fetch();
 	}
 	public function detail() {
@@ -26,6 +36,6 @@ class Article extends Base {
 		$info     = get_article($article_id);
 		$this->assign('arcinfo', $info);
 		$this->assign('category', $category);
-		$this->display($tpl);
+		return $this->fetch($tpl);
 	}
 }

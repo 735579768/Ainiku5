@@ -14,13 +14,14 @@ if (!class_exists('\addons\comment\Comment')) {
 			// empty($arc_id)&&die('没有评论');
 			$map['status'] = 1;
 			$map['pid']    = $pid;
-			$map['arc_id'] = input('get.arc_id', 0);
+			$map['arc_id'] = input('param.arc_id', 0);
 			$data          = $this->pages(array(
 				'table' => 'AddonComment',
 				'where' => $map,
 				'order' => 'create_time desc',
 				'rows'  => 2,
 			));
+			// var_dump($map);
 			if (empty($data[0])) {
 				die('没有评论');
 			} else {
