@@ -1,41 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-{insert name="reset,common,index,font-awesome.min" /}
-{__ASSETS_CSS__}
-{insert name="jquery-1.9.1.min,init" type="js"  /}
-{layer /}
-{block name="meta"}
-<title>{:get_seo_title(@$category,@$single,@$arcinfo)}</title>
-<meta name="keywords" content="{:get_seo_keywords(@$category,@$single,@$arcinfo)}" />
-<meta name="description" content="{:get_seo_descr(@$category,@$single,@$arcinfo)}" />
-{/block}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> {insert name="reset,common,index,font-awesome.min" /} {__ASSETS_CSS__} {insert name="jquery-1.9.1.min,init" type="js" /} {layer /} {block name="meta"}
+    <title>{:get_seo_title(@$category,@$single,@$arcinfo)}</title>
+    <meta name="keywords" content="{:get_seo_keywords(@$category,@$single,@$arcinfo)}" />
+    <meta name="description" content="{:get_seo_descr(@$category,@$single,@$arcinfo)}" /> {/block}
 </head>
 
 <body>
-{block name="header"}
-	{include file="pub/header" /}
-{/block}
-<div class="container cl">
-{block name="center"}
-
-{/block}
-{block name="left"}
-
-{/block}
-
-{block name="right"}
-{include file="pub/right" /}
-{/block}
-
-</div>
-{block name="footer"}
-{include file="pub/footer" /}
-{/block}
-{__ASSETS_JS__}
+    {block name="header"} {include file="pub/header" /} {/block}
+    <div class="container cl">
+        {block name="center"} {/block} {block name="left"} {/block} {block name="right"} {include file="pub/right" /} {/block}
+    </div>
+    {block name="footer"} {include file="pub/footer" /} {/block} {__ASSETS_JS__}
 </body>
+
 </html>

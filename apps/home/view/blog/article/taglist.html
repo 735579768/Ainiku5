@@ -4,11 +4,12 @@
     <!--图文列表 start-->
     <ul class="img-con-list cl">
         <li class="list-title">
-            <h2><i class="fa fa-envira"></i>当前分类：{$category.title|default='全部'}</h2></li>
+            <h2><i class="fa fa-envira"></i>当前标签：{$tagtitle}</h2></li>
         {include file="pub/lists_imgtext" /}
     </ul>
     <div class="page cl">
-        <div class="page-inner cl">{$_page}</div>
+        <div class="page-inner">{$_page}</div>
     </div>
+    <!--图文列表 end-->
 </div>
 {/block}

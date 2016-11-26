@@ -18,6 +18,22 @@ class Article extends Base {
 		$this->assign('category', $info);
 		return $this->fetch();
 	}
+	function taglist($tagid = 0) {
+		$map    = "status=1 and find_in_set('$tagid',position)";
+		$order  = 'update_time desc';
+		$field  = '*,article_id as id';
+		$rows   = 6;
+		$tagarr = get_tag_arr('article_tag');
+		$this->assign('tagtitle', $tagarr[$tagid]);
+		$this->pages(array(
+			'table' => 'Article',
+			'where' => $map,
+			'order' => $order,
+			'field' => $field,
+			'rows'  => $rows,
+		));
+		return $this->fetch();
+	}
 	public function detail() {
 		$article_id = input('param.article_id');
 		if (empty($article_id)) {

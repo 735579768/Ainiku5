@@ -1,20 +1,14 @@
 <aside class="con-right">
-
-{:widget('Article/hotlists')}
-<div class="ad-right">
-{:get_module_pos_code('chuchuang_baidu')}
-</div>
-{:widget('Article/lists',array('php'))}
-{:widget('Article/lists',array('js'))}
-{:widget('Article/lists',array('android'))}
-
-
-
-	<dl class="arc-tag">
-		<dt class="list-title"> <h2><i class="fa fa-envira"></i>标签</h2></dt>
-		<dd class="arc-tag-yun">
-			{:widget('Article/Tagyun')}
-		</dd>
-
-	</dl>
+    {:widget('Article/hotlists')}
+    <div class="ad-right">
+        {:get_module_pos_code('chuchuang_baidu')}
+    </div>
+    {:widget('Article/lists',array('php'))} {:widget('Article/lists',array('js'))} {:widget('Article/lists',array('android'))}
+    <dl class="arc-tag">
+        <dt class="list-title">
+            <h2><i class="fa fa-envira"></i>标签</h2></dt>
+        <dd class="arc-tag-yun">
+            {:widget('Article/Tagyun')}
+        </dd>
+    </dl>
 </aside>

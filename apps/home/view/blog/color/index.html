@@ -1,238 +1,235 @@
-{extend name="pub/base" /}
-<block name="right"></block>
-<block name="center">
+{extend name="pub/base" /} {block name="right"}{/block} {block name="center"}
 <div class="con-center">
-
-		<div class="tiaose">
-		<ank:insert type="js" name="color" />
-		<ank:insert name="color" />
-			<div id="znps_bg" style="width:1000px; margin:0px auto;">
-<div class="znps_top">
-<h1>选择心仪的主色调：</h1>
-<script language="JavaScript">  DrawPalette();
-     </script>
-<div class="cl"></div>
+    <div class="tiaose">
+        <ank:insert type="js" name="color" />
+        <ank:insert name="color" />
+        <div id="znps_bg" style="width:1000px; margin:0px auto;">
+            <div class="znps_top">
+                <h1>选择心仪的主色调：</h1>
+                <script language="JavaScript">
+                DrawPalette();
+                </script>
+                <div class="cl"></div>
+            </div>
+            <div id="ColorInput">
+                <h3 style="">当前颜色及色值：</h3>
+                <div class="currentBorder">
+                    <div id="currentColor" style="background-color: rgb(43,167,21);">&nbsp;</div>
+                </div>
+                <form name="codes" id="codes">
+                    <div class="set_rgb_button">
+                        <input type="button" class="button fl" value="增加亮度" onClick="LightenScheme();">
+                        <input type="button" class="button fr" value="降低亮度" onClick="DarkenScheme();">
+                    </div>
+                    <div class="navBox">
+                        <dl>
+                            <dd>R:</dd>
+                            <dt>
+                                <input type="text" name="r" value="43" maxlength="3" class="input1">
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>G:</dd>
+                            <dt>
+                                <input type="text" name="g" value="167" maxlength="3" class="input1">
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>B:</dd>
+                            <dt>
+                                <input type="text" name="b" value="21" maxlength="3" class="input1">
+                            </dt>
+                        </dl>
+                        <div class="clear"></div>
+                        <div class="set_rgb">
+                            <input type="button" class="button2" id="n_set_rgb" value="设置 RGB" onClick="ChangeColors(document.getElementById('codes').r.value,document.getElementById('codes').g.value,document.getElementById('codes').b.value);">
+                        </div>
+                        <div class="set_hex_input">
+                            <label># </label>
+                            <input type="text" class="input1" name="hex" value="2BA715" maxlength="6">
+                        </div>
+                        <div class="set_hex">
+                            <input type="button" class="button2" id="n_set_hex" value="设置 HEX" onClick="SetHex(document.getElementById('codes').hex.value);">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div id="Wheel">
+                <h3>最佳配色方案：<span>点击色块可生成新配色方案.</span></h3>
+                <div id="swatch0" class="swatch" style="display:none">
+                    <div class="border">
+                        <div id="0" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(43, 168, 21);">&nbsp;</div>
+                    </div>
+                    <div id="0RGB" class="rgb">43.168.21</div>
+                    <div id="0HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="2BA815">#2BA815
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch1" class="swatch">
+                    <div class="border">
+                        <div id="1" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 168, 72);">&nbsp;</div>
+                    </div>
+                    <div id="1RGB" class="rgb">21.168.72</div>
+                    <div id="1HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="15A848">#15A848
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch2" class="swatch">
+                    <div class="border">
+                        <div id="2" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 168, 146);">&nbsp;</div>
+                    </div>
+                    <div id="2RGB" class="rgb">21.168.146</div>
+                    <div id="2HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="15A892">#15A892
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch3" class="swatch">
+                    <div class="border">
+                        <div id="3" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 116, 168);">&nbsp;</div>
+                    </div>
+                    <div id="3RGB" class="rgb">21.116.168</div>
+                    <div id="3HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="1574A8">#1574A8
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch4" class="swatch">
+                    <div class="border">
+                        <div id="4" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 43, 168);">&nbsp;</div>
+                    </div>
+                    <div id="4RGB" class="rgb">21.43.168</div>
+                    <div id="4HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="152BA8">#152BA8
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch5" class="swatch">
+                    <div class="border">
+                        <div id="5" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(72, 21, 168);">&nbsp;</div>
+                    </div>
+                    <div id="5RGB" class="rgb">72.21.168</div>
+                    <div id="5HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="4815A8">#4815A8
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch6" class="swatch">
+                    <div class="border">
+                        <div id="6" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(146, 21, 168);">&nbsp;</div>
+                    </div>
+                    <div id="6RGB" class="rgb">146.21.168</div>
+                    <div id="6HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="9215A8">#9215A8
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch7" class="swatch">
+                    <div class="border">
+                        <div id="7" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 21, 116);">&nbsp;</div>
+                    </div>
+                    <div id="7RGB" class="rgb">168.21.116</div>
+                    <div id="7HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A81574">#A81574
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch8" class="swatch">
+                    <div class="border">
+                        <div id="8" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 21, 43);">&nbsp;</div>
+                    </div>
+                    <div id="8RGB" class="rgb">168.21.43</div>
+                    <div id="8HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A8152B">#A8152B
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch9" class="swatch">
+                    <div class="border">
+                        <div id="9" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 72, 21);">&nbsp;</div>
+                    </div>
+                    <div id="9RGB" class="rgb">168.72.21</div>
+                    <div id="9HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A84815">#A84815
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch10" class="swatch">
+                    <div class="border">
+                        <div id="10" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 146, 21);">&nbsp;</div>
+                    </div>
+                    <div id="10RGB" class="rgb">168.146.21</div>
+                    <div id="10HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A89215">#A89215
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatch11" class="swatch">
+                    <div class="border">
+                        <div id="11" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(116, 168, 21);">&nbsp;</div>
+                    </div>
+                    <div id="11RGB" class="rgb">116.168.21</div>
+                    <div id="11HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="74A815">#74A815
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatchm1" class="swatch">
+                    <div class="border">
+                        <div id="m1" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(57, 222, 27);">&nbsp;</div>
+                    </div>
+                    <div id="m1RGB" class="rgb">57.222.27</div>
+                    <div id="m1HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="39DE1B">#39DE1B
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatchm2" class="swatch">
+                    <div class="border">
+                        <div id="m2" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(101, 233, 78);">&nbsp;</div>
+                    </div>
+                    <div id="m2RGB" class="rgb">101.233.78</div>
+                    <div id="m2HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="65E94E">#65E94E
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatchm3" class="swatch">
+                    <div class="border">
+                        <div id="m3" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(193, 27, 222);">&nbsp;</div>
+                    </div>
+                    <div id="m3RGB" class="rgb">193.27.222</div>
+                    <div id="m3HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="C11BDE">#C11BDE
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+                <div id="swatchm4" class="swatch">
+                    <div class="border">
+                        <div id="m4" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(210, 78, 233);">&nbsp;</div>
+                    </div>
+                    <div id="m4RGB" class="rgb">210.78.233</div>
+                    <div id="m4HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="D24EE9">#D24EE9
+                        <div class="tishi"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <script>
+        jQuery(function($) {
+            var aa;
+            $(".click_rgb a").each(function() {
+                $(this).click(function() {
+                    $("#palette").find('a').removeClass('select');
+                    $(this).addClass('select');
+                })
+            });
+            $("#n_set_hex").click(function() {
+                var hex = $('input[name="hex"]').val();
+                $(".click_rgb a").each(function() {
+                    var data = $(this).attr("data");
+                    if (hex == data) {
+                        $("#palette").find('a').removeClass('select');
+                        $(this).addClass('select');
+                    }
+                });
+            });
+            $(".color").click(function() {
+                $("#palette").find('a').removeClass('select');
+                $(this).addClass('select');
+            });
+        });
+        </script>
+    </div>
 </div>
-<div id="ColorInput">
-<h3 style="">当前颜色及色值：</h3>
-<div class="currentBorder">
-<div id="currentColor" style="background-color: rgb(43,167,21);">&nbsp;</div>
-</div>
-<form name="codes" id="codes">
-<div class="set_rgb_button">
-<input type="button" class="button fl" value="增加亮度" onClick="LightenScheme();">
-<input type="button" class="button fr" value="降低亮度" onClick="DarkenScheme();">
-</div>
-<div class="navBox">
-<dl>
-<dd>R:</dd>
-<dt>
-<input type="text" name="r" value="43" maxlength="3" class="input1">
-</dt>
-</dl>
-<dl>
-<dd>G:</dd>
-<dt>
-<input type="text" name="g" value="167" maxlength="3" class="input1">
-</dt>
-</dl>
-<dl>
-<dd>B:</dd>
-<dt>
-<input type="text" name="b" value="21" maxlength="3" class="input1">
-</dt>
-</dl>
-<div class="clear"></div>
-<div class="set_rgb">
-<input type="button" class="button2" id="n_set_rgb" value="设置 RGB" onClick="ChangeColors(document.getElementById('codes').r.value,document.getElementById('codes').g.value,document.getElementById('codes').b.value);">
-</div>
-<div class="set_hex_input">
-<label># </label>
-<input type="text" class="input1" name="hex" value="2BA715" maxlength="6">
-</div>
-<div class="set_hex">
-<input type="button" class="button2" id="n_set_hex" value="设置 HEX" onClick="SetHex(document.getElementById('codes').hex.value);">
-</div>
-</div>
-<div class="clear"></div>
-</form>
-<div class="clear"></div>
-</div>
-<div id="Wheel">
-<h3>最佳配色方案：<span>点击色块可生成新配色方案.</span></h3>
-<div id="swatch0" class="swatch" style="display:none">
-<div class="border">
-<div id="0" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(43, 168, 21);">&nbsp;</div>
-</div>
-<div id="0RGB" class="rgb">43.168.21</div>
-<div id="0HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="2BA815">#2BA815
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch1" class="swatch">
-<div class="border">
-<div id="1" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 168, 72);">&nbsp;</div>
-</div>
-<div id="1RGB" class="rgb">21.168.72</div>
-<div id="1HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="15A848">#15A848
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch2" class="swatch">
-<div class="border">
-<div id="2" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 168, 146);">&nbsp;</div>
-</div>
-<div id="2RGB" class="rgb">21.168.146</div>
-<div id="2HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="15A892">#15A892
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch3" class="swatch">
-<div class="border">
-<div id="3" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 116, 168);">&nbsp;</div>
-</div>
-<div id="3RGB" class="rgb">21.116.168</div>
-<div id="3HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="1574A8">#1574A8
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch4" class="swatch">
-<div class="border">
-<div id="4" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(21, 43, 168);">&nbsp;</div>
-</div>
-<div id="4RGB" class="rgb">21.43.168</div>
-<div id="4HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="152BA8">#152BA8
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch5" class="swatch">
-<div class="border">
-<div id="5" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(72, 21, 168);">&nbsp;</div>
-</div>
-<div id="5RGB" class="rgb">72.21.168</div>
-<div id="5HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="4815A8">#4815A8
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch6" class="swatch">
-<div class="border">
-<div id="6" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(146, 21, 168);">&nbsp;</div>
-</div>
-<div id="6RGB" class="rgb">146.21.168</div>
-<div id="6HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="9215A8">#9215A8
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch7" class="swatch">
-<div class="border">
-<div id="7" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 21, 116);">&nbsp;</div>
-</div>
-<div id="7RGB" class="rgb">168.21.116</div>
-<div id="7HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A81574">#A81574
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch8" class="swatch">
-<div class="border">
-<div id="8" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 21, 43);">&nbsp;</div>
-</div>
-<div id="8RGB" class="rgb">168.21.43</div>
-<div id="8HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A8152B">#A8152B
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch9" class="swatch">
-<div class="border">
-<div id="9" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 72, 21);">&nbsp;</div>
-</div>
-<div id="9RGB" class="rgb">168.72.21</div>
-<div id="9HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A84815">#A84815
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch10" class="swatch">
-<div class="border">
-<div id="10" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(168, 146, 21);">&nbsp;</div>
-</div>
-<div id="10RGB" class="rgb">168.146.21</div>
-<div id="10HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="A89215">#A89215
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatch11" class="swatch">
-<div class="border">
-<div id="11" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(116, 168, 21);">&nbsp;</div>
-</div>
-<div id="11RGB" class="rgb">116.168.21</div>
-<div id="11HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="74A815">#74A815
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatchm1" class="swatch">
-<div class="border">
-<div id="m1" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(57, 222, 27);">&nbsp;</div>
-</div>
-<div id="m1RGB" class="rgb">57.222.27</div>
-<div id="m1HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="39DE1B">#39DE1B
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatchm2" class="swatch">
-<div class="border">
-<div id="m2" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(101, 233, 78);">&nbsp;</div>
-</div>
-<div id="m2RGB" class="rgb">101.233.78</div>
-<div id="m2HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="65E94E">#65E94E
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatchm3" class="swatch">
-<div class="border">
-<div id="m3" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(193, 27, 222);">&nbsp;</div>
-</div>
-<div id="m3RGB" class="rgb">193.27.222</div>
-<div id="m3HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="C11BDE">#C11BDE
-<div class="tishi"></div>
-</div>
-</div>
-<div id="swatchm4" class="swatch">
-<div class="border">
-<div id="m4" class="color" onclick="SetHex(this.style.backgroundColor);" style="background-color: rgb(210, 78, 233);">&nbsp;</div>
-</div>
-<div id="m4RGB" class="rgb">210.78.233</div>
-<div id="m4HEX" class="hex js-zclip" data-diff="parent" data-clipboard-text="D24EE9">#D24EE9
-<div class="tishi"></div>
-</div>
-</div>
-</div>
-<div class="clear"></div>
-</div>
-<script>jQuery(function($){
-				 	var aa;
-	$(".click_rgb a").each(function(){
-		$(this).click(function(){
-			  $("#palette").find('a').removeClass('select');
-   			  $(this).addClass('select');
-			})
-	});
-		$("#n_set_hex").click(function(){
-			  var hex = $('input[name="hex"]').val();
-			  $(".click_rgb a").each(function(){
-			  var data = $(this).attr("data");
-			 	if(hex == data){
-					  $("#palette").find('a').removeClass('select');
-   			  		  $(this).addClass('select');
-					}
-				});
-			});
-	$(".color").click(function(){
-			  $("#palette").find('a').removeClass('select');
-   			  $(this).addClass('select');
-			});
-	});
-</script>
-
-		</div>
-
-</div>
-</block>
+{/block}
