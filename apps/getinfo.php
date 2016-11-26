@@ -13,7 +13,7 @@ function get_status($status = 0, $type = 'status') {
 	}
 	//返回状态文本
 	if (isset($arr[$type])) {
-		return $arr[$type][$status];
+		return isset($arr[$type][$status]) ? $arr[$type][$status] : '--';
 	} else {
 		return '--';
 	}

@@ -25,9 +25,14 @@ am.extend({
 			$('#tagcontainer').append('<div style="display:none;height:30px;line-height:30px;color:#666;" class="empty-tag">没有相关标签。:(</span>');
 			_t.bind('keyup', function() {
 				var str = $(this).val();
+				if (!str) {
+					return;
+				}
+				str = str.toLowerCase();
 				var obj = $('#tagcontainer label span');
 				obj.each(function(index, el) {
 					var s = $(this).text();
+					s = s.toLowerCase();
 					if (s.indexOf(str) !== -1) {
 						$(this).parent().show();
 					} else {

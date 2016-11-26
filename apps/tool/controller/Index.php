@@ -12,7 +12,7 @@ class Index {
 			// 服务器地址
 			'hostname' => '127.0.0.1',
 			// 数据库名
-			'database' => 'ainiku5',
+			'database' => 'zhaokeli.com',
 			// 数据库用户名
 			'username' => 'root',
 			// 数据库密码
@@ -51,9 +51,9 @@ class Index {
 	];
 	public function index() {
 		// var_dump($this->_getAllField('kl_article'));
-		// $this->moveArticle();
-		// $this->moveCategory();
-		// $this->moveRes();
+		$this->moveArticle();
+		$this->moveCategory();
+		$this->moveRes();
 		$this->moveNav();
 		return 'ok';
 	}
@@ -86,8 +86,12 @@ class Index {
 		}
 		return $flist;
 	}
-
+	/**
+	 * 转移文章
+	 * @return [type] [description]
+	 */
 	private function moveArticle() {
+		$this->_getDb('db1')->name('Article')->where('1=1')->delete();
 		//转移用户表数据
 		$field1 = $this->_getAllField('kl_article', 'db1');
 		// $field2   = $this->_getAllField('kl_article', 'db2');
@@ -98,24 +102,30 @@ class Index {
 			foreach ($field1 as $k => $v) {
 				$tem[$v] = empty($value[$v]) ? '' : $value[$v];
 			}
-			$tem['content'] = str_replace('/Uploads', '/uploads', $tem['content']);
-			$adddata[]      = $tem;
+			$tem['content']     = str_replace('/Uploads', '/uploads', $tem['content']);
+			$tem['position']    = ltrim($tem['position'], '0,');
+			$tem['category_id'] = $tem['category_id'] - 193;
+			// $adddata[]      = $tem;
+			$this->_getDb('db1')->name('Article')->insert($tem);
 		}
-		dump($adddata);
-		// $this->_getDb('db1')->name('Article')->where('1=1')->delete();
-		// $datalist = $this->_getDb('db1')->name('Article')->insertAll($adddata);
-		// return $result;
+		// dump($adddata);
+
+		// $datalist =
 	}
 
 	/**
 	 * 添加文章标签和分类
 	 */
 	private function moveCategory() {
-		$tag     = '245:Sublime,246:jquery插件,204:css,216:js特效,218:正则,219:Android,220:eclipse,248:php报错,224:PHP函数,226:C++,234:ASP函数,247:kindeditor,242:伪静态,249:备案,251:js异常,252:destoon,253:duilib,254:c++错误,255:boost,256:脚本,257:canvas,258:Apache,259:js函数,260:ecshop,261:GD,262:Thinkphp,263:Ubuntu,264:易语言,265:nodejs,266:socket.io,267:谷歌扩展,268:EJS模板,269:Express,270:Linux命令,271:Centos,272:Python,273:PyQt5,274:HTML5,275:Composer,276:加密解密,277:LESS,278:批处理(bat),279:网络安全,280:微信开发,281:Git,282:SVN';
-		$tag     = explode(',', $tag);
+		// $tag     = '245:Sublime,246:jquery插件,204:css,216:js特效,218:正则,219:Android,220:eclipse,248:php报错,224:PHP函数,226:C++,234:ASP函数,247:kindeditor,242:伪静态,249:备案,251:js异常,252:destoon,253:duilib,254:c++错误,255:boost,256:脚本,257:canvas,258:Apache,259:js函数,260:ecshop,261:GD,262:Thinkphp,263:Ubuntu,264:易语言,265:nodejs,266:socket.io,267:谷歌扩展,268:EJS模板,269:Express,270:Linux命令,271:Centos,272:Python,273:PyQt5,274:HTML5,275:Composer,276:加密解密,277:LESS,278:批处理(bat),279:网络安全,280:微信开发,281:Git,282:SVN';
+		$tag     = $this->_getDb('db2')->name('ModelAttr')->where(['model_attr_id' => 11])->field('extra')->find();
+		$tag     = explode(',', $tag['extra']);
 		$adddata = [];
 		//添加标签
 		foreach ($tag as $key => $value) {
+			if (!$value) {
+				continue;
+			}
 			$tem       = explode(':', $value);
 			$adddata[] = [
 				'category_id'   => $tem[0],
@@ -128,6 +138,7 @@ class Index {
 				'update_time'   => time(),
 			];
 		}
+		//插入分类
 		$datalist = $this->_getDb('db2')->name('Category')->field('category_id,name,title')->select();
 		foreach ($datalist as $key => $value) {
 			$adddata[] = [
@@ -141,9 +152,9 @@ class Index {
 				'update_time'   => time(),
 			];
 		}
-		dump($adddata);
-		// $this->_getDb('db1')->name('Category')->where('1=1')->delete();
-		// $result = $this->_getDb('db1')->name('Category')->insertAll($adddata);
+		// dump($adddata);
+		$this->_getDb('db1')->name('Category')->where('1=1')->delete();
+		$result = $this->_getDb('db1')->name('Category')->insertAll($adddata);
 	}
 	/**
 	 * 移动图片和文件
@@ -153,24 +164,25 @@ class Index {
 		$datalist = $this->_getDb('db2')->name('Picture')->select();
 		//移图片
 		$adddata = [];
+		$this->_getDb('db1')->name('Picture')->where('1=1')->delete();
 		foreach ($datalist as $key => $value) {
-			$adddata[] = [
+			$adddata = [
 				'picture_id'  => $value['id'],
 				'uid'         => 1,
-				'srcname'     => $value['srcname'],
-				'destname'    => $value['destname'],
+				'srcname'     => $value['srcname'] ? $value['srcname'] : '',
+				'destname'    => $value['destname'] ? $value['destname'] : '',
 				'path'        => strtolower($value['path']),
 				'thumbpath'   => strtolower($value['thumbpath']),
 				'status'      => 1,
-				'extra'       => $value['from'],
-				'sha1'        => $value['sha1'],
+				'extra'       => $value['from'] ? $value['from'] : '',
+				'sha1'        => $value['sha1'] ? $value['sha1'] : '',
 				'create_time' => time(),
 				'update_time' => time(),
 			];
+			$this->_getDb('db1')->name('Picture')->insert($adddata);
 		}
-		dump($adddata);
-		// $this->_getDb('db1')->name('Picture')->where('1=1')->delete();
-		// $result = $this->_getDb('db1')->name('Picture')->insertAll($adddata);
+		// dump($adddata);
+
 		//移文件
 		$datalist = $this->_getDb('db2')->name('File')->select();
 		$adddata  = [];
@@ -186,9 +198,9 @@ class Index {
 				'update_time' => time(),
 			];
 		}
-		dump($adddata);
-		// $this->_getDb('db1')->name('File')->where('1=1')->delete();
-		// $result = $this->_getDb('db1')->name('File')->insertAll($adddata);
+		// dump($adddata);
+		$this->_getDb('db1')->name('File')->where('1=1')->delete();
+		$result = $this->_getDb('db1')->name('File')->insertAll($adddata);
 	}
 	function moveNav() {
 		$datalist = $this->_getDb('db2')->name('Nav')->select();
@@ -207,9 +219,9 @@ class Index {
 				'update_time' => time(),
 			];
 		}
-		dump($adddata);
-		// $this->_getDb('db1')->name('Nav')->where('1=1')->delete();
-		// $result = $this->_getDb('db1')->name('Nav')->insertAll($adddata);
+		// dump($adddata);
+		$this->_getDb('db1')->name('Nav')->where('1=1')->delete();
+		$result = $this->_getDb('db1')->name('Nav')->insertAll($adddata);
 	}
 	/**
 	 * 从旧数据库导入数据到新数据库
