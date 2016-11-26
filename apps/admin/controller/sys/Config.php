@@ -50,27 +50,38 @@ class Config extends Base {
 	}
 	public function group() {
 		if ($this->request->isPost()) {
-			$data     = input('param.');
-			$sys_conf = get_sys_config();
-			$data     = json_encode(array_merge($sys_conf, $data));
-			$result   = model('Config')
-				->isUpdate(true)
-				->save(['value' => $data], ['config_id' => 1]);
+			$data   = input('param.');
+			$tab_id = $data['tab_id'];
+			unset($data['tab_id']);
+			$name   = 'web_config_' . $tab_id;
+			$info   = \think\Db::name('Config')->where(['name' => $name])->find();
+			$result = 0;
+			if ($info) {
+				$result = \think\Db::name('Config')->where(['name' => $name])->update([
+					'value'       => json_encode($data),
+					'update_time' => time(),
+				]);
+			} else {
+				$result = \think\Db::name('Config')->insert([
+					'title'       => '网站配置',
+					'name'        => $name,
+					'value'       => json_encode($data),
+					'create_time' => time(),
+					'update_time' => time(),
+				]);
+			}
 			cache('sys_config', null);
 			add_user_log('更新网站配置', input('param.'));
 			$this->returnResult($result, '保存成功', '保存失败');
 		} else {
-			// dump(config(''));
 			$map['tab_id'] = input('param.tab_id', 3);
 			$list          = \think\Db::name('FormItem')
 				->where($map)
 				->order('sort asc,form_item_id asc')
 				->select();
 			define('show_mark', true);
-
 			$data = get_sys_config();
-			// dump($data);
-			$sta = config('systemstatus.tab');
+			$sta  = config('systemstatus.tab');
 			$this->assign([
 				'meta_title' => $sta[$map['tab_id']] . '配置',
 				'formarr'    => $list,

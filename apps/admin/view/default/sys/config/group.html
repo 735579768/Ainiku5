@@ -16,7 +16,7 @@
         <form class="autosubmit" action="{:url('')}" method="post">
             {:get_form_str($formarr,$data)}
             <div class="form-group cl center">
-
+                <input type="hidden" value="{$tab_id}" name="tab_id">
                 <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
                 {empty name="data"}确定保存{else /}确认更新{/empty}
                 </a>

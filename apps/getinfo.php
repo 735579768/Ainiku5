@@ -25,12 +25,17 @@ function get_status($status = 0, $type = 'status') {
 function get_sys_config() {
 	$data = cache('sys_config');
 	if (!$data || config('app_debug')) {
-		$info = \think\Db::name('Config')->field('value')->find(1);
-		$data = json_decode($info['value'], true);
+		$data = [];
+		$list = \think\Db::name('Config')->where('name like \'web_config_%\'')->field('value')->select();
+		foreach ($list as $key => $value) {
+			$data = array_merge($data, (array) json_decode($value['value'], true));
+		}
+		// $data = json_decode($info['value'], true);
 		cache('sys_config', $data);
 	}
 	return $data;
 }
+
 /**
  * 回几个空白字符串
  * @param  [type] $num [description]
