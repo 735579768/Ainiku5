@@ -16,6 +16,7 @@ class Article extends Base {
 		$starttime   = input('param.starttime');
 		$endtime     = input('param.endtime');
 		$listorder   = input('param.listorder', '');
+		$status      = input('param.status', 1);
 		if ($starttime && $endtime) {
 			empty($starttime) && ($starttime = date('Y-m-d', strtotime('-1 month')));
 			empty($endtime) && ($endtime = date('Y-m-d', strtotime('+1 day')));
@@ -25,7 +26,8 @@ class Article extends Base {
 		}
 		$title && ($map['a.title'] = ['like', "%{$title}%"]);
 		$category_id && ($map['a.category_id'] = $category_id);
-		$map['a.status'] = ['gt', -1];
+		// $map['a.status'] = ['gt', -1];
+		$map['a.status'] = $status;
 		//排序设置
 		$order = 'a.update_time desc,article_id desc';
 		$listorder && ($order = $listorder . ',' . $order);
@@ -46,6 +48,7 @@ class Article extends Base {
 		$title && ($sear['title'] = $title);
 		$sear['starttime'] = $starttime;
 		$sear['endtime']   = $endtime;
+		$sear['status']    = $status;
 		$this->_search($sear);
 		return $this->fetch();
 	}
@@ -201,6 +204,18 @@ class Article extends Base {
 					'name'    => 'endtime',
 					'title'   => '结束时间',
 					'value'   => '',
+					'is_show' => 3,
+				],
+				[
+					'type'    => 'radio',
+					'name'    => 'status',
+					'title'   => '文章状态',
+					'extra'   => [
+						0 => '禁用',
+						1 => '正常',
+						2 => '草稿',
+					],
+					'value'   => 1,
 					'is_show' => 3,
 				],
 			],

@@ -40,7 +40,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * 修复编辑器没有宽度
  * @type {[type]}
  */
-.edui-container,.edui-editor-body .edui-body-container{	width: auto !important;}
+.edui-container,.edui-editor-body .edui-body-container{width:auto!important;}
 .edui-editor-body  textarea{width:100%!important;}
 
 /**
@@ -48,10 +48,10 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * @type {[type]}
  */
 @keyframes dh{
-0%{transform:rotate(0deg);}
-20%{transform:rotate(0deg);}
-60%{transform:rotate(3600deg);}
-100%{transform:rotate(0deg);}
+	0%{transform:rotate(0deg);}
+	20%{transform:rotate(0deg);}
+	60%{transform:rotate(3600deg);}
+	100%{transform:rotate(0deg);}
 }
 #admin-header .block{float:left;}
 .admin-title{margin:10px 10px 0px 10px;font-size:22px;font-weight:bolder;width:100px;}
@@ -112,6 +112,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .btn-tool{float:left;}
 .adv-search{float:right;}
 .search-tool{display:none;padding:10px;}
+.search-tool .form-label{width:50px;}
 .search-tool .form-wrap{display:block;}
 .search-tool .form-control{width:100%;}
 .search-tool .sch-btn{display:inline-block;width:30px;height:30px;font-size:22px;margin-top:2px;margin-left:10px;}
@@ -227,7 +228,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
  * @type {[type]}
  */
 .showthumb{position:relative;}
-.showthumb .thumb{z-index: 1; position:absolute;right:10%;bottom:-100px;display:none;border:solid 1px #ccc;box-shadow:2px 2px 60px #676767;}
+.showthumb .thumb{z-index:1;position:absolute;right:10%;bottom:-100px;display:none;border:solid 1px #ccc;box-shadow:2px 2px 60px #676767;}
 .showthumb .thumb img{max-width:100px;max-height:100px;}
 .showthumb .thumb .thumb-wrap{text-align:center;background:#fff;padding:10px;width:100px;height:100px;display:table-cell;vertical-align:middle;}
 .showthumb:hover .thumb{display:block;}

@@ -1,7 +1,7 @@
 {notempty name="$searchform"}
 <a href="javascript:;" onclick="am.showSearch();" class="btn btn-large adv-search">高级搜索</a>
 <div id="search-tool" class="search-tool">
-    <form id="searchform" class="form-tip-hidden" action="{:url('')}" method="post">
+    <form id="searchform" class="form-tip-hidden form-group-h" action="{:url('')}" method="post">
         {:get_form_str($searchform,$data)}
         <div class="form-group cl center">
             <a href="javascript:;" onclick="searchform.submit();" class="btn btn-large">搜索</a>
