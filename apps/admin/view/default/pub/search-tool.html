@@ -5,14 +5,19 @@
         {:get_form_str($searchform,$data)}
         <div class="form-group cl center">
         <input name="page" value="{:input('param.page',1)}" type="hidden" />
-            <a href="javascript:;" onclick="searchform.submit();" class="btn btn-large">搜索</a>
+            <a href="javascript:;" onclick="search_click(this);" class="btn btn-large">搜索</a>
         </div>
     </form>
 </div>
 <script type="text/javascript">
+var search_click=function(dom){
+	$('input[name="page"]').val(1);
+	$(dom).parents('form').submit();
+};
 $(function(){
 $('#search-tool input').keyup(function(event) {
     if(event.keyCode===13){
+    	$('input[name="page"]').val(1);
         $(this).parents('form').submit();
     }
 });
