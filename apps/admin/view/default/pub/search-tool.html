@@ -4,8 +4,18 @@
     <form id="searchform" class="form-tip-hidden form-group-h" action="{:url('')}" method="get">
         {:get_form_str($searchform,$data)}
         <div class="form-group cl center">
+        <input name="page" value="{:input('param.page',1)}" type="hidden" />
             <a href="javascript:;" onclick="searchform.submit();" class="btn btn-large">搜索</a>
         </div>
     </form>
 </div>
+<script type="text/javascript">
+$(function(){
+$('#search-tool input').keyup(function(event) {
+    if(event.keyCode===13){
+        $(this).parents('form').submit();
+    }
+});
+});
+</script>
 {/notempty}
