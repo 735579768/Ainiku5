@@ -25,7 +25,7 @@ $app_config = [
 	'app_status'             => '',
 	// 是否支持多模块
 	'app_multi_module'       => true,
-	// 入口自动绑定模块
+	// 入口自动绑定模块,开启后默认绑定到和入口文件一样的名字的模块
 	'auto_bind_module'       => false,
 	// 注册的根命名空间
 	'root_namespace'         => [],

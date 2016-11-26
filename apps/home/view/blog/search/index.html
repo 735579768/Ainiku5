@@ -1,0 +1,14 @@
+<extend name="Public/base" />
+<block name="left">
+<div class="con-left">
+<!--搜索列表 start-->
+<!--图文列表 start-->
+	<ul class="img-con-list cl">
+		<li class="list-title"><h2><i class="fa fa-envira"></i>搜索关键词：{:I('keywords')}</h2></li>
+		<include file="Public/lists_imgtext" />
+	</ul>
+	<div class="page cl">{$_page}</div>
+<!--图文列表 end-->
+
+</div>
+</block>

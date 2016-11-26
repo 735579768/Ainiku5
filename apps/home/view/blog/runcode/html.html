@@ -1,0 +1,45 @@
+<extend name="Public/base" />
+<block name="right"></block>
+<block name="center">
+<div class="con-center">
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/ace/ace.js"></script>
+<script type="text/javascript" src="__STATIC__/ace/ext-language_tools.js"></script>
+<!--搜索列表 start-->
+
+	<div class="formatcss">
+
+<h2>html代码测试</h2>
+<pre   id="runhtml" style="width:100%; height:500px;font-size:14px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="font-size:20px;text-align:center;"&gt;这是一个测试代码&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<br />
+<a  class="btn btn-default" onclick="blog.runCode(runeditor.getValue());">运行代码</a>
+<a  class="btn btn-default" onclick="runeditor.setValue(ycode);">重置代码</a>
+
+<script type="text/javascript">
+$(function(){
+
+	window.runeditor=blog.initEditor('runhtml','html');
+	runeditor.setReadOnly(false);
+	window.ycode=runeditor.getValue();
+});
+
+
+</script>
+</div>
+<div class="ad-block">
+{:getModulePosCode('css_baidu')}
+</div>
+	</div>
+</div>
+</block>

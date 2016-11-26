@@ -33,7 +33,7 @@ class Base extends Controller {
 		if ($module == 'admin') {
 			$theme = config('admin_theme');
 		} else {
-			$theme = config('admin_index');
+			$theme = config('index_theme');
 		}
 		$theme || ($theme = 'default');
 		$tpl_path = APP_PATH . $module . '/view/';

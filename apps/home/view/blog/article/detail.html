@@ -1,0 +1,37 @@
+<extend name="Public/base" />
+<block name="center">
+<div class="con-center">
+</div>
+</block>
+<block name="left">
+
+<div class="con-left">
+	<article class="article">
+		<h1>{$arcinfo.title}</h1>
+		<div class="article-tool"><span>来源:<a href="http://www.zhaokeli.com">赵克立</a></span> <span> 分类:<a href="/cat/{$arcinfo.category_id|getCategory='name'}.html"> {$arcinfo.category_id|getCategory='title'}</a></span>
+<span class="mutag">标签：{$arcinfo.position|formatTag}</span><span>更新时间:{$arcinfo.update_time|time_format}</span><span>浏览:{$arcinfo['views']}</span>
+		</div>
+		<div id="article-con"  class="article-con">
+	<!--文章内容 start-->
+	{$arcinfo.content}
+	<!--文章内容 end-->
+		</div>
+		<div class="shengming">
+		文章来源: <a href="{:c('WEBDOMIN')}/article/{$arcinfo.article_id}.html">{:c('WEBDOMIN')}/article/{$arcinfo.article_id}.html</a>&nbsp;&nbsp;原创文章转载请声明来源...谢谢。o_0
+		<BR>微信号：kelicom QQ交流群：215861553 </div>
+	</article>
+	<a id="liuyanmd" style="height:50px; display:block;"></a>
+	 {:plugin('Comments',$arcinfo['article_id'])}
+</div>
+<div class="liuyanbox"><a href="javascript:;" onclick="blog.toLiuYan();">留言</a></div>
+<ank:insert type="js" name="ainiku,jquery.scrollTo" />
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/ace/ace.js"></script>
+<script type="text/javascript" src="__STATIC__/ace/ext-language_tools.js"></script>
+<script type="text/javascript" src="__STATIC__/js/flashcopy.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		blog.initDetailPage();
+	});
+</script>
+</block>

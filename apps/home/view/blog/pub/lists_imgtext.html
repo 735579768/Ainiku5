@@ -1,0 +1,36 @@
+			<empty name="_list">
+			<li class="con-item block-inset cl">
+			<div class="arc-up cl">
+			<div class="con-arc" style="margin-left:0px;">
+				<div class="con-desc center">啊哦!没有内容</div>
+			</div>
+			</div>
+		</li>
+		</empty>
+		<volist name="_list" id="vo">
+		<li class="con-item block-inset cl">
+			<div class="arc-up cl">
+			<neq name="vo.pic" value="0">
+				<!--有图-->
+				<div class="con-img"><img src="{$vo.pic|getPicture='thumbpath','181_112'}" alt=""></div>
+				<div class="con-arc">
+					<h2 class="con-title"><a target="_blank" href="{:U('article/'.$vo['article_id'])}">{$vo.title}</a></h2>
+					<div class="con-desc">{$vo.content|removeHtml=###,0,150}</div>
+				</div>
+			<else />
+				<!--无图-->
+				<div class="con-arc" style="margin-left:0px;">
+					<h2 class="con-title"><a  target="_blank" href="{:U('article/'.$vo['article_id'])}">{$vo.title}</a></h2>
+					<div class="con-desc">{$vo.content|removeHtml=###,0,200}</div>
+				</div>
+			</neq>
+			</div>
+
+			<div class="arc-tool">
+			<span>时间:{$vo.update_time|time_format}</span>
+			<span> 分类:<a href="/cat/{$vo.category_id|getCategory='name'}.html"> {$vo.category_id|getCategory=###,'title'}</a></span>
+			<span class="mutag">标签：{$vo.position|formatTag}</span>
+			</div>
+		</li>
+		</volist>
+<!--图文列表 end-->

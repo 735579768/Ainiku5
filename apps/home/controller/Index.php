@@ -1,10 +1,39 @@
 <?php
 namespace app\home\controller;
 
-class Index
-{
-    public function index()
-    {
-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:)</h1><p> ThinkPHP V5<br/><span style="font-size:30px">十年磨一剑 - 为API开发设计的高性能框架</span></p><span style="font-size:22px;">[ V5.0 版本由 <a href="http://www.qiniu.com" target="qiniu">七牛云</a> 独家赞助发布 ]</span></div><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_bd568ce7058a1091"></thinkad>';
-    }
+class Index extends Base {
+	public function index() {
+		// echo fenci('让TortoiseGit 记住远程仓库登陆的用户名和密码');
+		// create_qrcode('测试内asdfasdfasf容asd 中中中中中中吕国国 ；中是日 ； 日', 150, 'd:/logo.png');
+		// $phpexcel  = new \PHPExcel();
+		// $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+		// dump($objReader);
+		// config('template.view_path', 'default');
+		// $this->view->config('view_path', 'default');
+		// dump(config(''));
+		// dump(get_article_list());
+
+		// $conf = array(
+		// 	'host'      => config('mail_smtp_host'),
+		// 	'port'      => config('mail_smtp_port'),
+		// 	'username'  => config('mail_smtp_user'),
+		// 	'password'  => config('mail_smtp_pwd'),
+
+		// 	'fromname'  => config('mail_smtp_fromname'), //发件人
+		// 	'fromemail' => config('mail_smtp_fromemail'),
+		// 	'toemail'   => config('mail_smtp_receiveemail'),
+		// 	'toname'    => config('mail_smtp_receiveemail'),
+		// 	'subject'   => config('mail_smtp_subject'), //主题标题
+
+		// 	'body'      => config('mail_smtp_test'), //邮件内容
+		// );
+		// dump($conf);
+		// $result = send_mail($conf);
+		// if ($result === true) {
+		// 	echo 'send mail success';
+		// } else {
+		// 	echo $result;
+		// }
+		return $this->fetch();
+	}
 }

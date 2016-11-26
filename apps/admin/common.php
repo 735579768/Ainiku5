@@ -249,7 +249,10 @@ function add_user_log($note = '', $json_data = []) {
  * 取系统模板主题列表
  * @return [type] [description]
  */
-function select_theme($name = 'admin') {
+function select_theme($name = '') {
+	if (!$name) {
+		$name = config('default_module');
+	}
 	$rearr = [];
 	$path  = APP_PATH . $name . '/view/';
 	$list  = get_dir_list($path);

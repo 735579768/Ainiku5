@@ -1,9 +1,11 @@
 <?php
 return [
+	// 默认模块名
+	'default_module'    => 'home',
 	// 应用调试模式
-	'app_debug'         => false,
+	'app_debug'         => true,
 	// 应用Trace
-	'app_trace'         => false,
+	'app_trace'         => true,
 	// 域名部署,此配置开启后生成的url地址会带有域名
 	'url_domain_deploy' => true,
 	'route'             => [
@@ -12,7 +14,7 @@ return [
 			//后台
 			'user' => 'admin',
 			//前台
-			'www'  => 'index',
+			'www'  => 'home',
 			// 泛域名规则建议在最后定义
 			// '*.user' => 'user',
 			// '*'      => 'book',

@@ -1,0 +1,25 @@
+<!--nav start-->
+<nav id="nav" class="nav cl">
+	<ul class="nav-inner cl">
+		<li class="nav-item" id="shownav"><a href="javascript:;">导航</a></li>
+		<li class="nav-item touxiang"><a href="/"><img alt="赵克立博客" src="__IMG__/touxiang.jpg" /></a></li>
+		<li class="nav-item home"><a href="/"><i class="fa fa-home"></i>首页</a></li>
+		<volist name=":getNavTree(0,true)" id="vo">
+        <li class="nav-item"><a href="{$vo.url}" <eq name="vo.target" value="1"> target="_blank" </eq>><i class="fa fa-blind"></i>{$vo.title}</a> <notempty name="vo.child">
+          <ul class="nav-sub hide shadow">
+            <volist name="vo.child" id="voo">
+            <li class="nav-item"><a href="{$voo.url}" <eq name="voo.target" value="1"> target="_blank" </eq>><i class="fa fa-blind"></i>{$voo.title}</a></li>
+            </volist>
+          </ul>
+          </notempty> </li>
+		 </volist>
+	</ul>
+	<div class="search">
+	<form id="searchform" action="/search/" method="post">
+		<input type="text" name="keywords" placeholder="关键字" value="{:I('keywords')}" />
+		<a href="javascript:;" onclick="searchform.submit();" class="search-btn">搜索</a>
+	</form>
+	</div>
+</nav>
+<div style="height:50px; width:100%;"></div>
+<!--nav end -->
