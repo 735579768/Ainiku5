@@ -473,7 +473,7 @@ function find_file_path($filename = '') {
 	} else {
 		return $filepath;
 	}
-	return 'http://' . $filename;
+	return $filename;
 }
 /**
  *判断文件是否已经被修改
@@ -488,6 +488,11 @@ function file_ismod($filepath) {
 	$rebool = false;
 	foreach ($filearr as $val) {
 		$val = '.' . $val;
+		var_dump($val);
+		// die();
+		if (!file_exists($val)) {
+			continue;
+		}
 		// $modtime = date('Y-m-d h:i:s', filemtime($val));
 		$modtime = filemtime($val);
 		if ($modtime) {

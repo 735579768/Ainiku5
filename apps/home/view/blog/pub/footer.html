@@ -1,18 +1,13 @@
 <footer class="footer cl">
 	<div class="footer-inner">
 	<ul class="footer-info">
-		<ank:link name="vo">
-	    <li><a target="_blank" href="{$vo.url}">{$vo.title}</a></li>
-		</ank:link>
-	</ul>
-	<ul class="footer-info">
-		<li>网站信息：备案号: {:C('WEB_SITE_ICP')}</li>
+		<li>网站信息：备案号: {:config('web_site_icp')}</li>
 		<li>微信号：(kelicom) QQ交流群：(215861553)</li>
 		<li>邮箱: 735579768@qq.com</li>
 
 	</ul>
 	<ul class="footer-info">
-		<li>{:C('THIRD_CODE')}</li>
+		<li>{:config('third_code')}</li>
 	</ul>
 
 	</div>

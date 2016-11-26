@@ -107,6 +107,7 @@ class Ank extends TagLib {
 			$temarr[$key] = find_file_path($filepath);
 		}
 		if (config('app_debug')) {
+
 			foreach ($temarr as $key => $val) {
 				if ($filetype == 'js') {
 					$jscss .= '<script src="' . $val . $suijinum . '" type="text/javascript" ></script>' . "\r\n";

@@ -1,27 +1,28 @@
-<extend name="Public/base" />
-<block name="left">
-<div class="con-left">
-{:W('Article/lists',array(0,6,'最新文章'))}
-<!--图文列表 start-->
-	<ul class="img-con-list cl">
-		<li class="list-title"><h2><i class="fa fa-envira"></i>图文列表</h2></li>
-		<include file="Public/lists_imgtext" />
-	</ul>
-	<div class="page cl">{$_page}</div>
-<!--图文列表 end-->
-<div class="muli-cate">
-	<div class="cate-box">
-	{:W('Article/lists',array('linux'))}
-	</div>
-	<div class="cate-box">
-	{:W('Article/lists',array(260))}
-	</div>
-	<div class="cate-box">
-	{:W('Article/lists',array(261))}
-	</div>
-	<div class="cate-box">
-		{:W('Article/lists',array(257))}
-	</div>
-</div>
-</div>
-</block>
+{extend name="pub/base" /}
+{block name="left"}
+    <div class="con-left">
+        {:widget('Article/lists',array(0,6,'最新文章'))}
+        <!--图文列表 start-->
+        <ul class="img-con-list cl">
+            <li class="list-title">
+                <h2><i class="fa fa-envira"></i>图文列表</h2></li>
+            {include file="pub/lists_imgtext" /}
+        </ul>
+        <div class="page cl">{$_page}</div>
+        <!--图文列表 end-->
+        <div class="muli-cate">
+            <div class="cate-box">
+                {:widget('Article/lists',array('linux'))}
+            </div>
+            <div class="cate-box">
+                {:widget('Article/lists',array(260))}
+            </div>
+            <div class="cate-box">
+                {:widget('Article/lists',array(261))}
+            </div>
+            <div class="cate-box">
+                {:widget('Article/lists',array(257))}
+            </div>
+        </div>
+    </div>
+{/block}
