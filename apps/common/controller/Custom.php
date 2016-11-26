@@ -70,20 +70,24 @@ eot;
 	 * @param string $category_type [description]
 	 */
 	private function _addTag($category_type = 'article_tag') {
-		$map                  = [];
-		$map['category_type'] = $category_type;
-		$map['status']        = 1;
-		$list                 = \think\Db::name('Category')
-			->where($map)
-			->select();
-		$addtag = '<a style="margin-bottom:10px;" href="javascript:;"onclick="am.getAddTagForm(this,\'' . url('sys.ajax/addCategory?category_type=' . $category_type) . '\');" class="btn">添加标签</a> <input onfocus="am.searTag(this);" class="form-control input-small" value="" placeholder="输入关键词过滤标签" />';
-		$str    = $addtag;
-		$str .= '<div id="tagcontainer"  class="controls">';
-		foreach ($list as $key => $value) {
-			$str .= '<label class="form-checkbox"><input name="' . $this->_name . '[]" type="checkbox" value="' . $value['category_id'] . '" /><span>' . $value['title'] . '</span></label>';
+		$str = \think\Cache::tag('category')->get($category_type);
+		if (!$str || config('app_debug')) {
+			$map                  = [];
+			$map['category_type'] = $category_type;
+			$map['status']        = 1;
+			$list                 = \think\Db::name('Category')
+				->field('title,category_id')
+				->where($map)
+				->select();
+			$addtag = '<a style="margin-bottom:10px;" href="javascript:;"onclick="am.getAddTagForm(this,\'' . url('sys.ajax/addCategory?category_type=' . $category_type) . '\');" class="btn">添加标签</a> <input onfocus="am.searTag(this);" class="form-control input-small" value="" placeholder="输入关键词过滤标签" />';
+			$str    = $addtag;
+			$str .= '<div id="tagcontainer"  class="controls">';
+			foreach ($list as $key => $value) {
+				$str .= '<label class="form-checkbox"><input name="' . $this->_name . '[]" type="checkbox" value="' . $value['category_id'] . '" /><span>' . $value['title'] . '</span></label>';
+			}
+			$str .= '</div>';
+			\think\Cache::tag('category')->set($category_type, $str);
 		}
-		$str .= '</div>';
-
 		$initjs = <<<js
 !function(){
 var id=[{$this->_value}];

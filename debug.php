@@ -1,9 +1,9 @@
 <?php
 return [
 	// 应用调试模式
-	'app_debug'         => true,
+	'app_debug'         => false,
 	// 应用Trace
-	'app_trace'         => true,
+	'app_trace'         => false,
 	// 域名部署,此配置开启后生成的url地址会带有域名
 	'url_domain_deploy' => true,
 	'route'             => [
