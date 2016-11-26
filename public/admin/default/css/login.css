@@ -20,6 +20,5 @@ body{font-size:12px;background:#1FADED url('../images/adminbg.jpg') no-repeat;}
  * Í¸Ã÷±³¾°
  */
 #login-form{color:#FFF;border:1px solid transparent;border-radius:32px;border-radius:32px;background:rgba(0,0,0,0);box-shadow:0 0 26px #191919;}
-#login-form .form-group{background:#FFF;}
 #login-form .form-group .form-label,#login-form .form-group .form-control{line-height:40px;height:40px;}
 #login-form .form-group select{width: 100%;border:none;}

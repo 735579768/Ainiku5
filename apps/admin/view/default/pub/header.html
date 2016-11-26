@@ -11,6 +11,8 @@
         {/volist}
     </ul>
     <ul class="tool cl">
+        <li><a href="javascript:;" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="{:config('web_domain')}" target="_blank"><i class="fa fa-home"></i></a></li>
         <li class="downmenu"><a title="({$uinfo.title}),登陆地址:(127.0.0.1)本机地址" href="javascript:;"><i class="fa fa-user-o"></i>您好:{$uinfo.nickname}</a>
             <ul class="pwdinfo">
             <!--authstart-->
@@ -20,7 +22,6 @@
                 <li><a href="javascript:;" data-url="{:url('sys.other/loginOut')}" onclick="am.okAction(this);" >退出系统</a></li>
             </ul>
         </li>
-        <li><a href="javascript:;" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
-        <li><a href="{:config('web_domain')}" target="_blank"><i class="fa fa-home"></i></a></li>
+
     </ul>
 </div>
