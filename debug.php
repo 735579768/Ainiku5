@@ -10,7 +10,7 @@ return [
 	'url_domain_deploy' => true,
 	'route'             => [
 		//域名绑定
-		'__domain__'                  => [
+		'__domain__'          => [
 			//后台
 			'user' => 'admin',
 			//前台
@@ -19,7 +19,7 @@ return [
 			// '*.user' => 'user',
 			// '*'      => 'book',
 		],
-		'__pattern__'                 => [
+		'__pattern__'         => [
 			'name' => '\w+',
 		],
 		// '[hello]'               => [
@@ -27,16 +27,16 @@ return [
 		// 	':name' => ['index/hello', ['method' => 'post']],
 		// ],
 
-		'/'                           => 'index', // 首页访问路由
-		'cat/:fenlei'                 => 'article/index',
-		'tag/:tagid'                  => 'article/taglist',
-		'/^fenlei\/(.+?)\/p\/(\d+)$/' => 'article/index?fenlei=:1&p=:2',
-		'p/:p'                        => 'index/index',
-		'article/:article_id'         => 'article/detail', // 静态地址路由
-		'alist/:category_id'          => 'article/index',
-		'glist/:category_id'          => 'goods/index',
-		'adetail/:article_id'         => 'article/detail', // 静态地址路由
-		'gdetail/:goods_id'           => 'goods/detail', // 静态地址路由
+		'/'                   => 'index', // 首页访问路由
+		'cat/:fenlei'         => 'article/index',
+		'fenlei/:fenlei/p/:p' => 'article/index',
+		'tag/:tagid'          => 'article/taglist',
+		'p/:p'                => 'index/index',
+		'article/:article_id' => 'article/detail', // 静态地址路由
+		'alist/:category_id'  => 'article/index',
+		'glist/:category_id'  => 'goods/index',
+		'adetail/:article_id' => 'article/detail', // 静态地址路由
+		'gdetail/:goods_id'   => 'goods/detail', // 静态地址路由
 		// 'blog/:id'              => 'blog/read', // 静态地址和动态地址结合
 		// 'new/:year/:month/:day' => 'news/read', // 静态地址和动态地址结合
 		// ':user/:blog_id'        => 'blog/read', // 全动态地址
