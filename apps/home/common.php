@@ -184,7 +184,7 @@ function remove_html($str, $start = 0, $length, $charset = "utf-8", $suffix = tr
  * @return [type] [description]
  */
 function get_tag_arr($category_type = 'article_tag') {
-	$tags = \think\Cache::get('tags');
+	$tags = \think\Cache::get($category_type);
 	if (!$tags || config('app_debug')) {
 		$tags                 = [];
 		$map                  = [];

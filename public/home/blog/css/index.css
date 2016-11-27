@@ -154,7 +154,8 @@ fieldset{border:none;}
 .page:after{clear:both;}
 .page a,.page span{float:left;margin-left:-1px;padding:0 14px;height:30px;line-height:30px;color:#000;border:none;}
 .page a:hover{text-decoration:none;background-color:#f4645f;color:#fff;}
-.page .current{border-top:1px solid #f4645f;background-color:#f4645f;color:#fff;}
+.page .current,
+.page .active span{border-top:1px solid #f4645f;background-color:#f4645f;color:#fff;}
 .page .next,.page .prev{font-family:"microsoft yahei";}
 .page .rows{}
 .page .page-inner{background:#fff;width:100%;}

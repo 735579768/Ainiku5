@@ -488,7 +488,7 @@ function file_ismod($filepath) {
 	$rebool = false;
 	foreach ($filearr as $val) {
 		$val = '.' . $val;
-		var_dump($val);
+		// var_dump($val);
 		// die();
 		if (!file_exists($val)) {
 			continue;
