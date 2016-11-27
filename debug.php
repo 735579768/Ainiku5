@@ -31,7 +31,7 @@ return [
 		'cat/:fenlei'                 => 'article/index',
 		'tag/:tagid'                  => 'article/taglist',
 		'/^fenlei\/(.+?)\/p\/(\d+)$/' => 'article/index?fenlei=:1&p=:2',
-		'/^p\/(\d+)$/'                => 'index/index?p=:1',
+		'p/:p'                        => 'index/index',
 		'article/:article_id'         => 'article/detail', // 静态地址路由
 		'alist/:category_id'          => 'article/index',
 		'glist/:category_id'          => 'goods/index',
