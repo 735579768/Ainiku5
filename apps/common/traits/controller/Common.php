@@ -59,7 +59,7 @@ trait Common {
 	 * @param  array  $conf [description]
 	 * @return [type]       [description]
 	 */
-	protected function pages1($conf = []) {
+	protected function pages2($conf = []) {
 		$join   = isset($conf['join']) ? $conf['join'] : [];
 		$table  = isset($conf['table']) ? $conf['table'] : $this->error('数据表不能为空!');
 		$table1 = strtolower(preg_replace('/([A-Z].*?)/', '_$1', lcfirst($table)));
@@ -111,6 +111,7 @@ trait Common {
 		$rows = isset($conf['rows']) ? $conf['rows'] : config('list_rows');
 		$url  = isset($conf['url']) ? $conf['url'] : '';
 		$pobj = \think\Db::name(ucfirst($table))->alias('a');
+		// var_dump($pobj);
 		$join && ($pobj = $pobj->join($join));
 
 		$count = $pobj
@@ -137,13 +138,17 @@ trait Common {
 		}
 
 		$show = $Page->show(); // 分页显示输出
+		//下面一定要再设置一次
+		$join && ($pobj = $pobj->join($join));
 		$list = $pobj
+			->alias('a')
 			->where($whe)
 			->field($field)
 			->order($order)
 			->limit($Page->firstRow . ',' . $Page->listRows)
 			// ->fetchSql()
 			->select();
+		// echo $list;
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 		// if (is_array($join)) {
 		// 	$list = $User->where($whe)->field($field)->order($order)->join($join[0])->join($join[1])->limit($Page->firstRow . ',' . $Page->listRows)->select();
