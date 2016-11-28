@@ -36,6 +36,9 @@ return [
 		'tag/:tagid'          => 'home/article/taglist',
 		'p/:p'                => 'home/index/index',
 		'article/:article_id' => 'home/article/detail', // 静态地址路由
+		'color/tiaose'=>'home/tool/tiaose',
+		'format/index'=>'home/tool/css',
+
 		'alist/:category_id'  => 'home/article/index',
 		'glist/:category_id'  => 'home/goods/index',
 		'adetail/:article_id' => 'home/article/detail', // 静态地址路由

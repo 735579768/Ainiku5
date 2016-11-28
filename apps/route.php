@@ -36,11 +36,26 @@ return [
 	// 	':name' => ['index/hello', ['method' => 'post']],
 	// ],
 
-	'/'                   => 'index', // 首页访问路由
-	'alist/:category_id'  => 'article/index',
-	'glist/:category_id'  => 'goods/index',
-	'adetail/:article_id' => 'article/detail', // 静态地址路由
-	'gdetail/:goods_id'   => 'goods/detail', // 静态地址路由
+		//博客路由
+		'cat/:fenlei'         => 'home/article/index',
+		'fenlei/:fenlei/p/:p' => 'home/article/index',
+		'tag/:tagid'          => 'home/article/taglist',
+		'p/:p'                => 'home/index/index',
+		'article/:article_id' => 'home/article/detail', // 静态地址路由
+		'color/tiaose'=>'home/tool/tiaose',
+		'format/index'=>'home/tool/css',
+
+		'alist/:category_id'  => 'home/article/index',
+		'glist/:category_id'  => 'home/goods/index',
+		'adetail/:article_id' => 'home/article/detail', // 静态地址路由
+		'gdetail/:goods_id'   => 'home/goods/detail', // 静态地址路由
+		// 'blog/:id'              => 'blog/read', // 静态地址和动态地址结合
+		// 'new/:year/:month/:day' => 'news/read', // 静态地址和动态地址结合
+		// ':user/:blog_id'        => 'blog/read', // 全动态地址
+	// 'alist/:category_id'  => 'article/index',
+	// 'glist/:category_id'  => 'goods/index',
+	// 'adetail/:article_id' => 'article/detail', // 静态地址路由
+	// 'gdetail/:goods_id'   => 'goods/detail', // 静态地址路由
 	// 'blog/:id'              => 'blog/read', // 静态地址和动态地址结合
 	// 'new/:year/:month/:day' => 'news/read', // 静态地址和动态地址结合
 	// ':user/:blog_id'        => 'blog/read', // 全动态地址

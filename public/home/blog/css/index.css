@@ -69,7 +69,7 @@ html,body{background:#f1f1f1;width:100%;height:100%;color:#333;font-size:12px;  
 .img-con-list .con-item .arc-tool span a:hover{color:#f4645f;}
 .img-con-list .con-item .con-img{float:left;width:181px;height:112px;text-align:center;}
 .img-con-list .con-item .con-arc{margin-left:190px;padding-left:10px;}
-.img-con-list .con-item .con-arc .con-title a{font-size:20px;font-weight:bolder;color:#333;}
+.img-con-list .con-item .con-arc .con-title a{font-size:20px;height: 36px;line-height: 36px;display: block; font-weight:bolder;color:#333;}
 .img-con-list .con-item .con-arc .con-title a:hover{color:#f4645f;}
 .img-con-list .con-item .con-arc .con-desc{color:#666;font-size:14px;word-wrap:break-word;}
 .img-con-list .con-item .con-img img{max-width:181px;max-height:112px;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;}

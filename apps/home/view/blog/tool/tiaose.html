@@ -1,8 +1,8 @@
 {extend name="pub/base" /} {block name="right"}{/block} {block name="center"}
 <div class="con-center">
     <div class="tiaose">
-        <ank:insert type="js" name="color" />
-        <ank:insert name="color" />
+        {insert type="js" name="color" /}
+        {insert name="color" /}
         <div id="znps_bg" style="width:1000px; margin:0px auto;">
             <div class="znps_top">
                 <h1>选择心仪的主色调：</h1>
@@ -230,6 +230,8 @@
             });
         });
         </script>
+    </div>
+    <div class="ad-block">
     </div>
 </div>
 {/block}
