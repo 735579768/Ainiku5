@@ -4,6 +4,11 @@ namespace app\home\controller;
 class Base extends \app\common\Controller\Base {
 	public function _initialize() {
 		parent::_initialize();
+		$this->assign([
+		'category'=>null,
+		'arcinfo'=>null,
+		'single'=>null
+		]);
 		// //使用模板主题
 		// $theme    = 'default';
 		// $tpl_path = APP_PATH . request()->module() . '/view/';
