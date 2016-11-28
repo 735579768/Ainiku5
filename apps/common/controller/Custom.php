@@ -70,7 +70,7 @@ eot;
 	 * @param string $category_type [description]
 	 */
 	private function _addTag($category_type = 'article_tag') {
-		$str = \think\Cache::tag('category')->get($category_type);
+		$str = \think\Cache::tag('category')->get($category_type.'_custom_form');
 		if (!$str || config('app_debug')) {
 			$map                  = [];
 			$map['category_type'] = $category_type;
@@ -86,7 +86,7 @@ eot;
 				$str .= '<label class="form-checkbox"><input name="' . $this->_name . '[]" type="checkbox" value="' . $value['category_id'] . '" /><span>' . $value['title'] . '</span></label>';
 			}
 			$str .= '</div>';
-			\think\Cache::tag('category')->set($category_type, $str);
+			\think\Cache::tag('category')->set($category_type.'_custom_form', $str);
 		}
 		$initjs = <<<js
 !function(){
