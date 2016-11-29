@@ -97,19 +97,19 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		// $color     = hex_torgb($color);
 		$font_size = intval(config('shuiyin_text_size'));
 		//使用验证码的随机字体
-		$fontpath = '';
-		$ttfPath  = SITE_PATH . '/vendor/extend/verify/' . (false ? 'zhttfs' : 'ttfs') . '/';
+		$fontpath = 'c:/windows/fonts/msyh.ttf';
+		// $ttfPath  = SITE_PATH . '/vendor/extend/verify/' . (false ? 'zhttfs' : 'ttfs') . '/';
 
-		$dir  = dir($ttfPath);
-		$ttfs = array();
-		while (false !== ($file = $dir->read())) {
-			if ($file[0] != '.' && (substr($file, -4) == '.ttf' || substr($file, -4) == '.ttf')) {
-				$ttfs[] = $file;
-			}
-		}
-		$dir->close();
-		$fontpath = $ttfs[array_rand($ttfs)];
-		$fontpath = $ttfPath . $fontpath;
+		// $dir  = dir($ttfPath);
+		// $ttfs = array();
+		// while (false !== ($file = $dir->read())) {
+		// 	if ($file[0] != '.' && (substr($file, -4) == '.ttf' || substr($file, -4) == '.ttf')) {
+		// 		$ttfs[] = $file;
+		// 	}
+		// }
+		// $dir->close();
+		// $fontpath = $ttfs[array_rand($ttfs)];
+		// $fontpath = $ttfPath . $fontpath;
 
 		$result = $imgobj->text($water_text, $fontpath, $font_size, $color, $pos)->save($dest_img);
 

@@ -32,14 +32,14 @@ trait File {
 				->WhereOr(['re_sha1' => $sha1])
 				->find();
 			if (empty($list)) {
-				return array('path' => $filepath, 'sha1' => $sha1);
+				return ['path' => $filepath, 'sha1' => $sha1];
 			} else {
 				//删除当前路径文件
 				@unlink($fpath);
 				return $list;
 			}
 		} else {
-			return $filepath;
+			return ['path' => $filepath, 'sha1' => ''];
 		}
 	}
 	/**
@@ -346,6 +346,9 @@ trait File {
 			} elseif ($action == 'catchimage') {
 				//抓取远程图片
 				foreach ($result['list'] as $key => $value) {
+					if (!isset($value['url']) || !$value['url']) {
+						continue;
+					}
 					$shafile      = $this->checksha('.' . $value['url']);
 					$value['url'] = trim($shafile['path'], '.');
 					$data         = [
