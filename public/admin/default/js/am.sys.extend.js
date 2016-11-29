@@ -139,6 +139,17 @@ am.extend({
 			layer.close(index);
 		});
 	},
+	jinduResetSha1: function(uri) {
+		var jindutex = $('#chulijindu');
+		$.get(uri, function(data) {
+			if (data.code) {
+				jindutex.append('<br>处理完成! :)');
+			} else {
+				jindutex.append('<br>' + data.msg);
+				am.jinduResetSha1(uri);
+			}
+		});
+	},
 	resetSha1: function(dom) {
 		// layer.confirm();
 		var _tt = this;
@@ -156,16 +167,21 @@ am.extend({
 				title: '重置图片SHA1值',
 				content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
 			});
-			var jindutex = $('#chulijindu');
-			$.get(uri, function(data) {
-				jindutex.append('<br>' + data.msg);
-				if (data.code) {
-					jindutex.append('<br>处理完成! :)');
-				}
-			});
+			am.jinduResetSha1(uri);
 			layer.close(index);
 		});
 
+	},
+	jinduGreateThumb: function(uri) {
+		var jindutex = $('#chulijindu');
+		$.get(uri, function(data) {
+			if (data.code) {
+				jindutex.append('<br>处理完成! :)');
+			} else {
+				jindutex.append('<br>' + data.msg);
+				am.jinduGreateThumb(uri);
+			}
+		});
 	},
 	greateThumb: function(dom) {
 		var _t = $(dom);
@@ -183,13 +199,7 @@ am.extend({
 				title: '生成图片缩略图',
 				content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
 			});
-			var jindutex = $('#chulijindu');
-			$.get(uri, function(data) {
-				jindutex.append('<br>' + data.msg);
-				if (data.code) {
-					jindutex.append('<br>处理完成! :)');
-				}
-			});
+			am.jinduGreateThumb(uri);
 			layer.close(index);
 		});
 
