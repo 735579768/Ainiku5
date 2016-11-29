@@ -687,6 +687,7 @@ eot;
 				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
 			}
 			break;
+		case 'bdpicture':
 		case 'picture':
 			$setvalue = $setvalue ? $setvalue : 0;
 			$formstr  = str_replace("[REPLACE_SETVALUE_{$key}]", $setvalue, $formstr);
