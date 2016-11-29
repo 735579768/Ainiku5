@@ -36,8 +36,8 @@ return [
 		'tag/:tagid'          => 'home/article/taglist',
 		'p/:p'                => 'home/index/index',
 		'article/:article_id' => 'home/article/detail', // 静态地址路由
-		'color/tiaose'=>'home/tool/tiaose',
-		'format/index'=>'home/tool/css',
+		'color/tiaose'        => 'home/tool/tiaose',
+		'format/index'        => 'home/tool/css',
 
 		'alist/:category_id'  => 'home/article/index',
 		'glist/:category_id'  => 'home/goods/index',
@@ -79,7 +79,7 @@ return [
 		// 服务器地址
 		'hostname'       => 'mysql.loc',
 		// 数据库名
-		'database'       => 'zhaokeli.com',
+		'database'       => 'ainiku5',
 		// 用户名
 		'username'       => 'root',
 		// 密码
