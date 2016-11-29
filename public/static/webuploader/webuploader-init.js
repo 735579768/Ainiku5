@@ -582,7 +582,8 @@ if (typeof console == 'undefined') {
                         }
                         $(valId).val(idstr);
                     } else {
-                        $(valId).val('');
+                        $(valId).val(uploaderType ? '' : 0);
+
                     }
                     layer.photos({
                         shade: 0.01,
