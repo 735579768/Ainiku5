@@ -129,7 +129,7 @@
 				expire = new Date(new Date().getTime() + hours * 36e5);
 				expire = "; expires=" + expire.toGMTString();
 			}
-			document.cookie = name + "=" + encodeURI(value) + expire;
+			document.cookie = name + "=" + encodeURI(value) + expire + ";path=/";
 		},
 		readCookie: function(name) {
 			var cookieValue = "";
