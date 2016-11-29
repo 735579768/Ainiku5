@@ -179,7 +179,7 @@ am.extend({
 		}, function(index) {
 			var jindu = layer.open({
 				type: 1,
-				area: ['500px', '400px'],
+				area: ['800px', '400px'],
 				title: '生成图片缩略图',
 				content: '<div id="chulijindu" class="jindu">开始处理图片...</div>'
 			});

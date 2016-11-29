@@ -76,9 +76,11 @@ class Picture extends Base {
 			$src_path  = '.' . $val['path'];
 			$thumbpath = str_replace('image/', 'image/thumb/', $src_path);
 			if (file_exists($src_path)) {
-				$thumbsize = config('thumb_size');
-				$thumbsize = explode('*', $thumbsize);
-				$result    = create_thumb($src_path, $thumbpath, $thumbsize[0], $thumbsize[1]);
+				$thumbsize            = config('thumb_size');
+				$thumbsize            = explode('*', $thumbsize);
+				list($width, $height) = $thumbsize;
+				// var_dump($thumbsize);
+				$result = create_thumb($src_path, $thumbpath, $width ?: 100, $height ?: 100);
 				if ($result === true) {
 					// Db::name('Picture')->where("id={$thumbpath[$i]}")->save(array('thumbpath' => $thupath));
 					Db::name('Picture')
@@ -102,11 +104,11 @@ class Picture extends Base {
 				$num = count($list);
 				cache('thumbpath', $list);
 				// $this->error('已经处理' . ($total - $num) . ',还有' . $num . '张');
-				$str = "成功生成{$jishu}个缩略图,失败{$failjishu}个,{$failstr}";
+				$str = "此进程成功生成{$jishu}个缩略图,失败{$failjishu}个。<br>{$failstr}";
 				$this->error($str);
 			} else if (empty($list)) {
 				cache('thumbpath', null);
-				$str = "成功生成{$jishu}个缩略图,失败{$failjishu}个,{$failstr}<br>";
+				$str = "最终成功生成{$jishu}个缩略图,失败{$failjishu}个。<br>{$failstr}";
 				$this->success($str . '缩略图生成成功,总共有' . $total . '张图片', '');
 				break;
 			}
