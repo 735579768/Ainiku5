@@ -89,4 +89,11 @@ eot;
 		}
 
 	}
+	public function client() {
+		$screenwidth  = input('param.screenwidth', 1366);
+		$screenheight = input('param.screenheight', 768);
+		session('client', input('post.'));
+		// var_dump(input('post.'));
+		die();
+	}
 }

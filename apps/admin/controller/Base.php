@@ -26,6 +26,11 @@ class Base extends \app\common\Controller\Base {
 			'meta_title' => '首页',
 			'uinfo'      => session('uinfo'),
 		]);
+		$clientinfo = session('client');
+		if (isset($clientinfo['screenheight']) && $clientinfo['screenheight'] > 800) {
+			config('list_rows', 15);
+		}
+
 	}
 	public function returnResult($status = 1, $success = '操作成功', $fail = '操作失败') {
 		if ($status) {

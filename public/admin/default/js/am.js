@@ -158,6 +158,22 @@
 				layer.closeAll();
 			});
 		},
+		/**
+		 * 发送客户端的一些信息
+		 */
+		setClientParam: function() {
+			if (ank.readCookie('setClientParam')) {
+				return;
+			}
+			ank.writeCookie('setClientParam', 1);
+			//传递电脑屏幕大小
+			$.post(am.url.client, {
+				screenwidth: $(window).width(),
+				screenheight: $(window).height()
+			}, function(data, textStatus, xhr) {
+
+			});
+		},
 		initPage: function() {
 			am.resetLayout();
 			//侧栏关闭
@@ -166,6 +182,11 @@
 			var closewest = $('#closeicon');
 			var rightside = $('#admin-right');
 			var leftw = leftside.outerWidth();
+			am.setClientParam();
+			$(window).resize(function(event) {
+				ank.writeCookie('setClientParam', 0)
+				am.setClientParam();
+			});
 			closewest.click(function(e) {
 				var _t = $(this);
 				if (_t.css('left') == leftw + 'px') {
