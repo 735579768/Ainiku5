@@ -72,9 +72,17 @@ class Article extends Model {
 	 *提取字符串中的第一个图片
 	 */
 	private function _getFirstPicture($str = '') {
-		preg_match('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
+		preg_match_all('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
 		if ($match) {
-			$info = \think\Db::name('Picture')->field('picture_id')->where("path='{$match[1]}'")->find();
+			$k  = 0;
+			$wh = 0;
+			foreach ($match[1] as $key => $value) {
+				$temwh = getimagesize('.' . $value);
+				if (max($temwh[0], $temwh[1]) > $wh) {
+					$k = $key;
+				}
+			}
+			$info = \think\Db::name('Picture')->field('picture_id')->where("path='{$match[1][$k]}'")->find();
 			return empty($info) ? 0 : $info['picture_id'];
 
 		} else {
