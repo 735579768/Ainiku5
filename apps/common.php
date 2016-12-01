@@ -496,12 +496,13 @@ function file_ismod($filepath) {
 		// $modtime = date('Y-m-d h:i:s', filemtime($val));
 		$modtime = filemtime($val);
 		if ($modtime) {
-			$path     = str_replace(array('/', '\\'), array('_'), $val);
-			$key      = '_modfile/' . $path;
+			// $path     = str_replace(array('/', '\\'), array('_'), $val);
+			$key      = md5('_modfile/' . $val);
 			$modstime = cache($key);
-			if ($modtime !== $modstime['time']) {
+			if ($modtime != $modstime['time']) {
 				cache($key, ['time' => $modtime, 'path' => $val]);
 				$rebool = true;
+				break;
 			}
 		}
 	}
