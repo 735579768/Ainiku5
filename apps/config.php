@@ -175,7 +175,7 @@ $app_config = [
 		// 'level' => ['error'],
 		'level'       => [],
 		// error和sql日志单独记录
-		'apart_level' => ['error', 'sql'],
+		'apart_level' => ['error', 'sql', 'log', 'debug'],
 	],
 
 	// +----------------------------------------------------------------------
