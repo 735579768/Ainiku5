@@ -18,6 +18,7 @@ class Data extends Base {
 			$this->error('id不能为空');
 		}
 		if ($this->request->isPost()) {
+			Cache::clear(strtolower($model));
 			$postdata = input('param.');
 			if ($id_value) {
 				//编辑
