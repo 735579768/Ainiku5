@@ -92,19 +92,27 @@ class Ank extends TagLib {
 		}
 
 		$newname = md5($hname);
-		if (!$suijinum) {
-			$suijinum = cache('assetsversion');
-			if (!$suijinum || config('app_debug')) {
-				$suijinum = '?r=' . rand(0, 10);
-				cache('assetsversion', $suijinum);
-			}
-		}
+
 		$jscss  = '';
 		$temarr = explode(',', $hname);
 
 		foreach ($temarr as $key => $val) {
 			$filepath     = $val . '.' . $filetype;
 			$temarr[$key] = find_file_path($filepath);
+		}
+		$fileismod = false;
+		if (!$suijinum) {
+			$suijinum = cache('assetsversion');
+			if (config('app_debug')) {
+				$fileismod = true;
+			} else {
+				$fileismod = file_ismod($temarr);
+			}
+
+			if (!$suijinum || config('app_debug') || $fileismod) {
+				$suijinum = '?r=' . rand(0, 10);
+				cache('assetsversion', $suijinum);
+			}
 		}
 		if (config('app_debug')) {
 
@@ -119,7 +127,7 @@ class Ank extends TagLib {
 			$styledir      = '.' . config('greate_cache_path.jscss') . '/' . request()->module();
 			$cachefilename = $styledir . '/' . $newname . '.' . $filetype;
 			create_folder(dirname($cachefilename));
-			if (file_ismod($temarr) || !file_exists($cachefilename)) {
+			if ($fileismod || !file_exists($cachefilename)) {
 				$compressstr = '';
 				foreach ($temarr as $key => $val) {
 					$filepath = '.' . $val;
