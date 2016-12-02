@@ -2278,11 +2278,14 @@
         keys: {
             /*Backspace*/
             8: 1,
-            /*Delete*/ 46: 1,
+            /*Delete*/
+            46: 1,
             /*Shift*/
             16: 1,
-            /*Ctrl*/ 17: 1,
-            /*Alt*/ 18: 1,
+            /*Ctrl*/
+            17: 1,
+            /*Alt*/
+            18: 1,
             37: 1,
             38: 1,
             39: 1,
@@ -13705,6 +13708,7 @@
             'java': 'Java',
             'jfx': 'JavaFx',
             'js': 'Javascript',
+            'json': 'JSON',
             'pl': 'Perl',
             'php': 'Php',
             'plain': 'Plain Text',
@@ -14902,8 +14906,10 @@
                 //  /*Backspace*/ 8:1, /*Delete*/ 46:1,
                 /*Shift*/
                 16: 1,
-                /*Ctrl*/ 17: 1,
-                /*Alt*/ 18: 1,
+                /*Ctrl*/
+                17: 1,
+                /*Alt*/
+                18: 1,
                 37: 1,
                 38: 1,
                 39: 1,
