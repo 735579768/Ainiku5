@@ -124,7 +124,8 @@ UE.I18N['zh-cn'] = {
         'scala':'Scala',
         'sql':'SQL',
         'vb':'Visual Basic',
-        'xml':'XML'
+        'xml':'XML',
+        'runcode': 'runCode'
     },
     'confirmClear':"确定清空当前文档么？",
     'contextMenu':{
