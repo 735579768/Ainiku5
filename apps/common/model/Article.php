@@ -56,6 +56,15 @@ class Article extends Model {
 		preg_match_all("/./us", $str, $matches);
 		return count(current($matches));
 	}
+	/**
+	 * 过滤外链
+	 * @param [type] $value [description]
+	 */
+	private function filterLink($str) {
+		//取允许出现的外联
+		$domain = config('allow_link');
+
+	}
 	protected function setMetaDescrAttr($value) {
 		if ($value) {
 			return $value;

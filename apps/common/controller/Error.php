@@ -25,8 +25,10 @@ class Error extends \think\Controller {
 				$errstr = "无法找到插件或控制器:{$controllerName}/{$actionName}";
 				throw new \think\Exception($errstr, 100006);
 			} else {
-				$this->assign('static_dir', STATIC_DIR);
-				return $this->fetch(APP_PATH . 'common/view/404.html');
+				throw new \think\exception\HttpException(404, '页面不存在');
+				// abort(404, '页面不存在');
+				// $this->assign('static_dir', STATIC_DIR);
+				// return $this->fetch(APP_PATH . 'common/view/404.html');
 			}
 		}
 		//插件已经安装的情况
