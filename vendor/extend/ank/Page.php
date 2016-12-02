@@ -68,6 +68,8 @@ class Page {
 	 * @return string
 	 */
 	private function url($page) {
+		// echo $page;
+		// // die();
 		$str = str_replace(urlencode('[PAGE]'), $page, $this->url);
 		return str_replace('//', '/', $str);
 	}
@@ -85,7 +87,7 @@ class Page {
 		$this->parameter[$this->p] = '[PAGE]';
 		// $this->url                 = trim($this->url, '/');
 		if ($this->url == '') {
-			$this->url = url(request()->controller() . '/' . request()->action(), $this->parameter);
+			$this->url = url(request()->module() . '/' . request()->controller() . '/' . request()->action(), $this->parameter);
 		} else {
 			// var_dump($this->url);
 			// var_dump($this->parameter);

@@ -130,9 +130,10 @@ trait Common {
 
 		//分页跳转的时候保证查询条件
 		$param = input('param.');
-		array_shift($param);
+		// \think\Log::write(json_encode($param), 'log');
+		// array_shift($param);
 		foreach ($param as $key => $val) {
-			if (!is_array($val)) {
+			if ($val && !is_array($val)) {
 				$Page->parameter[$key] = $val;
 			}
 		}
