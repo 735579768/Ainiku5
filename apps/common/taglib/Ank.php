@@ -114,6 +114,7 @@ class Ank extends TagLib {
 				cache('assetsversion', $suijinum);
 			}
 		}
+		// dump(config('app_debug'));
 		if (config('app_debug')) {
 
 			foreach ($temarr as $key => $val) {

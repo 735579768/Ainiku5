@@ -35,9 +35,13 @@
 					ank.alert('请先选择信息!');
 					return;
 				}
+				var lindex = layer.load(1, {
+					shade: false //0.1透明度的白色背景
+				});
 				$.post(uri, {
 					id: ids
 				}, function(data) {
+					layer.close(lindex);
 					ank.alert(data, function(data) {
 						if (data.code) {
 							var id = _t.attr('list-id');
@@ -142,7 +146,11 @@
 				shade: 0.01,
 				btn: ['确定', '取消']
 			}, function() {
+				var lindex = layer.load(1, {
+					shade: false //0.1透明度的白色背景
+				});
 				$.get(uri, function(data) {
+					layer.close(lindex);
 					ank.alert(data, function(data) {
 						var id = _t.attr('list-id');
 						if (id && data.code) {
