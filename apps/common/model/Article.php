@@ -61,8 +61,13 @@ class Article extends Model {
 	 * @param [type] $value [description]
 	 */
 	private function filterLink($str) {
-		//取允许出现的外联
-		$domain = config('allow_link');
+		//取域名白名单
+		$domain = config('allow_domain');
+		$arr    = explode(',', $domain);
+		preg_match_all('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
+		if ($match) {
+
+		}
 
 	}
 	protected function setMetaDescrAttr($value) {
