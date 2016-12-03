@@ -133,7 +133,7 @@ class Assets {
 		$jsname   = md5(implode($this->js));
 		$suijinum = cache('assetsversion');
 		if (!$suijinum || config('app_debug')) {
-			$suijinum = '?r=' . rand(0, 10);
+			$suijinum = '?r=' . rand(1000, 9999);
 			cache('assetsversion', $suijinum);
 		}
 		$csscache = $this->cachepath . '/' . $cssname . '.css';

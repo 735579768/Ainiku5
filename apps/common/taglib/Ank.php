@@ -110,7 +110,7 @@ class Ank extends TagLib {
 			}
 
 			if (!$suijinum || config('app_debug') || $fileismod) {
-				$suijinum = '?r=' . rand(0, 10);
+				$suijinum = '?r=' . rand(1000, 9999);
 				cache('assetsversion', $suijinum);
 			}
 		}
