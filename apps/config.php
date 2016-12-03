@@ -271,6 +271,7 @@ $app_config = [
 	'http_exception_template' => [
 		// 定义404错误的重定向页面地址
 		404 => APP_PATH . 'common/view' . DS . '404.html',
+		403 => APP_PATH . 'common/view' . DS . '403.html',
 		// 还可以定义其它的HTTP status
 		401 => APP_PATH . 'common/view' . DS . '404.html',
 	],

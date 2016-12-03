@@ -18,7 +18,7 @@ trait File {
 				->select();
 		} else {
 			$data = \think\Db::name('File')
-				->where('file_id', 'in', $idarr)
+				->where('file_id', 'in', $id)
 				->select();
 		}
 		$this->success('ok', '', $data);

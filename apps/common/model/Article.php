@@ -12,7 +12,7 @@ class Article extends Model {
 		return implode(',', input('param.position/a', []));
 	}
 	protected function setContentAttr($value) {
-		return $value ? $value : '';
+		return $this->_filterLink($value);
 	}
 	protected function setViewsAttr($value) {
 		return $value ? $value : 0;
@@ -60,14 +60,28 @@ class Article extends Model {
 	 * 过滤外链
 	 * @param [type] $value [description]
 	 */
-	private function filterLink($str) {
+	private function _filterLink($str) {
+		if (!$str) {
+			return '';
+		}
+		if (config('filter_link') == '0') {
+			return $str;
+		}
 		//取域名白名单
 		$domain = config('allow_domain');
 		$arr    = explode(',', $domain);
-		preg_match_all('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
+		preg_match_all('/<a.*?href\=\"(.*?)\".*?>(.*?)<\/a>/', $str, $match);
+		// dump($match);
 		if ($match) {
-
+			foreach ($match[1] as $key => $value) {
+				$info = parse_url($value);
+				// echo $value;
+				if (isset($info['host']) && !in_array($info['host'], $arr)) {
+					$str = str_replace($match[0][$key], $match[2][$key], $str);
+				}
+			}
 		}
+		return $str;
 
 	}
 	protected function setMetaDescrAttr($value) {

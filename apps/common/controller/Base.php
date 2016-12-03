@@ -26,6 +26,14 @@ class Base extends Controller {
 		parent::_initialize();
 		//初始化系统配置
 		config(get_sys_config());
+		//黑名单
+		$denied_domain = explode(',', config('denied_domain'));
+		$laiip         = get_client_ip();
+		// dump($_SERVER);
+		$referdomain = @$_SERVER['HTTP_REFERER'] ?: '';
+		if (in_array($laiip, $denied_domain) || ($referdomain && in_array($referdomain, $denied_domain))) {
+			throw new \think\exception\HttpException(403, 'Access denied!');
+		}
 		// dump(config());
 		//加上模板主题的支持
 		$theme  = 'default';
