@@ -3,7 +3,7 @@ return [
 	// 默认模块名
 	'default_module'    => 'index',
 	// 应用调试模式
-	'app_debug'         => false,
+	'app_debug'         => true,
 	// 应用Trace
 	'app_trace'         => true,
 	// 域名部署,此配置开启后生成的url地址会带有域名
@@ -22,6 +22,15 @@ return [
 		'__pattern__'         => [
 			'name' => '\w+',
 		],
+		//给指定的控制器写别名访问
+		//http://serverName/index.php/yonghu/add
+		//例如下面,使用yonghu可以访问index模块的User控制器的所有操作
+		//http://serverName/index.php/yonghu/add
+		//http://serverName/index.php/yonghu/edit
+		// '__alias__'           => [
+		// 	'yonghu' => 'index/User',
+		// ],
+
 		//路由分组
 		// '[hello]'               => [
 		// 	':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
