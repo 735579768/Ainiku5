@@ -45,6 +45,7 @@ class Ajax extends Base {
 		$pid           = input('param.pid', 0);
 		$category_type = input('param.category_type', 'article_tag');
 		if ($this->request->isPost()) {
+			\think\Cache::clear('category');
 			//添加
 			$result = $this->validate(input('param.'), 'Category');
 			if (true === $result) {
