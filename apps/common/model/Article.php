@@ -101,7 +101,8 @@ class Article extends Model {
 	 */
 	private function _getFirstPicture($str = '') {
 		preg_match_all('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
-		if ($match) {
+		// dump($match);
+		if ($match[0]) {
 			$k  = 0;
 			$wh = 0;
 			foreach ($match[1] as $key => $value) {
