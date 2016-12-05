@@ -7,7 +7,46 @@ class Article extends Model {
 	protected $auto   = ['pic', 'content', 'meta_keywords', 'meta_descr', 'position', 'views'];
 	protected $insert = [];
 	protected $update = [];
+	//注册模型事件
+	protected static function init() {
+		Article::event('after_insert', function ($article) {
+			$baidu_push = config('baidu_push_article');
 
+			if ($baidu_push) {
+				$arr = explode('|', $baidu_push);
+				if (count($arr) !== 3) {
+					return true;
+				}
+				list($site, $token, $link) = $arr;
+				$article_id                = $article->article_id;
+				//提交给百度
+				/**
+				 * 每天提交的配额是有限的,最好不要提交重复的链接
+				 * @var string
+				 */
+				// $site  = 'www.zhaokeli.com';
+				// $token = 'j8pptT7xaAxv7tPc';
+				$urls    = [str_replace('{id}', $article_id, $link)];
+				$api     = "http://data.zz.baidu.com/urls?site={$site}&token=$token";
+				$ch      = curl_init();
+				$options = array(
+					CURLOPT_URL            => $api,
+					CURLOPT_POST           => true,
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_POSTFIELDS     => implode("\n", $urls),
+					CURLOPT_HTTPHEADER     => array('Content-Type: text/plain'),
+				);
+				curl_setopt_array($ch, $options);
+				$result = curl_exec($ch);
+				// echo $result;
+				return true;
+				//如果返回false就不会再向下执行啦
+				// if ($article->status != 1) {
+				// 	return false;
+				// }
+			}
+		});
+	}
 	protected function setPositionAttr($value) {
 		return implode(',', input('param.position/a', []));
 	}
