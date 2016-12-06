@@ -30,7 +30,7 @@ class Base extends Controller {
 		$denied_domain = explode(',', config('denied_domain'));
 		$laiip         = get_client_ip();
 		// dump($_SERVER);
-		$referdomain = @$_SERVER['HTTP_REFERER'] ?: '';
+		$referdomain = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 		if (in_array($laiip, $denied_domain) || ($referdomain && in_array($referdomain, $denied_domain))) {
 			throw new \think\exception\HttpException(403, 'Access denied!');
 		}
