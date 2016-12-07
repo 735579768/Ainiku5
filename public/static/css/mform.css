@@ -1,14 +1,20 @@
 @charset 'utf-8';
-/****手机端表单样式**/
-.m-form{margin: 10px 0px;}
-.m-form-group{border: solid 1px #ededed;padding: 0px 5px;     margin: 0px 10px 10px 10px;}
-select.m-form-control{height: 36px;padding: 0px;}
-.m-form-control{width: 100%; display: block; padding: 3px 0px; height: 30px; border: solid 1px #ededed;background: #fff;}
-.m-form-group .m-form-control{border: none;}
 
-.m-btn,
-.m-btn:link,
-.m-btn:active,
-.m-btn:hover,
-.m-btn:visited{padding: 5px 20px; font-size: 14px; background: #6BC168; color: #fff;display: inline-block;border-radius: 5px;}
+/****手机端表单样式**/
+
 /**************************/
+@media screen and (max-width:900px){
+	.btn,.btn:link,.btn:active,.btn:hover,.btn:visited{padding:5px 20px;font-size:14px;background:#6BC168;color:#fff;display:inline-block;border-radius:5px;}
+	.form-area,.form-area .form-wrap,.form-area .form-wrap .autoyz-wrap{display:block!important;}
+	.form-area .form-control{width:100%!important;}
+	.form-group-h .form-label{width:100px;float:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+	.form-group-h .form-area{margin-left:100px;}
+	.form-group-h .form-group{border: solid 1px #ededed;    padding: 0px 0px 0px 5px;}
+	.form-group-h .form-group .form-wrap{border: none;box-shadow: none;}
+}
+@media screen and (max-width:600px){
+	.form-group .form-tip{display:none!important;}
+}
+@media screen and (max-width:400px){
+	.form-group .form-label{}
+}
