@@ -9,7 +9,14 @@
 	.form-area .form-control{width:100%!important;}
 	.form-group-h .form-label{width:100px;float:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 	.form-group-h .form-area{margin-left:100px;}
-	.form-group-h .form-group{border: solid 1px #ededed;    padding: 0px 0px 0px 5px;}
+	.form-group-h .form-group.form-type-string,
+	.form-group-h .form-group.form-type-slidedate,
+	.form-group-h .form-group.form-type-radio,
+	.form-group-h .form-group.form-type-checkbox,
+	.form-group-h .form-group.form-type-password,
+	.form-group-h .form-group.form-type-double,
+	.form-group-h .form-group.form-type-number,
+	.form-group-h .form-group.form-type-datetime{border: solid 1px #ededed;    padding: 0px 0px 0px 5px;}
 	.form-group-h .form-group .form-wrap{border: none;box-shadow: none;}
 }
 @media screen and (max-width:600px){
