@@ -36,9 +36,9 @@ trait Common {
 	protected function ajaxReturn($data, $type = 'JSON', $json_option = 0) {
 		$type = strtolower($type);
 		if ($type == 'json') {
-			return json($data)->send();
+			return json($data);
 		} else {
-			return jsonp($data)->send();
+			return jsonp($data);
 		}
 		exit();
 	}

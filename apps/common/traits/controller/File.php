@@ -67,7 +67,7 @@ trait File {
 			if ($_FILES['filelist']['size'] > $maxSize) {
 				$return['info']   = '不支持此文件类型';
 				$return['status'] = 0;
-				$this->ajaxReturn($return);
+				return json($return);
 			}
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -78,12 +78,12 @@ trait File {
 			if (!create_folder($targetPath)) {
 				$return['info']   = '创建目录错误：' . $targetPath;
 				$return['status'] = 0;
-				$this->ajaxReturn($return);
+				return json($return);
 			}
 			if (!create_folder($thumbPath)) {
 				$return['info']   = '创建目录错误：' . $thumbPath;
 				$return['status'] = 0;
-				$this->ajaxReturn($return);
+				return json($return);
 			}
 
 			$targetPath .= '/' . $filename;
@@ -149,7 +149,7 @@ trait File {
 		}
 
 		/* 返回JSON数据 */
-		$this->ajaxReturn(array_merge($return, $data));
+		return json(array_merge($return, $data));
 	}
 	//图片添加水印
 	private function markPic($dst = '') {
@@ -222,7 +222,7 @@ trait File {
 					$this->markPic('.' . $info['url']);
 				}
 			}
-			$this->ajaxReturn($info);
+			return json($info);
 		}
 		exit();
 	}
@@ -369,7 +369,7 @@ trait File {
 					}
 				}
 			}
-			$this->ajaxReturn($result);
+			return json($result);
 		}
 		exit();
 	}
