@@ -37,6 +37,7 @@ function create_form($fieldarr, $data = []) {
 	static $formjs = [
 		'editornum'  => 0,
 		'datetime'   => 0,
+		'slidedate'  => 0,
 		'picture'    => 0,
 		'bdpicture'  => 0,
 		'editor'     => 0,
@@ -171,6 +172,58 @@ eot;
 <div class="form-wrap">
 <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="ot.autoHeight(this);" onblur="clearInterval(ot.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
 </div>
+eot;
+				break;
+			case 'slidedate':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['slidedate']++;
+				if ($setvalue) {
+					$setvalue = time_format($setvalue, 'Y-m-d');
+				} else {
+					$setvalue = date('Y-m-d');
+				}
+				$tem_input = <<<eot
+<div class="form-wrap">
+	<input name="{$name}" id="slidedate_{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="{$set_replace_value}" placeholder="请选择时间" />
+</div>
+eot;
+				$initformjs .= <<<eot
+!function(){
+	var currYear = (new Date()).getFullYear();
+	var dateobj=$('#slidedate_{$name}');
+	var vstr=dateobj.val();
+	var formstr='yy-mm-dd hh:ii:ss';
+	if(!vstr||/^\d{4}\-\d{2}\-\d{2}$/ig.test(vstr)){
+		formstr='yy-mm-dd';
+	}
+	var opt={
+		date:{preset : 'date'},
+		datetime:{preset : 'datetime'},
+		time:{preset : 'time'},
+		default : {
+			theme: 'android-ics light', //皮肤样式
+	        display: 'modal', //显示方式
+	        mode: 'scroller', //日期选择模式
+			dateFormat: formstr,
+			lang: 'zh',
+			multiSelect: true,//是否可以多选
+			showNow: true,
+			setText: '确定', //确认按钮名称
+			dateOrder: 'yymmdd', //面板中日期排列格式
+			dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+			cancelText: "取消",
+			nowText: "今天",
+	        startYear: currYear - 80, //开始年份
+	        endYear: currYear + 10//, //结束年份
+	        //窗体标题头显示
+	       // headerText: function (valueText) {
+           // 	var tar = valueText.split('-');
+           // 	return tar[0] + "年"+tar[1] + "月" ;
+       		// }
+	}
+	};
+	dateobj.mobiscroll($.extend(opt['date'], opt['default']));
+}();
 eot;
 				break;
 			case 'datetime':
@@ -485,20 +538,17 @@ eot;
 		// <!--颜色选择器js end-->\n
 		// eot;
 	}
+	if ($formjs['slidedate'] && $formjs['slidedate'] !== true) {
+		$formjs['slidedate'] = true;
+		//注册css js
+		reg_css('slidedate/css/slidedate', false);
+		reg_js('slidedate/js/slidedate,slidedate/js/mobiscroll', false);
+	}
 	if ($formjs['datetime'] && $formjs['datetime'] !== true) {
 		$formjs['datetime'] = true;
 		//注册css js
 		reg_css('datetimepicker/css/datetimepicker.min,datetimepicker/css/dropdown.min', false);
 		reg_js('datetimepicker/js/bootstrap-datetimepicker.min,datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN', false);
-// 		$formjsstr .= <<<eot
-		// <!--日期js start-->
-		// <link href="{$static_dir}/datetimepicker/css/datetimepicker.min.css" type="text/css" rel="stylesheet" />
-		// <link href="{$static_dir}/datetimepicker/css/dropdown.min.css" type="text/css" rel="stylesheet" />
-		// <script src="{$static_dir}/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
-		// <script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
-
-// <!--日期js end->\n
-		// eot;
 	}
 	if ($formjs['picture'] && $formjs['picture'] !== true) {
 		$formjs['picture'] = true;
@@ -1191,6 +1241,7 @@ function select_form_type($key = null, $datatype = false) {
 		'number'         => '数字',
 		'double'         => '双精度数字',
 		'password'       => '密码',
+		'slidedate'      => '滑动日期',
 		'datetime'       => '日期',
 		'textarea'       => '文本框',
 		'bigtextarea'    => '超大文本框',
@@ -1216,6 +1267,7 @@ function select_form_type($key = null, $datatype = false) {
 		'number'         => "int(10) NOT NULL DEFAULT '0' ",
 		'double'         => "double(10,2)  NOT NULL DEFAULT '0'",
 		'password'       => "varchar(50) NOT NULL DEFAULT '' ",
+		'slidedate'      => "varchar(50) NOT NULL DEFAULT '' ",
 		'datetime'       => "varchar(50) NOT NULL DEFAULT '' ",
 		'editor'         => 'longtext  NOT NULL ',
 		'textarea'       => 'text  NOT NULL  ',

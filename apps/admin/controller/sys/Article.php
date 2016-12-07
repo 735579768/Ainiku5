@@ -193,14 +193,14 @@ class Article extends Base {
 					'is_show' => 3,
 				],
 				[
-					'type'    => 'datetime',
+					'type'    => 'slidedate',
 					'name'    => 'starttime',
 					'title'   => '开始时间',
 					'value'   => '',
 					'is_show' => 3,
 				],
 				[
-					'type'    => 'datetime',
+					'type'    => 'slidedate',
 					'name'    => 'endtime',
 					'title'   => '结束时间',
 					'value'   => '',
