@@ -1129,7 +1129,8 @@ function get_form_item($form_id = '') {
 			->field('title,name,note,type,extra,is_require,is_show,value,data_ts,data_err,data_ok,data_reg,tab_id,sort')
 		// ->fetchSql()
 			->select();
-		cache($key, $list);
+		// cache($key, $list);
+		\think\Cache::tag('formitem')->set($key, $list);
 	}
 	// dump($list);
 	// die();
