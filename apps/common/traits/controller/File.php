@@ -349,9 +349,10 @@ trait File {
 					if (!isset($value['url']) || !$value['url']) {
 						continue;
 					}
-					$shafile      = $this->checksha('.' . $value['url']);
-					$value['url'] = trim($shafile['path'], '.');
-					$data         = [
+					$shafile                     = $this->checksha('.' . $value['url']);
+					$value['url']                = trim($shafile['path'], '.');
+					$result['list'][$key]['url'] = $value['url'];
+					$data                        = [
 						'sha1'        => $shafile['sha1'],
 						'srcname'     => $value['original'],
 						'destname'    => $value['title'],
