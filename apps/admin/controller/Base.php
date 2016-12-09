@@ -27,8 +27,10 @@ class Base extends \app\common\Controller\Base {
 			'uinfo'      => session('uinfo'),
 		]);
 		$clientinfo = session('client');
-		if (isset($clientinfo['screenheight']) && $clientinfo['screenheight'] > 800) {
-			config('list_rows', 15);
+		if (isset($clientinfo['screenheight']) && $clientinfo['screenheight'] > 500) {
+			$rowss = intval((intval($clientinfo['screenheight']) - 250 - 50)) / 33;
+			$rowss = max($rowss, 8);
+			config('list_rows', $rowss);
 		}
 
 	}

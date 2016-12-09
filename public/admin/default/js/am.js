@@ -170,7 +170,7 @@
 		 * 发送客户端的一些信息
 		 */
 		setClientParam: function() {
-			if (ank.readCookie('setClientParam')) {
+			if (ank.readCookie('setClientParam') == '1') {
 				return;
 			}
 			ank.writeCookie('setClientParam', 1);
@@ -190,11 +190,20 @@
 			var closewest = $('#closeicon');
 			var rightside = $('#admin-right');
 			var leftw = leftside.outerWidth();
-			am.setClientParam();
-			$(window).resize(function(event) {
-				ank.writeCookie('setClientParam', 0)
+			// debugger;
+			if (top.location === self.location) {
 				am.setClientParam();
-			});
+				$(window).resize(function(event) {
+					if (am.yanchisend) {
+						clearTimeout(am.yanchisend);
+					}
+					ank.writeCookie('setClientParam', 0)
+					am.yanchisend = setTimeout(function() {
+						am.setClientParam();
+					}, 1500);
+
+				});
+			}
 			closewest.click(function(e) {
 				var _t = $(this);
 				if (_t.css('left') == leftw + 'px') {
