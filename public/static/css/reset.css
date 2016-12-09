@@ -1,4 +1,5 @@
 @charset 'utf-8';
+html,body{height:100%;}
 body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{font-family:Microsoft Yahei,Arial;font-size:12px;margin:0;padding:0;list-style:none;}
 fieldset,img{border:0;-webkit-font-smoothing:antialiased;}
 img{vertical-align:top;}
@@ -30,7 +31,7 @@ option{outline:none;}
 .controls input{display:inline-block;margin:5px 5px 5px 10px;vertical-align:top;}
 .form-tip{display:inline-block;margin:0px 5px;color:#AAA;}
 .form-group-h .form-area,.form-group-h .form-controls,.form-group-h .form-control,.form-group-h .form-label{display:inline-block;}
-.form-group-h .form-label{position:relative;text-align:left;width: 100px;}
+.form-group-h .form-label{position:relative;text-align:left;width:100px;}
 .form-group-h .form-group .controls{display:inline-block;}
 .form-group-h .form-group .form-label:hover .form-tip{display:block;}
 .form-group-h .form-label .form-tip{position:absolute;z-index:9999999;bottom:50px;left:50px;display:none;width:200px;padding:10px;text-align:left;word-break:break-all;color:#111;border:solid 1px #EDEDED;background:#EDEDED;box-shadow:2px 2px 8px #CCC;}
@@ -77,7 +78,7 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit
 .down-btn .fa{width:10px;margin-left:5px;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;transition:all .3s;color:#FFF;}
 .down-btn .fa:before{content:'\f054';}
 .down-btn:hover .fa:before{content:'\f078';}
-.down-btn ul{position:absolute;z-index:1;top:100%;left:0px;display:none;width:100%;}
+.down-btn ul{position:absolute;z-index:1;top:100%;left:0px;display:none;width:100%;webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;transition:all .3s;}
 .down-btn:hover ul,.down-btn:hover ul a{display:block;}
 
 /*---滚动条默认显示样式--*/

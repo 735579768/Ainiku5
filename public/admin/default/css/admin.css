@@ -96,6 +96,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con table tr:hover{background:#f8f8f8;}
 .iframe-con table th,.iframe-con table td{padding:0px 5px;height:30px;text-align:center;border:solid 1px #ededed;white-space:nowrap;}
 .iframe-con .td-left,.iframe-con .td-btn{text-align:left;}
+.iframe-con .td-btn .btn{padding:4px 10px;}
 .iframe-con table .td-id{width:50px;}
 .iframe-con table .td-time{width:150px;}
 .iframe-con table .td-status{width:50px;}
