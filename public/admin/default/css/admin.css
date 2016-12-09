@@ -222,6 +222,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .widget .title{overflow:hidden;padding-left:20px;background-color:#ececec;background-image:-moz-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:-webkit-gradient(linear,0 0,0 100%,from(#f4f4f4),to(#f3f3f3));background-image:-webkit-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:-o-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);border-bottom:1px solid #eaeaea;box-shadow:0 1px 2px #e4e4e4;-moz-box-shadow:0 1px 2px #e4e4e4;-webkit-box-shadow:0 1px 2px #e4e4e4;line-height:35px;height:35px;display:block;clear:both;}
 .iframe-con .widget td,.widget td{padding:5px 10px;text-align:left;}
 .iframe-con .list-order{color:#ccc;margin-left:5px;cursor:pointer;}
+.iframe-con .td-title{display:block;max-width:350px;overflow:hidden;text-overflow:ellipsis;}
 
 /**
  * 显示缩略图

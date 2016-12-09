@@ -43,7 +43,7 @@
                 <input type="checkbox" class="check-item" value="{$vo.article_id}" />
             </td>
             <td>{$vo.article_id}</td>
-            <td class="td-left showthumb">{$vo.title}
+            <td class="td-left showthumb"><div class="td-title">{$vo.title}</div>
             {notempty name="vo.pic"}
             <div class="thumb"><div class="thumb-wrap"><img src="{:get_picture($vo['pic'],'thumbpath')}" /></div></div>
             {/notempty}
