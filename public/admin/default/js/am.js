@@ -173,7 +173,7 @@
 			if (ank.readCookie('setClientParam') == '1') {
 				return;
 			}
-			ank.writeCookie('setClientParam', 1);
+			ank.writeCookie('setClientParam', 1, 1);
 			//传递电脑屏幕大小
 			$.post(am.url.client, {
 				screenwidth: $(window).width(),
