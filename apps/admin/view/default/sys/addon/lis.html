@@ -28,7 +28,7 @@
             <td class="td-left">{$vo.title}</td>
             <td class="td-time">{$vo.create_time|time_format}</td>
             <td class="td-time">{$vo.update_time|time_format}</td>
-            <td>{$vo.status|get_status}</td>
+            <td><span title="{$vo.status|get_status}" data-table="Addon" data-id="{$vo.addon_id}" data-field="status" data-value="{$vo.status}" class="fa yesno"></span></td>
             <td class="td-btn">
                 <!--authstart-->
                 <a href="javascript:;" data-url="{:url('sys.addon/unInstall',['name'=>$vo['name']])}" onclick="am.unInstall(this);" class="btn btn-warning">卸载</a>
