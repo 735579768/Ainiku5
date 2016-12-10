@@ -79,6 +79,9 @@ trait Common {
 				->fetch(\think\Config::get('dispatch_success_tmpl'), $result);
 			$response = \think\Response::create($result, $type)->header($header);
 			throw new \think\exception\HttpResponseException($response);
+		} elseif ('json' == strtolower($type)) {
+			$response = \think\Response::create($result, $type)->header($header);
+			throw new \think\exception\HttpResponseException($response);
 		} else {
 			return json($result);
 		}

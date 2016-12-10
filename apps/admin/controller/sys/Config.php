@@ -36,7 +36,7 @@ class Config extends Base {
 				$uploadsize = (get_dir_size(SITE_PATH . config('file_upload.rootPath')) / 1000) . 'k';
 				cache('uploadsize', $uploadsize);
 			}
-			$this->success('查询成功!');
+			return $this->success('查询成功!');
 		}
 
 		$this->assign([
@@ -72,7 +72,7 @@ class Config extends Base {
 			}
 			cache('sys_config', null);
 			add_user_log('更新网站配置', input('param.'));
-			$this->returnResult($result, '保存成功', '保存失败');
+			return $this->returnResult($result, '保存成功', '保存失败');
 		} else {
 			$map['tab_id'] = input('param.tab_id', 3);
 			$list          = \think\Db::name('FormItem')

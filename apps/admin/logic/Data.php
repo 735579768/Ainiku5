@@ -9,8 +9,12 @@ class Data extends Base {
 	 * @return [type] 如果是get请求会返回一个表单字符串,如果是post请求,会判断是add还是edit状态,进行对应的操作
 	 */
 	private function addEditForm($model = '', $edit = false) {
-		$model || $this->error('模型为空!');
-		// $model    = ucfirst($model);
+		$model || $this->error('表单或模型标识符不能为空!');
+		$title = get_form($model, 'title');
+		$this->assign([
+			'meta_title' => ($edit ? '编辑' : '添加') . $title,
+		]);
+
 		$id_name  = $this->_getTable($model) . '_id';
 		$id_value = input('param.' . $id_name);
 		if ($edit && !$id_value) {
@@ -18,6 +22,7 @@ class Data extends Base {
 			$this->error('id不能为空');
 		}
 		if ($this->request->isPost()) {
+			$edit ? add_user_log('编辑' . $title, input('param.')) : add_user_log('添加' . $title, input('param.'));
 			\think\Cache::clear(strtolower($model));
 			$postdata = input('param.');
 			if ($id_value) {
@@ -28,9 +33,9 @@ class Data extends Base {
 						->allowField(true)
 						->isUpdate(true)
 						->save($postdata, [$id_name => $id_value]);
-					$this->returnResult($result, '更新成功', '更新失败');
+					return $this->returnResult($result, '更新成功', '更新失败');
 				} else {
-					$this->error($result);
+					return $this->error($result);
 				}
 			} else {
 				//添加
@@ -40,9 +45,9 @@ class Data extends Base {
 						->data($postdata)
 						->allowField(true)
 						->save();
-					$this->returnResult($result, '添加成功', '添加失败');
+					return $this->returnResult($result, '添加成功', '添加失败');
 				} else {
-					$this->error($result);
+					return $this->error($result);
 				}
 			}
 
@@ -56,7 +61,7 @@ class Data extends Base {
 			$this->assign('id', ['name' => $id_name, 'value' => $id_value]);
 			$this->assign('model', $model);
 			$this->assign('data', $data);
-			// return $this->fetch('logic/form_edit');
+			return $this->fetch('logic/form_edit_tpl');
 		}
 	}
 	/**
@@ -64,16 +69,7 @@ class Data extends Base {
 	 * @param string $name 表单的标识符
 	 */
 	public function add($name = '') {
-		$name || $this->error('表单标识符为空!');
-		$title = get_form($name, 'title');
-		if ($this->request->isPost()) {
-			add_user_log('添加' . $title, input('param.'));
-		}
-		$this->assign([
-			'meta_title' => '添加' . $title,
-		]);
-		$this->addEditForm($name);
-		return $this->fetch('logic/form_edit_tpl');
+		return $this->addEditForm($name);
 	}
 	/**
 	 * 编辑表单
@@ -81,18 +77,7 @@ class Data extends Base {
 	 * @return [type]       [description]
 	 */
 	public function edit($name = '') {
-		$name || $this->error('表单标识符为空!');
-		$title = get_form($name, 'title');
-		if ($this->request->isPost()) {
-			add_user_log('编辑' . $title, input('param.'));
-		}
-		$this->assign([
-			'meta_title' => '编辑' . $title,
-			// 'formstr'    => ,
-		]);
-		$this->addEditForm($name, true);
-		return $this->fetch('logic/form_edit_tpl');
-
+		return $this->addEditForm($name, true);
 	}
 
 	/**
