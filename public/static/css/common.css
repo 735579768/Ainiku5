@@ -14,7 +14,8 @@
 .disabled{background:#b0b0b0;}
 .hide{display:none;}
 .show{display:block;}
-.center{text-align: center};
+.center{text-align:center}
+;
 .a-left{text-align:left!important;}
 .a-center{text-align:center!important;}
 .el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;}
@@ -22,7 +23,8 @@
 .red{color:#f00;}
 .green{color:green;}
 .bg{position:fixed;_position:absolute;z-index:999;top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}
-.loading{background: url('../images/loading.gif') no-repeat;}
+.loading{background:url('../images/loading.gif') no-repeat;}
+
 /*箭头向上*/
 .arrow-up{width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:30px solid #fff;}
 
@@ -43,15 +45,14 @@
 .msgok,.msgerr,.msgts{display:inline-block;width:20px;height:20px;vertical-align:top;margin-right:10px;}
 .yzok,.yzerr,.yzth1,.yzth2{height:30px;line-height:30px;padding-left:30px;background-size:20px 20px;background-position:0px center;display:inline-block;position:absolute;}
 .autoyz-wrap span{position:absolute;top:0px;display:none;white-space:nowrap;top:0px;}
-
 h1,h2,h3,h4,h5,h6{font-weight:normal}
+
 /****分页样式*****/
 .page{margin:10px 0;*zoom:1;}
 .page:after{clear:both;}
 .page a,.page span{float:left;margin-left:-1px;padding:0 14px;height:30px;line-height:30px;color:#000;border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;/*background-color:#4bbd00;*/}
 .page .disabled span{color:#d4d4d4;}
-.page .active span,
-.page a:hover{text-decoration:none;background-color:#387C0B;color:#fff;}
+.page .active span,.page a:hover{text-decoration:none;background-color:#387C0B;color:#fff;}
 .page .current{border-top:1px solid #387C0B;background-color:#387C0B;color:#fff;}
 .page .next,.page .prev{font-family:"microsoft yahei";}
 .page .rows{}
@@ -90,4 +91,18 @@ h1,h2,h3,h4,h5,h6{font-weight:normal}
 
 /**后台radio样式***/
 .kl-checkbox,.kl-radio{margin:0px 5px 0px 10px;vertical-align:middle;}
-.defaultimg{background: url('../images/default.png') center center no-repeat;}
+.defaultimg{background:url('../images/default.png') center center no-repeat;}
+
+/**
+ * 跳转页面样式
+ */
+.system-message{padding:10px 10px 30px 10px;border:solid 1px #ccc;margin:0px auto;width:500px;box-shadow:2px 3px 8px #ccc;position:fixed;top:20%;left:50%;margin-left:-261px;}
+.system-message .system-title{text-align:center;font-size:25px;font-weight:bolder;}
+.sys-success,.sys-error{margin:0px auto;text-align:center;}
+.system-message  .icon i{font-size:70px;color:#39b313}
+.system-message  .text{font-size:20px;}
+.system-message .sys-error .icon i{color:#ff4040;}
+.system-message .jump{text-align:center;margin-top:30px;}
+@media screen and (max-width:900px){
+	.system-message{width:auto;position:static;margin:0px;box-shadow:none;border:none;}
+}
