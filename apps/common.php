@@ -645,10 +645,17 @@ function addon($name = '', $args = []) {
 	if (empty($name)) {
 		return null;
 	}
-	$name     = strtolower($name);
-	$name     = explode('/', $name);
-	$method   = $name[1];
-	$name     = $name[0];
+	$name   = strtolower($name);
+	$name   = explode('/', $name);
+	$method = $name[1];
+	$name   = $name[0];
+	//查询是否安装
+	$info = \think\Db::name('Addon')->where(['name' => $name, 'status' => 1])->find();
+
+	if (!$info) {
+		trace($name . ':插件未安装或被禁用,调用失败', 'error');
+		return false;
+	}
 	$is_admin = request()->module();
 	// dump($is_admin);
 	// die();
