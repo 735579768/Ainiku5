@@ -36,8 +36,14 @@ var wait = document.getElementById('wait'),href = document.getElementById('href'
 var interval = setInterval(function(){
     var time = --wait.innerHTML;
     if(time <= 0) {
-        location.href = href;
         clearInterval(interval);
+        if(location.href!==href){
+            location.href = href;
+        }else{
+            self.close();
+        }
+
+
     };
 }, 1000);
 })();
