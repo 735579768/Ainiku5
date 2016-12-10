@@ -12,8 +12,12 @@
 <body>
 {block name="center"}{/block}
 {include file="pub/footer" /}
+{insert name="jquery.resizableColumns.min" type="js" /}
 <script>
-parent&&parent.am.setChromeTabTitle(this,document.getElementsByTagName('title')[0].innerHTML);
+$(function() {
+	parent&&parent.am.setChromeTabTitle(this,document.getElementsByTagName('title')[0].innerHTML);
+	$("table").resizableColumns({ store: window.store});
+});
 </script>
 </body>
 </html>
