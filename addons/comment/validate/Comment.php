@@ -7,7 +7,7 @@ class Comment extends Validate {
 		'name'    => 'require|max:100',
 		'email'   => 'email',
 		'content' => 'require',
-		'url'     => 'url',
+		'url'     => 'require|url',
 
 		// 'url'   => 'alphaDash|max:25',
 		// 'url'   => 'unique:Menu',
@@ -21,7 +21,8 @@ class Comment extends Validate {
 		'name.require'    => '姓名不能为空',
 		'content.require' => '留言内容不能为空',
 		'email.email'     => '邮箱格式不正确',
-		'url.require'     => '地址格式不正确',
+		'url.require'     => '地址不能为空',
+		'url.url'         => '地址格式不正确',
 		// 'title.unique'        => '留言标题已经存在',
 		// 'category_id.require' => '请选择留言分类',
 		// 'category_id.gt'      => '请选择留言分类',

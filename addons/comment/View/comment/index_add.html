@@ -56,5 +56,13 @@ homeurl:{eq name="conf.url" value="1"}true{else /}false{/eq}
 function _after_func() {
   $('#verifyimg').click();
 }
+$(function(){
+  commentsobj.init(commentsconf);
+  commentsobj.initfocus();
+  //ank.loadhtml(commentsobj.conf.url, {}, , 'POST');
+  $.get(commentsobj.conf.url, function(da) {
+    $('#comments-list').append(da.data);
+  });
+});
 </script>
 </div>

@@ -31,7 +31,7 @@ if (!class_exists('\addons\comment\Comment')) {
 				]);
 				$info = $this->fetch('index_ajaxlist');
 				// dump(['status' => 1, 'data' => $info]);
-				$this->ajaxReturn(['status' => 1, 'data' => $info]);
+				return json(['status' => 1, 'data' => $info]);
 			}
 			die();
 		}
@@ -160,12 +160,12 @@ if (!class_exists('\addons\comment\Comment')) {
 			}
 		}
 
-		public function redirect($url, $params = array(), $delay = 0, $msg = '') {
+		public function reurl() {
 			$url = input('url');
-			empty($url) ? ($url = config('WEBDOMIN')) : ($url = ainiku_decrypt($url));
+			empty($url) ? ($url = config('WEBDOMIN')) : ($url = ank_decrypt($url));
 			$url = preg_replace('/http\:\/\//i', '', $url);
-			redirect('http://' . $url);
-			die('');
+			$this->redirect('http://' . $url);
+			// die('$url');
 		}
 
 	}

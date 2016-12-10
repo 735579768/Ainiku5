@@ -3,7 +3,7 @@
 <i class="toux"><img src="__STATIC__/images/toux.gif" width="42" height="42" /> </i>
 <dt>
 <span class="fl">
-<a class="nick-name" name="comments{$vo.comment_id}" rel="nofollow" target="_blank" href="{empty name="vo.url"}javascript:;{else /}{:url('Comment/redirect',['url'=>ank_encrypt($vo['url'])])}{/empty}">{$vo.name|default="匿名"}</a>
+<a class="nick-name" name="comments{$vo.comment_id}" rel="nofollow" target="_blank" href="{empty name="vo.url"}javascript:;{else /}{:url('Comment/reurl',['url'=>ank_encrypt($vo['url'])])}{/empty}">{$vo.name|default="匿名"}</a>
 <a href="javascript:;" class="huifu" onClick="commentsobj.huifuclick(this,{$vo.pid},{$vo.comment_id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>

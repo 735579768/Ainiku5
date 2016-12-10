@@ -186,8 +186,8 @@
         }
       }
       if (this.conf.homeurl) {
-        //if (!(/^http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
-        if (!(/^(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
+        if (!(/^http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
+          // if (!(/^(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
           ank.alert('请填入正确的网址!');
           return false;
         }
@@ -255,11 +255,4 @@
     }
 
   };
-  commentsobj.init(commentsconf);
-  commentsobj.initfocus();
-  //ank.loadhtml(commentsobj.conf.url, {}, , 'POST');
-  $.get(commentsobj.conf.url, function(da) {
-    $('#comments-list').append(da.data);
-  });
-
 }();

@@ -7,7 +7,7 @@ use think\Request;
  */
 class Error extends \think\Controller {
 	public function _empty() {
-		$this->index();
+		return $this->index();
 	}
 	public function index() {
 		//不存在的控制器就当成插件去调用
