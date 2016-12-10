@@ -21,7 +21,7 @@ trait File {
 				->where('file_id', 'in', $id)
 				->select();
 		}
-		$this->success('ok', '', $data);
+		return $this->success('ok', '', $data);
 	}
 	private function checksha($filepath = '') {
 		$fpath = $filepath;

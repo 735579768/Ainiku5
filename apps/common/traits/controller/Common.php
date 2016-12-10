@@ -54,6 +54,35 @@ trait Common {
 	protected function error($msg = '', $url = null, $data = '', $wait = 3, array $header = []) {
 		return parent::error($msg, $url, $data, $wait, $header);
 	}
+	protected function success($msg = '', $url = null, $data = '', $wait = 3, array $header = []) {
+		$code = 1;
+		if (is_numeric($msg)) {
+			$code = $msg;
+			$msg  = '';
+		}
+		if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
+			$url = $_SERVER["HTTP_REFERER"];
+		} elseif ('' !== $url) {
+			$url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : Url::build($url);
+		}
+		$result = [
+			'code' => $code,
+			'msg'  => $msg,
+			'data' => $data,
+			'url'  => $url,
+			'wait' => $wait,
+		];
+
+		$type = $this->getResponseType();
+		if ('html' == strtolower($type)) {
+			$result = \think\View::instance(\think\Config::get('template'), \think\Config::get('view_replace_str'))
+				->fetch(\think\Config::get('dispatch_success_tmpl'), $result);
+			$response = \think\Response::create($result, $type)->header($header);
+			throw new \think\exception\HttpResponseException($response);
+		} else {
+			return json($result);
+		}
+	}
 	/**
 	 * 分页类
 	 * @param  array  $conf [description]
