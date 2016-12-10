@@ -190,7 +190,6 @@
 			var closewest = $('#closeicon');
 			var rightside = $('#admin-right');
 			var leftw = leftside.outerWidth();
-			// debugger;
 			if (top.location === self.location) {
 				am.setClientParam();
 				$(window).resize(function(event) {
@@ -240,7 +239,7 @@
 				}
 			});
 			leftside.css('top', header.outerHeight());
-			rightside.css('marginTop', header.outerHeight());
+			// rightside.css('marginTop', header.outerHeight());
 			if (ank.readCookie('leftside') === '0') {
 				leftside.css({
 					left: '-' + leftw + 'px'
