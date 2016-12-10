@@ -378,7 +378,7 @@ function get_dir_size($dir) {
  */
 function create_folder($path) {
 	if (!is_dir($path)) {
-		return mkdir($path, 0777, true); //第三个参数为true即可以创建多极目录
+		return @mkdir($path, 0777, true); //第三个参数为true即可以创建多极目录
 	} else {
 		return true;
 	}
