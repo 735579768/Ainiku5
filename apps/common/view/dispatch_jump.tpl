@@ -18,8 +18,6 @@
             </div>
             <?php break;?>
             <?php case 0:?>
-            <h1>:(</h1>
-            <div class="sys-error"><?php echo(strip_tags($msg));?></div>
             <div class="sys-error">
                 <div class="icon"><i class="fa fa-times"></i></div>
                 <div class="text"><?php echo(strip_tags($msg));?></div>
