@@ -74,6 +74,7 @@
             return implode(', ', $result);
         }
     }
+    if(\think\App::$debug) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -283,10 +284,6 @@
     </style>
 </head>
 <body>
-    <div class="echo">
-        <?php echo $echo;?>
-    </div>
-    <?php if(\think\App::$debug) { ?>
     <div class="exception">
     <div class="message">
 
@@ -331,14 +328,7 @@
             </ol>
         </div>
     </div>
-    <?php } else { ?>
-    <div class="exception">
-
-            <div class="info"><h1><?php echo htmlentities($message); ?></h1></div>
-
-    </div>
     <?php } ?>
-
     <?php if(!empty($datas)){ ?>
     <div class="exception-var">
         <h2>Exception Datas</h2>
@@ -372,8 +362,7 @@
         </table>
         <?php } ?>
     </div>
-    <?php } ?>
-
+<?php } ?>
     <?php if(!empty($tables)){ ?>
     <div class="exception-var">
         <h2>Environment Variables</h2>
@@ -496,6 +485,50 @@
 
         })();
     </script>
-    <?php } ?>
+
 </body>
 </html>
+<?php
+ }else{
+//关闭调试后出错显示信息
+    ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>页面出错喽-500</title>
+    <link rel="stylesheet" media="screen" href="<?php echo STATIC_DIR; ?>/static/css/404.css" type="text/css" />
+</head>
+
+<body>
+    <div class="err-404">
+        <div class="objects">
+            <!-- text area -->
+            <div class="text-area rotate">
+                <p class="error">Page Error</p>
+                <p class="details">There was a problem
+                    <br />
+                    <br />The page you are looking for is Error</p>
+            </div>
+            <!-- text area -->
+            <!-- home page -->
+            <div class="homepage rotate">
+                <a href="#">Back to prev page</a>
+            </div>
+            <!-- home page -->
+        </div>
+        <!-- social-icons -->
+        <div class="social">
+            <ul class="social-icons">
+                <li><a href="javascript:;" onclick="window.history.go(-1);">返回上一页</a></li>
+            </ul>
+        </div>
+        <!-- social-icons -->
+    </div>
+</body>
+
+</html>
+
+<?php } ?>
