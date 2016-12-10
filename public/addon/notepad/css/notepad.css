@@ -1,0 +1,15 @@
+.notepad-wrap{position:fixed;right:0px;top:50px;background:#fff;width:300px;height:300px;z-index:99999;box-shadow:1px 1px 50px rgba(0,0,0,.3);display:none;}
+.notepad-wrap .n-title{height:30px;line-height:30px;padding-left:20px;font-size:14px;background:#ededed;}
+.notepad-wrap .notepad-list{padding:10px;position:relative;height:250px;overflow:auto;}
+.notepad-wrap .notepad-list tr{cursor:pointer;}
+.notepad-wrap .notepad-list tr td{border:none;}
+.notepad-wrap .notepad-list tr td span{display:block;height:25px;line-height:25px;}
+.notepad-wrap .notepad-list tr .fa-trash{visibility:hidden;color:#f00;font-size:14px;margin-left:10px;}
+.notepad-wrap .notepad-list tr:hover .fa-trash{visibility:visible;color:#f00;}
+.notepad-content{padding:10px;}
+.notepad-content textarea{border:none;width:300px;height:200px;}
+.notepad-content .textarea-wrap{margin-bottom:10px;}
+.notepad-page{position:absolute;left:0px;bottom:0px;width:100%;text-align:center;}
+.notepad-page a{}
+
+/*#notepad_ico{position: fixed; right: 0px; top: 30%;width: 60px; height: 40px;line-height: 40px; text-align: center;background: #fff; box-shadow: 2px 2px 5px #ccc;cursor: pointer; border:solid 1px #ccc;}*/

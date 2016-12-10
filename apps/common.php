@@ -645,15 +645,18 @@ function addon($name = '', $args = []) {
 	if (empty($name)) {
 		return null;
 	}
-	$name   = strtolower($name);
-	$name   = explode('/', $name);
-	$method = $name[1];
-	$name   = $name[0];
-
-	$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . '.php';
+	$name     = strtolower($name);
+	$name     = explode('/', $name);
+	$method   = $name[1];
+	$name     = $name[0];
+	$is_admin = request()->module();
+	// dump($is_admin);
+	// die();
+	$is_admin   = ($is_admin == 'admin') ? 'Admin' : '';
+	$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . $is_admin . '.php';
 	if (file_exists($addon_path)) {
 		include $addon_path;
-		$name = "\\addons\\{$name}\\" . ucfirst($name);
+		$name = "\\addons\\{$name}\\" . ucfirst($name) . $is_admin;
 		return call_user_func_array([new $name(), $method], $args);
 	} else {
 		$errstr = "插件不存在:{$name}";

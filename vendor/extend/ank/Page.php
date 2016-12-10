@@ -96,7 +96,7 @@ class Page {
 			$this->url = url($this->url, $this->parameter);
 			$suffix    = config('template.view_suffix');
 			$arr       = explode('.', $this->url);
-			if ($arr[count($arr) - 1] !== '.' . $suffix) {
+			if ($arr[count($arr) - 1] !== $suffix) {
 				$this->url .= '.' . $suffix;
 			}
 

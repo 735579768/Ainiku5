@@ -90,7 +90,7 @@ function get_category($id = '', $field = '') {
 		$info = \think\Db::name('Category')->where($map)->find();
 		\think\Cache::tag('category')->set('category' . $id, $info);
 	}
-	return $field ? (isset($info[$field]) ? $info[$field] : $info) : $info;
+	return $field ? (isset($info[$field]) ? $info[$field] : '--') : $info;
 }
 /**
  * 取表单信息
@@ -110,5 +110,25 @@ function get_form($id = '', $field = '') {
 		$info = \think\Db::name('Form')->where($map)->find();
 		\think\Cache::tag('form')->set('form' . $id, $info);
 	}
-	return $field ? (isset($info[$field]) ? $info[$field] : $info) : $info;
+	return $field ? (isset($info[$field]) ? $info[$field] : '--') : $info;
+}
+/**
+ * 取表单信息
+ * @param  string $id    id
+ * @param  string $field 字段
+ * @return [type]
+ */
+function get_user($id = '', $field = '') {
+	$map = [];
+	if (is_numeric($id)) {
+		$map['user_id'] = $id;
+	} else {
+		$map['username'] = $id;
+	}
+	$info = \think\Cache::tag('user')->get('user' . $id);
+	if (!$info || config('app_debug')) {
+		$info = \think\Db::name('User')->where($map)->find();
+		\think\Cache::tag('user')->set('user' . $id, $info);
+	}
+	return $field ? (isset($info[$field]) ? $info[$field] : '--') : $info;
 }

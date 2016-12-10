@@ -1,0 +1,19 @@
+<input name="p" id="cur_p" value="{$cur_p}" type="hidden" />
+<table width="100%">
+    {volist name="_list" id="vo"}
+    <tr id="notepad_{$vo.notepad_id}">
+        <td><span onclick="notepad.editNotepad('{:url('Notepad/edit',array('notepad_id'=>$vo['notepad_id']))}');">{$vo.content|msubstr=0,8}...</span></td>
+        <td class="center">{$vo.update_time|time_format} <i onclick="notepad.delNotepad('{:url('Notepad/delNotepad',array('notepad_id'=>$vo['notepad_id']))}');" class="fa fa-trash"></i></td>
+    </tr>
+    {/volist}
+</table>
+<div id="notepad-page" class="notepad-page page">
+    {$_page}
+</div>
+<script type="text/javascript">
+    $('#notepad-page a').click(function(event) {
+        notepad.nextPage($(this).attr('href'));
+        return false;
+    });
+</script>
+

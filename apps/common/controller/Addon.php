@@ -41,8 +41,12 @@ class Addon extends \think\Controller {
 		config(get_sys_config());
 
 		$module = request()->module();
+
 		if ($module == 'admin') {
-			$theme = config('admin_theme');
+			$uid = is_login();
+			$uid ? (defined('UID') or define('UID', $uid)) : redirect('Pub/login');
+			$this->uinfo = session('uinfo');
+			$theme       = config('admin_theme');
 		} else {
 			$theme = config('admin_index');
 		}

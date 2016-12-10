@@ -1,0 +1,23 @@
+<div class="btn-tool">
+    <a href="{:UP('Notepad/set')}" class="btn">设置</a>
+    <a href="{:UP('Notepad/lists')}" class="btn">列表</a>
+</div>
+<form action="{:UP('Test/tijiao')}" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="form-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
+                <input type="text" class="form-control input-large" name="title" value="{$info.title|default=''}">
+        </div>
+        <div class="form-group">
+            <label class="form-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+                <input type="text" class="form-control input-small" name="sort" value="{$info.sort|default=0}">
+        </div>
+        <div class="form-group">
+            <label class="form-label">链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+                    <input type="text" class="form-control input-large" name="url" value="{$info.url|default=''}">
+        </div>
+        <div class="form-group">
+        <label>
+            <button class="btn btn-primary btn-large ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-warning btn-large" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </label></div>
+    </form>

@@ -1,0 +1,32 @@
+{extend name="pub/base" /} {block name="center"}
+<div class="iframe-con">
+    <!--主标题-->
+    {include file="pub/main-title" /}
+    <!--按钮和搜索区域-->
+    <div class="tool-area cl">
+        <div class="btn-tool">
+            <a href="{:url('Notepad/set')}" class="btn">设置</a>
+            <a href="{:url('Notepad/lis')}" class="btn">列表</a>
+        </div>
+    </div>
+    <table width="100%">
+        <tr>
+            <th>ID</th>
+            <th>用户</th>
+            <th>内容</th>
+            <th width="200">创建时间</th>
+            <th width="200">更新时间</th>
+        </tr>
+        {volist name="_list" id="vo"}
+        <tr>
+            <td>{$vo.notepad_id}</td>
+            <td>{$vo.uid|get_user='username'}</td>
+            <td class="td-left">{$vo.content}</td>
+            <td class="td-time">{$vo.create_time|time_format}</td>
+            <td class="td-time">{$vo.update_time|time_format}</td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="page">{$_page}</div>
+</div>
+{/block}
