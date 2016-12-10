@@ -30,8 +30,8 @@ class Article extends Base {
 		$map['a.status'] = $status;
 		//排序设置
 		$order = 'a.update_time desc,article_id desc';
-		// $listorder && ($order = ' a.' . $listorder . ',' . $order);
-		$listorder && ($order = $listorder . ',' . $order);
+		$listorder && ($order = ' a.' . $listorder . ',' . $order);
+		// $listorder && ($order = $listorder . ',' . $order);
 
 		$this->pages([
 			'table' => 'Article',
