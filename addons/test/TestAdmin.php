@@ -17,6 +17,7 @@ class TestAdmin extends \app\common\controller\Addon {
 		reg_js('jquery-1.9.1.min,ank');
 		echo $this->fetch();
 	}
+
 	public function set() {
 		if (request()->isPost()) {
 			$this->saveParam();

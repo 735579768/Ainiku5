@@ -647,7 +647,7 @@ function addon($name = '', $args = []) {
 	}
 	$name   = strtolower($name);
 	$name   = explode('/', $name);
-	$method = $name[1];
+	$method = isset($name[1]) ? $name[1] : 'index';
 	$name   = $name[0];
 	//查询是否安装
 	$info = \think\Db::name('Addon')->where(['name' => $name, 'status' => 1])->find();

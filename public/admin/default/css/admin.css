@@ -1,7 +1,7 @@
 html,body{width:100%;height:100%;font-size:12px;}
 #admin-header{position:fixed;width:100%;height:50px;left:0px;top:0px;box-shadow:2px 3px 20px #ccc;}
 #admin-left{position:fixed;width:126px;height:100%;left:0px;top:54px;overflow:hidden;overflow-y:auto;}
-#admin-right{margin:0px 0px 0px 176px;height:100%;overflow: hidden;}
+#admin-right{margin:0px 0px 0px 176px;height:100%;overflow:hidden;}
 #closeicon{display:inline-block;background:url('../images/icon_arrow.png')  no-repeat 0 0!important;width:17px;height:61px;position:fixed;top:50%;left:176px;margin-top:-30px;cursor:pointer;z-index:9999;}
 #closeicon:hover{background-position:right 0!important;}
 #closeicon.open{background-position:0 -61px!important;}
@@ -135,7 +135,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .cate-tree .c-show .fa{vertical-align:middle;}
 .cate-tree .c-h-title,.cate-tree .c-title{display:block;float:none;text-align:left;margin-left:200px;}
 .cate-tree .c-title .fa{margin-top:15px;vertical-align:top;cursor:pointer;}
-.cate-tree .c-title input{width:120px;}
+.cate-tree .c-title input{width:120px;vertical-align:top;margin-top:4px;}
 .cate-tree .text-field{display:inline-block;}
 .cate-tree .text-field .text-title{display:inline-block;padding:0px 5px 0px 10px;}
 .cate-tree .c-h-action,.cate-tree .c-action{position:absolute;right:10px;top:0px;}
@@ -225,6 +225,7 @@ input[type="radio"]:disabled:after,input[type="checkbox"]:disabled:after{color:#
 .iframe-con .widget td,.widget td{padding:5px 10px;text-align:left;}
 .iframe-con .list-order{color:#ccc;margin-left:5px;cursor:pointer;}
 .iframe-con .td-title{display:block;max-width:350px;overflow:hidden;text-overflow:ellipsis;}
+
 /**
  * 显示缩略图
  * @type {[type]}

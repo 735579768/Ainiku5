@@ -1,0 +1,12 @@
+<script type="text/javascript">
+var qqlogin={
+    open:function(){
+        var uri= "{:url('qconnect/qcon')}";
+        window.open(uri, 'oauth2Login_10859' ,'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes');
+    },
+    success:function(){
+        window.location.reload();
+    }
+};
+</script>
+<a onclick="qqlogin.open();" href="javascript:;" title="QQ登陆"  ><i class="fa fa-qq"></i>登录</a>

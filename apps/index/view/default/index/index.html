@@ -1,5 +1,6 @@
 {extend name="pub/base" /}
 {block name="body"}
+{:addon('qconnect')}
 <ul>
 {volist name=":get_article_list()" id="vo"}
 	<li><a href="{:url('article/detail',['article_id'=>$vo['article_id']])}">{$vo.title}</a></li>
