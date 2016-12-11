@@ -16,7 +16,7 @@ class qconnect extends \app\common\controller\Addon {
 	}
 	public function qcon() {
 		$data = $this->getParam();
-		dump($data);
+		// dump($data);
 		$callurl = $this->getParam('callback') . '/' . url('qconnect/qcallfunc');
 		define('Q_CALLBACK', urlencode($callurl));
 		include __DIR__ . '/api/qqlogin.php';
