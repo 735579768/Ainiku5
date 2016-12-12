@@ -10,21 +10,19 @@ class qconnect extends \app\common\controller\Addon {
 	}
 	public function __construct() {
 		parent::__construct();
-		// $data = $this->getParam();
-		define('Q_APPID', $this->getParam('appid'));
-		define('Q_APPKEY', $this->getParam('appkey'));
+		$data    = $this->getParam();
+		$callurl = $data['callback'] . url('qconnect/qcallfunc');
+		define('Q_APPID', $data['appid']);
+		define('Q_APPKEY', $data['appkey']);
+		define('Q_CALLBACK', urlencode($callurl));
 	}
 	public function qcon() {
-		$data = $this->getParam();
-		// dump($data);
-		$callurl = $this->getParam('callback') . url('qconnect/qcallfunc');
-		define('Q_CALLBACK', urlencode($callurl));
 		include __DIR__ . '/api/qqlogin.php';
 	}
 	//登陆回调地址
 	function qcallfunc() {
-		$data = $this->getParam();
-		define('Q_CALLBACK', $data['callback'] . url('qconnect/qcallfunc'));
+		// $data = $this->getParam();
+		// define('Q_CALLBACK', $data['callback'] . url('qconnect/qcallfunc'));
 		include __DIR__ . '/api/qqcallfunc.php';
 		if (session('openid') != '') {
 			$uid = $this->QQregister(session('openid'));
