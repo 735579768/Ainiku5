@@ -34,7 +34,7 @@ class Addon extends Base {
 					'pid'         => 2,
 					'title'       => $config['title'],
 					'url'         => $name . '/set',
-					'group'       => '插件管理',
+					'group'       => '已装扩展',
 					'status'      => 1,
 					'create_time' => time(),
 					'update_time' => time(),

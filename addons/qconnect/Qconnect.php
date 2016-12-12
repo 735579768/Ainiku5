@@ -4,7 +4,7 @@ namespace addons\qconnect;
 /**
  * 除啦后台默认访问类
  */
-class qconnect extends \app\common\controller\Addon {
+class Qconnect extends \app\common\controller\Addon {
 	public function index() {
 		echo $this->fetch('home_index');
 	}
