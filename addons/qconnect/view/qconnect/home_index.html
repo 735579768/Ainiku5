@@ -4,8 +4,9 @@ var qqlogin={
         var uri= "{:url('qconnect/qcon')}";
         window.open(uri, 'oauth2Login_10859' ,'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes');
     },
-    success:function(){
-        window.location.reload();
+    success:function(data){
+    	console.log(data);
+        // window.location.reload();
     }
 };
 </script>

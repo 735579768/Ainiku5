@@ -14,7 +14,7 @@ class qconnect extends \app\common\controller\Addon {
 		$callurl = $data['callback'] . url('qconnect/qcallfunc');
 		define('Q_APPID', $data['appid']);
 		define('Q_APPKEY', $data['appkey']);
-		define('Q_CALLBACK', urlencode($callurl));
+		define('Q_CALLBACK', $callurl);
 	}
 	public function qcon() {
 		include __DIR__ . '/api/qqlogin.php';
@@ -31,7 +31,8 @@ class qconnect extends \app\common\controller\Addon {
 				if (0 < $uid) {
 					//UC登录成功
 					//redirect(U('/'));
-					echo '<script>window.opener.qqlogin.success();window.close();</script>';
+					$data = json_encode(session('uinfo'));
+					echo '<script>window.opener.qqlogin.success(' . $data . ');window.close();</script>';
 					die();
 				}
 			} else {
@@ -43,30 +44,43 @@ class qconnect extends \app\common\controller\Addon {
 		}
 	}
 	public function QQregister($openid) {
-		$qqinfo                = session('qqinfo');
+		$uinfo                 = session('uinfo');
 		$data['openid']        = $openid;
 		$data['user_group_id'] = 2;
 		//$data['account']         = create_account();
-		$data['nickname'] = $qqinfo['nickname'];
+		$data['nickname'] = $uinfo['qqname'];
 
 		$mem = \think\Db::name('User');
-		$re  = $mem->where("openid='$openid'")->find();
+		$re  = $mem->field('user_id')->where("openid='$openid'")->find();
 		if ($re) {
 			//保存或更新qq的信息到数据库
-			$mem->where(['user_id' => $re['user_id']])->save($data);
+			$mem->where(['user_id' => $re['user_id']])->update($data);
 
 			//已经是登陆用户
 			return $re['user_id'];
 		} else {
 			/* 添加用户 */
 			$data['last_login_ip'] = get_client_ip();
-			$data['account']       = create_account();
+			$data['account']       = $this->create_account();
 			$data['username']      = $data['account'];
 			//生成用户名
 			$uid = $mem->insertGetId($data);
 			return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
 		}
 
+	}
+	/**
+	 *生成账号
+	 **/
+	function create_account() {
+		while (true) {
+			$num            = rand(10000000, 99999999);
+			$map['account'] = $num;
+			$info           = \think\Db::name('User')->where($map)->select();
+			if (empty($info)) {
+				return $num;
+			}
+		}
 	}
 	/**
 	 * 用户登录认证
@@ -99,7 +113,7 @@ class qconnect extends \app\common\controller\Addon {
 
 		/* 获取用户数据 */
 		$user = \think\Db::name('User')->where($map)->find();
-		if (!empty($user) && $user['status'] == '1') {
+		if ($user && $user['status'] == '1') {
 			/* 验证用户密码 */
 			/* 记录登录SESSION和COOKIES */
 			$auth = array(
@@ -124,10 +138,10 @@ class qconnect extends \app\common\controller\Addon {
 	 */
 	protected function updateLogin($uid) {
 		$data = array(
-			'last_login_time' => NOW_TIME,
+			'last_login_time' => time(),
 			'last_login_ip'   => get_client_ip(),
-			'create_time'     => NOW_TIME,
-			'update_time'     => NOW_TIME,
+			'create_time'     => time(),
+			'update_time'     => time(),
 		);
 		\think\Db::name('User')->where(['user_id' => $uid])->update($data);
 	}

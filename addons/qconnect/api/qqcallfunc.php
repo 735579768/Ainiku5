@@ -1,5 +1,4 @@
 <?php
-session_start();
 /* PHP SDK
  * @version 2.0.0
  * @author connect@qq.com
@@ -18,7 +17,8 @@ $uinfo = session('uinfo');
 session('accesskey', $acs);
 session('openid', $oid);
 //$qqinfo=$qc->get_user_info();
-if (is_array($uinfo)) {
-	$uinfo = array_merge($uinfo, ['qqimg' => $qinfo['figureurl'], 'qqname' => $qinfo['nickname'], 'qinfo' => $qinfo]);
+if (!is_array($uinfo)) {
+	$uinfo = [];
 }
+$uinfo = array_merge($uinfo, ['qqimg' => $qinfo['figureurl'], 'qqname' => $qinfo['nickname'], 'qinfo' => $qinfo]);
 session('uinfo', $uinfo);

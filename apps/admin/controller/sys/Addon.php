@@ -40,6 +40,7 @@ class Addon extends Base {
 					'update_time' => time(),
 				];
 				$menu_id = \think\Db::name('Menu')->insertGetId($data);
+				\think\Cache::clear('menu');
 				// $menu_id = 22;
 				//保存插件信息到数据库
 				$data = [

@@ -22,11 +22,11 @@ class Recorder {
 		if (empty($this->inc)) {
 			$this->error->showError("20001");
 		}
-
-		if (empty($_SESSION['QC_userData'])) {
+		$userdata = session('QC_userData');
+		if (empty($userdata)) {
 			self::$data = array();
 		} else {
-			self::$data = $_SESSION['QC_userData'];
+			self::$data = $userdata;
 		}
 	}
 
@@ -55,6 +55,6 @@ class Recorder {
 	}
 
 	function __destruct() {
-		$_SESSION['QC_userData'] = self::$data;
+		session('QC_userData', self::$data);
 	}
 }
