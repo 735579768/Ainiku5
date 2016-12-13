@@ -1,9 +1,10 @@
 {extend name="pub/base" /}
 {block name="body"}
 {:addon('qconnect')}
+<a href="{:url('alipay/dopay')}" target="_blank">去支付</a>
 <ul>
 {volist name=":get_article_list()" id="vo"}
-	<li><a href="{:url('article/detail',['article_id'=>$vo['article_id']])}">{$vo.title}</a></li>
+	<li><a href="{:url('/index/article/detail',['article_id'=>$vo['article_id']])}">{$vo.title}</a></li>
 {/volist}
 </ul>
 {:addon('comment/add')}

@@ -7,11 +7,11 @@
         <div class="btn-tool">
         </div>
     </div>
-    <form class="autosubmit" action="{:url('qconnect/set')}" method="post">
+    <form class="autosubmit" action="{:url('')}" method="post">
         {:get_form_str($formarr,$data)}
         <div class="form-group cl center">
             <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
-确定保存<input type="hidden" name="name" value="test" />
+确定保存<input type="hidden" name="name" value="{$addonname}" />
 </a>
         </div>
     </form>

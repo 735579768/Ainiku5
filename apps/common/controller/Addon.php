@@ -20,19 +20,24 @@ class Addon extends \think\Controller {
 	// Request实例
 	protected $request;
 	public function __construct() {
-		$name            = get_class($this);
-		$name            = explode('\\', $name);
-		$name            = strtolower($name[count($name) - 1]);
-		$name            = str_replace('admin', '', $name);
-		$this->addonName = $name;
+		$this->getAddonName();
 
 		$conf           = \think\Config::get('template');
 		$controllerName = request()->controller();
 
-		$conf['view_path'] = SITE_PATH . '/addons/' . $name . '/view/';
+		$conf['view_path'] = SITE_PATH . '/addons/' . $this->addonName . '/view/';
 		$this->view        = new \think\View($conf, \think\Config::get('view_replace_str'));
 		// 控制器初始化
 		$this->_initialize();
+		$this->assign('addonname', $this->addonName);
+	}
+	private function getAddonName() {
+		$name = get_class($this);
+		$name = explode('\\', $name);
+		$name = strtolower($name[count($name) - 1]);
+		$name = str_replace('admin', '', $name);
+
+		$this->addonName = $name;
 	}
 	// 初始化
 	protected function _initialize() {

@@ -1,39 +1,39 @@
 <?php
-if (!defined("ACCESS_ROOT")) {
-	die("Invalid access");
-}
 class Pay {
-	public function __construct() {
-		include __DIR__ . '/api/core.php';
-		include __DIR__ . '/api/md5.php';
-		include __DIR__ . '/api/notify.php';
-		include __DIR__ . '/api/submit.php';
+	private $config = [];
+	public function __construct($conf) {
+		$this->config = $conf;
+		include __DIR__ . '/core.php';
+		include __DIR__ . '/md5.php';
+		include __DIR__ . '/notify.php';
+		include __DIR__ . '/submit.php';
 	}
 	//支付示例功能
 	public function testpay() {
 		$this->display();
 	}
-	public function dopay($conf = array()) {
-		$paytype = trim($conf['api'][1]);
+	public function dopay() {
+		$paytype = trim($this->config['api']);
 		if ($paytype === 'shuang') {
 			//双接口
-			return $this->doShuangPay($conf);
+			return $this->doShuangPay();
 		} else if ($paytype === 'danbao') {
 			//担保交易
-			return $this->doTradePay($conf);
+			return $this->doTradePay();
 		} else if ($paytype === 'jishi') {
 			//即时到账
-			return $this->doDirectPay($conf);
+			return $this->doDirectPay();
 		} else if ($paytype === 'bank') {
 			//支付宝网银
-			return $this->doBankPay($conf);
+			return $this->doBankPay();
 		} else {
 			return 'alipay error';
 		}
 
 	}
 	/********************担保交易***************************/
-	public function doTradePay($conf = array()) {
+	public function doTradePay() {
+		$conf       = $this->config;
 		$alipayconf = array(
 			//必填
 			//'sellerid'=>C('ALIPAYSAFEID'),//合作身份者pid
@@ -129,20 +129,21 @@ class Pay {
 	}
 	/********************即时到账***************************/
 	function doDirectPay($conf = array()) {
+		$conf       = $this->config;
 		$alipayconf = array(
 			//必填
 			//'sellerid'=>C('ALIPAYSAFEID'),//合作身份者pid
 			//'sellerkey'=>C('ALIPAYVERIFY'),//安全检验码
 			//'selleruname'=>C('ALIPAYUNAME'),//收款账号
 
-			'order'      => $order, //商户订单号
-			'ordername'  => $ordername, //订单名称
-			'money'      => $money, //金额
+			'order'      => '', //商户订单号
+			'ordername'  => '', //订单名称
+			'money'      => '', //金额
 			//必填
 
 			//选填
-			'orderdescr' => $orderdescr, //订单描述
-			'goodsurl'   => $goodsurl, //订单详情地址
+			'orderdescr' => '', //订单描述
+			'goodsurl'   => '', //订单详情地址
 			//选填
 
 		);
@@ -173,7 +174,7 @@ class Pay {
 		//必填
 		$show_url = $alipayconf['orderdescr']; //商品展示地址
 
-//构造要请求的参数数组，无需改动
+		//构造要请求的参数数组，无需改动
 		$parameter = array(
 			"service"           => "create_direct_pay_by_user",
 			"partner"           => trim($alipay_config['partner']),
@@ -191,7 +192,7 @@ class Pay {
 			"_input_charset"    => trim(strtolower($alipay_config['input_charset'])),
 		);
 
-//建立请求
+		//建立请求
 		$alipaySubmit = new \AlipaySubmit($alipay_config);
 		$html_text    = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
 		return $html_text;
@@ -285,15 +286,16 @@ class Pay {
 			"_input_charset"    => trim(strtolower($alipay_config['input_charset'])),
 		);
 
-//建立请求
+		//建立请求
 		$alipaySubmit = new \AlipaySubmit($alipay_config);
 		$html_text    = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
 		return $html_text;
 
 	}
 	//支付宝网银
-	function doBankPay($conf) {
-/**************************请求参数**************************/
+	function doBankPay() {
+		$conf = $this->config;
+		/**************************请求参数**************************/
 
 		//支付类型
 		$payment_type = "1";
@@ -325,7 +327,7 @@ class Pay {
 		$paymethod = "bankPay";
 		//必填
 		//默认网银
-		$defaultbank = $conf['api'][2];
+		$defaultbank = $conf['api'];
 		//必填，银行简码请参考接口技术文档
 
 		//商品展示地址
