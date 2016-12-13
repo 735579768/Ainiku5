@@ -94,6 +94,7 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		$color = config('shuiyin_text_color');
 
 		empty($color) && ($color = '#000000');
+		$color = '#' . trim($color, '#');
 		// $color     = hex_torgb($color);
 		$font_size = intval(config('shuiyin_text_size'));
 		//使用验证码的随机字体
