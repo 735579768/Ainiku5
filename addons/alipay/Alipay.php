@@ -18,68 +18,81 @@ class Alipay extends \app\common\controller\Addon {
 		die();
 	}
 	//实现支付功能
-	public function dopay($money = 0.01, $order = '201612130123654', $ordername = 'ordername', $aliarr = '') {
+	public function dopay($option = []) {
+		$conf = [
+			'money'      => 0.01, //单位是元
+			'ordersn'    => '201612130123654',
+			'ordername'  => '测试订单',
+			'orderdescr' => '没有描述',
+		];
+		//取插件配置参数
+		$conf = array_merge($conf, $option, $this->getParam());
 
-		empty($money) && $money         = doubleval(input('money'));
-		empty($order) && $order         = input('order');
-		empty($ordername) && $ordername = input('ordername');
-		//$money=100;
-		//$order='1512051222437';
-		//$ordername='1512051222437';
-		if (empty($order)) {
-			$this->error('请输入单号');
+		$conf['money'] = doubleval($conf['money']);
+
+		if (empty($conf['ordersn'])) {
+			$this->error('请输入订单号');
 		}
-		if (empty($ordername)) {
-			$this->error('请输入单号名称');
+		if (empty($conf['ordername'])) {
+			$this->error('请输入订单名称');
 		}
-		if (empty($money) || !is_numeric($money) || $money < 0) {
+		if (empty($conf['money']) || $conf['money'] <= 0) {
 			$this->error('输入的金额不合法请重新输入');
 		}
-		//取插件配置参数
-		$conf       = $this->getParam();
-		$alipayconf = array(
-			//必填
+
+		if (!$conf['alipaysafeid']
+			|| !$conf['alipayverify']
+			|| !$conf['alipayuname']
+			|| !$conf['return_url']
+			|| !$conf['notify_url']
+			|| !$conf['api']) {
+			$this->error('请先配置好支付宝支付信息!');
+		}
+		$alipayconf = [ //必填
 			'sellerid'    => $conf['alipaysafeid'], //合作身份者pid
 			'sellerkey'   => $conf['alipayverify'], //安全检验码
 			'selleruname' => $conf['alipayuname'], //收款账号
 
-			'order'       => $order, //单号
-			'ordername'   => $ordername,
-			'orderdescr'  => '',
-			'money'       => $money, //交易金额
+			'order'       => $conf['ordersn'], //单号
+			'ordername'   => $conf['ordername'],
+			'orderdescr'  => $conf['orderdescr'],
+			'money'       => $conf['money'], //交易金额
 			'return_url'  => $conf['return_url'],
 			'notify_url'  => $conf['notify_url'],
 			//必填
-		);
+		];
 		include __DIR__ . '/api/Pay.php';
-		$alipayconf = array_merge($alipayconf, (array) $conf);
+		$alipayconf = array_merge($alipayconf, $conf);
 		$alipay     = new \Pay($alipayconf);
 		return $alipay->dopay();
 
 	}
 	private function yanzheng($type = 1) {
 		//取插件配置参数
-		$conf                               = $this->getParam();
-		$alipay_config['partner']           = $conf['alipaysafeid'];
-		$alipay_config['seller_id']         = $conf['alipayuname'];
-		$alipay_config['key']               = $conf['alipayverify'];
-		$alipay_config['notify_url']        = $conf['notify_url'];
-		$alipay_config['return_url']        = $conf['return_url'];
-		$alipay_config['sign_type']         = strtoupper('MD5');
-		$alipay_config['input_charset']     = strtolower('utf-8');
-		$alipay_config['cacert']            = __DIR__ . '/api/cacert.pem';
-		$alipay_config['transport']         = 'http';
-		$alipay_config['payment_type']      = "1";
-		$alipay_config['service']           = "create_direct_pay_by_user";
-		$alipay_config['anti_phishing_key'] = '';
+		$conf          = $this->getParam();
+		$alipay_config = [
+			'partner'           => $conf['alipaysafeid'],
+			'seller_id'         => $conf['alipayuname'],
+			'key'               => $conf['alipayverify'],
+			'notify_url'        => $conf['notify_url'],
+			'return_url'        => $conf['return_url'],
+			'sign_type'         => strtoupper('MD5'),
+			'input_charset'     => strtolower('utf-8'),
+			'cacert'            => __DIR__ . '/api/cacert.pem',
+			'transport'         => 'http',
+			'payment_type'      => "1",
+			'service'           => "create_direct_pay_by_user",
+			'anti_phishing_key' => '',
+			'exter_invoke_ip'   => '',
+		];
 
-// 客户端的IP地址 非局域网的外网IP地址，如：221.0.0.1
-		$alipay_config['exter_invoke_ip'] = "";
+// // 客户端的IP地址 非局域网的外网IP地址，如：221.0.0.1
+		// 		$alipay_config[] = "";
 		//计算得出通知验证结果
-		import('Ainiku.Alipay.core');
-		import('Ainiku.Alipay.md5');
-		import('Ainiku.Alipay.notify');
-		import('Ainiku.Alipay.submit');
+		include __DIR__ . '/api/core.php';
+		include __DIR__ . '/api/md5.php';
+		include __DIR__ . '/api/notify.php';
+		include __DIR__ . '/api/submit.php';
 		$alipayNotify = new \AlipayNotify($alipay_config);
 		if ($type == 1) {
 			return $alipayNotify->verifyReturn();
@@ -98,18 +111,18 @@ class Alipay extends \app\common\controller\Addon {
 			//$money = input('post.price', 0, 'floatval');
 
 			$data = array(
-				'status'   => 1,
+				'code'     => 1,
 				'pay_type' => '支付宝',
-				'str'      => '验签成功',
+				'msg'      => '验签成功',
 				'money'    => $money,
 				'order_sn' => $order_sn,
 			);
 			return $data;
 		} else {
 			return array(
-				'status'   => 0,
+				'code'     => 0,
 				'pay_type' => '支付宝',
-				'str'      => '验签失败',
+				'msg'      => '验签失败',
 			);
 		}
 	}
@@ -119,19 +132,15 @@ class Alipay extends \app\common\controller\Addon {
 			$order_sn     = input('out_trade_no'); //商户订单号
 			$trade_no     = input('trade_no'); //支付宝交易号
 			$trade_status = input('trade_status'); //交易状态//各个状态请查看api或插件下面的示例处理函数
-			if ($trade_status == 'TRADE_SUCCESS' || $trade_status == 'TRADE_FINISHED' || $trade_status == 'WAIT_SELLER_SEND_GOODS') {
-/*				//设置为已经支付
-$info = M('Order')->where("order_sn=$order_sn")->save(array(
-'pay_time'     => NOW_TIME,
-'pay_type'     => '支付宝',
-'pay_trade_no' => $trade_no,
-'order_status' => 2,
-));*/
+			if ($trade_status == 'TRADE_SUCCESS'
+				|| $trade_status == 'TRADE_FINISHED'
+				|| $trade_status == 'WAIT_SELLER_SEND_GOODS') {
+
 				$money = input('post.total_fee', 0, 'floatval');
 				//$money = input('post.price', 0, 'floatval');
 				return array(
-					'status'   => 1,
-					'str'      => '验签成功',
+					'code'     => 1,
+					'msg'      => '验签成功',
 					'pay_type' => '支付宝',
 					'money'    => $money,
 					'order_sn' => $order_sn,
@@ -140,9 +149,9 @@ $info = M('Order')->where("order_sn=$order_sn")->save(array(
 			}
 		} else {
 			return array(
-				'status'   => 0,
+				'code'     => 0,
 				'pay_type' => '支付宝',
-				'str'      => '验签失败',
+				'msg'      => '验签失败',
 			);
 		}
 	}
