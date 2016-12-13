@@ -1,45 +1,39 @@
 {volist name="_list" id="vo"}
 <dl id="comments-{$vo.comment_id}" class="top-huifu">
-<i class="toux"><img src="__STATIC__/images/toux.gif" width="42" height="42" /> </i>
-<dt>
-<span class="fl">
+    <i class="toux"><img src="__STATIC__/images/toux.gif" width="42" height="42" /> </i>
+    <dt>
+        <span class="fl">
 <a class="nick-name" name="comments{$vo.comment_id}" rel="nofollow" target="_blank" href="{empty name="vo.url"}javascript:;{else /}{:url('Comment/reurl',['url'=>ank_encrypt($vo['url'])])}{/empty}">{$vo.name|default="匿名"}</a>
 <a href="javascript:;" class="huifu" onClick="commentsobj.huifuclick(this,{$vo.pid},{$vo.comment_id});">回复</a>
 </span>
-<span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
-<dd>
-<div class="comments-con">{$vo.content}</div>
-<div class="huifu-list" id="comments-huifulist-{$vo.comment_id}">
-{:addon('Comment/gettree',array($vo['comment_id']))}
-</div>
-
-</dd>
+        <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
+    <dd>
+        <div class="comments-con">{$vo.content}</div>
+        <div class="huifu-list" id="comments-huifulist-{$vo.comment_id}">
+            {:addon('Comment/gettree',array($vo['comment_id']))}
+        </div>
+    </dd>
 </dl>
-{/volist}
-{notempty name="_page"}
+{/volist} {notempty name="_page"}
 <div id="commentspages" class="page">{$_page}</div>
 <script>
-$(function(){
-$('#commentspages a').click(function(e) {
-	commentsobj.cancelhuifu();
-	commentsobj.initfocus();
-	var uri=$(this).attr('data-url');
-	ank.ajax({
-		type:'post',
-		url:uri,
-		success:function(da){
-			$('#comments-list').html(da.data);
-			}
-		});
-    return false;
-});
+$(function() {
+    $('#commentspages a').click(function(e) {
+        commentsobj.cancelhuifu();
+        commentsobj.initfocus();
+        var uri = $(this).attr('data-url');
+        ank.ajax({
+            type: 'post',
+            url: uri,
+            success: function(da) {
+                $('#comments-list').html(da.data);
+            }
+        });
+        return false;
+    });
 });
 </script>
 {/notempty}
-<script>commentsobj.initCheckMore();</script>
-
-
-
-
-
-
+<script>
+commentsobj.initCheckMore();
+</script>

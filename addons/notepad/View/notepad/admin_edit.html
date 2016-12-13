@@ -6,10 +6,8 @@
         <input name="notepad_id" value="{$info.notepad_id}" type="hidden" />
         <div class="center">
             {empty name="info.notepad_id"}
-                <a href="javascript:;" class="btn" onclick="notepad.saveNotepad(this);">添加</a>
-                {else /}
-                <a href="javascript:;" class="btn" onclick="notepad.saveNotepad(this);">保存</a>
-            {/empty}
+            <a href="javascript:;" class="btn" onclick="notepad.saveNotepad(this);">添加</a> {else /}
+            <a href="javascript:;" class="btn" onclick="notepad.saveNotepad(this);">保存</a> {/empty}
         </div>
     </form>
 </div>

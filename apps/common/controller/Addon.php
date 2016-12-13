@@ -27,9 +27,13 @@ class Addon extends \think\Controller {
 
 		$conf['view_path'] = SITE_PATH . '/addons/' . $this->addonName . '/view/';
 		$this->view        = new \think\View($conf, \think\Config::get('view_replace_str'));
+		// $this->view->engine->layout(APP_PATH . '/common/view/addon_layout');
 		// 控制器初始化
 		$this->_initialize();
-		$this->assign('addonname', $this->addonName);
+		$this->assign([
+			'addonname'  => $this->addonName,
+			'addontitle' => $this->config['title'],
+		]);
 	}
 	private function getAddonName() {
 		$name = get_class($this);

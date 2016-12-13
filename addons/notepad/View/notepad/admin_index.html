@@ -1,24 +1,21 @@
 <div id="notepad_wrap" class="notepad-wrap">
     <div class="n-title">记事本
-
         <a href="javascript:;" onclick="notepad.hide();" class="fa fa-minus fr" style="margin: 8px 10px 0px 0px;"></a>
         <a href="javascript:;" onclick="notepad.editNotepad('{:url('Notepad/edit')}');" class="fa fa-plus fr" style="margin: 8px 10px 0px 0px;"></a>
         <a href="javascript:;" onclick="am.addIframe('记事本','{:url('Notepad/set')}');" class="fa fa-cog fr" style="margin: 8px 10px 0px 0px;"></a>
     </div>
     <div id="notepad-list" class="notepad-list">
-
     </div>
 </div>
 <script type="text/javascript">
-$(function(){
-  $.get("{:url('notepad/ajaxlist',['p'=>1])}",function(data){
-    $('#notepad-list').html(data.data);
-    $('#notepad-page a').click(function(event) {
-        notepad.nextPage($(this).attr('href'));
-        return false;
+$(function() {
+    $.get("{:url('notepad/ajaxlist',['p'=>1])}", function(data) {
+        $('#notepad-list').html(data.data);
+        $('#notepad-page a').click(function(event) {
+            notepad.nextPage($(this).attr('href'));
+            return false;
+        });
     });
-  });
 
 });
-
 </script>

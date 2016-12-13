@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{$addontitle}_扩展管理</title> {insert name='reset,common,font-awesome.min,admin,admin-defaultcolor' /} {insert name="jquery-1.9.1.min,ank,am" type="js" /} {layer /}
+</head>
+
+<body>
+    <div class="iframe-con">
+        <!--主标题-->
+        <div class="main-title">
+            <i class="fa fa-bars"></i>
+            <span class="">{$addontitle}>{$meta_title}</span>
+            <b>></b>
+            <span onclick="window.history.go(-1);">返回</span>
+        </div>
+        {block name="center"}
+        <!--按钮和搜索区域-->
+        <div class="tool-area cl">
+            <div class="btn-tool">
+            </div>
+        </div>
+        <form class="autosubmit" action="{:url('')}" method="post">
+            {:get_form_str($formarr,$data)}
+            <div class="form-group cl center">
+                <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
+确定保存<input type="hidden" name="name" value="{$addonname}" />
+</a>
+            </div>
+        </form>
+        {/block}
+    </div>
+</body>
+
+</html>
