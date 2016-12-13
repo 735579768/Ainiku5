@@ -8,10 +8,22 @@ class ExcelAdmin extends \app\common\controller\Addon {
 	protected $config = array(
 		'version' => '1.0.0',
 		'author'  => 'qiaokeli',
-		'title'   => 'Excel表格导出',
+		'title'   => 'Excel表格',
 		'descr'   => 'excel表格处理',
 		'param'   => []
 	);
+	public function __construct() {
+		parent::__construct();
+		include __DIR__ . '/api/Excel.php';
+	}
+	public function __call($name, $args) {
+		$excel = new \Excel();
+		if (method_exists($excel, $name)) {
+			return call_user_func_array([$excel, $name], $args);
+		} else {
+			return false;
+		}
+	}
 	public function set() {
 		if (request()->isPost()) {
 			$this->saveParam();
@@ -55,7 +67,7 @@ class ExcelAdmin extends \app\common\controller\Addon {
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch();
+			echo $this->fetch('admin_note');
 		}
 	}
 }
