@@ -259,7 +259,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['color']++;
 				$tem_input = <<<eot
-<input name="{$name}" type="text" class="selectcolor form-control input-small" value="{$set_replace_value}" />
+<input name="{$name}" type="text" class="jscolor form-control input-small" value="{$set_replace_value}" />
 eot;
 				break;
 			case 'bool':
@@ -268,7 +268,7 @@ eot;
 			case 'select':
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
-<select name="{$name}" class="form-control input-middle">
+<select name="{$name}" class="form-control input-middle divselect">
 [REPLACE_OPTION]
 </select>
 eot;
@@ -437,7 +437,7 @@ eot;
 				}
 				$url       = U('Goodstypeattribute/formlist');
 				$tem_input = <<<eot
-<select class="form-control" id="goodstype_form" name="goods_type_id">
+<select class="form-control divselect" id="goodstype_form" name="goods_type_id">
 <option value="0">请选择--</option>
 {$opstr}
 </select>

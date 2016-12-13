@@ -30,7 +30,7 @@ option{outline:none;}
 .form-group select.form-control{display:inline-block;width:auto;height:30px;box-shadow:1px 2px 2px #F3F3F3;}
 .controls input{display:inline-block;margin:5px 5px 5px 10px;vertical-align:top;}
 .form-tip{display:inline-block;margin:0px 5px;color:#AAA;}
-.form-group-h .form-area,.form-group-h .form-controls,.form-group-h .form-control,.form-group-h .form-label{display:inline-block;}
+.form-group-h .form-area,.form-group-h .form-controls,.form-group-h .form-control,.form-group-h .form-label{vertical-align: top; display:inline-block;}
 .form-group-h .form-label{position:relative;text-align:left;width:100px;}
 .form-group-h .form-group .controls{display:inline-block;}
 .form-group-h .form-group .form-label:hover .form-tip{display:block;}
