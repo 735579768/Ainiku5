@@ -1,0 +1,15 @@
+{extend name="./apps/common/view/addon_base.html" /} {block name="center"}
+<!--按钮和搜索区域-->
+<div class="tool-area cl">
+    <div class="btn-tool">
+    </div>
+</div>
+<form class="autosubmit" action="{:url('')}" method="post">
+    {:get_form_str($formarr,$data)}
+    <div class="form-group cl center">
+        <a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">
+确定保存<input type="hidden" name="name" value="{$addonname}" />
+</a>
+    </div>
+</form>
+{/block}

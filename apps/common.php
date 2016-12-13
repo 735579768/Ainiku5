@@ -664,7 +664,7 @@ function addon($name = '', $args = []) {
 	if (file_exists($addon_path)) {
 		include $addon_path;
 		$name = "\\addons\\{$name}\\" . ucfirst($name) . $is_admin;
-		return call_user_func_array([new $name(), $method], $args);
+		return call_user_func_array([new $name(), $method], [$args]);
 	} else {
 		$errstr = "插件不存在:{$name}";
 		throw new \think\Exception($errstr, 100006);
