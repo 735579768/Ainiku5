@@ -12,6 +12,14 @@ class ExcelAdmin extends \app\common\controller\Addon {
 		'descr'   => 'excel表格处理',
 		'param'   => []
 	);
+	/**
+	 * 导入excel文件示例
+	 * @return [type] [description]
+	 */
+	public function sample() {
+		$this->assign('data', $this->importExcel());
+		return $this->fetch('content');
+	}
 	public function __construct() {
 		parent::__construct();
 		include __DIR__ . '/api/Excel.php';

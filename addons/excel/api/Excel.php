@@ -24,14 +24,6 @@ class Excel {
 	}
 
 	/**
-	 * 导入excel文件示例
-	 * @return [type] [description]
-	 */
-	public function sample() {
-		$this->assign('data', $this->importExcel());
-		return $this->fetch('content');
-	}
-	/**
 	 * 导入excel文件中的数据
 	 * @return [type] [description]
 	 */
@@ -60,7 +52,7 @@ class Excel {
 		//echo $result;
 		if ($result) //如果上传文件成功，就执行导入excel操作
 		{
-			include "conn.php";
+			// include "conn.php";
 			$objReader     = \PHPExcel_IOFactory::createReader('Excel5'); //use excel2007 for 2007 format
 			$objPHPExcel   = $objReader->load($uploadfile);
 			$sheet         = $objPHPExcel->getSheet(0);
