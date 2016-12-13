@@ -35,7 +35,7 @@ var interval = setInterval(function(){
     var time = --wait.innerHTML;
     if(time <= 0) {
         clearInterval(interval);
-        if(location.href!==href){
+        if(href!=='javascript:history.back(-1);'&&location.href!==href){
             location.href = href;
         }else{
             self.close();
