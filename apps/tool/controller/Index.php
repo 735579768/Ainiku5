@@ -51,10 +51,10 @@ class Index {
 	];
 	public function index() {
 		// var_dump($this->_getAllField('kl_article'));
-		$this->moveArticle();
-		$this->moveCategory();
-		$this->moveRes();
-		$this->moveNav();
+		// $this->moveArticle();
+		// $this->moveCategory();
+		// $this->moveRes();
+		// $this->moveNav();
 		return 'ok';
 	}
 	/**
