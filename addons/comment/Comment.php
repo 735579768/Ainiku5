@@ -104,11 +104,13 @@ if (!class_exists('\addons\comment\Comment')) {
 				reg_css('addon/comment/css/comment');
 				reg_js('addon/comment/js/comment');
 				//取插件配置参数
-				$data = cache('plugin_comment');
-				if (empty($conf) || config('app_debug')) {
-					$data = $this->getParam();
-					cache('plugin_comment', $data);
-				}
+				$data = $this->getParam();
+				// if (empty($conf) || config('app_debug')) {
+				// 	$data = $this->getParam();
+				// 	cache('plugin_comment', $data);
+				// }
+				// dump($arc_id);
+				// die();
 				$this->assign('arc_id', $arc_id);
 				$this->assign('conf', $data);
 				// dump(\ank\Assets::getInstance());

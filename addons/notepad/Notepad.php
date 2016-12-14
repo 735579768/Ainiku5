@@ -104,11 +104,12 @@ if (!class_exists('\addons\notepad\Notepad')) {
 				reg_css('addon/notepad/css/notepad');
 				reg_js('addon/notepad/js/notepad');
 				//取插件配置参数
-				$data = cache('plugin_notepad');
-				if (empty($conf) || config('app_debug')) {
-					$data = $this->getParam();
-					cache('plugin_notepad', $data);
-				}
+				// $data = cache('plugin_notepad');
+				// if (empty($conf) || config('app_debug')) {
+				// 	$data = $this->getParam();
+				// 	cache('plugin_notepad', $data);
+				// }
+				$data = $this->getParam();
 				$this->assign('arc_id', $arc_id);
 				$this->assign('conf', $data);
 				// dump(\ank\Assets::getInstance());

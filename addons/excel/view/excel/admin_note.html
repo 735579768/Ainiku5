@@ -2,11 +2,13 @@
 使用方法如下:
 <pre>
 $result = addon('excel/exportexcel', [
-    'data'     => [
-        ['id' => 123, 'title' => '标题'],
-    ],
-    'filename' => 'data',
-    'field'    => ['id' => '序号', 'title' => '文章标题'],
+	'data' => [
+		'data'     => [
+			['id' => 123, 'title' => '标题'],
+		],
+		'filename' => 'data',
+		'field'    => ['id' => '序号', 'title' => '文章标题'],
+	],
 ]);
 </pre>
 会直接下载一个excel文件

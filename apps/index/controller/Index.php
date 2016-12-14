@@ -4,11 +4,13 @@ namespace app\index\controller;
 class Index extends Base {
 	public function index() {
 		$result = addon('excel/exportexcel', [
-			'data'     => [
-				['id' => 123, 'title' => '标题'],
+			'data' => [
+				'data'     => [
+					['id' => 123, 'title' => '标题'],
+				],
+				'filename' => 'data',
+				'field'    => ['id' => '序号', 'title' => '文章标题'],
 			],
-			'filename' => 'data',
-			'field'    => ['id' => '序号', 'title' => '文章标题'],
 		]);
 		dump($result);
 		// echo $_GET['AAA'];
