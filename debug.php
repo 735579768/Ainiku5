@@ -7,7 +7,7 @@ return [
 	// 应用Trace
 	'app_trace'         => true,
 	// 域名部署,此配置开启后生成的url地址会带有域名
-	'url_domain_deploy' => false,
+	'url_domain_deploy' => true,
 	'route'             => [
 		//域名绑定
 		'__domain__'          => [
