@@ -6,6 +6,7 @@ var qqlogin = {
         window.open(uri, 'oauth2Login_10859', 'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes');
     },
     success: function(data) {
+    	location.reload();
         console.log(data);
         // window.location.reload();
     }

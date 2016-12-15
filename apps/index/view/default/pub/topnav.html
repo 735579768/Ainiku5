@@ -44,7 +44,7 @@
     }
     </style>
     <div class="topnav-inner">
-        <ul class="top-tool fl">
+        <ul id="login-tool" class="top-tool fl">
             {if condition="is_login()"}
                 {if condition="isset($uinfo['qqimg'])"}
                 <li><img src="{$uinfo['qqimg']}" width='25' height='25' /></li>
