@@ -9,7 +9,7 @@ class Addon extends Base {
 			// 'order' => 'sort asc',
 		]);
 		$this->assign([
-			'meta_title' => '已装插件',
+			'meta_title' => '已装扩展',
 			// '_list'      => [],
 			// '_page'      => '',
 		]);
@@ -23,13 +23,13 @@ class Addon extends Base {
 			$name = input('param.name', '');
 			$info = \think\Db::name('Addon')->where(['name' => strtolower($name)])->find();
 			if ($info) {
-				$this->error('插件已经安装');
+				$this->error('扩展已经安装');
 			}
-			$obj    = $this->getAddon($name);
+			$obj    = \app\common\controller\Addon::getAddonInstance("/addons/{$name}/{$name}Admin");
 			$result = $obj->install();
 			if ($result === true) {
 				$config = $obj->getConfig();
-				// //添加一个插件的设置菜单
+				// //添加一个扩展的设置菜单
 				$data = [
 					'pid'         => 2,
 					'title'       => $config['title'],
@@ -42,7 +42,7 @@ class Addon extends Base {
 				$menu_id = \think\Db::name('Menu')->insertGetId($data);
 				\think\Cache::clear('menu');
 				// $menu_id = 22;
-				//保存插件信息到数据库
+				//保存扩展信息到数据库
 				$data = [
 					'name'        => $name,
 					'menu_id'     => $menu_id,
@@ -57,10 +57,11 @@ class Addon extends Base {
 				];
 				$id = \think\Db::name('Addon')->insertGetId($data);
 				\think\Cache::clear('mainchildmenu');
-				add_user_log('安装插件', input('param.'));
+				\think\Cache::clear('menu');
+				add_user_log('安装扩展', input('param.'));
 				$this->success('安装成功');
 			} else {
-				$this->error('插件安装失败');
+				$this->error('扩展安装失败');
 			}
 		} else {
 			$dirlist   = get_dir_list(SITE_PATH . '/addons');
@@ -70,7 +71,7 @@ class Addon extends Base {
 				foreach ($dirlist as $key => $value) {
 					$info = \think\Db::name('Addon')->field('addon_id')->where(['name' => strtolower($value)])->find();
 					if (!$info) {
-						$obj = $this->getAddon($value);
+						$obj = \app\common\controller\Addon::getAddonInstance("/addons/{$value}/{$value}Admin");
 						if ($obj) {
 							$conf         = $obj->getConfig();
 							$conf['name'] = $value;
@@ -82,7 +83,7 @@ class Addon extends Base {
 			}
 			// dump($addoninfo);
 			$this->assign([
-				'meta_title' => '安装插件',
+				'meta_title' => '安装扩展',
 				'_list'      => $addonlist,
 				'_page'      => '',
 			]);
@@ -90,46 +91,27 @@ class Addon extends Base {
 		}
 	}
 
-	//卸载插件方法
+	//卸载扩展方法
 	public function unInstall() {
 		$name = input('param.name', '');
 		$info = \think\Db::name('Addon')->field('addon_id,menu_id')->where(['name' => strtolower($name)])->find();
 		if ($info) {
-			$obj = $this->getAddon($name);
+			$obj = \app\common\controller\Addon::getAddonInstance("/addons/{$name}/{$name}Admin");
 			if ($obj) {
 				$result = $obj->unInstall();
 				if ($result === true) {
 					\think\Db::name('Addon')->where(['addon_id' => $info['addon_id']])->delete();
 					\think\Db::name('Menu')->where(['menu_id' => $info['menu_id']])->delete();
 					\think\Cache::clear('mainchildmenu');
-					add_user_log('卸载插件', input('param.'));
+					\think\Cache::clear('menu');
+					add_user_log('卸载扩展', input('param.'));
 					$this->success('卸载成功', url('lis'));
 				} else {
 					$this->error('卸载失败');
 				}
 			} else {
-				$this->error('卸载失败,插件文件可能已丢失');
+				$this->error('卸载失败,扩展文件可能已丢失');
 			}
-		}
-
-	}
-
-	/**
-	 * 返回一个插件的实例
-	 * @return [type] [description]
-	 */
-	private function getAddon($name = '') {
-		if (empty($name)) {
-			return null;
-		}
-		$name       = strtolower($name);
-		$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . 'Admin.php';
-		if (file_exists($addon_path)) {
-			include $addon_path;
-			$name = "\\addons\\{$name}\\" . ucfirst($name) . 'Admin';
-			return new $name();
-		} else {
-			return null;
 		}
 
 	}

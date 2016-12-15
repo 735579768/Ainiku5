@@ -36,11 +36,12 @@ class Addon extends \think\Controller {
 		]);
 	}
 	/**
-	 * 取对扩展的一个实例
-	 * @param  string $addonname [description]
+	 * 取对应扩展的一个实例
+	 * @param  string $addonname 扩展类名,包涵命名空间
 	 * @return [type]            [description]
 	 */
 	public static function getAddonInstance($addonName = '') {
+		$addonName = str_replace('/', '\\', $addonName);
 		if (!isset(self::$addonInstances[$addonName])) {
 			$addon_path = str_replace('\\', '/', SITE_PATH . $addonName . '.php');
 			if (file_exists($addon_path)) {
@@ -65,7 +66,7 @@ class Addon extends \think\Controller {
 		}
 	}
 	/**
-	 * 执扩展的方法
+	 * 执行已经安装过的扩展的方法
 	 * @param  string $name 扩展名字
 	 * @param  array  $args 扩展参数
 	 * @return [type]       [description]
