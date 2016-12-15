@@ -64,7 +64,7 @@ trait Common {
 		if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
 			$url = $_SERVER["HTTP_REFERER"];
 		} elseif ('' !== $url) {
-			$url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : Url::build($url);
+			$url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : url($url);
 		}
 		$result = [
 			'code' => $code,

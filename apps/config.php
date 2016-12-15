@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+// 异常错误报错级别,
 $app_config = [
 	'version'                 => '1.0.0',
 	// +----------------------------------------------------------------------
@@ -280,5 +280,8 @@ $app_config = [
 if (file_exists(SITE_PATH . '/debug.php')) {
 	$conf       = require_once SITE_PATH . '/debug.php';
 	$app_config = array_merge($app_config, $conf);
+	error_reporting(E_ERROR | E_PARSE | E_WARNING);
+} else {
+	error_reporting(0);
 }
 return $app_config;

@@ -21,45 +21,38 @@ class Buy extends Base {
 	}
 	public function addaddress() {
 		if ($this->request->isPost()) {
-			$model = \think\Db::name('ConsigneeAddress');
-			if ($model->create()) {
-				$data['address_id'] = $model->consignee_address_id;
-				$data['name']       = $model->consignee_name;
-				$data['mobile']     = $model->consignee_mobile;
-				$data['diqu']       = get_region($model->consignee_diqu) . '<br>' . $model->consignee_detail;
-				if (empty($model->consignee_address_id)) {
-					//$model->create_time=NOW_TIME;
-					//$model->update_time=NOW_TIME;
-					$result = $model->add();
-					if ($result > 0) {
-						$data['address_id'] = $result;
-						$this->ajaxreturn(array(
-							status => 1,
-							action => 'add',
-							info   => '添加成功',
-							data   => $data,
-						));
-					} else {
-						$this->error('添加失败');
-					}
+			$model                = \think\Db::name('ConsigneeAddress');
+			$consignee_address_id = input('consignee_address_id');
+			if ($consignee_address_id) {
+				//$model->create_time=NOW_TIME;
+				//$model->update_time=NOW_TIME;
+				$result = $model->add();
+				if ($result > 0) {
+					$data['address_id'] = $result;
+					$this->ajaxreturn(array(
+						status => 1,
+						action => 'add',
+						info   => '添加成功',
+						data   => $data,
+					));
 				} else {
-					//$model->update_time=NOW_TIME;
-					$result = $model->save();
-					if ($result > 0) {
-						$this->ajaxreturn(array(
-							status => 1,
-							action => 'edit',
-							info   => '修改成功',
-							data   => $data,
-						));
-					} else {
-						$this->error('没有更改');
-					}
+					$this->error('添加失败');
 				}
-
 			} else {
-				$this->error($model->geterror());
+				//$model->update_time=NOW_TIME;
+				$result = $model->save();
+				if ($result > 0) {
+					$this->ajaxreturn(array(
+						status => 1,
+						action => 'edit',
+						info   => '修改成功',
+						data   => $data,
+					));
+				} else {
+					$this->error('没有更改');
+				}
 			}
+
 		} else {
 			$this->success($this->fetch('addaddress'));
 		}
