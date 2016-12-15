@@ -142,9 +142,9 @@ class Qconnect extends \app\common\controller\Addon {
 				'username'        => $user['username'],
 				'last_login_time' => $user['last_login_time'],
 			);
-
+			$uinfo = (array) session('uinfo');
 			session('user_auth', $auth);
-			session('uinfo', $user);
+			session('uinfo', array_merge($uinfo, $user));
 			session('user_auth_sign', data_auth_sign($auth));
 
 			$this->updateLogin($user['user_id']); //更新用户登录信息

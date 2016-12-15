@@ -55,10 +55,10 @@ class Base extends Controller {
 		];
 		$this->view->config('tpl_replace_string', $replace_str);
 		config('view_replace_str', $replace_str);
-		dump(session('uinfo'));
+		// dump(session('uinfo'));
 		// die();
 		if (is_login()) {
-			$this->assign(session('uinfo'));
+			$this->assign('uinfo', session('uinfo'));
 		}
 		// dump(config('view_replace_str'));
 		// dump(config(''));
