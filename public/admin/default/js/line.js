@@ -24,8 +24,10 @@
 	var mouseX = (window.innerWidth - SCREEN_WIDTH);
 	var mouseY = (window.innerHeight - SCREEN_HEIGHT);
 	var mouseIsDown = false;
+	setTimeout(function() {
+		init();
+	}, 2000);
 
-	init();
 
 	function init() {
 		if (canvas && canvas.getContext) {
