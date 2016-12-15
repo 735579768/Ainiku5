@@ -18,21 +18,6 @@ class NotepadAdmin extends \app\common\controller\Addon {
 	public function init() {
 		reg_css('addon/notepad/css/notepad');
 		reg_js('jquery-drag,addon/notepad/js/notepad');
-		// //当前页和上一页
-		// $p = input('param.p', 1);
-		// $this->assign([
-		// 	'cur_p'  => $p,
-		// 	'next_p' => $p + 1,
-		// 	'prev_p' => ($p === 1) ? 1 : ($p - 1),
-		// ]);
-		// $map = null;
-		// $this->pages(array(
-		// 	'table' => 'AddonNotepad',
-		// 	'where' => $map,
-		// 	'order' => 'notepad_id desc',
-		// 	'rows'  => 8,
-		// 	'url'   => 'notepad/ajaxList',
-		// ));
 		echo $this->fetch('admin_index');
 	}
 
@@ -117,7 +102,7 @@ sql;
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch('notepad/admin_set');
+			return $this->fetch('notepad/admin_set');
 		}
 	}
 	/**
@@ -196,8 +181,8 @@ sql;
 			$info = \think\Db::name('AddonNotepad')->find($notepad_id);
 			$this->assign('info', $info);
 		}
-		echo $this->fetch('admin_edit');
-		die();
+		return $this->fetch('admin_edit');
+
 	}
 	public function delNotepad() {
 		$notepad_id = input('param.notepad_id');
@@ -210,7 +195,6 @@ sql;
 		} else {
 			$this->error('删除失败');
 		}
-		die();
 	}
 	/**
 	 * 记事本列表
@@ -230,6 +214,6 @@ sql;
 	 */
 	public function set() {
 		$this->assign(['meta_title' => '记事本列表']);
-		echo $this->lis();
+		return $this->lis();
 	}
 }

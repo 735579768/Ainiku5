@@ -87,7 +87,7 @@ class AlipayAdmin extends \app\common\controller\Addon {
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch('admin_set');
+			return $this->fetch('admin_set');
 		}
 	}
 }

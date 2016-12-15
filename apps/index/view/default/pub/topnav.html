@@ -1,0 +1,124 @@
+<div class="topnav cl">
+    <!--qq互联登陆 start-->
+    <style>
+    .topnav {
+        background: #fafafa;
+        height: 30px;
+        border-bottom: 1px solid #dfdfdf;
+        font-size: 12px;
+    }
+
+    .topnav img {
+        vertical-align: top;
+        margin-top: 2px;
+    }
+
+    .top-tool {
+        margin-right: 10px;
+    }
+
+    .top-tool li {
+        float: left;
+    }
+
+    .top-tool li a {
+        padding: 0px 5px;
+        line-height: 30px;
+        color: #666;
+        display: inline-block;
+    }
+
+    .top-tool li a:hover {
+        color: #000;
+    }
+
+    .topnav .s {
+        color: #ccc;
+        margin: 0px 5px;
+        display: inline-block;
+    }
+
+    .topnav-inner {
+        width: 1000px;
+        margin: 0px auto;
+    }
+    </style>
+    <div class="topnav-inner">
+        <ul class="top-tool fl">
+            <if condition="auto_login()">
+                <li><img src='{:session(' qqimg ')}' width='25' height='25' /></li>
+                <li><a href="{:url('Member/portal')}" style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
+                <li>
+                    <a href="{:url('Public/logout')}">
+                        <s class="s">|</s> 退出</a>
+                </li>
+                <else/> {:addon('Qconnect')}
+                <li class="">
+                    <a href="javascript:;" onclick="loginbtn();">
+                        <s class="s">|</s> 登录 </a>
+                </li>
+                <li class="">
+                    <a href="{:url('Public/register')}">
+                        <s class="s">|</s> 注册</a>
+                </li>
+            </if>
+        </ul>
+        <ul class="top-tool fr">
+            <li><a href="{:url('Cart/index')}">购物车</a></li>
+            <li>
+                <a href="javascript:void(0)" onclick="SetHome(this,window.location)">
+                    <s class="s">|</s>设为首页</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="shoucang(document.title,window.location)">
+                    <s class="s">|</s>加入收藏</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+    //登陆按钮
+    var loginbtn = function() {
+        layer.open({
+            type: 2,
+            title: '用户登陆',
+            area: ['500px', '400px'],
+            content: '{:url('
+            Public / login ')}',
+        });
+
+    };
+    // 设置为主页
+    function SetHome(obj, vrl) {
+        try {
+            obj.style.behavior = 'url(#default#homepage)';
+            obj.setHomePage(vrl);
+        } catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                } catch (e) {
+                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage', vrl);
+            } else {
+                alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入：" + vrl + "点击确定。");
+            }
+        }
+    }
+
+    // 加入收藏 兼容360和IE6
+    function shoucang(sTitle, sURL) {
+        try {
+            window.external.addFavorite(sURL, sTitle);
+        } catch (e) {
+            try {
+                window.sidebar.addPanel(sTitle, sURL, "");
+            } catch (e) {
+                alert("加入收藏失败，请使用Ctrl+D进行添加");
+            }
+        }
+    }
+    </script>
+    <!--qq互联登陆 end-->
+</div>

@@ -75,7 +75,7 @@ class ExcelAdmin extends \app\common\controller\Addon {
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch('admin_note');
+			return $this->fetch('admin_note');
 		}
 	}
 }

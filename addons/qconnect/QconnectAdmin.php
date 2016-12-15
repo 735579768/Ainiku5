@@ -13,8 +13,6 @@ class QconnectAdmin extends \app\common\controller\Addon {
 		'param'   => []
 	);
 	public function index() {
-		// reg_css('reset,common');
-		// reg_js('jquery-1.9.1.min,ank');
 		echo $this->fetch();
 	}
 	public function install() {
@@ -69,7 +67,7 @@ class QconnectAdmin extends \app\common\controller\Addon {
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch('admin_set');
+			return $this->fetch('admin_set');
 		}
 	}
 }

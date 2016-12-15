@@ -61,7 +61,7 @@ class TestAdmin extends \app\common\controller\Addon {
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch();
+			return $this->fetch();
 		}
 	}
 }

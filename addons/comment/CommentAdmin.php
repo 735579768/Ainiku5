@@ -56,7 +56,7 @@ sql;
 		$this->assign([
 			'meta_title' => "留言列表",
 		]);
-		echo $this->fetch('admin_lis');
+		return $this->fetch('admin_lis');
 	}
 
 	public function check() {
@@ -67,7 +67,7 @@ sql;
 			'meta_title' => "查看留言",
 			'info'       => $data,
 		]);
-		echo $this->fetch('admin_check');
+		return $this->fetch('admin_check');
 	}
 	function delete() {
 		$id        = input('param.comment_id');
@@ -151,13 +151,13 @@ sql;
 				'formarr' => $formarr,
 				'data'    => $this->getParam(),
 			]);
-			echo $this->fetch('comment/admin_set');
+			return $this->fetch('comment/admin_set');
 		}
 	}
 	/**
 	 * 后台菜单调用的入口
 	 */
 	public function set() {
-		$this->lis();
+		return $this->lis();
 	}
 }

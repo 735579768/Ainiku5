@@ -642,34 +642,7 @@ function reg_initjs($jsstr) {
  * addon插件调用方法
  */
 function addon($name = '', $args = []) {
-	if (empty($name)) {
-		return null;
-	}
-	$name   = strtolower($name);
-	$name   = explode('/', $name);
-	$method = isset($name[1]) ? $name[1] : 'index';
-	$name   = $name[0];
-	//查询是否安装
-	$info = \think\Db::name('Addon')->where(['name' => $name, 'status' => 1])->find();
-
-	if (!$info) {
-		trace($name . ':插件未安装或被禁用,调用失败', 'error');
-		return false;
-	}
-	$is_admin = request()->module();
-	// dump($is_admin);
-	// die();
-	$is_admin   = ($is_admin == 'admin') ? 'Admin' : '';
-	$addon_path = SITE_PATH . '/addons' . '/' . $name . '/' . ucfirst($name) . $is_admin . '.php';
-	if (file_exists($addon_path)) {
-		include $addon_path;
-		$name = "\\addons\\{$name}\\" . ucfirst($name) . $is_admin;
-		return call_user_func_array([new $name(), $method], $args);
-	} else {
-		$errstr = "插件不存在:{$name}";
-		throw new \think\Exception($errstr, 100006);
-	}
-
+	return \app\common\controller\Addon::runAddonMethod($name, $args);
 	// $obj = controller($name[0], 'widget');
 	// if (method_exists($obj, $name[1])) {
 	// 	echo call_user_func_array([$obj, $name[1]], $args);

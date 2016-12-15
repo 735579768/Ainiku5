@@ -6,8 +6,8 @@ namespace app\common\controller;
  */
 class Addon extends \think\Controller {
 	use \app\common\traits\controller\Common;
-
-	protected $config = array(
+	private static $addonInstances = [];
+	protected $config              = array(
 		'version' => '1.0.0',
 		'author'  => '插件作者',
 		'title'   => '插件名字',
@@ -34,6 +34,78 @@ class Addon extends \think\Controller {
 			'addonname'  => $this->addonName,
 			'addontitle' => $this->config['title'],
 		]);
+	}
+	/**
+	 * 取对扩展的一个实例
+	 * @param  string $addonname [description]
+	 * @return [type]            [description]
+	 */
+	public static function getAddonInstance($addonName = '') {
+		if (!isset(self::$addonInstances[$addonName])) {
+			$addon_path = str_replace('\\', '/', SITE_PATH . $addonName . '.php');
+			if (file_exists($addon_path)) {
+				include_once $addon_path;
+				if (class_exists($addonName)) {
+					self::$addonInstances[$addonName] = new $addonName();
+				} else {
+					self::errorMsg("无法找插件类:{$addonName}");
+				}
+			} else {
+				self::errorMsg("插件不存在:{$addonName}");
+			}
+
+		}
+		return self::$addonInstances[$addonName];
+	}
+	public static function errorMsg($msg = '') {
+		if (config('app_debug')) {
+			throw new \think\Exception($msg, 100006);
+		} else {
+			throw new \think\exception\HttpException(404, '页面不存在');
+		}
+	}
+	/**
+	 * 执扩展的方法
+	 * @param  string $name 扩展名字
+	 * @param  array  $args 扩展参数
+	 * @return [type]       [description]
+	 */
+	public static function runAddonMethod($name = '', $args = []) {
+		if (empty($name)) {
+			return false;
+		}
+		$name   = strtolower($name);
+		$name   = explode('/', $name);
+		$method = isset($name[1]) ? $name[1] : 'index';
+		$name   = $name[0];
+
+		$is_admin  = request()->module();
+		$is_admin  = ($is_admin == 'admin') ? 'Admin' : '';
+		$addonName = "\\addons\\{$name}\\" . ucfirst($name) . $is_admin;
+
+		if ($is_admin == 'Admin') {
+			if (!is_login()) {
+				$this->redirect(url('pub/login'));
+			}
+		}
+
+		//添加一个判断防止同一个请求多次调用时多次查询的问题
+		if (!isset(self::$addonInstances[$addonName])) {
+			//查询是否安装
+			$info = \think\Db::name('Addon')->where(['name' => $name, 'status' => 1])->find();
+			if (!$info) {
+				trace($name . ':插件未安装或被禁用,调用失败', 'error');
+				return false;
+			}
+		}
+		$addonObj = self::getAddonInstance($addonName);
+
+		if (method_exists($addonObj, $method)) {
+			return call_user_func_array([$addonObj, $method], $args);
+		} else {
+			return self::errorMsg("无法找到插件类{$addonName}的方法:{$method}");
+		}
+
 	}
 	private function getAddonName() {
 		$name = get_class($this);
