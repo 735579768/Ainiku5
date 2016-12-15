@@ -132,3 +132,20 @@ function get_user($id = '', $field = '') {
 	}
 	return $field ? (isset($info[$field]) ? $info[$field] : '--') : $info;
 }
+/**
+ *取区域名字
+ **/
+function get_region($id = '', $delimiter = '') {
+	$idarr = explode(',', $id);
+	$key   = 'area' . implode('_', $idarr);
+	$data  = \think\Cache::get($key);
+	if (empty($data)) {
+		foreach ($idarr as $val) {
+			$info = \think\Db::name('Area')->field('area_name')->find($val);
+			$data .= $data ? $info['area_name'] : ($delimiter . $info['area_name']);
+		}
+		\think\Cache::set($key, $data);
+	}
+	return $data;
+
+}

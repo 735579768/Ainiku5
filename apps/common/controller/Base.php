@@ -57,7 +57,9 @@ class Base extends Controller {
 		config('view_replace_str', $replace_str);
 		// dump(session('uinfo'));
 		// die();
-		if (is_login()) {
+		$uid = is_login();
+		if ($uid) {
+			defined('UID') or define('UID', $uid);
 			$this->assign('uinfo', session('uinfo'));
 		}
 		// dump(config('view_replace_str'));

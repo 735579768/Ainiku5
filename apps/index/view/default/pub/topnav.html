@@ -49,7 +49,13 @@
                 {if condition="isset($uinfo['qqimg'])"}
                 <li><img src="{$uinfo['qqimg']}" width='25' height='25' /></li>
                 {/if}
-                <li><a href="{:url('Member/portal')}" style="padding-left:0;padding-right:0">({$uinfo['username']}){$uinfo['nickname']} </a></li>
+                <li><a href="{:url('sys.user/portal')}" style="padding-left:0;padding-right:0">
+                {if condition="isset($uinfo['nickname'])"}
+                {$uinfo['nickname']}
+                {else /}
+                {$uinfo['username']}
+                {/if}
+                 </a></li>
                 <li>
                     <a href="{:url('pub/loginOut')}">
                         <s class="s">|</s> 退出</a>

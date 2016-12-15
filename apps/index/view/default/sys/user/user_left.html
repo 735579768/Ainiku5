@@ -1,0 +1,23 @@
+<div id="member_left" class="member-left cl">
+<dl class="uc-nav-box cl">
+<dt class="uc-nav-title"><a href="javascript:;"><i class="fa fa-user"></i> 个人中心</a></dt>
+<dd class="uc-nav-item hover"><a href="{:url('sys.user/order',array('order_status'=>5))}">已完成订单</a></dd>
+<dd class="uc-nav-item"><a href="{:url('sys.user/order',array('order_status'=>1))}">待支付订单</a></dd>
+<dd class="uc-nav-item"><a href="{:url('sys.user/order',array('order_status'=>2))}">待发货订单</a></dd>
+<dd class="uc-nav-item"><a href="{:url('sys.user/order',array('order_status'=>3))}">待收货订单</a></dd>
+<dd class="uc-nav-item"><a href="{:url('sys.user/order',array('order_status'=>0))}">已失效订单</a></dd>
+<dd class="uc-nav-item hover"><a href="{:url('sys.user/address')}">收货地址</a></dd>
+</dl>
+
+
+<dl class="uc-nav-box cl">
+<dt class="uc-nav-title"><a href="javascript:;"><i class="fa fa-user-secret"></i> 账户管理</a></dt>
+<dd class="uc-nav-item hover"><a href="{:url('sys.user/portal')}">个人信息</a></dd>
+<dd class="uc-nav-item"><a href="{:url('sys.user/modpwd')}">修改密码</a></dd>
+<dd class="uc-nav-item"><a href="{:url('pub/loginOut')}">退出登陆</a></dd>
+</dl>
+</div>
+<script type="text/javascript">
+	var member_left_uri=window.location.pathname;
+	$("#member_left a[href='"+member_left_uri+"']").addClass('hover');
+</script>

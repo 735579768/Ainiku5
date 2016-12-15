@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>支付订单</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,buy,ainiku" type="js"  />
+</head>
+
+<body>
+<include file="Public/topnav" />
+<div class="buy-flow-block">
+<div class="cart-header">
+<div class="cart-title"><i class="fa fa-reorder"></i> 支付订单</div>
+</div>
+<div class="order-box cl">
+	<div class="order-info">
+		<div class="order-title">订单提交成功！去付款咯～</div>
+		<div class="order-line"></div>
+		<ul class="order-detail">
+			<li>
+				<div class="label">订单号:</div>
+				<div class="label-con">{$info.order_sn}</div>
+			</li>
+			<li>
+				<div class="label">收货信息：</div>
+				<div class="label-con">{$info.consignee_name}&nbsp;&nbsp;&nbsp; {$info.consignee_mobile} &nbsp;&nbsp;&nbsp;  {$info.consignee_diqu}
+				&nbsp;&nbsp;&nbsp;
+				{$info.consignee_detail} </div>
+			</li>
+
+		</ul>
+	</div>
+   <div class="s-address order-goodslist">
+    <div class="s-title">订单详情</div>
+    <div class="recart"><a href="{:U('Cart/index')}">返回购物车></a></div>
+    <ul class="cartlist cl">
+    <volist name="_list" id="vo">
+        <li class="cl">
+        <img src="{$vo.pic|get_picture='thumbpath','50_50'}">
+        <a href="{:U('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
+        <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
+        </li>
+    </volist>
+    </ul>
+    </div>
+
+   <div class="s-address order-goodslist">
+
+    <div class="zf-type-title">账户余额支付</div>
+    <ul class="online-pay cl">
+    <li class="yuezf">
+    <input type="radio" value="1" checked="checked" />
+    <span>可用余额:</span><em id="keyongmoney">0.00</em>元 ,<span style="cursor:pointer;font-size:14px; padding:0px 20px;" onclick="buyobj.inityue();">刷新余额</span></li>
+    </ul>
+
+     <div class="cart-bar cl">
+    <div class="section-left">
+       订单总额: <em class="totalprice">{$info.order_total}</em> 元
+    </div>
+     <div class="section-right">
+     <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">确定支付</a>
+     </div>
+     </div>
+     </div>
+
+     <div class="s-address order-goodslist">
+    <div class="s-title">选择以下支付方式充值</div>
+    <div class="zf-type-title">支付平台</div>
+    <ul class="online-pay cl">
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_jishi"><img src="__STATIC__/images/alipay.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);"  data-mark="Unionpay"><img src="__STATIC__/images/unionpay.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);"  data-mark="Tenpay"><img src="__STATIC__/images/cft.png" /></a></li>
+    </ul>
+     <div class="zf-type-title">支付宝网银支付<span>(支持以下各银行信用卡以及部分银行借记卡)</span></div>
+    <ul class="online-pay cl">
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CMB"><img src="__STATIC__/images/payOnline_zsyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_ICBCB2C"><img src="__STATIC__/images/payOnline_gsyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CCB"><img src="__STATIC__/images/payOnline_jsyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_ABC"><img src="__STATIC__/images/payOnline_nyyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_BOCB2C"><img src="__STATIC__/images/payOnline_zgyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_COMM-DEBIT"><img src="__STATIC__/images/payOnline_jtyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_POSTGC"><img src="__STATIC__/images/payOnline_youzheng.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_GDB"><img src="__STATIC__/images/payOnline_gfyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_SPDB"><img src="__STATIC__/images/payOnline_pufa.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CEB-DEBIT"><img src="__STATIC__/images/payOnline_gdyh.png" /></a></li>
+     <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_SPABANK"><img src="__STATIC__/images/payOnline_payh.png" /></a></li>
+      <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CIB"><img src="__STATIC__/images/payOnline_xyyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CMBC"><img src="__STATIC__/images/payOnline_msyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_BJBANK"><img src="__STATIC__/images/payOnline_bjyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_CITIC-DEBIT"><img src="__STATIC__/images/payOnline_zxyh.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_SPABANK"><img src="__STATIC__/images/payOnline_sfyh.png" /></a></li>
+     <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_SHBANK"><img src="__STATIC__/images/payOnline_shyh.png" /></a></li>
+      <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_BJRCB"><img src="__STATIC__/images/payOnline_bjnsyh.png" /></a></li>
+      <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_NBBANK"><img src="__STATIC__/images/payOnline_nbyh.png" /></a></li>
+      <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_SHRCB"><img src="__STATIC__/images/payOnline_shnsyh.png" /></a></li>
+      <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay_bank_FDB"><img src="__STATIC__/images/payOnline_fcyh.png" /></a></li>
+    </ul>
+    </div>
+
+     <div class="cart-bar cl">
+    <div class="section-left">
+       充值金额: <input id="chongzhijine" type="text" value="10" /> 元
+    </div>
+     <div class="section-right">
+     <input type="hidden"  id="payOnlineBank" value=""  />
+     <a href="javascript:;" onclick="buyobj.chongzhi($('#chongzhijine').val(),$('#payOnlineBank').val());" class="a-btn r-btn">去充值</a>
+     </div>
+     </div>
+</div>
+<script>
+$(function() {
+buyobj.url={
+    dopay:"{:U('Buy/dopay')}",
+    checkpay:"{:U('Buy/checkpay')}",
+    yueurl:"{:U('Buy/getyue')}",
+    chongzhiurl:"{:U('Buy/chongzhi')}",
+}
+buyobj.inityue();
+});
+</script>
+</div>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+</body>
+</html>

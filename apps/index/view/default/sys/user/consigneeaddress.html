@@ -1,0 +1,37 @@
+{extend name="sys/user/base" /}
+{block name="member-right"}
+    <div class="mem-hd-title cl"><i class="fa fa-reorder"></i>  {$member_title}</div>
+    <div class="divline"></div>
+  <div class="s-address cl">
+        <dl class="s-adr add-adr-box cl">
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;"><span class="add-btn"><i class="fa fa-plus"></i><em style="display:none;">+</em>添加新地址</span></a>
+        </dl>
+        {volist name="_list" id="vo"}
+        <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+            <dt>{$vo.consignee_name}</dt>
+            <dd>
+                <div class="s-mobile">{$vo.consignee_mobile}</div>
+                <div class="s-diqu">
+                {$vo.consignee_diqu|get_region}<br>
+                {$vo.consignee_detail}</div>
+            </dd>
+            <dd class='action'>
+            <a class="delbtn" onclick="buyobj.delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="buyobj.modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            </dd>
+        </dl>
+        {/volist}
+
+
+    </div>
+<script type="text/javascript">
+$(function() {
+//传入地址初始化
+buyobj.url={
+    saveAddressurl:"{:url('sys.buy/addaddress')}",
+    editAddressurl:"{:url('sys.buy/editaddress')}",
+    delAddressurl:"{:url('sys.buy/deladdress')}",
+};
+});
+</script>
+{/block}

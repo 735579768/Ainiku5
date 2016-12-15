@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>订单支付结果</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,ainiku" type="js"  />
+</head>
+
+<body>
+<include file="Public/topnav" />
+<div class="buy-flow-block">
+<div class="cart-header">
+<div class="cart-title"><i class="fa fa-reorder"></i> 订单状态</div>
+</div>
+<div class="order-box cl">
+	<div class="order-info">
+		<div class="order-title" style="font-size:40px; height:50px;line-height:50px;    margin-bottom: 40px;">
+		 <switch name="info.order_status">
+		<case value="0">
+		页面已经过期!&nbsp;&nbsp;:(，正在关闭...<em id="jishi">5</em>
+			<script type="text/javascript">
+			var jishiobj=document.getElementById('jishi');
+			window.djstime=setInterval(function(){
+				var ti=parseInt(jishiobj.innerHTML);
+				if(ti>0){
+				jishiobj.innerHTML=--ti;
+				}else{
+					clearInterval(window.djstime);
+					window.close();
+					//window.history.go(-1);
+				}
+			},1000);
+			</script>
+		</case>
+		<case value="1">
+		支付失败!&nbsp;&nbsp;:(
+		</case>
+		<case value="2">
+		支付成功 <em style="color:#f00;">{$info.order_total}</em> 元！&nbsp;&nbsp;:)
+		</case>
+		 </switch>
+		</div>
+		<div class="order-line"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+</body>
+</html>
