@@ -17,21 +17,42 @@ class Qconnect extends \app\common\controller\Addon {
 		define('Q_CALLBACK', $callurl);
 	}
 	public function qcon() {
-		include __DIR__ . '/api/qqlogin.php';
+		define("CLASS_PATH", __DIR__ . "/api/class/");
+		require_once CLASS_PATH . "QC.class.php";
+		$qc = new \QC();
+		$qc->qq_login();
+		die();
 	}
 	//登陆回调地址
 	function qcallfunc() {
 		// $data = $this->getParam();
 		// define('Q_CALLBACK', $data['callback'] . url('qconnect/qcallfunc'));
-		include __DIR__ . '/api/qqcallfunc.php';
-		if (session('openid') != '') {
-			$uid = $this->QQregister(session('openid'));
+		defined("CLASS_PATH") OR define("CLASS_PATH", __DIR__ . "/api/class/");
+		require_once CLASS_PATH . "QC.class.php";
+		$qc        = new \QC();
+		$accesskey = $qc->qq_callback();
+		$openid    = $qc->get_openid();
+		$qc        = new \QC($accesskey, $openid);
+		$qinfo     = $qc->get_user_info();
+		$uinfo     = session('uinfo');
+		//保存访问key和qq的唯一标识a
+		// session('accesskey', $accesskey);
+		// session('openid', $openid);
+		//$qqinfo=$qc->get_user_info();
+		// if (!is_array($uinfo)) {
+		// 	$uinfo = [];
+		// }
+		$uinfo = array_merge((array) $uinfo, ['qqimg' => $qinfo['figureurl'], 'qqname' => $qinfo['nickname'], 'qinfo' => $qinfo]);
+		session('uinfo', $uinfo);
+
+		if ($openid) {
+			$uid = $this->QQregister($openid);
 			if ($uid) {
-				$uid = $this->login(session('openid'), '', 5);
+				$uid = $this->login($openid, '', 5);
 				if (0 < $uid) {
 					//UC登录成功
 					//redirect(U('/'));
-					$data = json_encode(session('uinfo'));
+					$data = json_encode($uinfo);
 					echo '<script>window.opener.qqlogin.success(' . $data . ');window.close();</script>';
 					die();
 				}

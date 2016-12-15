@@ -45,23 +45,26 @@
     </style>
     <div class="topnav-inner">
         <ul class="top-tool fl">
-            <if condition="auto_login()">
-                <li><img src='{:session(' qqimg ')}' width='25' height='25' /></li>
-                <li><a href="{:url('Member/portal')}" style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
+            {if condition="is_login()"}
+                <li><img src="{$uinfo['qqimg']}" width='25' height='25' /></li>
+                <li><a href="{:url('Member/portal')}" style="padding-left:0;padding-right:0">({$uinfo['username']}){$uinfo['nickname']} </a></li>
                 <li>
-                    <a href="{:url('Public/logout')}">
+                    <a href="{:url('pub/logout')}">
                         <s class="s">|</s> 退出</a>
                 </li>
-                <else/> {:addon('Qconnect')}
+                {else /}
+                <li class="">
+                    {:addon('Qconnect')}
+                </li>
                 <li class="">
                     <a href="javascript:;" onclick="loginbtn();">
                         <s class="s">|</s> 登录 </a>
                 </li>
                 <li class="">
-                    <a href="{:url('Public/register')}">
+                    <a href="{:url('pub/register')}">
                         <s class="s">|</s> 注册</a>
                 </li>
-            </if>
+            {/if}
         </ul>
         <ul class="top-tool fr">
             <li><a href="{:url('Cart/index')}">购物车</a></li>
@@ -82,8 +85,7 @@
             type: 2,
             title: '用户登陆',
             area: ['500px', '400px'],
-            content: '{:url('
-            Public / login ')}',
+            content: '{:url('pub/login')}',
         });
 
     };

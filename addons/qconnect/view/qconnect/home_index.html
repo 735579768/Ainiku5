@@ -1,3 +1,4 @@
+{if condition="!is_login()"}
 <script type="text/javascript">
 var qqlogin = {
     open: function() {
@@ -10,4 +11,5 @@ var qqlogin = {
     }
 };
 </script>
-<a onclick="qqlogin.open();" href="javascript:;" title="QQ登陆"><i class="fa fa-qq"></i>登录</a>
+<a onclick="qqlogin.open();" href="javascript:;" title="QQ登陆"><i class="fa fa-qq"></i>QQ登录</a>
+{/if}
