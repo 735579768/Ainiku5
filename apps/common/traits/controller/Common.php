@@ -32,6 +32,7 @@ trait Common {
 		);
 		$v = new \verify\Verify($conf);
 		$v->entry(1);
+		exit();
 	}
 	protected function ajaxReturn($data, $type = 'JSON', $json_option = 0) {
 		$type = strtolower($type);

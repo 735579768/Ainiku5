@@ -45,6 +45,7 @@ class Error extends \think\Controller {
 			include $cpath;
 			if (class_exists($name)) {
 				$addon = new $name();
+				// return $addon->$actionName();
 				if (method_exists($addon, $actionName)) {
 					return $addon->$actionName();
 					// exit();
