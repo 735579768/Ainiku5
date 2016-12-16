@@ -1,4 +1,5 @@
 @charset "utf-8";
+em{font-style: normal;}
 /**
  * 图标覆盖
  */
@@ -94,7 +95,7 @@
 .s-address .add-adr-box .add-btn{}
 .yuezf{font-size:16px;}
 .yuezf span{}
-.yuezf em{font-size:20px;color:#f00;display:inline-block;padding:0px 10px;font-weight:bold;}
+.yuezf em{font-size:20px;color:#f00;display:inline-block;padding:0px 10px;font-weight:bold;font-style: normal;}
 .s-address .add-adr-box .add-btn em{font-size:30px;font-weight:bolder;}
 .sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
 .sh-box .cart-bar .section-left{float:left;margin-top:20px;}

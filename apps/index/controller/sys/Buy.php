@@ -206,25 +206,26 @@ class Buy extends Base {
 	}
 
 	public function dopay() {
-		$dopaylock = S('dopaylock');
+		$dopaylock = cache('dopaylock');
 		//empty($dopaylock) || $this->error('为避免重复支付,请等待1分钟后再尝试支付!');
-		//S('dopaylock', true, 60);
+		//cache('dopaylock', true, 60);
 		$order_id = input('order_id');
 		empty($order_id) && $this->error('参数错误!');
 		//查询订单
-		$info = \think\Db::name('Order')->find($order_id);
-		($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
+		$info = \think\Db::name('Order')->field('order_status,order_sn,order_total')->find($order_id);
+		($info['order_status'] != 1) && $this->error('此订单已经支付或失效!');
 		$order_sn    = $info['order_sn'];
 		$order_title = '产品订单支付:' . $info['order_sn'];
 		$order_total = $info['order_total'];
-		$info        = \think\Db::name('Member')->field('money')->find(UID);
+		$order_total or $this->error('订单异常!请联系客服!');
+		$info = \think\Db::name('User')->field('money')->find(UID);
 		if ($info['money'] >= $order_total) {
 			//扣款
-			$result = \think\Db::name('Member')->where(array('member_id' => UID))->setDec('money', $order_total);
+			$result = \think\Db::name('User')->where(array('user_id' => UID))->setDec('money', $order_total);
 			if ($result) {
 				$resu = \think\Db::name('Order')->where(array('order_id' => $order_id))->setField('order_status', 2);
 				if ($resu) {
-					$this->success('支付成功!', url('Buy/orderstatus', array('order_id' => $order_id)));
+					$this->success('支付成功!', url('sys.buy/orderstatus', array('order_id' => $order_id)));
 				} else {
 					$this->error('支付失败请联系客服!');
 				}
@@ -336,7 +337,7 @@ echo 'fail';
 		if ($data1['status'] || $data2['status'] || $data3['status']) {
 			$result = \think\Db::name('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn))->setField('status', 2);
 			if ($result) {
-				$resu = \think\Db::name('Member')->where('member_id=' . UID)->setInc('money', $money);
+				$resu = \think\Db::name('User')->where('user_id=' . UID)->setInc('money', $money);
 				if (!$resu) {
 					//记录失败日志
 				}
@@ -349,7 +350,7 @@ echo 'fail';
 	public function checkpay($chongzhi_sn = '') {
 		$info = \think\Db::name('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn, 'status' => 2))->find();
 		if (!empty($info)) {
-			$this->success('充值成功', url('Buy/payok', array('chongzhi_sn' => $chongzhi_sn)));
+			$this->success('充值成功', url('sys.buy/payok', array('chongzhi_sn' => $chongzhi_sn)));
 		} else {
 			$this->error('no');
 		}
@@ -363,7 +364,7 @@ echo 'fail';
 		if (empty($info)) {
 			$this->error(0);
 		} else {
-			$this->success($info['money']);
+			$this->success(doubleval($info['money']));
 		}
 	}
 	/**

@@ -2,7 +2,7 @@
 {block name="member-right"}
 <div class="mem-hd-title cl"><i class="fa fa-reorder"></i> {$member_title}</div>
 	<div class="user-info">
-		<div class="user-tx"><img src="__IMG__/photo.jpg" />
+		<div class="user-tx"><img src="__STATIC__/images/photo.jpg" />
 		<div class="login-info">
 
 						<h2 class="username">{$uinfo.username}</h2>
@@ -10,9 +10,13 @@
                     <a class="link" href="{:url('sys.user/modpwd')}">修改个人信息 &gt;</a>
         </div>
 		<div class="login-info">
-          <p class="tip">手机 : {$uinfo.mobile}</p>
-          <p class="tip">邮箱 : {$uinfo.email}
-			<eq name="uinfo.email_activate" value="0"><a href="{:url('sys.user/emailactivate')}" class="ajax-href" >点击激活</a><else /><span class="green">已验证</span></eq>
+          <p class="tip">手机 : {$uinfo.mobile|default='无'}</p>
+          <p class="tip">邮箱 : {$uinfo.email|default='无'}
+			{eq name="uinfo.email_activate" value="0"}
+			{notempty name="$uinfo['email']"}
+			<a href="javascript:;" data-url="{:url('sys.user/emailactivate')}" class="ajax-href" onclick="ank.ajaxHref(this);" >点击激活</a>
+			{/notempty}
+			{else /}<span class="green">已验证</span>{/eq}
           </p>
         </div>
 		</div>

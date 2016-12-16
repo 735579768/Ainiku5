@@ -57,10 +57,10 @@ trait Common {
 	}
 	protected function success($msg = '', $url = null, $data = '', $wait = 3, array $header = []) {
 		$code = 1;
-		if (is_numeric($msg)) {
-			$code = $msg;
-			$msg  = '';
-		}
+		// if (is_numeric($msg)) {
+		// 	$code = $msg;
+		// 	$msg  = '';
+		// }
 		if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
 			$url = $_SERVER["HTTP_REFERER"];
 		} elseif ('' !== $url) {

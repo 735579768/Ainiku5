@@ -38,7 +38,7 @@ var interval = setInterval(function(){
         if(href!=='javascript:history.back(-1);'&&location.href!==href){
             location.href = href;
         }else{
-            self.close();
+//            self.close();
         }
 
 

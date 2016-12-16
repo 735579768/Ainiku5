@@ -59,8 +59,11 @@ class Base extends Controller {
 		// die();
 		$uid = is_login();
 		if ($uid) {
+			$uinfo = \think\Db::name('User')->find($uid);
+			$uinfo = array_merge(session('uinfo'), $uinfo);
 			defined('UID') or define('UID', $uid);
-			$this->assign('uinfo', session('uinfo'));
+			session('uinfo', $uinfo);
+			$this->assign('uinfo', $uinfo);
 		}
 		// dump(config('view_replace_str'));
 		// dump(config(''));

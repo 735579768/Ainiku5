@@ -78,7 +78,7 @@ class User extends Base {
 			if (!preg_match('/[\w]{6,15}/', $new_password)) {
 				$this->error('密码格式不正确！');
 			}
-			$new_password = ainiku_ucenter_md5($new_password);
+			$new_password = ank_ucenter_md5($new_password);
 			$result       = M('Member')->where("member_id=" . UID)->save(array(
 				'password'    => $new_password,
 				'update_time' => time(),
@@ -104,37 +104,44 @@ class User extends Base {
 	 *邮箱激活
 	 **/
 	public function emailactivate($yz = '') {
-		$uinfo = $this->uinfo;
+		$uinfo = session('uinfo');
+		$yz    = input('yz');
 		if (empty($yz)) {
-			$yzm = ainiku_ucenter_md5($uinfo['username'] . $uinfo['password'] . date('Y/m/d H:i:s'));
-			$url = C('WEBDOMIN') . url("Member/emailactivate", array('yz' => $yzm));
+			$yzm = ank_ucenter_md5($uinfo['username'] . $uinfo['password'] . date('Y/m/d H:i:s'));
+			$url = config('web_domain') . url("sys.user/emailactivate", array('yz' => $yzm));
 			$str = <<<eot
 		此链接10分钟内有效
 		<a target="_blank" href="{$url}">点击以激活邮箱</a>或复制这个链接并打开
 		{$url}
 eot;
 			$result = send_mail(array(
-				'to'       => $uinfo['email'],
+				'toemail'  => $uinfo['email'],
 				'toname'   => $uinfo['email'],
-				'subject'  => C('WEB_SITE_TITLE') . '的邮件验证', //主题标题
-				'fromname' => C('WEB_SITE_TITLE'),
+				'subject'  => config('web_meta_title') . '的邮件验证', //主题标题
+				'fromname' => config('web_meta_title'),
 				'body'     => $str . date('Y/m/d H:i:s'), //邮件内容
 				//'attachment'=>'E:\SVN\frame\DataBak\20141126-003119-1.sql.gz'
 
 			));
-			if ($result) {
-				S('emailactivate' . UID, $yzm, 600);
+			if ($result === true) {
+				cache('emailactivate' . UID, $yzm, 600);
 				$this->success('激活邮件已经发送成功!');
 			} else {
-				$this->error('邮件发送失败!');
+				if (config('app_debug')) {
+					$this->error($result);
+				} else {
+					$this->error('邮件发送失败!');
+				}
+
 			}
 		} else {
-			if ($yz === S('emailactivate' . UID)) {
-				S('emailactivate' . UID, null);
-				M('Member')->where("member_id=" . UID)->save(array('email_activate' => 1));
-				$this->success('邮箱验证成功!', url('Member/portal'));
+			$syz = cache('emailactivate' . UID);
+			if ($yz === $syz) {
+				cache('emailactivate' . UID, null);
+				\think\Db::name('User')->where("user_id=" . UID)->update(array('email_activate' => 1));
+				$this->success('邮箱验证成功!', url('sys.user/portal'));
 			} else {
-				$this->success('邮箱验证失败!', url('Member/portal'));
+				$this->success('邮箱验证失败!', url('sys.user/portal'));
 			}
 		}
 	}
