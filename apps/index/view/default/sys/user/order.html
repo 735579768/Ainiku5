@@ -6,17 +6,17 @@
         {notempty name="_list"} {volist name="_list" id="vo"}
         <div class="order-item">
             <div class="order-status green">
-                {eq name="vo.order_status" value="0"><span style="color:#ccc;">已失效(两个小时内没有付款)</span>{/eq}
-                {eq name="vo.order_status" value="1">等待付款(还剩<em id="djs{$vo.order_id}"></em>)
+                {eq name="vo.order_status" value="0"}<span style="color:#ccc;">已失效(两个小时内没有付款)</span>{/eq}
+                {eq name="vo.order_status" value="1"}等待付款(还剩<em id="djs{$vo.order_id}"></em>)
                     <script>
                     daojishi('{:time_format($vo['
                         create_time ']+2*3600)}', 'djs{$vo.order_id}', '已失效');
                     </script>
                 {/eq}
-                {eq name="vo.order_status" value="2">已付款,等待发货{/eq}
-                {eq name="vo.order_status" value="3">已发货,等待收货{/eq}
-                {eq name="vo.order_status" value="4">已收货{/eq}
-                {eq name="vo.order_status" value="5">交易完成{/eq}
+                {eq name="vo.order_status" value="2"}已付款,等待发货{/eq}
+                {eq name="vo.order_status" value="3"}已发货,等待收货{/eq}
+                {eq name="vo.order_status" value="4"}已收货{/eq}
+                {eq name="vo.order_status" value="5"}交易完成{/eq}
             </div>
             <div class="order-detail">
                 <span>下单时间：{$vo.create_time|time_format}</span>
@@ -31,7 +31,7 @@
                 <a target="_blank" href="{:url('sys.user/shouhuo',array('order_id'=>$vo['order_id']))}" class="btn ajax-href">确认收货</a> {/eq}
                 <a href="{:url('sys.user/checkorder',array('order_id'=>$vo['order_id']))}" class="btn">订单详情</a>
                 <ul class="order-goods-list cl">
-                    {volist name=":F_get_order_goods_list($vo['order_id'])" id="v"}
+                    {volist name=":get_order_detail_list($vo['order_id'])" id="v"}
                     <li class="cl">
                         <img src="{$v.pic|get_picture='thumbpath','80_80'}" />
                         <span><a href="{:url('sys.goods/'.$v['goods_id'])}">{$v.title}</a><br>

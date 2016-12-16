@@ -149,10 +149,14 @@
         //添加配送新地址
         addNewAddress: function() {
             var _this = this;
+            var lindex = layer.load(1, {
+                shade: false
+            });
             $.ajax({
                 url: _this.url.saveAddressurl,
                 type: 'GET',
                 success: function(da) {
+                    layer.close(lindex);
                     if (da.code == 1) {
                         // ank.alertDialog({
                         //     width: 350,
@@ -175,6 +179,9 @@
         //修改配送地址
         modAddress: function(id) {
             var _this = this;
+            var lindex = layer.load(1, {
+                shade: false,
+            });
             $.ajax({
                 url: _this.url.editAddressurl,
                 type: 'POST',
@@ -183,6 +190,7 @@
                     action: 'edit'
                 },
                 success: function(da) {
+                    layer.close(lindex);
                     if (da.code == 1) {
                         layer.open({
                             type: 1,

@@ -62,3 +62,27 @@ function get_nav_tree($pid = 0) {
 	return $relist;
 
 }
+
+/*********************************************
+ * 订单相关函数
+ */
+/**
+ *取订单产品列表
+ */
+function get_order_detail_list($order_id = '') {
+	if (empty($order_id)) {
+		return '';
+	}
+
+	$cachekey = 'getOrderGoodsList' . $order_id;
+	$data     = cache($cachekey);
+	if (empty($data) || config('app_debug')) {
+		// $data = model('OrderDetail')->where("order_id=$order_id")->select();
+		$data = \think\Db::view('OrderDetail', '*')
+			->view('Goods', 'title,pic', 'OrderDetail.goods_id=Goods.goods_id')
+			->where(['OrderDetail.order_id' => $order_id])
+			->select();
+		cache($cachekey, $data);
+	}
+	return $data;
+}

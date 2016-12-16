@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <title>支付订单</title>
-<ank:insert name="reset,common,index,buy" />
-<ank:insert name="jquery-1.9.1.min,buy,ainiku" type="js"  />
+{insert name="reset,common,index,buy" /}
+{insert name="jquery-1.9.1.min" type="js"  /}
 </head>
 
 <body>
-<include file="Public/topnav" />
+{include file="pub/topnav" /}
 <div class="buy-flow-block">
 <div class="cart-header">
 <div class="cart-title"><i class="fa fa-reorder"></i> 支付订单</div>
@@ -33,15 +33,15 @@
 	</div>
    <div class="s-address order-goodslist">
     <div class="s-title">订单详情</div>
-    <div class="recart"><a href="{:U('Cart/index')}">返回购物车></a></div>
+    <div class="recart"><a href="{:url('sys.cart/index')}">返回购物车></a></div>
     <ul class="cartlist cl">
-    <volist name="_list" id="vo">
+    {volist name="_list" id="vo"}
         <li class="cl">
         <img src="{$vo.pic|get_picture='thumbpath','50_50'}">
-        <a href="{:U('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
+        <a href="{:url('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
         <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
         </li>
-    </volist>
+    {/volist}
     </ul>
     </div>
 
@@ -111,15 +111,16 @@
 <script>
 $(function() {
 buyobj.url={
-    dopay:"{:U('Buy/dopay')}",
-    checkpay:"{:U('Buy/checkpay')}",
-    yueurl:"{:U('Buy/getyue')}",
-    chongzhiurl:"{:U('Buy/chongzhi')}",
+    dopay:"{:url('sys.buy/dopay')}",
+    checkpay:"{:url('sys.buy/checkpay')}",
+    yueurl:"{:url('sys.buy/getyue')}",
+    chongzhiurl:"{:url('sys.buy/chongzhi')}",
 }
 buyobj.inityue();
 });
 </script>
 </div>
-<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+{insert name="ank,buy" type="js"  /}
+{layer /}
 </body>
 </html>

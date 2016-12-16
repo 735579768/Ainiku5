@@ -1,5 +1,16 @@
 @charset "utf-8";
-.pricecolor{color:#ff6700;}
+/**
+ * 图标覆盖
+ */
+.cart-list-box .fa{color:#666;}
+.cart-list-box .fa-trash{font-size:20px;}
+.cart-list-box .icon-check,.icon-check-selected{color:#666;font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.cart-list-box .icon-check{border:none;}
+.cart-list-box .icon-check:before{content:"\f096"!important;}
+.cart-list-box .icon-check-selected a{background:none;}
+.cart-list-box .icon-check-selected:before{content:"\f14a"!important;}
+
+.pricecolor{color:#ff6700;font-style: normal;}
 .green{color:#83c44e;}
 .member-block,.buy-flow-block{width:1100px;margin:0px auto;}
 .divline{width:95%;height:1px;background:#ccc;margin:0px auto;}
@@ -19,7 +30,7 @@
 .cart-list-box .row{width:100%;display:block;background:#fff;}
 .cart-list-box .col{height:70px;line-height:70px;display:block;float:left;text-align:center;}
 .cart-list-box .col-check{width:100px;text-align:left;}
-.cart-list-box .col-check .icon-check{margin-left:40px;}
+.cart-list-box .col-check .icon-check{margin-left:40px;display: inline-block;}
 .cart-list-box .col-img{width:120px;}
 .cart-list-box .col-img img{width:80px;height:80px;vertical-align:middle;}
 .cart-list-box .col-title{width:300px;text-align:left;}
@@ -37,7 +48,7 @@
 .cart-list-box .cart-bar .section-left{float:left;}
 .cart-list-box .cart-bar .section-right{float:right;}
 .cart-list-box .cart-bar .totalprice{color:#ff6700;}
-.cart-list-box .cart-bar .totalprice .price{font-size:30px;}
+.cart-list-box .cart-bar .totalprice .price{font-size:30px;font-style: normal;}
 .cart-list-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
 .cart-list-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .cart-list-box .cart-bar .r-btn{width:200px;margin-left:50px;}
@@ -96,7 +107,7 @@
 .s-address .order-info .label{}
 .s-address .order-info .label-con{color:#ff6700;text-align:right;}
 .s-address .order-info .yfprice .label,.s-address .order-info .yfprice .label-con{height:50px;line-height:50px;}
-.s-address .order-info .label-con #totalprice{font-size:30px;}
+.s-address .order-info .label-con #totalprice{font-size:30px;font-style: normal;}
 .s-address .recart{height:40px;}
 .s-address .recart a{float:right;height:40px;line-height:40px;}
 .s-address .cartlist{display:block;}
@@ -122,7 +133,7 @@
 .order-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
 .order-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .order-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
-.order-box .cart-bar .totalprice{color:#ff6700;font-size:24px;}
+.order-box .cart-bar .totalprice{color:#ff6700;font-size:24px;font-style: normal;}
 .online-pay{margin-bottom:30px;}
 .online-pay li{float:left;margin-left:10px;margin-top:10px;}
 .online-pay li img{width:188px;height:64px;}

@@ -9,23 +9,30 @@ class Buy extends Base {
 		//取购物车中的商品
 		$map['uid']      = UID;
 		$map['selected'] = 1;
-		$goodslist       = D('CartView')->where($map)->select();
+		$goodslist       = \think\Db::view('Cart', '*')
+			->view('Goods', 'title,pic,price', 'Cart.goods_id=Goods.goods_id')
+			->where($map)->select();
+
 		$this->assign('goodslist', $goodslist);
 		//取商品详情
-		$data               = \think\Db::name('Cart')->where($map)->field('sum(num) as num')->find();
-		$info['totalnum']   = $data['num'];
-		$data               = D('CartView')->where($map)->field('sum(num*price) as totalprice')->find();
-		$info['totalprice'] = $data['totalprice'];
-		$this->assign('info', $info);
-		$this->display('checkout');
+		$info = \think\Db::name('Cart')->where($map)->field('sum(num) as totalnum')->find();
+		// $data               = D('CartView')->where($map)->field('sum(num*price) as totalprice')->find();
+		$data = \think\Db::view('Cart', '*')
+			->view('Goods', 'title,pic', 'Cart.goods_id=Goods.goods_id')
+			->field('price,sum(num*price) as totalprice')
+			->where($map)->find();
+		// dump($data);
+		// $info['totalprice'] = $data['totalprice'];
+		$this->assign('info', array_merge($data, $info));
+		return $this->fetch();
 	}
 	public function addaddress() {
 		if ($this->request->isPost()) {
 			$model                = \think\Db::name('ConsigneeAddress');
 			$consignee_address_id = input('consignee_address_id');
 			if ($consignee_address_id) {
-				//$model->create_time=NOW_TIME;
-				//$model->update_time=NOW_TIME;
+				//$model->create_time=time();
+				//$model->update_time=time();
 				$result = $model->add();
 				if ($result > 0) {
 					$data['address_id'] = $result;
@@ -39,7 +46,7 @@ class Buy extends Base {
 					$this->error('添加失败');
 				}
 			} else {
-				//$model->update_time=NOW_TIME;
+				//$model->update_time=time();
 				$result = $model->save();
 				if ($result > 0) {
 					$this->ajaxreturn(array(
@@ -107,18 +114,18 @@ class Buy extends Base {
 		$info                        = \think\Db::name('ConsigneeAddress')->where($map)->find();
 		empty($info) && $this->error('配送地址错误!');
 
-		if (IS_POST) {
+		if ($this->request->isPost()) {
 			//查询购物车是不是有商品
 			//$jon=__DB_PREFIX__.'goods as a   on  '.__DB_PREFIX__.'cart.goods_id=a.goods_id';
 			$map             = array();
 			$map['uid']      = UID;
 			$map['selected'] = 1;
-			$cartlist        = D('CartView')->where($map)->select();
-			empty($cartlist) && $this->error('购物车是空的!', U('Cart/index'));
-			$ordernum    = create_ordersn();
+			$cartlist        = \think\Db::name('Cart')->where($map)->select();
+			empty($cartlist) && $this->error('购物车是空的!', url('sys.cart/index'));
+			$ordernum    = date("ymdHis") . mt_rand(1000, 9999);
 			$order_total = 0.00; //订单总额
 
-			//把购物车中的产品生成订单保存到order_goods
+			//把购物车中的产品生成订单保存到order_detail
 			$datalist = array();
 			foreach ($cartlist as $val) {
 				$num   = intval($val['num']);
@@ -131,7 +138,7 @@ class Buy extends Base {
 					'price'       => $price,
 					'total'       => $num * $price,
 					'order_id'    => 0,
-					'create_time' => NOW_TIME,
+					'create_time' => time(),
 				);
 				//从购物车中删除
 				\think\Db::name('Cart')->delete($val['cart_id']);
@@ -141,8 +148,8 @@ class Buy extends Base {
 			$data                     = array();
 			$data['uid']              = UID;
 			$data['order_sn']         = $ordernum;
-			$data['create_time']      = NOW_TIME;
-			$data['update_time']      = NOW_TIME;
+			$data['create_time']      = time();
+			$data['update_time']      = time();
 			$data['order_total']      = $order_total;
 			$data['consignee_name']   = $info['consignee_name'];
 			$data['consignee_mobile'] = $info['consignee_mobile'];
@@ -153,23 +160,23 @@ class Buy extends Base {
 			//$data['consignee_email']=$info['consignee_email'];
 			$data['order_note'] = $order_note;
 
-			$result = \think\Db::name('Order')->add($data);
+			$result = \think\Db::name('Order')->insertGetId($data);
 			if (0 < $result) {
 				$res = 0;
 				foreach ($datalist as $k => $v) {
 					$datalist[$k]['order_id'] = $result;
-					$re                       = \think\Db::name('OrderGoods')->add($datalist[$k]);
+					$re                       = \think\Db::name('OrderDetail')->insertGetId($datalist[$k]);
 					($re > 0) || $res++;
 				}
 
-				//$re=\think\Db::name('OrderGoods')->addAll($dataList);
+				//$re=\think\Db::name('OrderDetail')->addAll($dataList);
 				//var_dump($datalist);
 				//var_dump($re);
 				if ($res > 0) {
 					$this->error('下单失败');
 				} else {
-					//F('__ORDERSUCCESS__' . $result, 'true');
-					$this->success('下单成功', U('Buy/pay', array('order_id' => $result)));
+					//cache('__ORDERSUCCESS__' . $result, 'true');
+					$this->success('下单成功', url('sys.buy/pay', array('order_id' => $result)));
 				}
 			} else {
 				$this->error('提交订单失败');
@@ -181,17 +188,21 @@ class Buy extends Base {
 	}
 	public function pay() {
 		$order_id = input('order_id');
-		$verify   = F('__ORDERSUCCESS__' . $order_id);
-		//F('__ORDERSUCCESS__'.$order_id,null);
+		$verify   = cache('__ORDERSUCCESS__' . $order_id);
+		//cache('__ORDERSUCCESS__'.$order_id,null);
 		//($verify!='true')&&redirect('/');
 		$map['order_status'] = array('gt', 0);
 		$map['order_id']     = $order_id;
 		$info                = \think\Db::name('Order')->where($map)->find();
 		empty($info) && $this->error('订单错误或已失效!');
 		$this->assign('info', $info);
-		$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
+		// $list = D('OrderDetailView')->where("order_id=$order_id")->select();
+		$list = \think\Db::view('OrderDetail', '*')
+			->view('Goods', 'title,pic,price', 'OrderDetail.goods_id=Goods.goods_id')
+			->where(['order_id' => $order_id])
+			->select();
 		$this->assign('_list', $list);
-		$this->display();
+		return $this->fetch();
 	}
 
 	public function dopay() {
@@ -213,7 +224,7 @@ class Buy extends Base {
 			if ($result) {
 				$resu = \think\Db::name('Order')->where(array('order_id' => $order_id))->setField('order_status', 2);
 				if ($resu) {
-					$this->success('支付成功!', U('Buy/orderstatus', array('order_id' => $order_id)));
+					$this->success('支付成功!', url('Buy/orderstatus', array('order_id' => $order_id)));
 				} else {
 					$this->error('支付失败请联系客服!');
 				}
@@ -235,9 +246,13 @@ class Buy extends Base {
 		//($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
 		empty($info) && $this->error('没有此订单!');
 		$this->assign('info', $info);
-		$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
+		// $list = D('OrderDetailView')->where("order_id=$order_id")->select();
+		$list = \think\Db::view('OrderDetail', '*')
+			->view('Goods', 'title,pic,price', 'OrderDetail.goods_id=Goods.goods_id')
+			->where(['order_id' => $order_id])
+			->select();
 		$this->assign('_list', $list);
-		$this->display();
+		return $this->fetch();
 	}
 	//支付成功后前台跳转通知
 	public function payok($chongzhi_sn = '') {
@@ -281,7 +296,7 @@ echo 'fail';
 			));
 		}
 
-		$this->display();
+		return $this->fetch();
 
 		exit();
 	}
@@ -334,7 +349,7 @@ echo 'fail';
 	public function checkpay($chongzhi_sn = '') {
 		$info = \think\Db::name('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn, 'status' => 2))->find();
 		if (!empty($info)) {
-			$this->success('充值成功', U('Buy/payok', array('chongzhi_sn' => $chongzhi_sn)));
+			$this->success('充值成功', url('Buy/payok', array('chongzhi_sn' => $chongzhi_sn)));
 		} else {
 			$this->error('no');
 		}
@@ -343,7 +358,8 @@ echo 'fail';
 	 * 取余额
 	 */
 	function getyue() {
-		$info = \think\Db::name('Member')->field('money')->find(UID);
+		$info = \think\Db::name('User')->where(['user_id' => UID])->field('money')->find();
+		// dump($info['money']);
 		if (empty($info)) {
 			$this->error(0);
 		} else {
@@ -377,7 +393,7 @@ echo 'fail';
 			'money'         => $order_total,
 			'uid'           => UID,
 			'chongzhi_sn'   => $order_sn,
-			'create_time'   => NOW_TIME,
+			'create_time'   => time(),
 			'status'        => 1,
 		));
 		if ($result) {
@@ -389,7 +405,7 @@ echo 'fail';
 		}
 		$order_sn              = $order_sn . $result;
 		$rearr['chongzhi_sn']  = $order_sn;
-		$rearr['chongzhi_url'] = U('Buy/payok', array('chongzhi_sn' => $order_sn));
+		$rearr['chongzhi_url'] = url('Buy/payok', array('chongzhi_sn' => $order_sn));
 		$data                  = '';
 		if (strpos($online_pay, 'payOnlineBank_') !== false) {
 			//支付宝网银

@@ -45,7 +45,10 @@ class User extends Base {
 		$map['order_id'] = $order_id;
 		$info            = \think\Db::name('Order')->where($map)->find();
 		//查询订单中的商品信息
-		$list = D('OrderGoodsView')->where($map)->select();
+		$list = \think\Db::view('OrderDetail', '*')
+			->view('Goods', 'title,pic', 'OrderDetail.goods_id=Goods.goods_id')
+			->where(['OrderDetail.order_id' => $order_id])
+			->select();
 		$this->assign('info', $info);
 		$this->assign('_list', $list);
 		return $this->fetch();
