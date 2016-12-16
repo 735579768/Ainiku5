@@ -79,7 +79,7 @@ class User extends Base {
 				$this->error('密码格式不正确！');
 			}
 			$new_password = ank_ucenter_md5($new_password);
-			$result       = M('Member')->where("member_id=" . UID)->save(array(
+			$result       = \think\Db::name('User')->where("user_id=" . UID)->update(array(
 				'password'    => $new_password,
 				'update_time' => time(),
 			));
