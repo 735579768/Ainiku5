@@ -101,6 +101,6 @@ class Pub extends \app\common\Controller\Base {
 	public function loginOut() {
 		session(null);
 		cookie(null);
-		$this->success('退出成功');
+		$this->success('退出成功', url('/'));
 	}
 }
