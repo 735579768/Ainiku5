@@ -205,7 +205,8 @@ UE.I18N['zh-cn'] = {
         'sql': 'SQL',
         'vb': 'Visual Basic',
         'xml': 'XML',
-        'runcode': 'runCode'
+        'runcode': 'runCode',
+        'typescript': 'TypeScript'
     },
     'confirmClear': "确定清空当前文档么？",
     'contextMenu': {
