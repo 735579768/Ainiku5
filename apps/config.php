@@ -131,7 +131,7 @@ $app_config = [
 		// 标签库标签结束标记
 		'taglib_end'      => '}',
 		// 是否去除模板文件里面的html空格与换行
-		'strip_space'     => false,
+		'strip_space'     => true,
 		// 是否开启模板编译缓存,设为false则每次都会重新编译
 		'tpl_cache'       => true,
 		// 预先加载的标签库
