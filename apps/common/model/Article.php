@@ -145,9 +145,12 @@ class Article extends Model {
 			$k  = 0;
 			$wh = 0;
 			foreach ($match[1] as $key => $value) {
-				$temwh = getimagesize('.' . $value);
-				if (max($temwh[0], $temwh[1]) > $wh) {
-					$k = $key;
+				$url_info = parse_url($value);
+				if (!isset($url_info['host'])) {
+					$temwh = getimagesize('.' . $value);
+					if (max($temwh[0], $temwh[1]) > $wh) {
+						$k = $key;
+					}
 				}
 			}
 			$info = \think\Db::name('Picture')->field('picture_id')->where("path='{$match[1][$k]}'")->find();
