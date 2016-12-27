@@ -6,6 +6,7 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)\.(jpg|gif|png|bmp)$ /public/static/images/err.png [QSA,PT,L]
 
+  RewriteRule ^(.*)index\.php\/(.*)$ /$2 [R=301,NC,L]
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]
