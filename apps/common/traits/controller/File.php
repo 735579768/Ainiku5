@@ -314,7 +314,7 @@ trait File {
 			'fileManagerListPath'    => config('file_upload.rootPath') . "/file/",
 			'imageManagerListPath'   => config('file_upload.rootPath') . "/image/",
 			'imageManagerAllowFiles' => config('file_upload.exts'),
-			'catchRemoteImageEnable' => true, //编辑器远程图片本地化
+			'catchRemoteImageEnable' => false, //编辑器远程图片本地化
 		];
 		// dump($CONFIG);
 		// DIE(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")));
@@ -373,7 +373,8 @@ trait File {
 
 		/* 抓取远程文件 */
 		case 'catchimage':
-			$result = include __DIR__ . "/ueditor/action_crawler.php";
+			// $result = include __DIR__ . "/ueditor/action_crawler.php";
+			die();
 			break;
 
 		default:

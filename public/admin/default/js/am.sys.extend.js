@@ -25,10 +25,14 @@ am.extend({
 		}
 	},
 	diguiDownloadImg: function(editor, uri, link) {
+		var lindex = layer.load(1, {
+			shade: false
+		});
 		$.post(uri, {
 			imgpath: link
 		}, function(data) {
 			if (data.replaceurl.length) {
+				layer.close(lindex);
 				//替换原来的
 				var str = editor.getContent();
 				for (var i in data.replaceurl) {
@@ -39,6 +43,8 @@ am.extend({
 			}
 			if (data.data.length) {
 				am.diguiDownloadImg(editor, uri, data.data.join(','));
+			} else {
+				layer.msg('远程图片已全部下载完毕');
 			}
 		});
 	},
