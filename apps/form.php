@@ -355,6 +355,16 @@ eot;
 	ue{$name}.addListener('blur',function(editor){
 	  // ot.delEditorImg(uescr{$name},ue{$name}.getContent());
 	  });
+	window.downycimage_ue{$name}=function(){
+		var lindex=layer.load(1,{shade:false});
+		ue{$name}.fireEvent("catchRemoteImage");
+		layer.close(lindex);
+	};
+	setTimeout(function(){
+		$('#edui2').append('<div id="edui213" onclick="downycimage_ue{$name}();" class="edui-box edui-button edui-for-drafts edui-default">下载远程图片</div>');
+	},3000);
+
+
 }();
 eot;
 				break;
