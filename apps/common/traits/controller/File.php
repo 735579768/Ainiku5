@@ -43,6 +43,77 @@ trait File {
 		}
 	}
 	/**
+	 * 抓取远程图片
+	 * @return [type] [description]
+	 */
+	public function zhuaImg() {
+		set_time_limit(0);
+		$imgpath    = explode(',', input('imgpath'));
+		$imgpath    = array_unique($imgpath);
+		$i          = 0;
+		$replaceurl = [];
+		foreach ($imgpath as $key => $value) {
+			if ($i++ > 0) {
+				break;
+			}
+			/* 上传配置 */
+			$CONFIG = $this->getUeditorConfig();
+			// file_get_contents(__DIR__);
+			include __DIR__ . "/ueditor/Uploader.class.php";
+
+			/* 上传配置 */
+			$config = array(
+				"pathFormat" => $CONFIG['catcherPathFormat'],
+				"maxSize"    => $CONFIG['catcherMaxSize'],
+				"allowFiles" => $CONFIG['catcherAllowFiles'],
+				"oriName"    => "remote.png",
+			);
+			$fieldName = $CONFIG['catcherFieldName'];
+
+			$item = new \Uploader($value, $config, "remote");
+			$info = $item->getFileInfo();
+			// array_push($list, array(
+			// 	"state"    => $info["state"],
+			// 	"url"      => $info["url"],
+			// 	"size"     => $info["size"],
+			// 	"title"    => htmlspecialchars($info["title"]),
+			// 	"original" => htmlspecialchars($info["original"]),
+			// 	"source"   => htmlspecialchars($imgUrl),
+			// ));
+			if ($info['url']) {
+				$isuploaded = '新上传';
+				$shafile    = $this->checksha('.' . $info['url']);
+				if ($info['url'] != trim($shafile['path'], '.')) {
+					$isuploaded = '已经上传过此图';
+				}
+				$info['url'] = trim($shafile['path'], '.');
+				//保存文件信息到数据库
+				$data['path']      = $info['url'];
+				$data['sha1']      = $shafile['sha1'];
+				$data['thumbpath'] = $info['url'];
+				$data['destname']  = pathinfo($info['url'])['basename'];
+
+				$data['srcname']     = pathinfo($value)['basename'];
+				$data['create_time'] = time();
+				$data['uid']         = UID;
+				$data['extra']       = 'cacheimage';
+
+				$picture_id = \think\Db::name('Picture')
+					->insertGetId($data);
+				if ($picture_id) {
+					//添加水印
+					$this->markPic('.' . $info['url']);
+				}
+				array_push($replaceurl, ['picture_id' => $picture_id, 'isuploaded' => $isuploaded, 's_url' => $value, 'r_url' => $info['url']]);
+			}
+			unset($imgpath[$key]);
+
+		}
+		$imgpath = array_merge([], $imgpath);
+		return json(['code' => 1, 'replaceurl' => $replaceurl, 'data' => $imgpath, 'msg' => 'ok']);
+
+	}
+	/**
 	 * 上传图片
 	 * @author huajie <banhuajie@163.com>
 	 */
@@ -226,7 +297,7 @@ trait File {
 		}
 		exit();
 	}
-	public function ueUpload() {
+	private function getUeditorConfig() {
 		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")), true);
 		$conf   = [
 			/* 上传大小限制，单位B */
@@ -248,7 +319,31 @@ trait File {
 		// dump($CONFIG);
 		// DIE(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")));
 		$CONFIG = array_merge($CONFIG, $conf);
-
+		return $CONFIG;
+	}
+	public function ueUpload() {
+		// $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")), true);
+		// $conf   = [
+		// 	/* 上传大小限制，单位B */
+		// 	'imageMaxSize'           => config('file_upload.maxSize'), //单位是B
+		// 	/* 上传保存路径,可以自定义保存路径和文件名格式 */
+		// 	'imagePathFormat'        => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	/* 涂鸦图片上传保存路径,可以自定义保存路径和文件名格式 */
+		// 	'scrawlPathFormat'       => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	'snapscreenPathFormat'   => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	/* 远程图片本地化上传保存路径,可以自定义保存路径和文件名格式 */
+		// 	'catcherPathFormat'      => config('file_upload.rootPath') . "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	'videoPathFormat'        => config('file_upload.rootPath') . "/file/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	'filePathFormat'         => config('file_upload.rootPath') . "/file/other/{yyyy}{mm}{dd}/{time}{rand:6}",
+		// 	'fileManagerListPath'    => config('file_upload.rootPath') . "/file/",
+		// 	'imageManagerListPath'   => config('file_upload.rootPath') . "/image/",
+		// 	'imageManagerAllowFiles' => config('file_upload.exts'),
+		// 	'catchRemoteImageEnable' => true, //编辑器远程图片本地化
+		// ];
+		// // dump($CONFIG);
+		// // DIE(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__DIR__ . "/ueditor/config.json")));
+		// $CONFIG = array_merge($CONFIG, $conf);
+		$CONFIG = $this->getUeditorConfig();
 		$action = input('param.action');
 
 		switch ($action) {

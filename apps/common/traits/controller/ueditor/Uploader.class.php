@@ -2,6 +2,10 @@
 if (!defined('THINK_PATH')) {
 	exit();
 }
+if (defined('UPLOADER')) {
+	return;
+}
+define('UPLOADER', true);
 /**
  * Created by JetBrains PhpStorm.
  * User: taoqili

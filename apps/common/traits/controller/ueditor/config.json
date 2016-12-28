@@ -58,7 +58,7 @@
     /* 抓取远程图片配置 */
     "catcherLocalDomain": ["127.0.0.1", "localhost", "img.baidu.com"],
     /*抓取远程图片是否开启,默认true*/
-    "catchRemoteImageEnable": true,
+    "catchRemoteImageEnable": false,
     "catcherActionName": "catchimage",
     /* 执行抓取远程图片的action名称 */
     "catcherFieldName": "source",
