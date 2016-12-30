@@ -36,7 +36,9 @@ am.extend({
 				//替换原来的
 				var str = editor.getContent();
 				for (var i in data.replaceurl) {
-					var re = new RegExp(data.replaceurl[i]['s_url'], 'ig');
+					var restr = data.replaceurl[i]['s_url'];
+					restr = restr.replace(/(\^|\$|\.|\*|\+| |\-|\?|\=|\!|\:|\||\\|\/|\(|\)|\[|\]|\{|\})/g, '\\$1');
+					var re = new RegExp(restr, 'ig');
 					str = str.replace(re, data.replaceurl[i]['r_url']);
 				}
 				editor.setContent(str);
