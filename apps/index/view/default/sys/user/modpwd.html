@@ -1,0 +1,22 @@
+{extend name="sys/user/base" /}
+{block name="member-right"}
+	<div class="mem-hd-title cl"><i class="fa fa-reorder"></i> {$member_title}</div>
+	<div class="divline"></div>
+		<div class="user-modpwd">
+			<form action="{:url('sys.user/modpwd')}">
+				<div class="form-group">
+					<div class="form-label">新密码<span class="form-tip">（6-15位由字母或数字组合）</span></div>
+					<input class="form-control input-large" type="password" name="new_password" value="" />
+
+				</div>
+				<div class="form-group">
+					<div class="form-label">重复密码</div>
+					<input class="form-control input-large" type="password" name="re_password" value="" />
+
+				</div>
+				<div class="form-group">
+					<a href="javascript:;" onclick="ank.ajaxForm(this);" class="btn btn-large">确认修改</a>
+				</div>
+			</form>
+		</div>
+{/block}

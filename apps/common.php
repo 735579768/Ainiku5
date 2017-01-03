@@ -675,7 +675,7 @@ function send_mail($conf = array()) {
 	$uname      = isset($conf['username']) ? $conf['username'] : '';
 	$pwd        = isset($conf['password']) ? $conf['password'] : '';
 	$attachment = isset($conf['attachment']) ? $conf['attachment'] : '';
-	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : config('mail_smtp_frommail'); //来源邮箱
+	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : config('mail_smtp_fromemail'); //来源邮箱
 
 	$host  = empty($host) ? config('mail_smtp_host') : $host;
 	$port  = empty($port) ? config('mail_smtp_port') : $port;
@@ -686,7 +686,7 @@ function send_mail($conf = array()) {
 	$body     = empty($body) ? config('mail_smtp_test') : $body;
 	// $body     = to_utf8($body);
 
-	if (empty($uname)) {
+	if (empty($to)) {
 		return '收件人邮箱不能为空';
 	}
 
@@ -697,7 +697,9 @@ function send_mail($conf = array()) {
 	if (empty($body)) {
 		return '邮件内容不能为空';
 	}
-
+	if (empty($uname)) {
+		return 'smtp服务器用户名不能为空';
+	}
 	if (empty($pwd)) {
 		return '密码不能为空';
 	}

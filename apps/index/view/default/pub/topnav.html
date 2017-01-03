@@ -44,12 +44,20 @@
     }
     </style>
     <div class="topnav-inner">
-        <ul class="top-tool fl">
+        <ul id="login-tool" class="top-tool fl">
             {if condition="is_login()"}
+                {if condition="isset($uinfo['qqimg'])"}
                 <li><img src="{$uinfo['qqimg']}" width='25' height='25' /></li>
-                <li><a href="{:url('Member/portal')}" style="padding-left:0;padding-right:0">({$uinfo['username']}){$uinfo['nickname']} </a></li>
+                {/if}
+                <li><a href="{:url('sys.user/portal')}" style="padding-left:0;padding-right:0">
+                {if condition="isset($uinfo['nickname'])"}
+                {$uinfo['nickname']}
+                {else /}
+                {$uinfo['username']}
+                {/if}
+                 </a></li>
                 <li>
-                    <a href="{:url('pub/logout')}">
+                    <a href="{:url('pub/loginOut')}">
                         <s class="s">|</s> 退出</a>
                 </li>
                 {else /}
@@ -67,7 +75,7 @@
             {/if}
         </ul>
         <ul class="top-tool fr">
-            <li><a href="{:url('Cart/index')}">购物车</a></li>
+            <li><a href="{:url('sys.cart/index')}">购物车</a></li>
             <li>
                 <a href="javascript:void(0)" onclick="SetHome(this,window.location)">
                     <s class="s">|</s>设为首页</a>
@@ -99,12 +107,12 @@
                 try {
                     netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
                 } catch (e) {
-                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                    ank.alert("此操作被浏览器拒绝！<br>请在浏览器地址栏输入“about:config”并回车<br>然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
                 }
                 var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
                 prefs.setCharPref('browser.startup.homepage', vrl);
             } else {
-                alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入：" + vrl + "点击确定。");
+                ank.alert("<div style='text-align:left;'>您的浏览器不支持，请按照下面步骤操作：<br>1.打开浏览器设置。<br>2.点击设置网页。<br>3.输入：" + vrl + "点击确定。</div>");
             }
         }
     }
@@ -117,7 +125,7 @@
             try {
                 window.sidebar.addPanel(sTitle, sURL, "");
             } catch (e) {
-                alert("加入收藏失败，请使用Ctrl+D进行添加");
+                ank.alert("加入收藏失败，请使用Ctrl+D进行添加");
             }
         }
     }

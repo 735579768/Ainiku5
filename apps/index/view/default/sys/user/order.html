@@ -1,0 +1,51 @@
+{extend name="sys/user/base" /} {block name="member-right"}
+<div class="mem-hd-title cl"><i class="fa fa-reorder"></i> {$member_title}</div>
+<div class="divline"></div>
+<div class="mem-order">
+    <div class="mem-order-list cl">
+        {notempty name="_list"} {volist name="_list" id="vo"}
+        <div class="order-item">
+            <div class="order-status green">
+                {eq name="vo.order_status" value="0"}<span style="color:#ccc;">已失效(两个小时内没有付款)</span>{/eq}
+                {eq name="vo.order_status" value="1"}等待付款(还剩<em id="djs{$vo.order_id}"></em>)
+                    <script>
+                    daojishi('{:time_format($vo['
+                        create_time ']+2*3600)}', 'djs{$vo.order_id}', '已失效');
+                    </script>
+                {/eq}
+                {eq name="vo.order_status" value="2"}已付款,等待发货{/eq}
+                {eq name="vo.order_status" value="3"}已发货,等待收货{/eq}
+                {eq name="vo.order_status" value="4"}已收货{/eq}
+                {eq name="vo.order_status" value="5"}交易完成{/eq}
+            </div>
+            <div class="order-detail">
+                <span>下单时间：{$vo.create_time|time_format}</span>
+                <span>订单号：{$vo.order_sn}</span>
+                <span>收货人姓名：{$vo.consignee_name}</span>
+                <span class="totalprice">订单金额：<em class="pricecolor">{$vo.order_total}</em>元</span>
+            </div>
+            <div class="divline"></div>
+            <div class="order-goods cl">
+                {eq name="vo.order_status" value="1"}
+                <a target="_blank" href="{:url('sys.buy/pay',array('order_id'=>$vo['order_id']))}" class="btn">立即支付</a>{/eq} {eq name="vo.order_status" value="3"}
+                <a target="_blank" href="{:url('sys.user/shouhuo',array('order_id'=>$vo['order_id']))}" class="btn ajax-href">确认收货</a> {/eq}
+                <a href="{:url('sys.user/checkorder',array('order_id'=>$vo['order_id']))}" class="btn">订单详情</a>
+                <ul class="order-goods-list cl">
+                    {volist name=":get_order_detail_list($vo['order_id'])" id="v"}
+                    <li class="cl">
+                        <img src="{$v.pic|get_picture='thumbpath','80_80'}" />
+                        <span><a href="{:url('sys.goods/'.$v['goods_id'])}">{$v.title}</a><br>
+						{$v.price} 元 X {$v.num}
+						</span></li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+        {/volist}
+        <div class="page">{$_page}</div>
+        {else /}
+        <div class="order-empty">当前没有订单。:(</div>
+        {/notempty}
+    </div>
+</div>
+{/block}

@@ -55,10 +55,15 @@ class Base extends Controller {
 		];
 		$this->view->config('tpl_replace_string', $replace_str);
 		config('view_replace_str', $replace_str);
-		dump(session('uinfo'));
+		// dump(session('uinfo'));
 		// die();
-		if (is_login()) {
-			$this->assign(session('uinfo'));
+		$uid = is_login();
+		if ($uid) {
+			$uinfo = \think\Db::name('User')->find($uid);
+			$uinfo = array_merge(session('uinfo'), $uinfo);
+			defined('UID') or define('UID', $uid);
+			session('uinfo', $uinfo);
+			$this->assign('uinfo', $uinfo);
 		}
 		// dump(config('view_replace_str'));
 		// dump(config(''));

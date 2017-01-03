@@ -338,6 +338,7 @@ eot;
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">{$set_replace_value}</script>
 eot;
 				$upurl = url('File/ueUpload');
+				$upimg = url('File/zhuaimg');
 				$initformjs .= <<<eot
 !function(){
 	//保存编辑器初始化数据
@@ -355,6 +356,14 @@ eot;
 	ue{$name}.addListener('blur',function(editor){
 	  // ot.delEditorImg(uescr{$name},ue{$name}.getContent());
 	  });
+	window.downycimage_ue{$name}=function(){
+		am.zhuaquEditorImage(ue{$name},'{$upimg}');
+	};
+	setTimeout(function(){
+		$('#edui2').append('<div id="edui213" onclick="downycimage_ue{$name}();" class="edui-box edui-button edui-for-drafts edui-default">下载远程图片</div>');
+	},3000);
+
+
 }();
 eot;
 				break;

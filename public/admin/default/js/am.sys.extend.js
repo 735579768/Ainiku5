@@ -3,6 +3,54 @@
  */
 am.extend({
 	/**
+	 * 解析字符串中的远程图片路径
+	 * @param  {[type]} str [description]
+	 * @return {[type]}     [description]
+	 */
+	zhuaquEditorImage: function(editor, uri) {
+		if (!window.chuaquing) {
+			var str = editor.getContent();
+			var re = /<img.*?src\=('|")(.*?)('|").*?>/g;
+			var redata = [];
+			var arr = null;
+			while (arr = re.exec(str)) {
+				if (arr[2] && arr[2].toLowerCase().indexOf('http') == 0) {
+					redata.push(arr[2]);
+				}
+			}
+			if (redata) {
+				var link = redata.join(',');
+				am.diguiDownloadImg(editor, uri, link);
+			}
+		}
+	},
+	diguiDownloadImg: function(editor, uri, link) {
+		var lindex = layer.load(1, {
+			shade: false
+		});
+		$.post(uri, {
+			imgpath: link
+		}, function(data) {
+			if (data.replaceurl.length) {
+				layer.close(lindex);
+				//替换原来的
+				var str = editor.getContent();
+				for (var i in data.replaceurl) {
+					var restr = data.replaceurl[i]['s_url'];
+					restr = restr.replace(/(\^|\$|\.|\*|\+| |\-|\?|\=|\!|\:|\||\\|\/|\(|\)|\[|\]|\{|\})/g, '\\$1');
+					var re = new RegExp(restr, 'ig');
+					str = str.replace(re, data.replaceurl[i]['r_url']);
+				}
+				editor.setContent(str);
+			}
+			if (data.data.length) {
+				am.diguiDownloadImg(editor, uri, data.data.join(','));
+			} else {
+				layer.msg('远程图片已全部下载完毕');
+			}
+		});
+	},
+	/**
 	 * 列表单击后排序
 	 * @param  {[type]} dom [description]
 	 * @return {[type]}     [description]

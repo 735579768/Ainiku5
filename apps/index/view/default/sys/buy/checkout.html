@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>填写订单信息</title>
+{insert name="reset,common,index,buy,font-awesome.min" /}
+{insert name="jquery-1.9.1.min" type="js"  /}
+</head>
+
+<body>
+{include file="pub/topnav" /}
+<div class="buy-flow-block">
+<div class="cart-header">
+<div class="cart-title"><i class="fa fa-reorder"></i> 确认订单</div>
+</div>
+<div class="sh-box cl">
+    <div class="s-address cl">
+        <div class="s-title">联系方式/收货地址</div>
+        <dl class="s-adr  add-adr-box cl">
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;"><span class="add-btn"><i class="fa fa-plus"></i><em style="display:none;">+</em>添加新地址</span></a>
+        </dl>
+        <dl data-id="0" onclick="buyobj.selectedAddress(this);" id="consignee_address0" class="s-adr cl hide">
+            <dt class="hide"></dt>
+            <dd class="hide">
+                <div class="s-mobile"></div>
+                <div class="s-diqu">此订单无须地址
+               </div>
+            </dd>
+            <dd class='action hide'></dd>
+
+            <a  onclick="javascript:;" class="empty-address" href="javascript:;"><span class="add-btn">此订单无须地址</span></a>
+        </dl>
+
+        {volist name="addresslist" id="vo"}
+        <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+            <dt>{$vo.consignee_name}</dt>
+            <dd>
+                <div class="s-mobile">{$vo.consignee_mobile}</div>
+                <div class="s-diqu">
+                {$vo.consignee_diqu|get_region}<br>
+                {$vo.consignee_detail}</div>
+            </dd>
+            <dd class='action'>
+            <a class="delbtn" onclick="buyobj.delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="buyobj.modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            </dd>
+        </dl>
+        {/volist}
+
+
+    </div>
+    <div class="s-address">
+    <div class="s-title">支付方式</div>
+    <div class="order-text">
+       在线支付 （支持支付宝、银联、财付通、小米支付等）
+    </div>
+    </div>
+
+    <div class="s-address">
+    <div class="s-title">配送方式</div>
+    <div class="order-text">
+       快递配送（免运费）
+    </div>
+    </div>
+
+    <div class="s-address">
+    <div class="s-title">订单备注</div>
+    <div class="order-note">
+        <textarea id="order_note" name="order-note"></textarea>
+    </div>
+    </div>
+    <div class="s-address">
+    <div class="s-title">订单详情</div>
+    <div class="recart"><a href="{:url('sys.Cart/index')}">返回购物车></a></div>
+    <ul class="cartlist cl">
+    {volist name="goodslist" id="vo"}
+        <li class="cl">
+        <img src="{$vo.pic|get_picture='thumbpath','50_50'}">
+        <a href="{:url('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
+        <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
+        </li>
+    {/volist}
+    </ul>
+    <div class="order-info cl">
+        <ul class="order-detail cl">
+            <li>
+                <div class="label">商品件数:</div>
+                <div class="label-con">{$info.totalnum} 件</div>
+            </li>
+            <li>
+                <div class="label">金额合计</div>
+                <div class="label-con">{$info.totalprice} 元</div>
+            </li>
+            <li>
+                <div class="label">运费</div>
+                <div class="label-con">0元</div>
+            </li>
+
+            <li class="yfprice">
+                <div class="label">应付金额：</div>
+                <div class="label-con"><em id="totalprice">{$info.totalprice} </em> 元</div>
+            </li>
+
+        </ul>
+    </div>
+    </div>
+     <div class="cart-bar cl">
+    <div id="total_address" class="section-left">
+
+    </div>
+     <div class="section-right">
+     <input id="selected_adress" type="hidden" value="" />
+     <a href="javascript:;" onclick="buyobj.submitOrder();" class="a-btn r-btn">提交订单</a>
+     </div>
+     </div>
+
+</div>
+{insert type="js" name="ank,buy,city" /}
+<script type="text/javascript">
+$(function() {
+//传入地址初始化
+buyobj.url={
+    saveAddressurl:"{:url('sys.buy/addaddress')}",
+    editAddressurl:"{:url('sys.buy/editaddress')}",
+    delAddressurl:"{:url('sys.buy/deladdress')}",
+    submitorder:"{:url('sys.buy/submitorder')}"
+};
+});
+</script>
+</div>
+{layer /}
+</body>
+</html>

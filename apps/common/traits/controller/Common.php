@@ -22,14 +22,14 @@ trait Common {
 	 * @return [type] [description]
 	 */
 	public function verify() {
-		$conf = array(
+		$conf = [
 			'imageH'   => 50,
 			'imageW'   => 200,
 			'fontSize' => 20,
 			'bg'       => array(255, 255, 255),
 			'useNoise' => false, // 是否添加杂点
 			'length'   => 4,
-		);
+		];
 		$v = new \verify\Verify($conf);
 		$v->entry(1);
 		exit();
@@ -57,14 +57,14 @@ trait Common {
 	}
 	protected function success($msg = '', $url = null, $data = '', $wait = 3, array $header = []) {
 		$code = 1;
-		if (is_numeric($msg)) {
-			$code = $msg;
-			$msg  = '';
-		}
+		// if (is_numeric($msg)) {
+		// 	$code = $msg;
+		// 	$msg  = '';
+		// }
 		if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
 			$url = $_SERVER["HTTP_REFERER"];
 		} elseif ('' !== $url) {
-			$url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : Url::build($url);
+			$url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : url($url);
 		}
 		$result = [
 			'code' => $code,

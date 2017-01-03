@@ -10,11 +10,21 @@ class Picture extends Base {
 	 */
 	public function lis() {
 		$this->assign('meta_title', '图片列表');
+		$clientinfo = session('client');
+		$rowss      = 24;
+		if (isset($clientinfo['screenheight']) && $clientinfo['screenheight'] > 500) {
+			$width = intval((intval($clientinfo['screenwidth']) - 130 - 50)) / 122;
+
+			$height = intval((intval($clientinfo['screenheight']) - 250 - 120)) / 122;
+			$rowss  = $width * $height;
+			// config('list_rows', $rowss);
+		}
+		$rowss = max($rowss, 24);
 		$this->pages([
 			'table' => 'Picture',
 			'where' => ['a.status' => 1],
 			'order' => 'picture_id desc',
-			'rows'  => 24,
+			'rows'  => $rowss,
 		]);
 		return $this->fetch();
 	}

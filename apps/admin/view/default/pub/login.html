@@ -8,13 +8,9 @@
     <title>{:config('admin_title')}_后台登录</title>
     <meta name="keywords" content="{:config('admin_title')}_后台登录" />
     <meta name="description" content="{:config('admin_title')}_后台登录" />
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="__CSS__/login.css" />
-    <script type="text/javascript" src="__STATIC__/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/ank.js"></script>
-    <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+    {insert name="reset,common,font-awesome.min,login"}
+    {insert name="jquery-1.9.1.min" type="js" /}
+
 </head>
 
 <body>
@@ -83,7 +79,8 @@
     #world{z-index: -1;position: absolute;}
 </style>
 <canvas id="world" style="width:100%;height:100%;" ></canvas>
-{insert name="line" type="js" /}
+{insert name="line,ank" type="js" /}
+{layer /}
 </body>
 
 </html>

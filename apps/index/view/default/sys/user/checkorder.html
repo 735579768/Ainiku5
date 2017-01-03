@@ -1,0 +1,40 @@
+{extend name="sys/user/base" /}
+{block name="member-right"}
+	<div class="mem-hd-title cl"><i class="fa fa-reorder"></i> {$member_title}>订单号({$info.order_sn})</div>
+	<div class="divline"></div>
+	<div class="order-tu jindu{$info.order_status}">
+		<div class="orderline"><span class="linese"></span></div>
+		<div id="jindu1" class="yuan"><span class="label">提交订单</span><span class="time">{$info.create_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu2"  class="yuan" style="left:25%;"><span class="label">已付款</span><span class="time">{$info.pay_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu3"  class="yuan" style="left:50%;"><span class="label">已发货</span><span class="time">{$info.fahuo_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu4"  class="yuan" style="left:75%;"><span class="label">已收货</span><span class="time">{$info.shouhuo_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu5"  class="yuan" style="left:99%;"><span class="label">交易完成</span><span class="time">{$info.shouhuo_time|time_format}</span><span class="se"></span></div>
+	</div>
+		<ul class="order-goods-list cl">
+		{volist name="_list" id="vo"}
+			<li class="cl">
+			<img src="{$vo.pic|get_picture='thumbpath','80_80'}" />
+			<span><a target="_blank" href="{:url('Goods/'.$vo['goods_id'])}">{$vo.title}</a><br>
+			{$vo.price} 元 X {$vo.num}
+			</span></li>
+		{/volist}
+		</ul>
+		<dl class="order-detail">
+			<dt>收货信息</dt>
+			<dd><span class="label">姓名：</span><span class="label-con">{$info.consignee_name}</span></dd>
+			<dd><span class="label">联系电话：</span><span class="label-con">{$info.consignee_mobile}</span></dd>
+			<dd><span class="label">收货地址：</span><span class="label-con">
+{$info.consignee_diqu}
+				&nbsp;&nbsp;&nbsp;
+				{$info.consignee_detail}
+			</span></dd>
+		</dl>
+		<div class="divline"></div>
+		<dl class="order-detail order-xf">
+			<dd><span class="label">商品总价：</span><span class="label-con">{$info.order_total} 元</span></dd>
+			<dd><span class="label">运费：</span><span class="label-con">0 元</span></dd>
+			<dd class="shifu"><span class="label">实付金额：</span><span class="label-con">
+<em class="pricecolor">{$info.order_total}</em>元
+			</span></dd>
+		</dl>
+{/block}

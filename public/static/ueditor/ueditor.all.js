@@ -13719,7 +13719,8 @@
             'sql': 'Sql',
             'vb': 'Vb',
             'xml': 'Xml',
-            'runcode': 'runCode'
+            'runcode': 'runCode',
+            'typescript': 'TypeScript'
         });
 
         /**

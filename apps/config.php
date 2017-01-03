@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+// 异常错误报错级别,
 $app_config = [
 	'version'                 => '1.0.0',
 	// +----------------------------------------------------------------------
@@ -131,7 +131,7 @@ $app_config = [
 		// 标签库标签结束标记
 		'taglib_end'      => '}',
 		// 是否去除模板文件里面的html空格与换行
-		'strip_space'     => false,
+		'strip_space'     => true,
 		// 是否开启模板编译缓存,设为false则每次都会重新编译
 		'tpl_cache'       => true,
 		// 预先加载的标签库
@@ -280,5 +280,8 @@ $app_config = [
 if (file_exists(SITE_PATH . '/debug.php')) {
 	$conf       = require_once SITE_PATH . '/debug.php';
 	$app_config = array_merge($app_config, $conf);
+	error_reporting(E_ERROR | E_PARSE | E_WARNING);
+} else {
+	error_reporting(0);
 }
 return $app_config;
